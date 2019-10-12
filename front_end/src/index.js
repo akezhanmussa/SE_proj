@@ -156,6 +156,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 //
 // ReactDOM.render(<ul>{items}</ul>, document.getElementById('root'))
 
-
+ReactDOM.render(<ul>"Hello World"</ul>, document.getElementById('root'));
 
 serviceWorker.unregister();
