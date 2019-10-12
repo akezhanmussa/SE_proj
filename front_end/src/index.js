@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 // const name = "Some person";
 // const element = <h1>Hello, {name}</h1>
@@ -153,9 +155,6 @@ import * as serviceWorker from './serviceWorker';
 // const items = someGuys.map((guy) => <li>{guy}</li>)
 //
 // ReactDOM.render(<ul>{items}</ul>, document.getElementById('root'))
-
-
-
 
 
 
