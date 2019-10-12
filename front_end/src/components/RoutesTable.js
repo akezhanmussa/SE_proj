@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
 import Map from "./Map";
+import {locations} from "../shared/Locations"
 
 class RoutesTable extends React.Component{
     constructor(props){
