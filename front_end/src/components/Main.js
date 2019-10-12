@@ -9,7 +9,6 @@ class Main extends Component{
                     <Map></Map>
             </div>
             <div className='row justify-content-center'>
-                <Search></Search>
             </div>
         </div>
         );

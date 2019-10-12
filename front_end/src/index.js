@@ -5,6 +5,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import RoutesTable from './components/RoutesTable';
+
+import Select from 'react-select';
 
 // const name = "Some person";
 // const element = <h1>Hello, {name}</h1>
@@ -156,6 +159,49 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 //
 // ReactDOM.render(<ul>{items}</ul>, document.getElementById('root'))
 
-ReactDOM.render(<ul>"Hello World"</ul>, document.getElementById('root'));
+
+// Examples of selectors and forms
+// class LanguageForm extends React.Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {language: 'JavaScript'};
+//
+//         this.onChangeSelect = this.onChangeSelect.bind(this);
+//         this.onSubmit = this.onSubmit.bind(this);
+//     }
+//
+//     onChangeSelect(event) {
+//         this.setState({language: event.target.value});
+//     }
+//
+//     onSubmit(event) {
+//         alert(`Вы выбрали язык: ${this.state.language}`);
+//         event.preventDefault();
+//     }
+//
+//     render() {
+//         return (
+//             <form onSubmit={this.onSubmit}>
+//                 <label>
+//                     Выберите язык программирования:
+//                     <select value={this.state.language} onChange={this.onChangeSelect}>
+//                         <option value="C++">C++</option>
+//                         <option value="Java">Java</option>
+//                         <option value="C#">C#</option>
+//                         <option value="JavaScript">JavaScript</option>
+//                         <option value="Scala">Scala</option>
+//                     </select>
+//                 </label>
+//                 <input type="submit" value="Submit" />
+//             </form>
+//         );
+//     }
+// }
+//
+// ReactDOM.render(<LanguageForm />,  document.getElementById('root'));
+// ReactDOM.render(<ul>"Hello World"</ul>, document.getElementById('root'));
+
+
+ReactDOM.render(<RoutesTable/>, document.getElementById('root'))
 
 serviceWorker.unregister();
