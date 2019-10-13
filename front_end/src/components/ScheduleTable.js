@@ -13,17 +13,15 @@ const RenderItems = (props) => {
     );
 }
 
-class DummySchedule extends Component{
+class ScheduleTable extends Component{
 
     render() {
         return (
             <div>
-            <button onClick={() => this.props.fetchSchedule({"f":"AD"})}>GetSchedule</button>
             <RenderItems schedule={this.props.schedule.schedule}/>
-            {console.log(this.props)}
             </div>
         );
     }
 }
 
-export default DummySchedule;
+export default ScheduleTable;

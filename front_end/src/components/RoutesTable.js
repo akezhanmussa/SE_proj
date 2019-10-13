@@ -3,31 +3,6 @@ import Select from 'react-select';
 import Map from "./Map";
 import {locations} from "../shared/Locations"
 
-class SubmitRoute extends React.Component{
-    constructor(props){
-        super(props)
-
-        this.submitResponse = this.submitResponse.bind(this);
-    }
-
-    submitResponse(){
-
-        let routes = []
-
-        console.log(this.props)
-
-        routes = [{from: "astana", to: "pavlodar", time: "9 P.M."}]
-
-        this.props.handleSubmitResponse(routes)
-    }
-
-    render(){
-        return (<button onClick = {this.submitResponse}>
-                Submit Route
-            </button>
-        );
-    }
-}
 
 class RoutesTable extends React.Component{
     constructor(props){
@@ -96,12 +71,9 @@ class RoutesTable extends React.Component{
                         {value:"morning", label: "Morning"}
                     ]}
                 />
-                <SubmitRoute
-                    startStation = {this.state.startStation}
-                    destinationStation = {this.state.destinationStation}
-                    timeRange = {this.state.timeRange}
-                    handleSubmitResponse = {this.handleSubmitResponse}
-                />
+                <button onClick = {() => this.props.fetchSchedule({})}>
+                    Submit Route
+                </button>
             </div>
         )
     }
