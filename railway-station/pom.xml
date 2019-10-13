@@ -22,6 +22,11 @@
       <version>3.0.1</version>
       <scope>provided</scope>
     </dependency>
+      <dependency>
+          <groupId>org.glassfish.jersey.bundles</groupId>
+          <artifactId>jaxrs-ri</artifactId>
+          <version>2.26</version>
+      </dependency>
     <dependency>
         <groupId>com.google.code.gson</groupId>
         <artifactId>gson</artifactId>
@@ -31,6 +36,12 @@
           <groupId>mysql</groupId>
           <artifactId>mysql-connector-java</artifactId>
           <version>8.0.17</version>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>tomcat-catalina</artifactId>
+          <version>7.0.42</version>
+          <scope>provided</scope>
       </dependency>
   </dependencies>
   <build>
