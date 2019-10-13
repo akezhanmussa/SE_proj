@@ -1,26 +1,68 @@
 import React, {Component} from 'react';
 
 
-const RenderItems = (props) => {
-    return(
-        props.schedule.map(path => {
-            return (
-                <div>
-                <p>from {path.Origin} to {path.Destination} at {path.Date}</p>
-                </div>
-            );
-        })
-    );
-}
+// const RenderItems = (props) => {
+//     return(
+//         props.schedule.map(path => {
+//             return (
+//                 <div>
+//                 <p>from {path.Origin} to {path.Destination} at {path.Date}</p>
+//                 </div>
+//             );
+//         })
+//     );
+// }
 
+class ScheduleRow extends Component {
+    render() {
+        const origin = this.props.origin;
+        const destination = this.props.destination
+        const timeRange = this.props.timeRange
+        const capacity = this.props.capacity
+        const trainName = this.props.trainName
+
+        return (
+            <tr>
+                <td>{origin}</td>
+                <td>{destination}</td>
+                <td>{timeRange}</td>
+                <td>{capacity}</td>
+                <td>{trainName}</td>
+            </tr>
+        );
+    }
+}
 class ScheduleTable extends Component{
 
     render() {
-        return (
-            <div>
-            <RenderItems schedule={this.props.schedule.schedule}/>
-            </div>
-        );
+        const rows = []
+        this.props.schedule.schedule.forEach((route) => {
+            console.log(route.Capacity + " " + route.Train)
+            rows.push(
+                <ScheduleRow
+                    origin = {route.Origin}
+                    destination = {route.Destination}
+                    trainName = {route.Train}
+                    capacity = {route.Capacity}
+                    timeRange = {route.Date}
+                />
+            );
+        });
+
+        return(
+            <table border={"1"}>
+                <thead>
+                <tr>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>TrainName</th>
+                    <th>Capacity</th>
+                    <th>TimeRange</th>
+                </tr>
+                </thead>
+                <tbody>{rows}</tbody>
+            </table>
+        )
     }
 }
 
