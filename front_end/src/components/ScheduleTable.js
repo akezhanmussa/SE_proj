@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-
 class ScheduleRow extends Component {
     render() {
         const origin = this.props.origin;
