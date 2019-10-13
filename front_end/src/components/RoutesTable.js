@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
-import Map from "./Map";
 import {locations} from "../shared/Locations"
 
 
-class RoutesTable extends React.Component{
+class RoutesTable extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -71,7 +70,8 @@ class RoutesTable extends React.Component{
                         {value:"morning", label: "Morning"}
                     ]}
                 />
-                <button onClick = {() => this.props.fetchSchedule({})}>
+                <button onClick = {() => this.props.fetchSchedule({"Origin": this.state.startStation,
+                "Destination": this.state.destinationStation, "Date": this.state.timeRange})}>
                     Submit Route
                 </button>
             </div>
