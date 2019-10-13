@@ -1,18 +1,6 @@
 import React, {Component} from 'react';
 
 
-// const RenderItems = (props) => {
-//     return(
-//         props.schedule.map(path => {
-//             return (
-//                 <div>
-//                 <p>from {path.Origin} to {path.Destination} at {path.Date}</p>
-//                 </div>
-//             );
-//         })
-//     );
-// }
-
 class ScheduleRow extends Component {
     render() {
         const origin = this.props.origin;
