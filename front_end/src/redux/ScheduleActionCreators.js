@@ -24,8 +24,7 @@ export const scheduleAdd = (schedule) => {
 
 export const fetchSchedule = (path) => (dispatch) => {
     dispatch(scheduleLoading());
-    return fetch(baseUrl + '/?o=' +
-        path.Origin + '&d=' + path.Destination)
+    return fetch(baseUrl)
         .then(response => {
             if(response.ok)
                 return response;
@@ -36,6 +35,8 @@ export const fetchSchedule = (path) => (dispatch) => {
             }
         })
         .then(response => response.json())
-        .then(response => dispatch(scheduleAdd(response)))
+        .then(response => {
+            dispatch(scheduleAdd(response))
+        })
         .catch (error => dispatch(scheduleFailed(error.message)));
 }

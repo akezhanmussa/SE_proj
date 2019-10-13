@@ -6,7 +6,7 @@ const RenderItems = (props) => {
         props.schedule.map(path => {
             return (
                 <div>
-                <p>from {path.Origin} to {path.Destination} at {path.Date}</p>
+                <p>from {path.origin} to {path.destination} at {path.Date}</p>
                 </div>
             );
         })
