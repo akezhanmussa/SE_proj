@@ -2,7 +2,12 @@ package kz.edu.nu.cs.se.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Random;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.validation.constraints.Null;
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import kz.edu.nu.cs.se.dao.Routes;
+import kz.edu.nu.cs.se.model.Route;
 
 @WebServlet(urlPatterns = { "/myrailway" })
 public class MyServlet extends HttpServlet {
@@ -23,11 +30,15 @@ public class MyServlet extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
-        
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        
-        out.append(gson.toJson("..."));
+
+        Routes rts = new Routes();
+        Route res = new Route("Astana", "Pavlodar", null, null);
+        ArrayList<Route> ans = new ArrayList<>();
+        ans.add(res);
+        out.append(gson.toJson(ans));
         out.flush();
     }
 
@@ -36,3 +47,9 @@ public class MyServlet extends HttpServlet {
         doGet(request, response);
     }
 }
+
+
+
+
+
+
