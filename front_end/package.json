@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "google-map-react": "^1.1.5",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
     "react": "^16.10.2",
@@ -14,6 +13,8 @@
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"
+    "react-scripts": "3.2.0",
+    "react-select": "^3.0.8"
   },
   "scripts": {
     "start": "react-scripts start",
