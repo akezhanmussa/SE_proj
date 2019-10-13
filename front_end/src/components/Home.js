@@ -14,7 +14,7 @@ const mapStateToProps = (state) => ({
     schedule: state.schedule
 });
 
-class Main extends Component{
+class Home extends Component{
     render() {
         return(
         <div className='container'>
@@ -32,4 +32,4 @@ class Main extends Component{
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
