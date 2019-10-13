@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Map from './Map';
-import DummySchedule from './DummySchedule'
+import ScheduleTable from './ScheduleTable';
+import RoutesTable from './RoutesTable';
 import {fetchSchedule} from '../redux/ScheduleActionCreators'
 
 
@@ -20,8 +21,11 @@ class Main extends Component{
             <div className='row justify-content-center'>
                 <Map/>
             </div>
+            <div >
+                <RoutesTable fetchSchedule={this.props.fetchSchedule}/>
+            </div>
             <div className='row justify-content-center'>
-                <DummySchedule schedule={this.props.schedule} fetchSchedule={this.props.fetchSchedule}/>
+                <ScheduleTable schedule={this.props.schedule}/>
             </div>
         </div>
         );

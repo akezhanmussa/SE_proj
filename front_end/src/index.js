@@ -5,7 +5,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import RoutesTable from './components/RoutesTable';
 
 import Select from 'react-select';
 
@@ -202,6 +201,6 @@ import Select from 'react-select';
 // ReactDOM.render(<ul>"Hello World"</ul>, document.getElementById('root'));
 
 
-ReactDOM.render(<RoutesTable/>, document.getElementById('root'))
+ReactDOM.render(<App/>, document.getElementById('root'))
 
 serviceWorker.unregister();
