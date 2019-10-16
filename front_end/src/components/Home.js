@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import Map from './Map';
 import ScheduleTable from './ScheduleTable';
 import RoutesTable from './RoutesTable';
+import { Schedule } from '../shared/Schedule'
 import {fetchSchedule} from '../redux/ScheduleActionCreators'
+
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -14,7 +16,16 @@ const mapStateToProps = (state) => ({
     schedule: state.schedule
 });
 
+
+
 class Home extends Component{
+
+    constructor(props){
+        super(props)
+        this.schedule = Schedule;
+    }
+
+
     render() {
         return(
         <div className='container'>
@@ -25,7 +36,7 @@ class Home extends Component{
                 <RoutesTable fetchSchedule={this.props.fetchSchedule}/>
             </div>
             <div className='row justify-content-center'>
-                <ScheduleTable schedule={this.props.schedule}/>
+                <ScheduleTable schedule={this.schedule}/>
             </div>
         </div>
         );
