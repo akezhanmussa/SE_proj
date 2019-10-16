@@ -2,58 +2,72 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>CSCI 361 Declarative Data Bindings Exercise</title>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.4.2.js"></script>
+    <title>Dynamic Todo List</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="lodash.js"></script>
     <script type="text/javascript">
 
-        function updateItem() {
+        function updateList(items) {
+            $("#my-list").html("");
+            items.forEach(function (e) {
+                $("#my-list").append("<li>" + e + "</li>");
+            });
+        }
+
+        function getListroutes
+        () {
             $.ajax({
-                url : 'myservlet',
+                url : 'myrailway/routes' +
+                    '',
                 dataType : 'json',
                 success : function(r) {
-                    $("#firstName").html(r.first);
-                    $("#secondName").html(r.second);
+                    updateList(r);
                 }
             });
         }
 
-        $(document).ready(function() {
+        function sendListItem() {
+            var origin = $("#origin").val();
+            var destination = $("#destination").val();
+            var startdate = $("#startdate").val();
 
-            $("#update-item").on('click', function () {
-                updateItem();
+            $.post("myrailway/routes" +
+                "", {origin: origin, destination: destination, startdate: startdate}, function () {
+                getListroutes
+                ();
             });
 
-            updateItem();
+        }
+
+
+        $(document).ready(function () {
+            getListroutes
+            ();
+
+            $("#send-item").on('click', function () {
+                sendListItem();
+            });
+
         });
+
+
+
     </script>
-    <style>
-        p {font-style: italic;}
-        div.example { border: solid; width: 50%; padding: 5px;}
-    </style>
 </head>
 <body>
-<h2>Knockout Example</h2>
+
+
+Enter your origin: <input type="text" id="origin" /><br />
+Enter your destination: <input type="text" id="destination" /><br />
+Enter your startdate: <input type="text" id="startdate" /><br />
+<button id="send-item" type="button" >Submit</button>
+
+<ul id="my-list"></ul>
+
+
 <p>
-    In this exercise we will work with declarative data bindings in <a href="https://knockoutjs.com/">knockoutjs</a>.
+    <a href="myrailway/routes">Link to List routes API</a>
 </p>
-<p>
-    This file contains two examples.  The first, from the knockout documentation, shows how we can bind elements with the "data-bind" attribute.
-    The second example is a basic ajax request to the backend.
-</p>
-<p>
-    Your task is to recreate the second example, the ajax request, using knockout.  Please refer to the examples in the knockout documentation.
-</p>
-<div class="example">
-    <div data-bind="visible: shouldShowMessage">
-        Hello, <b><span data-bind="text: greetingName"></span></b>.
-        How are you today?
-    </div>
-    <button id="ko-example" type="button">toggle visibility with knockout</button>
-</div>
-<br>
-</div>
+
 </body>
 </html>
