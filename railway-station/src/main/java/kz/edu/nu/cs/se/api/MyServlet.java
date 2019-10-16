@@ -35,8 +35,8 @@ public class MyServlet extends HttpServlet {
         String dateString = request.getParameter("date");
         String dayTime = request.getParameter("daytime");
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.parse(dateString + " 00:00:00", formatter);
 
         ArrayList<Schedule> schedules = ScheduleDB.fetchSchedule(origin, destination, dateTime, dayTime);
 
