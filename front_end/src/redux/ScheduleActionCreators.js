@@ -41,3 +41,4 @@ export const fetchSchedule = (path) => (dispatch) => {
     //     })
     //     .catch (error => dispatch(scheduleFailed(error.message)));
 }
+
