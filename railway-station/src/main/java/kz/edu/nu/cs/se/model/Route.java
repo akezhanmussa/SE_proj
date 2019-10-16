@@ -1,17 +1,18 @@
 package kz.edu.nu.cs.se.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Route {
 
     private String origin;
     private String destination;
-    private Date startDate;
-    private Date endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     public Route() {}
 
-    public Route(String origin, String destination, Date startDate, Date endDate) {
+    public Route(String origin, String destination, LocalDateTime startDate, LocalDateTime endDate) {
         this.origin = origin;
         this.destination = destination;
         this.startDate = startDate;
@@ -26,11 +27,12 @@ public class Route {
         return this.destination;
     }
 
-    public Date getStartDate() {
+    public LocalDateTime getStartDate() {
         return this.startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return this.endDate;
     }
+
 }
