@@ -24,19 +24,20 @@ export const scheduleAdd = (schedule) => {
 
 export const fetchSchedule = (path) => (dispatch) => {
     dispatch(scheduleLoading());
-    return fetch(baseUrl)
-        .then(response => {
-            if(response.ok)
-                return response;
-            else{
-                var error = new Error("Error " + response.status + ': ' + response.statusText);
-                error.response = response;
-                throw error;
-            }
-        })
-        .then(response => response.json())
-        .then(response => {
-            dispatch(scheduleAdd(response))
-        })
-        .catch (error => dispatch(scheduleFailed(error.message)));
+    return dispatch(scheduleAdd(Schedule));
+    // return fetch(baseUrl)
+    //     .then(response => {
+    //         if(response.ok)
+    //             return response;
+    //         else{
+    //             var error = new Error("Error " + response.status + ': ' + response.statusText);
+    //             error.response = response;
+    //             throw error;
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then(response => {
+    //         dispatch(scheduleAdd(response))
+    //     })
+    //     .catch (error => dispatch(scheduleFailed(error.message)));
 }
