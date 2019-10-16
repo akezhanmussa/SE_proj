@@ -57,10 +57,6 @@ class RoutesTable extends Component{
     render(){
         return(
             <div>
-                <Map>
-
-                </Map>
-
                 <Form>
                 <Form.Row>
                     <Form.Group as={Col} className = "w-25 mr-3">
