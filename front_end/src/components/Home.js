@@ -32,11 +32,11 @@ class Home extends Component{
             <div className='row justify-content-center'>
                 <Map/>
             </div>
-            <div >
+            <div className='row justify-content-around'>
                 <RoutesTable fetchSchedule={this.props.fetchSchedule}/>
             </div>
             <div className='row justify-content-center'>
-                <ScheduleTable schedule={this.schedule}/>
+                <ScheduleTable schedule={this.props.schedule}/>
             </div>
         </div>
         );

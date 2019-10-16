@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 
-export const Schedule = (state = {isLoading: false, errMess: null, schedule: []}, action) => {
+export const Schedule = (state = {isLoading: true, errMess: null, schedule: []}, action) => {
     switch (action.type) {
         case ActionTypes.Schedule_Loading:
             return {...state, isLoading: true, errMess: null, schedule: []};

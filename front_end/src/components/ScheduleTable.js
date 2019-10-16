@@ -74,19 +74,22 @@ class ScheduleTable extends Component{
             );
         });
 
-        return(
-            <table className='mt-3 table table-striped table-responsive-md btn-table'>
-                <thead>
-                <tr>
-                    <th><div align='center'>Origin</div></th>
-                    <th><div align='center'>Destination</div></th>
-                    <th><div align='center'>Train Number</div></th>
-                    <th><div align='center'>Free Spaces</div></th>
-                </tr>
-                </thead>
-                <tbody>{rows}</tbody>
-            </table>
-        )
+        if(!this.props.schedule.isLoading)
+            return(
+                <table className='mt-3 table table-striped table-responsive-md btn-table'>
+                    <thead>
+                    <tr>
+                        <th><div align='center'>Origin</div></th>
+                        <th><div align='center'>Destination</div></th>
+                        <th><div align='center'>Train Number</div></th>
+                        <th><div align='center'>Free Spaces</div></th>
+                    </tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                </table>
+            )
+        else
+            return <div></div>
     }
 }
 
