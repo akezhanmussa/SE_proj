@@ -7,6 +7,7 @@ import { Schedule } from '../shared/Schedule'
 import {fetchSchedule} from '../redux/ScheduleActionCreators'
 
 
+
 const mapDispatchToProps = (dispatch) => ({
     fetchSchedule: (path) => dispatch(fetchSchedule(path))
 });
@@ -14,6 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
     schedule: state.schedule
 });
+
 
 
 class Home extends Component{
