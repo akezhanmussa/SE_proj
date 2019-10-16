@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-
+import { ReactComponent as Logo } from '../logo.svg';
 
 class Map extends Component {
 
     render() {
         return (
             <div>
-                There Should be a MAP
             </div>
         );
     }
