@@ -6,12 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Connector {
-    private static Statement statement = null;
+    private static Connection connection = null;
 
     public static Statement getStatement() {
-        if (statement != null)  return statement;
-
+        Statement statement = null;
         try {
+            if (connection != null)  return connection.createStatement();
+
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection(
                     "jdbc:mysql://remotemysql.com:3306/eDiwTC3jTl",
