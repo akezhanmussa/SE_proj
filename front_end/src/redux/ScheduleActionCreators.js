@@ -24,21 +24,34 @@ export const scheduleAdd = (schedule) => {
 
 export const fetchSchedule = (path) => (dispatch) => {
     dispatch(scheduleLoading());
+    path.date = getParsedDate(path.date);
+    path.daytime = path.daytime.map(el => el.value);
+    console.log(path);
     return dispatch(scheduleAdd(Schedule));
-    // return fetch(baseUrl)
-    //     .then(response => {
-    //         if(response.ok)
-    //             return response;
-    //         else{
-    //             var error = new Error("Error " + response.status + ': ' + response.statusText);
-    //             error.response = response;
-    //             throw error;
-    //         }
-    //     })
-    //     .then(response => response.json())
-    //     .then(response => {
-    //         dispatch(scheduleAdd(response))
-    //     })
-    //     .catch (error => dispatch(scheduleFailed(error.message)));
+    return fetch(baseUrl)
+        .then(response => {
+            if(response.ok)
+                return response;
+            else{
+                var error = new Error("Error " + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            dispatch(scheduleAdd(response))
+        })
+        .catch (error => dispatch(scheduleFailed(error.message)));
 }
 
+
+const getParsedDate = (date) =>{
+    var dd = date.getDate();
+    var mm = date.getMonth()+1;
+    var yyyy = date.getFullYear();
+    if(dd<10)dd='0'+dd
+    if(mm<10)mm='0'+mm
+    var today = yyyy + '-' + mm + '-' + dd;
+    return today;
+};
