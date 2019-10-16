@@ -4,6 +4,7 @@ import kz.edu.nu.cs.se.model.Route;
 import kz.edu.nu.cs.se.model.Schedule;
 import kz.edu.nu.cs.se.model.Train;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,13 +32,15 @@ public class ScheduleDB {
 
     public static ArrayList<Schedule> fetchSchedule(Integer origin, Integer destination, LocalDateTime startdate, String daytime) {
 
-        Statement statement = Connector.getStatement();
+        Statement originStatement = Connector.getStatement();
+        Statement destinationStatement = Connector.getStatement();
+        Statement routeStatement = Connector.getStatement();
 
         ArrayList<Schedule> schedules = new ArrayList<>();
 
         try {
-            ResultSet originRouteSet = statement.executeQuery("SELECT * FROM Route WHERE start_station_id=" + origin);
-            ResultSet destinationRouteSet = statement.executeQuery("SELECT * FROM Route WHERE end_station_id=" + destination);
+            ResultSet originRouteSet = originStatement.executeQuery("SELECT * FROM Route WHERE start_station_id=" + origin);
+            ResultSet destinationRouteSet = destinationStatement.executeQuery("SELECT * FROM Route WHERE end_station_id=" + destination);
 
             Set<Integer> originScheduleId = new TreeSet<>();
             Set<Integer> destinationScheduleId = new TreeSet<>();
@@ -59,7 +62,7 @@ public class ScheduleDB {
 
             StationDB stationDB = new StationDB();
             for (Integer scheduleId : originScheduleId) {
-                ResultSet routeSet = statement.executeQuery("SELECT * FROM Route WHERE Schedule_idRoutes=" + scheduleId);
+                ResultSet routeSet = routeStatement.executeQuery("SELECT * FROM Route WHERE Schedule_idRoutes=" + scheduleId);
                 Schedule schedule = new Schedule(scheduleId);
                 Integer trainId = -1;
                 while(routeSet.next()) {
