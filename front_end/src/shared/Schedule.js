@@ -1,30 +1,35 @@
 export const Schedule = [
     {
-        "Origin": "Astana",
-        "Destination": "Almaty",
-        "Date": "12/10/2019 16:20:00",
-        "Train": "N350",
-        "Capacity": 5
-    },
-    {
-        "Origin": "Astana",
-        "Destination": "Almaty",
-        "Date": "12/10/2019 16:20:00",
-        "Train": "N350",
-        "Capacity": 5
-    },
-    {
-        "Origin": "Astana",
-        "Destination": "Almaty",
-        "Date": "12/10/2019 18:10:00",
-        "Train": "N250",
-        "Capacity": 84
-    },
-    {
-        "Origin": "Astana",
-        "Destination": "Almaty",
-        "Date": "12/10/2019 11:20:00",
-        "Train": "N30",
-        "Capacity": 12
+        id: 0,
+        origin: "Astana",
+        destination: "Almaty",
+        startDate: "12/10/2019 16:20:00",
+        endDate:"12/10/2019 16:20:00",
+        train: "N350",
+        capacity: 5
+    },{
+        id: 1,
+        origin: "Astana",
+        destination: "Almaty",
+        startDate: "12/10/2019 16:20:00",
+        endDate:"12/10/2019 16:20:00",
+        train: "N350",
+        capacity: 0
+    },{
+        id: 2,
+        origin: "Astana",
+        destination: "Almaty",
+        startDate: "12/10/2019 16:20:00",
+        endDate:"12/10/2019 16:20:00",
+        train: "N350",
+        capacity: 5
+    },{
+        id: 3,
+        origin: "Astana",
+        destination: "Almaty",
+        startDate: "12/10/2019 16:20:00",
+        endDate:"12/10/2019 16:20:00",
+        train: "N350",
+        capacity: 5
     },
 ];
