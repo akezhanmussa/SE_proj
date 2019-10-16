@@ -23,8 +23,7 @@ class ScheduleTable extends Component{
 
     render() {
         const rows = []
-        this.props.schedule.schedule.forEach((route) => {
-            console.log(route.Capacity + " " + route.Train)
+        this.props.schedule.forEach((route) => {
             rows.push(
                 <ScheduleRow
                     origin = {route.Origin}
