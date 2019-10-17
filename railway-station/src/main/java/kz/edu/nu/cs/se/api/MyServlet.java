@@ -27,6 +27,10 @@ public class MyServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
 
@@ -40,16 +44,13 @@ public class MyServlet extends HttpServlet {
 
         ArrayList<Schedule> schedules = ScheduleDB.fetchSchedule(origin, destination, dateTime, dayTime);
 
+        for (Schedule schedule : schedules) schedule.setStringDates();
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
         out.append(gson.toJson(schedules));
         out.flush();
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
     }
 }
 
