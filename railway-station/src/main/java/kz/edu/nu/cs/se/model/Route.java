@@ -1,21 +1,22 @@
 package kz.edu.nu.cs.se.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Route {
 
     private String origin;
     private String destination;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
+    private LocalDateTime startDateObject;
+    private LocalDateTime endDateObject;
 
-    public Route() {}
-
-    public Route(String origin, String destination, Date startDate, Date endDate) {
+    public Route(String origin, String destination, LocalDateTime startDateObject, LocalDateTime endDateObject) {
         this.origin = origin;
         this.destination = destination;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDateObject = startDateObject;
+        this.endDateObject = endDateObject;
     }
 
     public String getOrigin() {
@@ -26,11 +27,20 @@ public class Route {
         return this.destination;
     }
 
-    public Date getStartDate() {
-        return this.startDate;
+    public LocalDateTime getStartDateObject() {
+        return this.startDateObject;
     }
 
-    public Date getEndDate() {
-        return this.endDate;
+    public LocalDateTime getEndDateObject() {
+        return this.endDateObject;
     }
+
+    public void setStringDates(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm:ss");
+        startDate = startDateObject.format(formatter);
+        endDate = endDateObject.format(formatter);
+        startDateObject = null;
+        endDateObject = null;
+    }
+
 }
