@@ -40,6 +40,8 @@ public class MyServlet extends HttpServlet {
 
         ArrayList<Schedule> schedules = ScheduleDB.fetchSchedule(origin, destination, dateTime, dayTime);
 
+        for (Schedule schedule : schedules) schedule.setStringDates();
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
