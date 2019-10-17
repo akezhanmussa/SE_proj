@@ -14,6 +14,8 @@ public class TrainDB {
             Statement statement = Connector.getStatement();
             ResultSet trainSet = statement.executeQuery("SELECT capacity FROM Train WHERE idTrain=" +  id);
             capacity = trainSet.getInt(3);
+
+            statement.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

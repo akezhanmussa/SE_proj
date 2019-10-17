@@ -25,6 +25,7 @@ public class StationDB {
                 idToName.put(id, name);
                 nameToId.put(name, id);
             }
+            statement.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
