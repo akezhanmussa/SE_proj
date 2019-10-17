@@ -90,6 +90,7 @@ public class ScheduleDB {
                 schedule.sortRoutes();
                 schedules.add(schedule);
             }
+            routeStatement.close();
 
         } catch(SQLException ex) {
             ex.printStackTrace();
