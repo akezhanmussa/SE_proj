@@ -6,12 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fab6fbea-845d-4b5e-b1c2-4e6209075bb6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TrainDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TrainDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/model/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/model/Schedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db/try.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/try.sql" afterDir="false" />
-    </list>
+    <list default="true" id="fab6fbea-845d-4b5e-b1c2-4e6209075bb6" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,20 +59,22 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.7322635">
+    <splitter split-orientation="horizontal" split-proportion="0.4879792">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TrainDB.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="210">
-                  <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+          <file pinned="false" current-in-tab="false">
+            <entry file="das://79bc6093-f6fe-47b0-a8fb-ab7a6d2079cc/schema/eDiwTC3jTl/table/Train">
+              <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+                <state projectRestartId="0249e099-ac7d-490b-9a93-d270b78fb6fc">
+                  <filtering>
+                    <filter text="" />
+                  </filtering>
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="das://79bc6093-f6fe-47b0-a8fb-ab7a6d2079cc/schema/eDiwTC3jTl/table/Train">
+          <file pinned="false" current-in-tab="true">
+            <entry file="das://79bc6093-f6fe-47b0-a8fb-ab7a6d2079cc/schema/eDiwTC3jTl/table/Route">
               <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
                 <state projectRestartId="0249e099-ac7d-490b-9a93-d270b78fb6fc">
                   <filtering>
@@ -100,15 +97,6 @@
       </split-first>
       <split-second>
         <leaf>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleDB.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="168">
-                  <caret line="89" column="33" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="33" />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file pinned="false" current-in-tab="false">
             <entry file="das://79bc6093-f6fe-47b0-a8fb-ab7a6d2079cc/schema/eDiwTC3jTl/table/Schedule">
               <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
@@ -120,7 +108,7 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="das://79bc6093-f6fe-47b0-a8fb-ab7a6d2079cc/schema/eDiwTC3jTl/table/Station">
               <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
                 <state projectRestartId="0249e099-ac7d-490b-9a93-d270b78fb6fc">
@@ -156,8 +144,8 @@
         <option value="$PROJECT_DIR$/src/main/resources/db/try.sql" />
         <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleDB.java" />
         <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/model/Schedule.java" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
         <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TrainDB.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
       </list>
     </option>
   </component>
@@ -471,12 +459,12 @@
       <workItem from="1571240541014" duration="2164000" />
       <workItem from="1571320953821" duration="1549000" />
       <workItem from="1571323364527" duration="3858000" />
-      <workItem from="1571328827688" duration="2126000" />
+      <workItem from="1571328827688" duration="3070000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5984000" />
+    <option name="totallyTimeSpent" value="6928000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
@@ -501,14 +489,14 @@
       <window_info anchor="bottom" id="Application Servers" order="8" />
       <window_info anchor="bottom" id="Message" order="9" />
       <window_info anchor="bottom" id="Find" order="10" />
-      <window_info anchor="bottom" id="Run" order="11" visible="true" weight="0.42548597" />
+      <window_info anchor="bottom" id="Run" order="11" weight="0.42548597" />
       <window_info anchor="bottom" id="Debug" order="12" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="13" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="14" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="15" />
       <window_info anchor="right" id="Palette" order="0" />
       <window_info anchor="right" id="CDI" order="1" />
-      <window_info active="true" anchor="right" id="Database" order="2" visible="true" weight="0.19645822" />
+      <window_info anchor="right" id="Database" order="2" weight="0.19645822" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info anchor="right" id="Bean Validation" order="4" />
       <window_info anchor="right" id="Maven" order="5" />
@@ -607,10 +595,33 @@
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="89" column="33" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TrainDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="12" column="13" lean-forward="true" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/model/Schedule.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://79bc6093-f6fe-47b0-a8fb-ab7a6d2079cc/schema/eDiwTC3jTl/table/Train">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="0249e099-ac7d-490b-9a93-d270b78fb6fc">
+          <filtering>
+            <filter text="" />
+          </filtering>
         </state>
       </provider>
     </entry>
@@ -638,29 +649,6 @@
           <filtering>
             <filter text="" />
           </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="89" column="33" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://79bc6093-f6fe-47b0-a8fb-ab7a6d2079cc/schema/eDiwTC3jTl/table/Train">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="0249e099-ac7d-490b-9a93-d270b78fb6fc">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TrainDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>
