@@ -1,8 +1,0 @@
-
-Asquid:S1148"#Use a logger to log this exception.(Ç’Çê8¦¡£İ-
-Psquid:S4925"-Remove this "Class.forName()", it is useless.(¹µÖÁüÿÿÿÿ8¦¡£İ-
-Fsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8¦¡£İ-
-ksquid:S2095"HUse try-with-resources or close this "Connection" in a "finally" clause.(­íûÿÿÿÿÿ8¦¡£İ-
-Csquid:S2068" Remove this hard-coded password.(¶üÇüÿÿÿÿ8¦¡£İ-
-Ssquid:S2209"5Change this instance-reference to a static reference.(ëã¨ã8¦¡£İ-
-Xsquid:S1118":Add a private constructor to hide the implicit public one.(Ø§ğÑ8æÊ±£İ-
