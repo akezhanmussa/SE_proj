@@ -1,13 +1,0 @@
-
-bsquid:UselessImportCheck">Remove this unused import 'javax.validation.constraints.Null'.(ã¥˜
-Usquid:UselessImportCheck"1Remove this unused import 'java.text.DateFormat'.(÷Œá¼
-bsquid:UselessImportCheck"9Remove this unused import 'javax.ws.rs.core.Application'.(àñ·Åıÿÿÿÿ
-Dsquid:S1989"(Add a "try/catch" block for "getWriter".(ïô†úÿÿÿÿ
-Qsquid:S1161":Add the "@Override" annotation above this method signature(÷¤‹ú
-\squid:UselessImportCheck"8Remove this unused import 'javax.ws.rs.ApplicationPath'.(«Ò ÷
-Ssquid:S1854 "7Remove this useless assignment to local variable "rts".(˜öÆÛıÿÿÿÿ
-Osquid:UselessImportCheck"+Remove this unused import 'java.util.Date'.(¸…¼ü
-@squid:S1989*"$Add a "try/catch" block for "doGet".(®Ó‘ûÿÿÿÿÿ
-Dsquid:S1481 "(Remove this unused "rts" local variable.(˜öÆÛıÿÿÿÿ
-@squid:S1989*"$Add a "try/catch" block for "doGet".(®Ó‘ûÿÿÿÿÿ
-Vsquid:S1161(":Add the "@Override" annotation above this method signature(ş³‚”ûÿÿÿÿ

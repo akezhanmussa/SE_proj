@@ -19,8 +19,8 @@ export default class MapComponent extends Component{
     render() {
         return (
             <svg
-                width="800"
-                height="800"
+                width="300"
+                height="300"
                 x="0"
                 y="0"
                 // enableBackground="new 0 0 21.953 21.954"
