@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import {Loading} from './Loading';
 class ScheduleRow extends Component {
     render() {
         const id = this.props.id;
@@ -74,22 +74,41 @@ class ScheduleTable extends Component{
             );
         });
 
-        if(!this.props.schedule.isLoading)
-            return(
-                <table className='mt-3 table table-striped table-responsive-md btn-table'>
-                    <thead>
-                    <tr>
-                        <th><div align='center'>Origin</div></th>
-                        <th><div align='center'>Destination</div></th>
-                        <th><div align='center'>Train Number</div></th>
-                        <th><div align='center'>Free Spaces</div></th>
-                    </tr>
-                    </thead>
-                    <tbody>{rows}</tbody>
-                </table>
-            )
+        if(!this.props.schedule.isLoading) {
+            console.log(this.props.schedule);
+            if (this.props.schedule.schedule.length === 0 && this.props.schedule.req === 0)
+                return (
+                    <div></div>
+                )
+            else if(this.props.schedule.schedule.length === 0 && this.props.schedule.req === 1)
+                return (
+                    <div>NO such routes</div>
+                )
+            else
+                return (
+                    <table className='mt-3 table table-striped table-responsive-md btn-table'>
+                        <thead>
+                        <tr>
+                            <th>
+                                <div align='center'>Origin</div>
+                            </th>
+                            <th>
+                                <div align='center'>Destination</div>
+                            </th>
+                            <th>
+                                <div align='center'>Train Number</div>
+                            </th>
+                            <th>
+                                <div align='center'>Free Spaces</div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>{rows}</tbody>
+                    </table>
+                )
+        }
         else
-            return <div></div>
+            return <Loading/>
     }
 }
 
