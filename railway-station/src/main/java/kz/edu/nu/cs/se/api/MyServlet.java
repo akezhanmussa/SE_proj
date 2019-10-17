@@ -13,10 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import kz.edu.nu.cs.se.dao.RouteDB;
 import kz.edu.nu.cs.se.dao.ScheduleDB;
-import kz.edu.nu.cs.se.model.Route;
 import kz.edu.nu.cs.se.model.Schedule;
+
 
 @WebServlet(urlPatterns = { "/myrailway" })
 public class MyServlet extends HttpServlet {
@@ -32,12 +31,15 @@ public class MyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
+
         Gson gson = new Gson();
 
-        Integer origin = new Integer(request.getParameter("origin"));
-        Integer destination = new Integer(request.getParameter("destination"));
-        String dateString = request.getParameter("date");
-        String dayTime = request.getParameter("daytime");
+        RequestObject requestObject = new Gson().fromJson(request.getReader(), RequestObject.class);
+
+        Integer origin = new Integer(requestObject.origin);
+        Integer destination = new Integer(requestObject.destination);
+        String dateString = requestObject.date;
+        String dayTime = requestObject.daytime;
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.parse(dateString + " 00:00:00", formatter);
