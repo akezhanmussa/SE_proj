@@ -6,10 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fab6fbea-845d-4b5e-b1c2-4e6209075bb6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/Connector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/Connector.java" afterDir="false" />
-    </list>
+    <list default="true" id="fab6fbea-845d-4b5e-b1c2-4e6209075bb6" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,7 +246,7 @@
       <workItem from="1570980733551" duration="3471000" />
       <workItem from="1570984226217" duration="296000" />
       <workItem from="1571227070145" duration="8535000" />
-      <workItem from="1571240541014" duration="1156000" />
+      <workItem from="1571240541014" duration="2164000" />
     </task>
     <servers />
   </component>
