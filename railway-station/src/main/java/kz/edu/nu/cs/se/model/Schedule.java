@@ -1,6 +1,7 @@
 package kz.edu.nu.cs.se.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,8 +10,10 @@ public class Schedule {
     private Integer id;
     private String origin = null;
     private String destination = null;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private String startTime;
+    private String endTime;
+    private LocalDateTime startTimeObject;
+    private LocalDateTime endTimeObject;
     private Train train;
     private ArrayList<Route> routes;
 
@@ -24,19 +27,19 @@ public class Schedule {
 
     public void AddRoute(Route route) {
         getRoutes().add(route);
-        if (this.getStartTime() == null) this.setStartTime(route.getStartDate());
-        if (this.getEndTime() == null) this.setEndTime(route.getEndDate());
+        if (this.getStartTimeObject() == null) this.setStartTimeObject(route.getStartDateObject());
+        if (this.getEndTimeObject() == null) this.setEndTimeObject(route.getEndDateObject());
 
         if (this.getOrigin() == null) this.setOrigin(route.getOrigin());
         if (this.getDestination() == null) this.setDestination(route.getDestination());
 
-        if (this.getStartTime().compareTo(route.getStartDate()) > 0) {
-            setStartTime(route.getStartDate());
+        if (this.getStartTimeObject().compareTo(route.getStartDateObject()) > 0) {
+            setStartTimeObject(route.getStartDateObject());
             setOrigin(route.getOrigin());
         }
 
-        if (this.getEndTime().compareTo(route.getEndDate()) < 0) {
-            setEndTime(route.getEndDate());
+        if (this.getEndTimeObject().compareTo(route.getEndDateObject()) < 0) {
+            setEndTimeObject(route.getEndDateObject());
             setDestination(route.getDestination());
         }
     }
@@ -53,20 +56,20 @@ public class Schedule {
         this.routes = routes;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public LocalDateTime getStartTimeObject() {
+        return startTimeObject;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
+    public void setStartTimeObject(LocalDateTime startTimeObject) {
+        this.startTimeObject = startTimeObject;
     }
 
-    public LocalDateTime getEndTime() {
-        return endTime;
+    public LocalDateTime getEndTimeObject() {
+        return endTimeObject;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
+    public void setEndTimeObject(LocalDateTime endTimeObject) {
+        this.endTimeObject = endTimeObject;
     }
 
     public Train getTrain() {
@@ -81,7 +84,7 @@ public class Schedule {
         Collections.sort(routes, new Comparator<Route>() {
             @Override
             public int compare(Route o1, Route o2) {
-                return o1.getStartDate().compareTo(o2.getStartDate());
+                return o1.getStartDateObject().compareTo(o2.getStartDateObject());
             }
         });
     }
@@ -101,5 +104,16 @@ public class Schedule {
 
     public void setDestination(String destination) {
         this.destination = destination;
+    }
+
+    public void setStringDates() {
+        for (Route route : routes) {
+            route.setStringDates();
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm:ss");
+        startTime = startTimeObject.format(formatter);
+        endTime = endTimeObject.format(formatter);
+        startTimeObject = null;
+        endTimeObject = null;
     }
 }
