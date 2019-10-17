@@ -57,7 +57,10 @@ class RoutesTable extends Component{
                                 options = {[
                                     {value: "3", label: "Astana"},
                                     {value:"4", label: "Pavlodar"},
-                                    {value:"8", label: "Almaty"}
+                                    {value:"8", label: "Almaty"},
+                                    {value:"6", label: "Karaghandy"},
+                                    {value:"5", label: "Kokshetau"},
+                                    {value:"7", label: "Shymkent"}
                                 ]}
                             />
                         </Form.Group>
@@ -71,7 +74,10 @@ class RoutesTable extends Component{
                                 options = {[
                                     {value:"3", label: "Astana"},
                                     {value:"4", label: "Pavlodar"},
-                                    {value:"8", label: "Almaty"}
+                                    {value:"8", label: "Almaty"},
+                                    {value:"6", label: "Karaghandy"},
+                                    {value:"5", label: "Kokshetau"},
+                                    {value:"7", label: "Shymkent"}
                                 ]}
                             />
                         </Form.Group>
