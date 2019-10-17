@@ -4,7 +4,6 @@ import kz.edu.nu.cs.se.model.Route;
 import kz.edu.nu.cs.se.model.Schedule;
 import kz.edu.nu.cs.se.model.Train;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -97,7 +96,7 @@ public class ScheduleDB {
         Collections.sort(schedules, new Comparator<Schedule>() {
             @Override
             public int compare(Schedule o1, Schedule o2) {
-                return o1.getStartTime().compareTo(o2.getStartTime());
+                return o1.getStartTimeObject().compareTo(o2.getStartTimeObject());
             }
         });
         return schedules;
