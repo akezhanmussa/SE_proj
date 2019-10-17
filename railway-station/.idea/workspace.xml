@@ -7,11 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fab6fbea-845d-4b5e-b1c2-4e6209075bb6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/RequestObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/ScheduleTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/ScheduleTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/redux/ScheduleActionCreators.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/ScheduleActionCreators.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/RoutesTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/RoutesTable.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/MyServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/MyServlet.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -394,7 +391,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5254000" />
+    <option name="totallyTimeSpent" value="6438000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
