@@ -19,7 +19,6 @@ public class Schedule {
 
     public Schedule(Integer id) {
         this.setId(id);
-        this.setTrain(train);
         this.setRoutes(new ArrayList<>());
     }
 

@@ -14,20 +14,22 @@ import java.util.*;
 public class ScheduleDB {
 
     private static Boolean isValidRouteByDateTime(LocalDateTime current, LocalDateTime time, String daytime) {
-        return true;
-//        if (current.compareTo(time) < 0) return false;
-//
-//        if (daytime == "night") {
-//            if (current.getHour() > 0 && current.getHour() <= 6) return true;
-//        } else if (daytime == "morning") {
-//            if (current.getHour() > 6 && current.getHour() <= 12) return true;
-//        } else if (daytime == "afternoon") {
-//            if (current.getHour() > 12 && current.getHour() <= 18) return true;
-//        } else if (daytime == "evening") {
-//            if (current.getHour() > 18) return true;
-//        }
-//
-//        return false;
+
+        if (current.compareTo(time) < 0) return false;
+
+        switch (daytime) {
+            case "night":
+                return current.getHour() > 0 && current.getHour() <= 6;
+            case "morning":
+                return current.getHour() > 6 && current.getHour() <= 12;
+            case "afternoon":
+                return current.getHour() > 12 && current.getHour() <= 18;
+            case "evening":
+                return current.getHour() > 18;
+        }
+
+        return false;
+
     }
 
     public static ArrayList<Schedule> fetchSchedule(Integer origin, Integer destination, LocalDateTime startdate, String daytime) {

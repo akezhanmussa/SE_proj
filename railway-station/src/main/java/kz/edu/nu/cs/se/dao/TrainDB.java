@@ -9,11 +9,13 @@ import java.sql.Statement;
 public class TrainDB {
 
     public static Integer getCapacity(Integer id) {
-        Integer capacity = 0;
+        Integer capacity = -1;
         try {
             Statement statement = Connector.getStatement();
             ResultSet trainSet = statement.executeQuery("SELECT capacity FROM Train WHERE idTrain=" +  id);
-            capacity = trainSet.getInt(3);
+            while(trainSet.next()) {
+                capacity = trainSet.getInt(1);
+            }
 
             statement.close();
         } catch (SQLException e) {
@@ -22,4 +24,6 @@ public class TrainDB {
 
         return capacity;
     }
+
+
 }
