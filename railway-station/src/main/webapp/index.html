@@ -1,65 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-
-        function updateList(items) {
-            $("#my-list").html("");
-            items.forEach(function (e) {
-                $("#my-list").append("<li>" + e + "</li>");
-            });
-        }
-
-        function getListItems() {
-            $.ajax({
-                url : '/myrailway',
-                dataType : 'json',
-                success : function(r) {
-                    updateList(r);
-                }
-            });
-        }
-
-
-        function sendListItem() {
-            var origin = $("#origin").val();
-            var destination = $("#destination").val();
-            var date = $("#date").val();
-            var daytime = $("#daytime").val();
-
-
-            $.post("/myrailway", {origin: origin, destination: destination, date: date, daytime: daytime}, function () {
-            });
-
-        }
-
-
-        $(document).ready(function () {
-            getListItems();
-
-            $("#send-item").on('click', function () {
-                sendListItem();
-            });
-
-
-        });
-    </script>
+    <meta charset="ISO-8859-1">
+    <title>JSP Actions Example</title>
 </head>
 <body>
 
-Origin: <input type="text" id="origin" /><br />
-Destination: <input type="text" id="destination" /><br />
-Date: <input type="text" id="date" /><br />
-Daytime: <input type="text" id="daytime" /><br />
-<button id="send-item" type="button" >Submit</button>
-<ul id="my-list"></ul>
+<h1> Railway Page</h1>
+<form action="/myrailway" method="post">
+    Origin: <input type="text" name="origin">
+    <br> <br>
 
+    Destination: <input type="text" name="destination">
+    <br> <br>
 
-<p>
-    <a href="services/items">Link to List Items API</a>
-</p>
+    Date: <input type="text" name="date">
+    <br> <br>
 
+    Daytime: <input type="text" name="daytime"><br>
+
+    <br>
+    <input type="submit" value="search">
+</form>
 </body>
 </html>
