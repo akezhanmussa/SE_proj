@@ -65,10 +65,10 @@ class ScheduleTable extends Component{
                     id = {route.id}
                     origin = {route.origin}
                     destination = {route.destination}
-                    train = {route.train}
-                    capacity = {route.capacity}
-                    startDate = {route.startDate}
-                    endDate = {route.endDate}
+                    train = {route.train.trainId}
+                    capacity = {route.train.capacity}
+                    startDate = {route.startTime}
+                    endDate = {route.endTime}
                     handleBuy = {this.handleBuy}
                 />
             );

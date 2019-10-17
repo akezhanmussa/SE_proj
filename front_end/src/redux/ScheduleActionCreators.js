@@ -26,13 +26,14 @@ export const fetchSchedule = (path) => (dispatch) => {
     dispatch(scheduleLoading());
     path.date = getParsedDate(path.date);
     path.daytime = path.daytime.map(el => el.value);
+    path.daytime = path.daytime[0];
     console.log(path);
-    return dispatch(scheduleAdd(Schedule));
+    //return dispatch(scheduleAdd(Schedule));
    // const site = baseUrl + '?origin=' + path.origin + '&destination=' + path.destination + '&date=' + path.date +  '&daytime=' + path.daytime[0];
     return fetch(baseUrl, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
-        body: path
+        body: JSON.stringify(path)
     })
         .then(response => {
             if(response.ok)
