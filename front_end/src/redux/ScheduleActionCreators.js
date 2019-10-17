@@ -24,7 +24,17 @@ export const scheduleAdd = (schedule) => {
 
 export const fetchSchedule = (path) => (dispatch) => {
     dispatch(scheduleLoading());
-    return fetch(baseUrl)
+    path.date = getParsedDate(path.date);
+    path.daytime = path.daytime.map(el => el.value);
+    path.daytime = path.daytime[0];
+    console.log(path);
+    //return dispatch(scheduleAdd(Schedule));
+   // const site = baseUrl + '?origin=' + path.origin + '&destination=' + path.destination + '&date=' + path.date +  '&daytime=' + path.daytime[0];
+    return fetch(baseUrl, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(path)
+    })
         .then(response => {
             if(response.ok)
                 return response;
@@ -40,3 +50,14 @@ export const fetchSchedule = (path) => (dispatch) => {
         })
         .catch (error => dispatch(scheduleFailed(error.message)));
 }
+
+
+const getParsedDate = (date) =>{
+    var dd = date.getDate();
+    var mm = date.getMonth()+1;
+    var yyyy = date.getFullYear();
+    if(dd<10)dd='0'+dd
+    if(mm<10)mm='0'+mm
+    var today = yyyy + '-' + mm + '-' + dd;
+    return today;
+};
