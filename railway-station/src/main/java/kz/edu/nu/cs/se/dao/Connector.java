@@ -14,10 +14,10 @@ public class Connector {
             if (connection != null)  return connection.createStatement();
 
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(
+            connection = DriverManager.getConnection(
                     "jdbc:mysql://remotemysql.com:3306/eDiwTC3jTl",
                     "eDiwTC3jTl", "SgCzizCkgZ");
-            statement = conn.createStatement();
+            statement = connection.createStatement();
 
         } catch(SQLException ex) {
             ex.printStackTrace();
