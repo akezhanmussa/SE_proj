@@ -7,10 +7,12 @@ import java.util.Comparator;
 
 public class Schedule {
     private Integer id;
-    private ArrayList<Route> routes;
+    private String origin = null;
+    private String destination = null;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Train train;
+    private ArrayList<Route> routes;
 
     public Schedule(Integer id) {
         this.setId(id);
@@ -25,12 +27,17 @@ public class Schedule {
         if (this.getStartTime() == null) this.setStartTime(route.getStartDate());
         if (this.getEndTime() == null) this.setEndTime(route.getEndDate());
 
+        if (this.getOrigin() == null) this.setOrigin(route.getOrigin());
+        if (this.getDestination() == null) this.setDestination(route.getDestination());
+
         if (this.getStartTime().compareTo(route.getStartDate()) > 0) {
             setStartTime(route.getStartDate());
+            setOrigin(route.getOrigin());
         }
 
         if (this.getEndTime().compareTo(route.getEndDate()) < 0) {
             setEndTime(route.getEndDate());
+            setDestination(route.getDestination());
         }
     }
 
@@ -80,4 +87,19 @@ public class Schedule {
     }
 
 
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
 }
