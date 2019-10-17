@@ -2,12 +2,9 @@ package kz.edu.nu.cs.se.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-import javax.validation.constraints.Null;
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import kz.edu.nu.cs.se.dao.Routes;
+import kz.edu.nu.cs.se.dao.RouteDB;
+import kz.edu.nu.cs.se.dao.ScheduleDB;
 import kz.edu.nu.cs.se.model.Route;
+import kz.edu.nu.cs.se.model.Schedule;
 
 @WebServlet(urlPatterns = { "/myrailway" })
 public class MyServlet extends HttpServlet {
@@ -31,14 +30,20 @@ public class MyServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
 
+        Integer origin = new Integer(request.getParameter("origin"));
+        Integer destination = new Integer(request.getParameter("destination"));
+        String dateString = request.getParameter("date");
+        String dayTime = request.getParameter("daytime");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.parse(dateString + " 00:00:00", formatter);
+
+        ArrayList<Schedule> schedules = ScheduleDB.fetchSchedule(origin, destination, dateTime, dayTime);
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        Routes rts = new Routes();
-        Route res = new Route("Astana", "Pavlodar", null, null);
-        ArrayList<Route> ans = new ArrayList<>();
-        ans.add(res);
-        out.append(gson.toJson(ans));
+        out.append(gson.toJson(schedules));
         out.flush();
     }
 
