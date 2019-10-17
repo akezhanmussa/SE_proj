@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
-import {locations} from "../shared/Locations"
 import Button from 'react-bootstrap/Button';
 import Form, {FormRow} from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Form'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
-import Map from './Map'
 
 class RoutesTable extends Component{
     constructor(props){
