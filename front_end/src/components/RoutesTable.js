@@ -56,7 +56,8 @@ class RoutesTable extends Component{
                                 onChange = {this.handleStartStChange}
                                 options = {[
                                     {value: "3", label: "Astana"},
-                                    {value:"4", label: "Pavlodar"}
+                                    {value:"4", label: "Pavlodar"},
+                                    {value:"8", label: "Almaty"}
                                 ]}
                             />
                         </Form.Group>
@@ -68,8 +69,9 @@ class RoutesTable extends Component{
                                 value = {this.state.destinationStation}
                                 onChange = {this.handleDestinationStChange}
                                 options = {[
-                                    {value: "3", label: "Astana"},
-                                    {value:"4", label: "Pavlodar"}
+                                    {value:"3", label: "Astana"},
+                                    {value:"4", label: "Pavlodar"},
+                                    {value:"8", label: "Almaty"}
                                 ]}
                             />
                         </Form.Group>
