@@ -25,12 +25,11 @@ class Home extends Component{
         this.schedule = Schedule;
     }
 
-
     render() {
         return(
         <div className='container'>
             <div className='row justify-content-center'>
-                <Map/>
+                <Map></Map>
             </div>
             <div className='row justify-content-around'>
                 <RoutesTable fetchSchedule={this.props.fetchSchedule}/>

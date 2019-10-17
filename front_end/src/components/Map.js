@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import { ReactComponent as Logo } from '../logo.svg';
+import MapComponent from "./MapComponent";
 
-class Map extends Component {
 
+export default class Map extends Component {
 
     render() {
         return (
-            <div>
-            </div>
+            <MapComponent>
+            </MapComponent>
         );
     }
 }
-export default Map;
