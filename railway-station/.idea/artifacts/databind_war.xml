@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="databind:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>databind</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="databind-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="databind:war exploded" />
+    </root>
+  </artifact>
+</component>
