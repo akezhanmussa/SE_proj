@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Schedule {
+public class ScheduleModel {
     private Integer id;
     private String origin = null;
     private String destination = null;
@@ -14,17 +14,17 @@ public class Schedule {
     private String endTime;
     private LocalDateTime startTimeObject;
     private LocalDateTime endTimeObject;
-    private Train train;
-    private ArrayList<Route> routes;
+    private TrainModel trainModel;
+    private ArrayList<RouteModel> routes;
 
-    public Schedule(Integer id) {
+    public ScheduleModel(Integer id) {
         this.setId(id);
         this.setRoutes(new ArrayList<>());
     }
 
-    public ArrayList<Route> getRoutes() { return routes; }
+    public ArrayList<RouteModel> getRoutes() { return routes; }
 
-    public void AddRoute(Route route) {
+    public void AddRoute(RouteModel route) {
         getRoutes().add(route);
         if (this.getStartTimeObject() == null) this.setStartTimeObject(route.getStartDateObject());
         if (this.getEndTimeObject() == null) this.setEndTimeObject(route.getEndDateObject());
@@ -51,7 +51,7 @@ public class Schedule {
         this.id = id;
     }
 
-    public void setRoutes(ArrayList<Route> routes) {
+    public void setRoutes(ArrayList<RouteModel> routes) {
         this.routes = routes;
     }
 
@@ -71,18 +71,18 @@ public class Schedule {
         this.endTimeObject = endTimeObject;
     }
 
-    public Train getTrain() {
-        return train;
+    public TrainModel getTrainModel() {
+        return trainModel;
     }
 
-    public void setTrain(Train train) {
-        this.train = train;
+    public void setTrainModel(TrainModel trainModel) {
+        this.trainModel = trainModel;
     }
 
     public void sortRoutes() {
-        Collections.sort(routes, new Comparator<Route>() {
+        Collections.sort(routes, new Comparator<RouteModel>() {
             @Override
-            public int compare(Route o1, Route o2) {
+            public int compare(RouteModel o1, RouteModel o2) {
                 return o1.getStartDateObject().compareTo(o2.getStartDateObject());
             }
         });
@@ -106,13 +106,11 @@ public class Schedule {
     }
 
     public void setStringDates() {
-        for (Route route : routes) {
+        for (RouteModel route : routes) {
             route.setStringDates();
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm:ss");
         startTime = startTimeObject.format(formatter);
         endTime = endTimeObject.format(formatter);
-        startTimeObject = null;
-        endTimeObject = null;
     }
 }

@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import kz.edu.nu.cs.se.dao.ScheduleDB;
-import kz.edu.nu.cs.se.model.Schedule;
+import kz.edu.nu.cs.se.dao.ScheduleController;
+import kz.edu.nu.cs.se.model.ScheduleModel;
+import kz.edu.nu.cs.se.view.Schedule;
 
 
 @WebServlet(urlPatterns = { "/myrailway" })
@@ -44,9 +45,12 @@ public class MyServlet extends HttpServlet {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.parse(dateString + " 00:00:00", formatter);
 
-        ArrayList<Schedule> schedules = ScheduleDB.fetchSchedule(origin, destination, dateTime, dayTime);
+        ArrayList<ScheduleModel> scheduleModels = ScheduleController.fetchSchedule(origin, destination, dateTime, dayTime);
 
-        for (Schedule schedule : schedules) schedule.setStringDates();
+        for (ScheduleModel scheduleModel : scheduleModels) scheduleModel.setStringDates();
+
+        ArrayList<Schedule> schedules = new ArrayList<>();
+        for (ScheduleModel scheduleModel : scheduleModels) schedules.add(new Schedule(scheduleModel));
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
