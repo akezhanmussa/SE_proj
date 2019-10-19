@@ -15,17 +15,19 @@ public class ScheduleDB {
 
     private static Boolean isValidRouteByDateTime(LocalDateTime current, LocalDateTime time, String daytime) {
 
-        if (current.compareTo(time) < 0) return false;
+        DateTimeFormatter formatter  = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        switch (daytime) {
-            case "night":
-                return current.getHour() > 0 && current.getHour() <= 6;
-            case "morning":
-                return current.getHour() > 6 && current.getHour() <= 12;
-            case "afternoon":
-                return current.getHour() > 12 && current.getHour() <= 18;
-            case "evening":
-                return current.getHour() > 18;
+        if (current.format(formatter).equals(time.format(formatter))) {
+            switch (daytime) {
+                case "night":
+                    return current.getHour() > 0 && current.getHour() <= 6;
+                case "morning":
+                    return current.getHour() > 6 && current.getHour() <= 12;
+                case "afternoon":
+                    return current.getHour() > 12 && current.getHour() <= 18;
+                case "evening":
+                    return current.getHour() > 18;
+            }
         }
 
         return false;
