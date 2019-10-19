@@ -5,6 +5,7 @@ import ScheduleTable from './ScheduleTable';
 import RoutesTable from './RoutesTable';
 import { Schedule } from '../shared/Schedule'
 import {fetchSchedule} from '../redux/ScheduleActionCreators'
+import MapComponent from "./MapComponent";
 
 
 
@@ -29,7 +30,7 @@ class Home extends Component{
         return(
         <div className='container'>
             <div className='row justify-content-center'>
-                <Map></Map>
+                <MapComponent schedule = {this.props.schedule}></MapComponent>
             </div>
             <div className='row justify-content-around'>
                 <RoutesTable fetchSchedule={this.props.fetchSchedule}/>
