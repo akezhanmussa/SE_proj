@@ -28,8 +28,7 @@ export const fetchSchedule = (path) => (dispatch) => {
     path.daytime = path.daytime.map(el => el.value);
     path.daytime = path.daytime[0];
     console.log(path);
-    //return dispatch(scheduleAdd(Schedule));
-   // const site = baseUrl + '?origin=' + path.origin + '&destination=' + path.destination + '&date=' + path.date +  '&daytime=' + path.daytime[0];
+
     return fetch(baseUrl, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
@@ -46,6 +45,7 @@ export const fetchSchedule = (path) => (dispatch) => {
         })
         .then(response => response.json())
         .then(response => {
+            console.log(response)
             dispatch(scheduleAdd(response))
         })
         .catch (error => dispatch(scheduleFailed(error.message)));

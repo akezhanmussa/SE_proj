@@ -55,7 +55,7 @@ class RoutesTable extends Component{
                                 value = {this.state.startStation}
                                 onChange = {this.handleStartStChange}
                                 options = {[
-                                    {value: "3", label: "Astana"},
+                                    {value:"3", label: "Astana"},
                                     {value:"4", label: "Pavlodar"},
                                     {value:"8", label: "Almaty"},
                                     {value:"6", label: "Karaghandy"},
