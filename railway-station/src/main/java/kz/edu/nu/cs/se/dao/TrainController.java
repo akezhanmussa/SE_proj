@@ -1,12 +1,10 @@
 package kz.edu.nu.cs.se.dao;
 
-import kz.edu.nu.cs.se.model.Schedule;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class TrainDB {
+public class TrainController {
 
     public static Integer getCapacity(Integer id) {
         Integer capacity = -1;

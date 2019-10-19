@@ -3,7 +3,7 @@ package kz.edu.nu.cs.se.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Route {
+public class RouteModel {
 
     private String origin;
     private String destination;
@@ -12,7 +12,7 @@ public class Route {
     private LocalDateTime startDateObject;
     private LocalDateTime endDateObject;
 
-    public Route(String origin, String destination, LocalDateTime startDateObject, LocalDateTime endDateObject) {
+    public RouteModel(String origin, String destination, LocalDateTime startDateObject, LocalDateTime endDateObject) {
         this.origin = origin;
         this.destination = destination;
         this.startDateObject = startDateObject;
@@ -39,8 +39,6 @@ public class Route {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm:ss");
         startDate = startDateObject.format(formatter);
         endDate = endDateObject.format(formatter);
-        startDateObject = null;
-        endDateObject = null;
     }
 
 }

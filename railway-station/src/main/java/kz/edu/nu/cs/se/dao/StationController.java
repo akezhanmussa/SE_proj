@@ -7,11 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class StationDB {
+public class StationController {
     Map<Integer, String> idToName;
     Map<String, Integer> nameToId;
 
-    public StationDB() {
+    public StationController() {
         Statement statement = Connector.getStatement();
         try {
             ResultSet stations = statement.executeQuery("SELECT * FROM Station");
