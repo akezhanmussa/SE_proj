@@ -27,7 +27,6 @@ export const fetchSchedule = (path) => (dispatch) => {
     path.date = getParsedDate(path.date);
     path.daytime = path.daytime.map(el => el.value);
     path.daytime = path.daytime[0];
-    console.log(path);
 
     return fetch(baseUrl, {
         method: 'POST',
@@ -45,7 +44,7 @@ export const fetchSchedule = (path) => (dispatch) => {
         })
         .then(response => response.json())
         .then(response => {
-            console.log(response)
+            console.log(response + " The response from the server, in case delete me in ScheduleActionCreator.js");
             dispatch(scheduleAdd(response))
         })
         .catch (error => dispatch(scheduleFailed(error.message)));

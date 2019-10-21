@@ -12,3 +12,16 @@ export const Schedule = (state = {isLoading: false, errMess: null, schedule: [],
             return state;
     }
 }
+
+export const RegistrationApprove = (state = {isLoading: false, approveInfo: null, errorMessage: null}, action) => {
+    switch (action.type){
+        case ActionTypes.RegistrationApproveLoading:
+            return {...state, isLoading: true, approveInfo: null, errorMessage: null};
+        case ActionTypes.RegistrationApproved:
+            return {...state, isLoading: false, approveInfo: action.payload, errorMessage: null};
+        case ActionTypes.RegistrationFailed:
+            return {...state, isLoading: false, approveInfo: null, errorMessage: action.payload};
+        default:
+            return state;
+    }
+}
