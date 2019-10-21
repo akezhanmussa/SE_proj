@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import Map from './Map';
 import RoutesTable from './RoutesTable';
 import { Schedule } from '../shared/Schedule'
 import {fetchSchedule} from '../redux/ScheduleActionCreators'
@@ -15,7 +14,6 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
     schedule: state.schedule
 });
-
 
 
 class Home extends Component{
