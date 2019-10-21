@@ -27,8 +27,9 @@ public class ScheduleController {
                 ResultSet routeSet = routeStatement.executeQuery(String.format("SELECT * FROM Route WHERE Schedule_idRoutes=%d", scheduleId));
                 ScheduleModel scheduleModel = new ScheduleModel(scheduleId);
                 Integer trainId = -1;
-                while(routeSet.next()) {
+                while (routeSet.next()) {
                     trainId = routeSet.getInt(8);
+                    Integer routeId = routeSet.getInt(1);
                     Integer startStationId = routeSet.getInt(5);
                     Integer endStationId = routeSet.getInt(6);
                     String startDateString = routeSet.getString(2);
@@ -43,6 +44,15 @@ public class ScheduleController {
                     LocalDateTime endDateTIme = LocalDateTime.parse(endDateString, formatter);
 
                     RouteModel route = new RouteModel(startName, endName, startDateTime, endDateTIme);
+
+                    if (startStationId.equals(origin)) {
+                        scheduleModel.setOrigin(startName);
+                        scheduleModel.setStartTimeObject(startDateTime);
+                    }
+                    if (endStationId.equals(destination)) {
+                        scheduleModel.setDestination(endName);
+                        scheduleModel.setEndTimeObject(endDateTIme);
+                    }
                     scheduleModel.AddRoute(route);
                 }
 
