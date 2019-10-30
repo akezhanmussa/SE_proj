@@ -4,7 +4,8 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import {fetchSchedule} from '../redux/ScheduleActionCreators'
 import Home from './Home';
 import BuyTicketForm from './BuyTicketForm';
-
+import Admin from './Admin';
+import AdminLogin from './AdminLogin';
 
 const mapDispatchToProps = (dispatch) => ({
     fetchSchedule: (path) => dispatch(fetchSchedule(path))
@@ -31,7 +32,7 @@ class Main extends Component{
                     route={route[0]}
                 />
             );
-        }
+        };
 
 
         return (
@@ -39,6 +40,8 @@ class Main extends Component{
                 <Switch>
                     <Route path='/home' component={() => <Home fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
                     <Route path='/buy_ticket/:routeId' component={BuyTicket}/>
+                    <Route exact path='/admin' component={Admin}/>
+                    <Route path='/admin/login' component={AdminLogin} />
                     <Redirect to='home'/>
                 </Switch>
 
