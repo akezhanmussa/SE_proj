@@ -7,6 +7,8 @@ import BuyTicketForm from './BuyTicketForm';
 import RegistrationPage from "./RegistrationPage";
 import {submitRegistrationForm} from "../redux/RegistrationApproveActionCreators";
 
+import Admin from './Admin';
+import AdminLogin from './AdminLogin';
 
 const mapDispatchToProps = (dispatch) => ({
     fetchSchedule: (path) => dispatch(fetchSchedule(path)),
@@ -24,18 +26,18 @@ class Main extends Component{
 
         const BuyTicket = ({match}) => {
             let route = this.props.schedule.schedule.filter(route => route.id === parseInt(match.params.routeId, 10));
-            // if (route.length === 0)
-            //     return (
-            //         <div>
-            //             Select Ticket First
-            //         </div>
-            //     );
+            if (route.length === 0)
+                return (
+                    <div>
+                        Select Ticket First
+                    </div>
+                );
             return (
                 <BuyTicketForm
-                    // route={route[0]}
+                    route={route[0]}
                 />
             );
-        }
+        };
 
 
         return (
@@ -43,7 +45,12 @@ class Main extends Component{
                 <Switch>
                     <Route path='/home' component={() => <Home fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
                     <Route path='/buy_ticket/:routeId' component={BuyTicket}/>
+<<<<<<< HEAD
                     <Route path='/registration' component={() => <RegistrationPage submitData={this.props.submitRegistrationForm}/>}/>
+=======
+                    <Route exact path='/admin' component={Admin}/>
+                    <Route path='/admin/login' component={AdminLogin} />
+>>>>>>> e37b2fcb7b0a8a822b16a1e35c371f334d5cebb3
                     <Redirect to='home'/>
                 </Switch>
 
