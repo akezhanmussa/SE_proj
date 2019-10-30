@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Map from './Map';
 import RoutesTable from './RoutesTable';
 import { Schedule } from '../shared/Schedule';
 import MapComponent from './MapComponent';

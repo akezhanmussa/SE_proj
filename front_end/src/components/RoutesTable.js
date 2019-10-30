@@ -129,4 +129,4 @@ class RoutesTable extends Component{
     }
 }
 
-    export default RoutesTable;
+export default RoutesTable;
