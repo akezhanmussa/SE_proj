@@ -45,12 +45,9 @@ class Main extends Component{
                 <Switch>
                     <Route path='/home' component={() => <Home fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
                     <Route path='/buy_ticket/:routeId' component={BuyTicket}/>
-<<<<<<< HEAD
                     <Route path='/registration' component={() => <RegistrationPage submitData={this.props.submitRegistrationForm}/>}/>
-=======
                     <Route exact path='/admin' component={Admin}/>
                     <Route path='/admin/login' component={AdminLogin} />
->>>>>>> e37b2fcb7b0a8a822b16a1e35c371f334d5cebb3
                     <Redirect to='home'/>
                 </Switch>
 
