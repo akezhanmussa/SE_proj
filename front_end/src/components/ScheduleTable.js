@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Loading} from './Loading';
 import {Modal, ModalBody, ModalHeader} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 class ScheduleRow extends Component {
@@ -39,7 +40,7 @@ class ScheduleRow extends Component {
                     <div align='center'>
                         <h5 align='center'>{capacity}</h5>
                         {capacity > 0 ?
-                            <button className='btn btn-secondary' onClick={()=>this.props.handleBuy(id)}>Buy a ticket</button>
+                            <Link className='btn btn-secondary' to={`/buy_ticket/${id}`}>Buy a ticket</Link>
                             :
                             <button className='btn btn-secondary disabled'>No tickets</button>
                         }
@@ -178,7 +179,7 @@ const RenderTrainRoutes = (props)=>{
                     {route.origin}
                 </td>
                 <td>
-                    {i == 0 ? "" : props.routes[i-1].endDate}
+                    {i === 0 ? "" : props.routes[i-1].endDate}
                 </td>
                 <td>
                     {route.startDate}
@@ -202,6 +203,6 @@ const RenderTrainRoutes = (props)=>{
         </tr>);
     return iter;
 
-}
+};
 
 export default ScheduleTable;
