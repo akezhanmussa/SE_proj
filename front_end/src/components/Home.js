@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import Map from './Map';
 import RoutesTable from './RoutesTable';
-import { Schedule } from '../shared/Schedule'
-
-
+import { Schedule } from '../shared/Schedule';
+import MapComponent from './MapComponent';
 class Home extends Component{
 
     constructor(props){
@@ -14,7 +13,9 @@ class Home extends Component{
     render() {
         return(
         <div className='container'>
-            <Map></Map>
+            <div className='row justify-content-around'>
+                <MapComponent schedule = {this.props.schedule}></MapComponent>
+            </div>
             <RoutesTable fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>
         </div>
         );

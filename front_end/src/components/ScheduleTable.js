@@ -140,7 +140,7 @@ class TrainRoute extends Component{
         return (
             <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                 <ModalHeader toggle={this.toggleModal} >
-                    {this.props.routes[0].origin} -> {this.props.routes[this.props.routes.length - 1].destination}
+                        {this.props.routes[0].origin} -> {this.props.routes[this.props.routes.length - 1].destination}
                 </ModalHeader>
                 <ModalBody>
                     <table className="table">
