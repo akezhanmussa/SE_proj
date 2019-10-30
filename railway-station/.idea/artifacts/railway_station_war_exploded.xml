@@ -14,6 +14,11 @@
           <element id="module-output" name="railway-station" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.auth0:java-jwt:3.8.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.10.0.pr3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.10.0.pr3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.10.0.pr3" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.12" />
           <element id="library" level="project" name="Maven: org.glassfish.jersey.bundles:jaxrs-ri:2.26" />
           <element id="library" level="project" name="Maven: org.glassfish.jersey.inject:jersey-hk2:2.26" />
           <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-locator:2.5.0-b42" />
