@@ -98,7 +98,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../front_end" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -271,10 +271,17 @@
       <workItem from="1571320953821" duration="1549000" />
       <workItem from="1571323364527" duration="3858000" />
       <workItem from="1571328827688" duration="3070000" />
+<<<<<<< HEAD
       <workItem from="1571477760723" duration="1982000" />
       <workItem from="1571670057133" duration="2247000" />
       <workItem from="1571990934495" duration="120000" />
       <workItem from="1572192175782" duration="15000" />
+=======
+      <workItem from="1571375714924" duration="624000" />
+      <workItem from="1571477234590" duration="137000" />
+      <workItem from="1571477383756" duration="3521000" />
+      <workItem from="1571668844051" duration="2645000" />
+>>>>>>> 173231740790eb1928a170e1d98cc6eb19414949
     </task>
     <servers />
   </component>

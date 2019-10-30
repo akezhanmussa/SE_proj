@@ -1,4 +1,4 @@
-import {RegistrationApprove, Schedule} from './ScheduleActions';
+import {RegistrationApprove, Schedule} from './ActionToState';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
