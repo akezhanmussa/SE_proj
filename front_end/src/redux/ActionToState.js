@@ -25,3 +25,20 @@ export const RegistrationApprove = (state = {isLoading: false, approveInfo: null
             return state;
     }
 }
+
+export const Login = (state = {isLoading: false,
+    isAuthenticated: localStorage.getItem('token') ? true : false,
+    user: localStorage.getItem('user'),
+    token : localStorage.getItem('token'),
+    errorMessage: null}, action) => {
+    switch (action.type){
+        case ActionTypes.LoginRequest:
+            return ({...state, isLoading: true, isAuthenticated: false, user: action.payload});
+        case ActionTypes.LoginFailed:
+            return ({...state, isLoading: false, isAuthenticated: false, errorMessage: action.payload});
+        case ActionTypes.LoginApproved:
+            return ({...state, isLoading: false, isAuthenticated: true, token: action.payload})
+        default:
+            return state;
+    }
+}

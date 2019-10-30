@@ -1,4 +1,4 @@
-
+import {baseUrl} from '../shared/BaseUrl'
 import * as ActionType from "./ActionTypes";
 
 export const registrationApproveLoading = () => {
@@ -22,6 +22,8 @@ export const registrationFailed = (errorMessage) => {
 }
 
 export function submitRegistrationForm(userData){
+    console.log(userData)
+    console.log(userData.firstName + " I am here")
     return dispatch => {
         dispatch(registrationApproveLoading());
         fetch(baseUrl, {
