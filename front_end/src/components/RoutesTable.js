@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form'
 import DatePicker from 'react-datepicker'
 import ScheduleTable from './ScheduleTable';
 import "react-datepicker/dist/react-datepicker.css";
+import {locations} from '../shared/Locations'
 
 class RoutesTable extends Component{
     constructor(props){
@@ -43,6 +44,11 @@ class RoutesTable extends Component{
     }
 
     render(){
+        const opts = [];
+        for(let i = 0; i < locations.length; i++){
+            opts.push({value: locations[i].id, label: locations[i].name});
+        }
+        console.log(opts);
         return(
             <div>
                 <div className='row justify-content-around'>
@@ -55,14 +61,7 @@ class RoutesTable extends Component{
                                         name = "form-field-name"
                                         defaultValue = {this.state.startStation}
                                         onChange = {this.handleStartStChange}
-                                        options = {[
-                                            {value: "3", label: "Astana"},
-                                            {value:"4", label: "Pavlodar"},
-                                            {value:"8", label: "Almaty"},
-                                            {value:"6", label: "Karaghandy"},
-                                            {value:"5", label: "Kokshetau"},
-                                            {value:"7", label: "Shymkent"}
-                                        ]}
+                                        options = {opts}
                                     />
                                 </Form.Group>
                                 <Form.Group className = "col-6 ml-auto">
@@ -71,14 +70,7 @@ class RoutesTable extends Component{
                                         name = "form-field-name"
                                         value = {this.state.destinationStation}
                                         onChange = {this.handleDestinationStChange}
-                                        options = {[
-                                            {value:"3", label: "Astana"},
-                                            {value:"4", label: "Pavlodar"},
-                                            {value:"8", label: "Almaty"},
-                                            {value:"6", label: "Karaghandy"},
-                                            {value:"5", label: "Kokshetau"},
-                                            {value:"7", label: "Shymkent"}
-                                        ]}
+                                        options = {opts}
                                     />
                                 </Form.Group>
                             </Form.Row>
