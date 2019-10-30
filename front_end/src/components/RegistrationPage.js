@@ -1,9 +1,8 @@
-import {fetchSchedule} from "../redux/ScheduleActionCreators";
-import { connect } from 'react-redux';
+import {submitRegistrationForm} from "../redux/RegistrationApproveActionCreators";
 
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchSchedule: (path) => dispatch(fetchSchedule(path))
+    submitRegistrationForm: (path) => dispatch(submitRegistrationForm(path))
 });
 
 const mapStateToProps = (state) => ({
@@ -13,12 +12,13 @@ const mapStateToProps = (state) => ({
 
 class RegistrationForm extends Component {
     render() {
-
-
-        return (<div>
-
-
-        </div>)
+        return (
+            <div>
+                
+                
+                
+                
+            </div>)
     }
 }
 
