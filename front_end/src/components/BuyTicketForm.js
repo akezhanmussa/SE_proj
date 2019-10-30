@@ -1,19 +1,18 @@
 import React, {Component} from 'react';
 import {Form, FormGroup, Input, Label} from "reactstrap";
-
-
+import {baseUrl} from "../shared/BaseUrl";
+import {locations} from "../shared/Locations";
 
 class BuyTicketForm extends Component{
     render() {
         const route = {
-            destination: "Almaty",
-            endTime: "17/10/2019 16:26:17",
-            id: 2,
-            origin: "Astana",
-            startTime: "17/10/2019 16:25:14",
-            train: {trainId: 2, capacity: 200}
+            destination: this.props.route.destination,
+            endTime: this.props.route.endTime,
+            id: this.props.route.id,
+            origin: this.props.route.origin,
+            startTime: this.props.route.startTime,
+            train: this.props.route.train
         };
-        console.log(this.props)
         return (
             <div className='container mt-3'>
                 <div className='row' style={{height:"80px"}}>
@@ -57,10 +56,13 @@ class BuyTicketForm extends Component{
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <FillTicket/>
-
+                <div className='mt-3 row'>
+                    <h4>Fill the passenger's personal information</h4>
+                </div>
+                <div className='mt-3 row' style={{backgroundColor:"#f3f4f5", border:"1px solid #c2c4c3"}}>
+                    <FillTicket route={this.props.route}/>
+                </div>
             </div>
         );
     }
@@ -71,41 +73,78 @@ class FillTicket extends Component{
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleSubmit(){
-        console.log("firstname " + this.firstame.value + " lastname " + this.lastname.value + this.docId.value + this.doctype.value)
+    handleSubmit(event){
+        event.preventDefault();
+        let body = {
+            scheduleId: this.props.route.id,
+            passengerId: 0,
+            origin_id: locations.filter(loc => this.props.route.origin === loc.name)[0].id,
+            destination_id: locations.filter(loc => this.props.route.destination === loc.name)[0].id,
+            owner_document_id: this.docId.value,
+            price: 0,
+            start_date: this.props.route.startTime,
+            end_data: this.props.route.endTime,
+            owner_document_type: this.doctype.value,
+            owner_firstname: this.firstame.value,
+            owner_lastname: this.lastname.value
+        };
+        return fetch(baseUrl, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(body)
+        })
+            .then(response => {
+                if(response.ok)
+                    alert("Thanks, your request is submitted");
+                else{
+                    var error = new Error("Error " + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            })
+            .catch (error => console.log("Error"));
     }
     render() {
         return (
-            <Form>
-                <FormGroup>
-                    <Label for='firstname'>
-                        Firstname
-                    </Label>
-                    <Input type="text" id="firstname" name="firstname"
-                           innerRef={(input) => this.firstame = input} />
-                </FormGroup>
-                <FormGroup>
-                    <Label for='lastname'>
-                        Lastname
-                    </Label>
-                    <Input type="text" id="lastname" name="lastname"
-                           innerRef={(input) => this.lastname = input} />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="doctype">Select document type</Label>
-                    <Input type="select" name="select" id="doctype" innerRef={(input) => this.doctype = input}>
-                        <option>National Id</option>
-                        <option>Passport</option>
-                    </Input>
-                </FormGroup>
-                <FormGroup>
-                    <Label for='docId'>
-                        Enter ID of your document
-                    </Label>
-                    <Input type="text" id="docId" name="docId"
-                           innerRef={(input) => this.docId = input} />
-                </FormGroup>
-            </Form>
+            <div className='container mt-2'>
+                <Form>
+                    <div className='row'>
+                        <FormGroup className='col-6'>
+                            <Label for='firstname'>
+                                Firstname
+                            </Label>
+                            <Input type="text" id="firstname" name="firstname"
+                                   innerRef={(input) => this.firstame = input} />
+                        </FormGroup>
+                        <FormGroup className='col-6'>
+                            <Label for='lastname'>
+                                Lastname
+                            </Label>
+                            <Input type="text" id="lastname" name="lastname"
+                                   innerRef={(input) => this.lastname = input} />
+                        </FormGroup>
+                    </div>
+                    <div className='row'>
+                        <FormGroup className='col-6'>
+                            <Label for="doctype">Select document type</Label>
+                            <Input type="select" name="select" id="doctype" innerRef={(input) => this.doctype = input}>
+                                <option>National Id</option>
+                                <option>Passport</option>
+                            </Input>
+                        </FormGroup>
+                        <FormGroup className='col-6'>
+                            <Label for='docId'>
+                                Enter ID of your document
+                            </Label>
+                            <Input type="text" id="docId" name="docId"
+                                   innerRef={(input) => this.docId = input} />
+                        </FormGroup>
+                    </div>
+                    <div className='row mr-auto'>
+                        <button className='btn btn-secondary ml-auto mb-2' onClick={this.handleSubmit}>Buy ticket</button>
+                    </div>
+                </Form>
+            </div>
         );
     }
 };

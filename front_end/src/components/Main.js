@@ -20,15 +20,15 @@ class Main extends Component{
 
         const BuyTicket = ({match}) => {
             let route = this.props.schedule.schedule.filter(route => route.id === parseInt(match.params.routeId, 10));
-            // if (route.length === 0)
-            //     return (
-            //         <div>
-            //             Select Ticket First
-            //         </div>
-            //     );
+            if (route.length === 0)
+                return (
+                    <div>
+                        Select Ticket First
+                    </div>
+                );
             return (
                 <BuyTicketForm
-                    // route={route[0]}
+                    route={route[0]}
                 />
             );
         }
