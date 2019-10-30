@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Loading} from './Loading';
-import {Modal, ModalBody, ModalHeader} from 'reactstrap';
+import {Modal, ModalBody, ModalHeader, Form, FormGroup, Label, Input, Button, ModalFooter} from 'reactstrap';
 
 
 class ScheduleRow extends Component {
@@ -39,10 +39,11 @@ class ScheduleRow extends Component {
                     <div align='center'>
                         <h5 align='center'>{capacity}</h5>
                         {capacity > 0 ?
-                            <button className='btn btn-secondary' onClick={()=>this.props.handleBuy(id)}>Buy a ticket</button>
+                            <button className='btn btn-secondary' onClick={()=> this.callBuy()}>Buy a ticket</button>
                             :
                             <button className='btn btn-secondary disabled'>No tickets</button>
                         }
+                        <FillTicket setClick={click => this.callBuy = click} />
                     </div>
                 </td>
             </tr>
@@ -202,6 +203,75 @@ const RenderTrainRoutes = (props)=>{
         </tr>);
     return iter;
 
-}
+};
+
+
+class FillTicket extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            isModalOpen: false,
+        };
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    componentDidMount() {
+        this.props.setClick(this.toggleModal);
+    }
+
+    toggleModal() {
+        this.setState({isModalOpen: !this.state.isModalOpen});
+    }
+
+    handleSubmit(){
+        console.log("firstname " + this.firstame.value + " lastname " + this.lastname.value + this.docId.value + this.doctype.value)
+        this.toggleModal();
+
+    }
+    render() {
+        return (
+            <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                <ModalHeader toggle={this.toggleModal} >
+                    Buy a ticket
+                </ModalHeader>
+                <ModalBody>
+                    <Form>
+                        <FormGroup>
+                            <Label for='firstname'>
+                                Firstname
+                            </Label>
+                            <Input type="text" id="firstname" name="firstname"
+                                   innerRef={(input) => this.firstame = input} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for='lastname'>
+                                Lastname
+                            </Label>
+                            <Input type="text" id="lastname" name="lastname"
+                                   innerRef={(input) => this.lastname = input} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="doctype">Select document type</Label>
+                            <Input type="select" name="select" id="doctype" innerRef={(input) => this.doctype = input}>
+                                <option>National Id</option>
+                                <option>Passport</option>
+                            </Input>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for='docId'>
+                                Enter ID of your document
+                            </Label>
+                            <Input type="text" id="docId" name="docId"
+                                   innerRef={(input) => this.docId = input} />
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+                <ModalFooter>
+                    <button className='btn btn-secondary' onClick={()=> this.handleSubmit()}>Buy a ticket</button>
+                </ModalFooter>
+            </Modal>
+        );
+    }
+};
 
 export default ScheduleTable;
