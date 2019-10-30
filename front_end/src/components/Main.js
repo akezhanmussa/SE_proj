@@ -4,14 +4,18 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import {fetchSchedule} from '../redux/ScheduleActionCreators'
 import Home from './Home';
 import BuyTicketForm from './BuyTicketForm';
+import RegistrationPage from "./RegistrationPage";
+import {submitRegistrationForm} from "../redux/RegistrationApproveActionCreators";
 
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchSchedule: (path) => dispatch(fetchSchedule(path))
+    fetchSchedule: (path) => dispatch(fetchSchedule(path)),
+    submitRegistrationForm: (path) => dispatch(submitRegistrationForm(path))
 });
 
 const mapStateToProps = (state) => ({
-    schedule: state.schedule
+    schedule: state.schedule,
+    registrationApproveState: state.registrationApproveState
 });
 
 
@@ -39,6 +43,7 @@ class Main extends Component{
                 <Switch>
                     <Route path='/home' component={() => <Home fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
                     <Route path='/buy_ticket/:routeId' component={BuyTicket}/>
+                    <Route path='/registration' component={() => <RegistrationPage submitData={this.props.submitRegistrationForm}/>}/>
                     <Redirect to='home'/>
                 </Switch>
 
