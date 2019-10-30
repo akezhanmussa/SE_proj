@@ -65,7 +65,6 @@ class RoutesTable extends Component{
                                         ]}
                                     />
                                 </Form.Group>
-
                                 <Form.Group className = "col-6 ml-auto">
                                     <Form.Label>Destination Station</Form.Label>
                                     <Select
@@ -130,4 +129,4 @@ class RoutesTable extends Component{
     }
 }
 
-export default RoutesTable;
+    export default RoutesTable;
