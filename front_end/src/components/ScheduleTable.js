@@ -19,7 +19,7 @@ class ScheduleRow extends Component {
                     <div align='center'>
                         <h5>{train}</h5>
                         <button className='btn btn-secondary' onClick={() => this.callModal()}>Train route</button>
-                        <TrainRoute setClick={click => this.callModal = click} routes={this.props.routes}/>
+                            <TrainRoute setClick={click => this.callModal = click} routes={this.props.routes}/>
                     </div>
                 </td>
                 <td>
