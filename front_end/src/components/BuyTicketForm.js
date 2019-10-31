@@ -96,7 +96,7 @@ class FillTicket extends Component{
             owner_firstname: this.firstame.value,
             owner_lastname: this.lastname.value
         };
-        return fetch(baseUrl, {
+        return fetch(baseUrl + '/buyticket', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(body)
