@@ -39,12 +39,15 @@ public class LoginServlet extends HttpServlet {
                 request.getContextPath()
         );
 
-        System.out.println("LOGIN SERVLET redirectUrl: "+redirectUrl);
+//        System.out.println("LOGIN SERVLET redirectUrl: "+redirectUrl);
 
-        return authenticationController.buildAuthorizeUrl(request, redirectUrl)
-                .withAudience("https://" + domain + "/userinfo")
-                .withScope(scope)
-                .build();
+//        return authenticationController.buildAuthorizeUrl(request, redirectUrl)
+//                .withAudience("https://" + domain + "/userinfo")
+//                .withScope(scope)
+//                .build();
+
+        return redirectUrl;
+
     }
 
     @Override

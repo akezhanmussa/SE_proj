@@ -21,10 +21,8 @@ public class HomeServlet extends HttpServlet {
 
         if (principal instanceof Auth0JwtPrincipal) {
             Auth0JwtPrincipal auth0JwtPrincipal = (Auth0JwtPrincipal) principal;
-            System.out.println("EHRE in HOME");
-            System.out.println("MY TOKEN: "+auth0JwtPrincipal.getIdToken().getClaims());
             req.setAttribute("profile", auth0JwtPrincipal.getIdToken().getClaims());
         }
-        req.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(req, res);
+        req.getRequestDispatcher("").forward(req, res);
     }
 }

@@ -54,6 +54,6 @@ public class LogoutServlet extends HttpServlet {
         );
 
 
-        return logoutUrl;
+        return returnUrl;
     }
 }

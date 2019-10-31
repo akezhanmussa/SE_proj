@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Ticket` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Ticket_Schedule1`
     FOREIGN KEY (`schedule_id`)
-    REFERENCES `mydb`.`Schedule` (`idRoutes`)
+    REFERENCES `mydb`.`Schedule` (`schedule_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Route` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Route_Schedule1`
     FOREIGN KEY (`schedule_id`)
-    REFERENCES `mydb`.`Schedule` (`idRoutes`)
+    REFERENCES `mydb`.`Schedule` (`schedule_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Route_Train1`
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Schedule` (
   `schedule_id` INT(11) NOT NULL AUTO_INCREMENT,
   `start_station_id` INT(11) NOT NULL,
   `end_station_id` INT(11) NOT NULL,
-  PRIMARY KEY (`idRoutes`),
+  PRIMARY KEY (`schedule_id`),
   INDEX `fk_Schedule_Station1_idx` (`start_station_id` ASC) VISIBLE,
   INDEX `fk_Schedule_Station2_idx` (`end_station_id` ASC) VISIBLE,
   CONSTRAINT `fk_Schedule_Station1`
