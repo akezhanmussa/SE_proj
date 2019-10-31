@@ -7,8 +7,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-//import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
-import kz.edu.nu.cs.se.model.*;
+import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
+import kz.edu.nu.cs.se.model.Passenger;
+import kz.edu.nu.cs.se.model.Ticket;
 
 import javax.validation.Payload;
 import java.security.interfaces.RSAPublicKey;
@@ -54,11 +55,11 @@ public class PassengerController {
         Statement passengerStatement = Connector.getStatement();
 
         String firstName = passenger.getFirstName();
-        String lastName= passenger.getLastName();
-        String email= passenger.getEmail();
-        String phoneNumber= passenger.getPhoneNumber();
-        String userName= passenger.getUserName();
-        String password= passenger.getPassword();
+        String lastName = passenger.getLastName();
+        String email = passenger.getEmail();
+        String phoneNumber = passenger.getPhoneNumber();
+        String userName = passenger.getUserName();
+        String password = passenger.getPassword();
 
         String values = firstName+ "," +lastName+ "," +email+ "," +phoneNumber+ "," +userName+ "," +password;
 
@@ -66,6 +67,8 @@ public class PassengerController {
 
         String queryInsert = String.format("Insert into Passenger(firstname, lastname, email, phone_number, username, password) Values('%s','%s','%s','%s','%s','%s')",
                 firstName,lastName,email,phoneNumber,userName,password);
+
+
 
         try {
             passengerStatement.executeUpdate(queryInsert);
@@ -92,81 +95,76 @@ public class PassengerController {
         return false;
     }
 
-    public static boolean isPassengerPassword(String password) {
-        try {
-            Statement statement = Connector.getStatement();
+    public static String login(String username, String pass){
+        Statement passengerStatement = Connector.getStatement();
 
-            ResultSet passengerSet = statement.executeQuery("SELECT password FROM Passenger WHERE password="+password);
-            while (passengerSet.next()) {
-                Boolean pw = passengerSet.getBoolean(1);
-                if (pw == true) return true;
+        try {
+            ResultSet passengerSet = passengerStatement.executeQuery(String.format("SELECT * FROM Passenger where username = '%s' and password = '%s'", username, pass));
+            System.out.println(username);
+            while(passengerSet.next()){
+                String firstName = passengerSet.getString(1);
+                String lastName= passengerSet.getString(2);
+                String email= passengerSet.getString(3);
+                String phoneNumber= passengerSet.getString(4);
+                String userName= passengerSet.getString(5);
+                String password= passengerSet.getString(6);
+
+                Passenger passenger = new Passenger(firstName,lastName,email,phoneNumber,userName,password);
+                return generateToken(passenger);
             }
 
-
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
-        return false;
+        return "";
     }
 
+    
+    /*
+        Token validity is checked in the corresponding servlet
+     */
+    public static ArrayList<Ticket> getPassengerTickets(String token){
 
-    public static int getPID() {
+        ArrayList<Ticket> tickets = new ArrayList<>();
+
+        Passenger passenger = getPassengerFromToken(token);
+
+        Statement passengerStatement = Connector.getStatement();
+
+        int id = passenger.getPassengerId();
+
+        String queryGet = String.format("Select * from Tickets where Passenger_idPassenger = %d", id);
+
         try {
-            Statement statement = Connector.getStatement();
+            ResultSet ticketSet = passengerStatement.executeQuery(queryGet);
 
-            ResultSet passengerSet = statement.executeQuery("SELECT idPassenger FROM Passenger");
-            while (passengerSet.next()) {
-                Integer  passengerId = passengerSet.getInt(1);
-                return passengerId;
+            while(ticketSet.next()){
+                int ticketId = ticketSet.getInt(1);
+                int passengerId = ticketSet.getInt(2);
+                String startDate = ticketSet.getString(3);
+                String endDate= ticketSet.getString(4);
+                String originId= ticketSet.getString(5);
+                String destinationId= ticketSet.getString(6);
+                String status= ticketSet.getString(7);
+                String ownerDocumentType= ticketSet.getString(8);
+                String ownerFirstName= ticketSet.getString(9);
+                String ownerLastName= ticketSet.getString(10);
+                String ownerDocumentId= ticketSet.getString(11);
+                String price= ticketSet.getString(12);
+                String agentId= ticketSet.getString(13);
+                String scheduleId = ticketSet.getString(14);
+
+                Ticket ticketInstance = new Ticket(ticketId,passengerId,startDate,endDate,originId,destinationId,
+                        status,ownerDocumentType,ownerFirstName,ownerLastName,ownerDocumentId,price,agentId,scheduleId);
+                tickets.add(ticketInstance);
             }
+
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
-        return -1;
+        return tickets;
+
     }
-
-
-//    public static String generateToken(Passenger passenger) {
-//
-//        Date date = new Date();
-//        Date date2 = new Date();
-//        date2.setMinutes(date.getMinutes() + 60);
-//
-//
-//
-//        try {
-//            Algorithm algorithm = Algorithm.HMAC256("secret");
-//            String token = JWT.create()
-//                    .withIssuer("auth0")
-//                    .withClaim("first_name", passenger.getFirstName())
-//                    .withClaim("last_name", passenger.getLastName())
-//                    .withClaim("email", passenger.getEmail())
-//                    .withClaim("phone_number", passenger.getPhoneNumber())
-//                    .withClaim("user_name", passenger.getUserName())
-//                    .withClaim("password", passenger.getPassword())
-//                    .withIssuedAt(date)
-//                    .withExpiresAt(date2)
-//                    .sign(algorithm);
-//            return token;
-//        } catch (JWTCreationException exception){
-//            //Invalid Signing configuration / Couldn't convert Claims.
-//        }
-//
-//        return "error";
-//
-//    }
-
-//    public static Passenger getPassengerFromToken(String token){
-//        DecodedJWT jwt = JWT.decode(token);
-//        String firstName = jwt.getClaim("first_name").asString();
-//        String lastName = jwt.getClaim("last_name").asString();
-//        String email = jwt.getClaim("email").asString();
-//        String phoneNumber = jwt.getClaim("phone_number").asString();
-//        String userName = jwt.getClaim("user_name").asString();
-//        String password = jwt.getClaim("password").asString();
-//
-//        return new Passenger(firstName,lastName,email,phoneNumber,userName,password);
-//    }
 }
