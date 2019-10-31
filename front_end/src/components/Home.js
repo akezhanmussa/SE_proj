@@ -13,11 +13,13 @@ class Home extends Component{
     render() {
         return(
         <div>
-            <NavigationBar/>           
-            <div className='row justify-content-around'>
-                <MapComponent schedule = {this.props.schedule}></MapComponent>
+            <NavigationBar/>
+            <div className='container'>
+                <div className='row justify-content-around'>
+                    <MapComponent schedule = {this.props.schedule}></MapComponent>
+                </div>
+                <RoutesTable fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>
             </div>
-            <RoutesTable fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>
         </div>
         );
     }

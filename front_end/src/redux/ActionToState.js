@@ -41,4 +41,23 @@ export const Login = (state = {isLoading: false,
         default:
             return state;
     }
-}
+};
+
+export const AdminLogin = (state = {isLoading: false,
+    isAuthenticated: localStorage.getItem('admin_token') ? true : false,
+    user: localStorage.getItem('admin'),
+    token : localStorage.getItem('admin_token'),
+    errorMessage: null}, action) => {
+    switch (action.type){
+        case ActionTypes.AdminLoginRequest:
+            return ({...state, isLoading: true, isAuthenticated: false, admin: action.payload});
+        case ActionTypes.AdminLoginFailed:
+            return ({...state, isLoading: false, isAuthenticated: false, errorMessage: action.payload});
+        case ActionTypes.AdminLoginApproved:
+            return ({...state, isLoading: false, isAuthenticated: true, admin_token: action.payload});
+        case ActionTypes.AdminLogoutApproved:
+            return ({...state, isLoading: false, isAuthenticated: false, admin_token: '', admin: null});
+        default:
+            return state;
+    }
+};
