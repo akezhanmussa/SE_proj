@@ -102,6 +102,7 @@ class FillTicket extends Component{
             body: JSON.stringify(body)
         })
             .then(response => {
+                console.log(response)
                 if(response.ok)
                     alert("Thanks, your request is submitted");
                 else{
