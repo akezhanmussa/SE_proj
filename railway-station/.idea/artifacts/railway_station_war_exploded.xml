@@ -65,7 +65,7 @@
           <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.61" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.9" />
           <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
-          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:3.0.0-SNAPSHOT" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:unknown" />
         </element>
       </element>
       <element id="directory" name="META-INF">
