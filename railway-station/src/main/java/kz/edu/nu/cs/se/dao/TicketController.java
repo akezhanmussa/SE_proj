@@ -1,5 +1,8 @@
 package kz.edu.nu.cs.se.dao;
 
+import kz.edu.nu.cs.se.model.TicketModel;
+
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
@@ -38,5 +41,51 @@ public class TicketController {
             return false;
         }
 
+    }
+
+    public static ArrayList<TicketModel> getTicketsForPassenger(Integer passengerID) {
+        ArrayList<TicketModel> result = new ArrayList<>();
+        try{
+            Statement statement = Connector.getStatement();
+            ResultSet ticketSet = statement.executeQuery("SELECT * FROM Ticket WHERE Passenger_idPassenger=" +
+                    passengerID);
+            while (ticketSet.next()) {
+                Integer idTicket = ticketSet.getInt(1);
+                Integer idPassenger = ticketSet.getInt(2);
+                String starDate = ticketSet.getString(3);
+                String endDate = ticketSet.getString(4);
+                Integer originId = ticketSet.getInt(5);
+                Integer destinationId = ticketSet.getInt(6);
+                String status = ticketSet.getString(7);
+                String owner_document_type = ticketSet.getString(8);
+                String owner_first_name = ticketSet.getString(9);
+                String owner_last_name = ticketSet.getString(10);
+                String owner_document_id = ticketSet.getString(11);
+                Integer price = ((int) ticketSet.getFloat(12));
+                Integer agentId = ticketSet.getInt(13);
+                Integer schedule_id = ticketSet.getInt(14);
+
+                TicketModel ticketModel = new TicketModel(idTicket);
+                ticketModel.setIdPassenger(idPassenger);
+                ticketModel.setStartDate(starDate);
+                ticketModel.setEndDate(endDate);
+                ticketModel.setIdOrigin(originId);
+                ticketModel.setIdDestination(destinationId);
+                ticketModel.setStatus(status);
+                ticketModel.setOwnerDocumentId(owner_document_id);
+                ticketModel.setOwnerDocumentType(owner_document_type);
+                ticketModel.setOwnerFirstName(owner_first_name);
+                ticketModel.setOwnerLastName(owner_last_name);
+                ticketModel.setPrice(price);
+                ticketModel.setAgentId(agentId);
+                ticketModel.setScheduleId(schedule_id);
+
+                result.add(ticketModel);
+            }
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return result;
     }
 }
