@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/RouteController.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleController.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TicketController.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/db/trigger.sql" dialect="Greenplum" />
   </component>
 </project>
