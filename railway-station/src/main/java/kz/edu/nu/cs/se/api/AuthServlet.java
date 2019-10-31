@@ -54,7 +54,7 @@ public class AuthServlet extends HttpServlet {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         String authStatus = "";
 
-        Map<Integer, String> mp = new HashMap<>();
+        Map<String, String> mp = new HashMap<>();
 
         if (email.matches(regex)){
 
@@ -67,14 +67,18 @@ public class AuthServlet extends HttpServlet {
                 System.out.println("Token is " + token);
                 System.out.println(PassengerController.getPassengerFromToken(token));
 
-                mp.put(1, "Successfully registered");
+                mp.put("1", "Successfully registered");
+                mp.put("token", token);
             }
 
             else{
-                mp.put(1, "Such username already exists");
+                mp.put("2", "Such username already exists");
+                mp.put("token", "");
             }
         } else{
-            mp.put(2, "Email doesn't match");
+            mp.put("3", "Email doesn't match");
+            mp.put("token", "");
+
         }
 
         response.setContentType("application/json");
