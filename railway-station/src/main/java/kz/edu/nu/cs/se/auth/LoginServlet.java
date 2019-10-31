@@ -1,58 +1,40 @@
 package kz.edu.nu.cs.se.auth;
 
+import com.google.gson.Gson;
+import kz.edu.nu.cs.se.auth.security.AuthTokenUtil;
+import kz.edu.nu.cs.se.dao.PassengerController;
 
-import com.auth0.AuthenticationController;
-import kz.edu.nu.cs.se.auth.security.AuthenticationControllerProvider;
-
-import javax.inject.Inject;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
-@WebServlet(urlPatterns = {"/login"})
+@WebServlet(urlPatterns = {"/myrailway/login"})
 public class LoginServlet extends HttpServlet {
 
-    @Inject private AuthenticationController authenticationController;
-    @Inject private String domain;
-    @Inject private String scope;
-
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        domain = config.getServletContext().getInitParameter("com.auth0.domain");
-        scope = config.getServletContext().getInitParameter("auth0.scope");
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        PrintWriter out = response.getWriter();
 
-        authenticationController = AuthenticationControllerProvider.getInstance(config);
+        Gson gson = new Gson();
 
-    }
+        UserObject userObject = new Gson().fromJson(request.getReader(), UserObject.class);
 
-    private String buildAuthUrl(HttpServletRequest request) {
-        String redirectUrl = String.format(
-                "%s://%s:%s%s/callback",
-                request.getScheme(),
-                request.getServerName(),
-                request.getServerPort(),
-                request.getContextPath()
-        );
+        String username= userObject.username;
+        String password= userObject.password;
 
-//        System.out.println("LOGIN SERVLET redirectUrl: "+redirectUrl);
+        if(!PassengerController.isPassengerUsername(username)) throw new IOException("no such user");
+        if(!PassengerController.isPassengerPassword(password)) throw new IOException("incorrect password");
 
-//        return authenticationController.buildAuthorizeUrl(request, redirectUrl)
-//                .withAudience("https://" + domain + "/userinfo")
-//                .withScope(scope)
-//                .build();
 
-        return redirectUrl;
+        String token = AuthTokenUtil.generateToken(username, password, PassengerController.getPID());
 
-    }
+        response.addHeader("token", token);
 
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(buildAuthUrl(request));
+//        request.getRequestDispatcher("/myrailway/passenger/"+username).forward(request, response);
     }
 
 }

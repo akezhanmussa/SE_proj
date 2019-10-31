@@ -33,3 +33,13 @@ export const Schedule = [
         capacity: 5
     },
 ];
+
+export const cityToCoordinate= {
+        "astana":[10, 10],
+        "kokshetau":[12, 13],
+        "almaty":[8, 13],
+        "karaghandy":[14, 12],
+        "shymkent":[15, 11],
+        "pavlodar":[9,12],
+        "default":[0, 0]
+}

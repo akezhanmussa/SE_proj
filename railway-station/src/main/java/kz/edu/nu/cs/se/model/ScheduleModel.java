@@ -25,22 +25,7 @@ public class ScheduleModel {
     public ArrayList<RouteModel> getRoutes() { return routes; }
 
     public void AddRoute(RouteModel route) {
-        getRoutes().add(route);
-        if (this.getStartTimeObject() == null) this.setStartTimeObject(route.getStartDateObject());
-        if (this.getEndTimeObject() == null) this.setEndTimeObject(route.getEndDateObject());
-
-        if (this.getOrigin() == null) this.setOrigin(route.getOrigin());
-        if (this.getDestination() == null) this.setDestination(route.getDestination());
-
-        if (this.getStartTimeObject().compareTo(route.getStartDateObject()) > 0) {
-            setStartTimeObject(route.getStartDateObject());
-            setOrigin(route.getOrigin());
-        }
-
-        if (this.getEndTimeObject().compareTo(route.getEndDateObject()) < 0) {
-            setEndTimeObject(route.getEndDateObject());
-            setDestination(route.getDestination());
-        }
+        routes.add(route);
     }
 
     public Integer getId() {
