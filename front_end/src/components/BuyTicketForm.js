@@ -85,7 +85,7 @@ class FillTicket extends Component{
         event.preventDefault();
         let body = {
             scheduleId: this.props.route.id,
-            passengerId: 0,
+            passengerId: 1,
             origin_id: locations.filter(loc => this.props.route.origin === loc.name)[0].id,
             destination_id: locations.filter(loc => this.props.route.destination === loc.name)[0].id,
             owner_document_id: this.docId.value,
