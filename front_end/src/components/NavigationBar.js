@@ -1,22 +1,32 @@
 import React, {Component} from 'react';
 import {Navbar, Nav, NavDropdown, Form, FormControl, Button} from 'react-bootstrap';
-import {Modal, ModalBody, ModalHeader} from "reactstrap";
+import {Input, Modal, ModalBody, ModalHeader} from "reactstrap";
 import {NavLink} from "react-router-dom"
 
 class LoginModalForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            isModalOpen: false
+            isModalOpen: false,
+            email:'',
+            username:'',
+            password:''
         };
         this.toggleModal = this.toggleModal.bind(this);
+        this.handleAttribute = this.handleAttribute.bind(this);
     }
 
     toggleModal(){
         this.setState({isModalOpen: !this.state.isModalOpen});
     }
 
+    handleAttribute = (event) => {
+        this.setState({[event.target.name]: event.target.value});
+    }
+
     render() {
+        console.log("Inside the logal modal")
+        console.log(typeof this.props.login + " ")
         return (
             <div>
                 <button className='btn btn-secondary' onClick={this.toggleModal}>Login</button>
@@ -25,18 +35,28 @@ class LoginModalForm extends Component {
                         Login
                     </ModalHeader>
                     <ModalBody>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Group controlId="formBasicUserName">
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control type="text"
+                                          placeholder="Enter username"
+                                          name = "username"
+                                          value = {this.state.username}
+                                          onChange = {this.handleAttribute}
+                            />
                             <Form.Text className="text-muted">
                             </Form.Text>
                         </Form.Group>
     
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control type="password"
+                                          placeholder="Password"
+                                          name = "password"
+                                          value = {this.state.password}
+                                          onChange = {this.handleAttribute}
+                            />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
+                        <Button className = 'btn-secondary' variant="primary" type="submit" onClick={() => this.props.login({"username":this.state.username, "password":this.state.password})}>
                             Submit
                         </Button>
                     </ModalBody>
@@ -65,11 +85,16 @@ export default class NavigationBar extends Component{
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <NavLink className='nav-link' to='/home'>Home</NavLink>
-                            <NavLink className='nav-link' to='/registration'>Registration</NavLink>
+                            <Button className='btn-secondary' onClick = {() => this.props.goHome()}>Home</Button>
+                            <Button className='btn-secondary' onClick = {() => this.props.goRegistration()}>Registration</Button>
+                            {/*<NavLink className='nav-link' to='/home'>Home</NavLink>*/}
+                            {/*<NavLink className='nav-link' to='/registration'>Registration</NavLink>*/}
                         </Nav>
                         <Nav className = "ml-auto">
-                            <LoginModalForm/>                 
+                            {this.props.loginUser.isAuthenticated
+                                ? <Button className='btn-secondary' onClick = {() => this.props.goMyAccount()}>My account</Button>
+                                :<LoginModalForm login={this.props.login}/>
+                            }
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
