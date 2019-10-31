@@ -72,8 +72,59 @@ public class PassengerController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean isPassengerUsername(String username) {
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet passengerSet = statement.executeQuery("SELECT username FROM Passenger WHERE username="+username);
+            while (passengerSet.next()) {
+                Boolean userName = passengerSet.getBoolean(1);
+                if (userName == true) return true;
+            }
 
 
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
+    }
+
+    public static boolean isPassengerPassword(String password) {
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet passengerSet = statement.executeQuery("SELECT password FROM Passenger WHERE password="+password);
+            while (passengerSet.next()) {
+                Boolean pw = passengerSet.getBoolean(1);
+                if (pw == true) return true;
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
+    }
+
+
+    public static int getPID() {
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet passengerSet = statement.executeQuery("SELECT idPassenger FROM Passenger");
+            while (passengerSet.next()) {
+                Integer  passengerId = passengerSet.getInt(1);
+                return passengerId;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return -1;
     }
 
 
