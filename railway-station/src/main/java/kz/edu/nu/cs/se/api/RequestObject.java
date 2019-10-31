@@ -2,7 +2,8 @@ package kz.edu.nu.cs.se.api;
 
 import java.time.LocalDateTime;
 
-public class ScheduleRequestObject {
+public class RequestObject {
+
     Integer origin;
     Integer destination;
     String date;

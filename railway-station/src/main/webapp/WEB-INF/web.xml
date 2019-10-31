@@ -2,30 +2,8 @@
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1"
-         metadata-complete="false">
-  <context-param>
-    <param-name>com.auth0.domain</param-name>
-    <param-value>dev-to9frjr6.auth0.com</param-value>
-  </context-param>
-
-  <context-param>
-    <param-name>com.auth0.clientId</param-name>
-    <param-value>AbKhQ4YZ1c0EL6E6eoC7aHy4UEeFpiJp</param-value>
-  </context-param>
-
-  <context-param>
-    <param-name>com.auth0.clientSecret</param-name>
-    <param-value>ipMNuS_sHeaizcylKbJxWZgHxPYipGvCp-LuRoVhbD85BoCryiSPF84AP4-aQDGo</param-value>
-  </context-param>
-
-  <context-param>
-    <param-name>auth0.scope</param-name>
-    <param-value>openid profile email</param-value>
-  </context-param>
+<web-app >
+  <display-name>Archetype Created Web Application</display-name>
 
   <filter>
     <filter-name>CorsFilter</filter-name>

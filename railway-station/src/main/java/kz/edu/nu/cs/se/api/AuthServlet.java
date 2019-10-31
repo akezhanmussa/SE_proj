@@ -18,13 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import kz.edu.nu.cs.se.dao.PassengerController;
-import kz.edu.nu.cs.se.api.*;
+import kz.edu.nu.cs.se.dao.ScheduleController;
+import kz.edu.nu.cs.se.model.Passenger;
 import kz.edu.nu.cs.se.model.ScheduleModel;
 import kz.edu.nu.cs.se.view.Schedule;
-import kz.edu.nu.cs.se.model.*;
 
 
-@WebServlet(urlPatterns = { "/myrailway/register" })
+@WebServlet(urlPatterns = { "/myrailway/auth" })
 public class AuthServlet extends HttpServlet {
 
 
@@ -34,21 +34,15 @@ public class AuthServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        System.out.println("HEREEEE");
         PrintWriter out = response.getWriter();
 
         Gson gson = new Gson();
+
         PassengerObject passengerObject = new Gson().fromJson(request.getReader(), PassengerObject.class);
-
-        System.out.println(passengerObject.firstName+" passenger");
-
-//        passengerObject/
 
         String firstName = passengerObject.firstName;
         String lastName= passengerObject.lastName;
@@ -58,8 +52,6 @@ public class AuthServlet extends HttpServlet {
         String password= passengerObject.password;
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         String authStatus = "";
-
-        System.out.println("firstname: "+firstName);
 
         Map<String, String> mp = new HashMap<>();
 
@@ -73,7 +65,7 @@ public class AuthServlet extends HttpServlet {
                 System.out.println(PassengerController.getPassengerFromToken(token));
 
                 mp.put("1", "Successfully registered");
-//                mp.put("token", token);
+                mp.put("token", token);
             }
 
             else{
