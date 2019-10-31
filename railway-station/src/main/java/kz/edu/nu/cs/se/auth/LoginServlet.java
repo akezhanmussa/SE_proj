@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 @WebServlet(urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
@@ -41,13 +40,11 @@ public class LoginServlet extends HttpServlet {
         );
 
         System.out.println("LOGIN SERVLET redirectUrl: "+redirectUrl);
-        System.out.println("config domain: "+"https://" + domain + "/userinfo");
 
-        String loginUrl = authenticationController.buildAuthorizeUrl(request, redirectUrl)
-                            .withAudience("https://" + domain + "/userinfo")
-                            .withScope(scope)
-                            .build();
-        return loginUrl;
+        return authenticationController.buildAuthorizeUrl(request, redirectUrl)
+                .withAudience("https://" + domain + "/userinfo")
+                .withScope(scope)
+                .build();
     }
 
     @Override
