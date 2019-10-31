@@ -28,7 +28,7 @@ class RoutesTable extends Component{
     }
 
     handleDestinationStChange = (destinationStation) => {
-        this.setState({ destinationStation });
+            this.setState({ destinationStation });
     }
 
     handleTimeRange = (timeRange) => {
@@ -59,7 +59,7 @@ class RoutesTable extends Component{
                                     <Form.Label>Start Station</Form.Label>
                                     <Select
                                         name = "form-field-name"
-                                        value = {this.state.startStation}
+                                        defaultValue = {this.state.startStation}
                                         onChange = {this.handleStartStChange}
                                         options = {opts}
                                     />

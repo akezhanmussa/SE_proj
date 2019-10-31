@@ -2,6 +2,13 @@
     background-color: rgba(0, 0, 0, 0.05);
     padding: 15px;
 }
+
+.reg-form{
+    background-color: aliceblue;
+    padding: 25px;
+    margin-top: 50px;
+}
+
 #login{
     background-image: url('loginImg.jpg');
     position: absolute;
