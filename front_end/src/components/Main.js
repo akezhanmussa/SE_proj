@@ -17,7 +17,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
     schedule: state.schedule,
-    registrationApproveState: state.registrationApproveState
+    registrationApproveState: state.registrationApproveState,
+    admin: state.admin
 });
 
 
@@ -39,6 +40,13 @@ class Main extends Component{
             );
         };
 
+        const PrivateAdminRoute = ({component: Component, ...rest}) => {
+            return <Route {...rest} render={ (props) => (
+                 this.props.admin.isAuthenticated
+                    ? <Component {...props}/>
+                    : <Redirect to='/admin/login'/>
+                )}/>
+        };
 
         return (
             <div>
@@ -46,8 +54,8 @@ class Main extends Component{
                     <Route path='/home' component={() => <Home fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
                     <Route path='/buy_ticket/:routeId' component={BuyTicket}/>
                     <Route path='/registration' component={() => <RegistrationPage submitData={this.props.submitRegistrationForm}/>}/>
-                    <Route exact path='/admin' component={Admin}/>
-                    <Route path='/admin/login' component={AdminLogin} />
+                    <PrivateAdminRoute exact path='/admin' component={Admin}/>
+                    <Route path='/admin/login' component={() => <AdminLogin admin={this.props.admin}/> }/>
                     <Redirect to='home'/>
                 </Switch>
 
