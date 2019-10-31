@@ -14,6 +14,7 @@ class BuyTicketForm extends Component{
             train: this.props.route.train
         };
         return (
+
             <div className='container mt-3'>
                 <div className='row' style={{height:"80px"}}>
                     <div className='col-4 d-flex justify-content-center align-items-center' style={{borderRight: '2px solid blue', borderBottom:"1px solid blue"}}>
