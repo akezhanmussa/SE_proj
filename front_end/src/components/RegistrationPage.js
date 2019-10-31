@@ -28,7 +28,6 @@ class RegistrationForm extends Component {
     }
 
     handleSubmit = () => {
-        console.log("I am here for")
         this.state.hiddenMessage = ""
         if (this.state.userName === ''){
             this.setState({hiddenMessage: "Username has to be filled"})
@@ -175,7 +174,6 @@ export default class RegistrationPage extends Component{
     render() {
         return (
             <div>
-                <NavigationBar></NavigationBar>
                 <RegistrationForm submitData={this.props.submitData}/>
             </div>
         )
