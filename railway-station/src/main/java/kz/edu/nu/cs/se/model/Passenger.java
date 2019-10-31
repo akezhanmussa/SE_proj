@@ -2,7 +2,6 @@ package kz.edu.nu.cs.se.model;
 
 public class Passenger {
 
-    private int passengerId;
     private String firstName;
     private String lastName;
     private String email;
@@ -21,9 +20,8 @@ public class Passenger {
 
     }
 
-    public Passenger(int passengerId, String firstName, String lastName, String email, String phoneNumber,
+    public Passenger(String firstName, String lastName, String email, String phoneNumber,
                      String userName, String password){
-        this.setPassengerId(passengerId);
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setEmail(email);
@@ -33,13 +31,6 @@ public class Passenger {
     }
 
 
-    public int getPassengerId() {
-        return passengerId;
-    }
-
-    public void setPassengerId(int passengerId) {
-        this.passengerId = passengerId;
-    }
 
     public String getFirstName() {
         return firstName;

@@ -59,7 +59,6 @@ public class PassengerController {
 
         Statement passengerStatement = Connector.getStatement();
 
-        int passengerId = passenger.getPassengerId();
         String firstName = passenger.getFirstName();
         String lastName= passenger.getLastName();
         String email= passenger.getEmail();
@@ -67,12 +66,12 @@ public class PassengerController {
         String userName= passenger.getUserName();
         String password= passenger.getPassword();
 
-        String values = passengerId + "," + firstName+ "," +lastName+ "," +email+ "," +phoneNumber+ "," +userName+ "," +password;
+        String values = firstName+ "," +lastName+ "," +email+ "," +phoneNumber+ "," +userName+ "," +password;
 
         System.out.println(values);
 
-        String queryInsert = String.format("Insert into Passenger(idPassenger, firstname, lastname, email, phone_number, username, password) Values(%d,'%s','%s','%s','%s','%s','%s')",
-                passengerId,firstName,lastName,email,phoneNumber,userName,password);
+        String queryInsert = String.format("Insert into Passenger(firstname, lastname, email, phone_number, username, password) Values('%s','%s','%s','%s','%s','%s')",
+                firstName,lastName,email,phoneNumber,userName,password);
 
         try {
             passengerStatement.executeUpdate(queryInsert);
@@ -96,7 +95,6 @@ public class PassengerController {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             String token = JWT.create()
                     .withIssuer("auth0")
-                    .withClaim("pid", passenger.getPassengerId())
                     .withClaim("first_name", passenger.getFirstName())
                     .withClaim("last_name", passenger.getLastName())
                     .withClaim("email", passenger.getEmail())
@@ -117,7 +115,6 @@ public class PassengerController {
 
     public static Passenger getPassengerFromToken(String token){
         DecodedJWT jwt = JWT.decode(token);
-        int passengerId = jwt.getClaim("pid").asInt();
         String firstName = jwt.getClaim("first_name").asString();
         String lastName = jwt.getClaim("last_name").asString();
         String email = jwt.getClaim("email").asString();
@@ -125,6 +122,6 @@ public class PassengerController {
         String userName = jwt.getClaim("user_name").asString();
         String password = jwt.getClaim("password").asString();
 
-        return new Passenger(passengerId,firstName,lastName,email,phoneNumber,userName,password);
+        return new Passenger(firstName,lastName,email,phoneNumber,userName,password);
     }
 }

@@ -44,7 +44,6 @@ public class AuthServlet extends HttpServlet {
 
         PassengerObject passengerObject = new Gson().fromJson(request.getReader(), PassengerObject.class);
 
-        int passengerId = passengerObject.passengerId;
         String firstName = passengerObject.firstName;
         String lastName= passengerObject.lastName;
         String email= passengerObject.email;
@@ -54,12 +53,12 @@ public class AuthServlet extends HttpServlet {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         String authStatus = "";
 
-        Map<Integer, String> mp = new HashMap<>();
+        Map<String, String> mp = new HashMap<>();
 
         if (email.matches(regex)){
 
             if (PassengerController.isValidUserName(userName)){
-                Passenger passenger = new Passenger(passengerId,firstName,lastName,email,phoneNumber,userName,password);
+                Passenger passenger = new Passenger(firstName,lastName,email,phoneNumber,userName,password);
 
                 PassengerController.addPassenger(passenger);
 
@@ -67,14 +66,18 @@ public class AuthServlet extends HttpServlet {
                 System.out.println("Token is " + token);
                 System.out.println(PassengerController.getPassengerFromToken(token));
 
-                mp.put(1, "Successfully registered");
+                mp.put("1", "Successfully registered");
+                mp.put("token", token);
             }
 
             else{
-                mp.put(1, "Such username already exists");
+                mp.put("2", "Such username already exists");
+                mp.put("token", "");
             }
         } else{
-            mp.put(2, "Email doesn't match");
+            mp.put("3", "Email doesn't match");
+            mp.put("token", "");
+
         }
 
         response.setContentType("application/json");
