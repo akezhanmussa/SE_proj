@@ -91,7 +91,7 @@ class FillTicket extends Component{
             owner_document_id: this.docId.value,
             price: 0,
             start_date: this.props.route.startTime,
-            end_data: this.props.route.endTime,
+            end_date: this.props.route.endTime,
             owner_document_type: this.doctype.value,
             owner_firstname: this.firstame.value,
             owner_lastname: this.lastname.value
@@ -102,6 +102,7 @@ class FillTicket extends Component{
             body: JSON.stringify(body)
         })
             .then(response => {
+                console.log(response)
                 if(response.ok)
                     alert("Thanks, your request is submitted");
                 else{
