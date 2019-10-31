@@ -24,7 +24,7 @@ public class ScheduleController {
 
             StationController stationController = new StationController();
             for (Integer scheduleId : originScheduleId) {
-                ResultSet routeSet = routeStatement.executeQuery(String.format("SELECT * FROM Route WHERE schedule_id=%d", scheduleId));
+                ResultSet routeSet = routeStatement.executeQuery(String.format("SELECT * FROM Route WHERE Schedule_idRoutes=%d", scheduleId));
                 ScheduleModel scheduleModel = new ScheduleModel(scheduleId);
                 Integer trainId = -1;
                 while (routeSet.next()) {

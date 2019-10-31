@@ -14,6 +14,11 @@
           <element id="module-output" name="railway-station" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.auth0:java-jwt:3.8.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.10.0.pr3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.10.0.pr3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.10.0.pr3" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.12" />
           <element id="library" level="project" name="Maven: org.glassfish.jersey.bundles:jaxrs-ri:2.26" />
           <element id="library" level="project" name="Maven: org.glassfish.jersey.inject:jersey-hk2:2.26" />
           <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-locator:2.5.0-b42" />
@@ -45,27 +50,6 @@
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.5" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.17" />
           <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
-          <element id="library" level="project" name="Maven: com.auth0:mvc-auth-commons:1.0.11" />
-          <element id="library" level="project" name="Maven: com.auth0:auth0:1.14.3" />
-          <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.9.1" />
-          <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.13.0" />
-          <element id="library" level="project" name="Maven: com.squareup.okhttp3:logging-interceptor:3.9.1" />
-          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.13" />
-          <element id="library" level="project" name="Maven: com.auth0:java-jwt:3.8.3" />
-          <element id="library" level="project" name="Maven: com.auth0:jwks-rsa:0.9.0" />
-          <element id="library" level="project" name="Maven: commons-io:commons-io:2.6" />
-          <element id="library" level="project" name="Maven: com.google.guava:guava:27.1-jre" />
-          <element id="library" level="project" name="Maven: com.google.guava:failureaccess:1.0.1" />
-          <element id="library" level="project" name="Maven: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" />
-          <element id="library" level="project" name="Maven: com.google.code.findbugs:jsr305:3.0.2" />
-          <element id="library" level="project" name="Maven: org.checkerframework:checker-qual:2.5.2" />
-          <element id="library" level="project" name="Maven: com.google.errorprone:error_prone_annotations:2.2.0" />
-          <element id="library" level="project" name="Maven: com.google.j2objc:j2objc-annotations:1.1" />
-          <element id="library" level="project" name="Maven: org.codehaus.mojo:animal-sniffer-annotations:1.17" />
-          <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.61" />
-          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.9" />
-          <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
-          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:unknown" />
         </element>
       </element>
       <element id="directory" name="META-INF">
