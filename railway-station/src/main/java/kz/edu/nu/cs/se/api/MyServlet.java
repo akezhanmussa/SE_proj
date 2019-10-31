@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import kz.edu.nu.cs.se.dao.*;
-import kz.edu.nu.cs.se.model.*;
+import kz.edu.nu.cs.se.model.ScheduleModel;
 import kz.edu.nu.cs.se.view.*;
 
 
