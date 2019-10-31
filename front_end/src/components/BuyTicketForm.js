@@ -20,7 +20,6 @@ class BuyTicketForm extends Component{
         };
         return (
             <div>
-                <NavigationBar/>
                 <div className='container mt-3'>
                     <div className='row' style={{height:"80px"}}>
                         <div className='col-4 d-flex justify-content-center align-items-center' style={{borderRight: '2px solid blue', borderBottom:"1px solid blue"}}>
