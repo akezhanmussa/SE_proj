@@ -60,8 +60,6 @@ public class AuthServlet extends HttpServlet {
             if (PassengerController.isValidUserName(userName)){
                 Passenger passenger = new Passenger(firstName,lastName,email,phoneNumber,userName,password);
 
-                PassengerController.addPassenger(passenger);
-
                 String token = PassengerController.generateToken(passenger);
                 System.out.println("Token is " + token);
                 System.out.println(PassengerController.getPassengerFromToken(token));
