@@ -15,5 +15,11 @@ export const LoginApproved = "Login_Approved";
 export const LoginFailed = "Login_Failed";
 export const LoginRequest = "Login_Request";
 export const LogoutRequest = "Logout_Request";
-export const LogoutApproved = "LogoutApprovedd"
+export const LogoutApproved = "Logout_Approved";
+
+// action type for Admin Login/Logout
+export const AdminLoginApproved = "Admin_Login_Approved";
+export const AdminLoginFailed = "Admin_Login_Failed";
+export const AdminLoginRequest = "Admin_Login_Request";
+export const AdminLogoutApproved = "Admin_LogoutApproved";
 

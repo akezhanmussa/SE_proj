@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText, Row, Col, Media } from 'reactstrap';
+import { Button, Form, Input, Row, Col} from 'reactstrap';
+import { adminLogin} from '../redux/AdminLoginActionCreator'
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+const mapDispatchToProps = (dispatch) => ({
+    adminLogin: (credentials) => dispatch(adminLogin(credentials)),
+});
 
 class AdminLogin extends Component{
     constructor(props) {
@@ -7,28 +14,30 @@ class AdminLogin extends Component{
         this.state = {
             username: '',
             password: ''
-        }
+        };
         this.handleChange = this.handleChange.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
     }
 
-    handleLogin = (event) => {
-        //this.props.loginAdmin({ username: this.state.username, password: this.state.password });
-        event.preventDefault();
+    componentDidMount() {
+        if (this.props.admin.isAuthenticated) {
+            this.props.history.push('/admin');
+        }
     }
+
+    handleLogin = (event) => {
+        event.preventDefault();
+        this.props.adminLogin({ username: this.state.username, password: this.state.password });
+    };
 
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         });
-    }
+    };
 
     render() {
-        // if (this.props.auth.isAuthenticated) {
-        //     this.props.history.push('/admin');
-        // }
-        // const errMess = this.props.auth.errMess;
-        let errMess = null;
+        const errMess = this.props.admin.errorMessage;
         return (
             <div id="login">
                 <div className='container align-items-center h-100'>
@@ -66,4 +75,4 @@ class AdminLogin extends Component{
     }
 }
 
-export default AdminLogin;
+export default withRouter(connect(null, mapDispatchToProps)(AdminLogin));
