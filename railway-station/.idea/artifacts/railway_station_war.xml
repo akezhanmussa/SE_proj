@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="railway-station-0.0.1-SNAPSHOT.war">
+    <root id="archive" name="railways-1.0-SNAPSHOT.war">
       <element id="artifact" artifact-name="railway-station:war exploded" />
     </root>
   </artifact>

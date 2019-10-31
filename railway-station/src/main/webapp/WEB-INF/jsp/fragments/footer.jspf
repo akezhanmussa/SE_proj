@@ -1,0 +1,5 @@
+<footer th:fragment="footer" class="bg-light p-3 text-center">
+    <p>
+        CSCI 361 - Software Engineering, ZaNomad team
+    </p>
+</footer>
