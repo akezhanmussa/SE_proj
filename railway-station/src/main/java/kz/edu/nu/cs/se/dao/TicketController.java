@@ -20,11 +20,12 @@ public class TicketController {
                     "destination_id, status, owner_document_type," +
                     "owner_first_name, owner_last_name, owner_document_id, " +
                     "price, schedule_id)" +
-                    "VALUE(%d, \"%s\", \"%s\", %d, %d, \"%s\", \"%s\", \"%s\", \"%s\", %d, %f, %d)",
+                    "VALUE(%d, \"%s\", \"%s\", %d, %d, \"%s\", \"%s\", \"%s\", \"%s\", %d, %d, %d)",
                     passengerId, start_date, end_date,
                     origin_id, destination_id, "UNAPPROVED", owner_document_type,
                     owner_first_name, owner_last_name, owner_document_id,
-                    price,scheduleId));
+                    price.intValue(),scheduleId));
+            statement.close();
             System.out.println("SQL INSERT Status: " + status);
             // Increase capacity for all routes in the given range
             ArrayList<Integer> rangeIDs = RouteController.getRangeIDs(scheduleId, origin_id, destination_id);
