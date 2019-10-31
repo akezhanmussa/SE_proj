@@ -23,7 +23,7 @@ public class BuyTicketServlet extends HttpServlet {
         Integer passengerId = ticketRequestObject.passengerId;
         Integer origin_id = ticketRequestObject.origin_id;
         Integer destination_id = ticketRequestObject.destination_id;
-        Integer owner_document_id = ticketRequestObject.destination_id;
+        Integer owner_document_id = ticketRequestObject.owner_document_id;
         Float price = ticketRequestObject.price;
 
         String start_date = ticketRequestObject.start_date;
