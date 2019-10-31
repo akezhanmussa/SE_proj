@@ -44,7 +44,6 @@ public class AuthServlet extends HttpServlet {
 
         PassengerObject passengerObject = new Gson().fromJson(request.getReader(), PassengerObject.class);
 
-        int passengerId = passengerObject.passengerId;
         String firstName = passengerObject.firstName;
         String lastName= passengerObject.lastName;
         String email= passengerObject.email;
@@ -59,7 +58,7 @@ public class AuthServlet extends HttpServlet {
         if (email.matches(regex)){
 
             if (PassengerController.isValidUserName(userName)){
-                Passenger passenger = new Passenger(passengerId,firstName,lastName,email,phoneNumber,userName,password);
+                Passenger passenger = new Passenger(firstName,lastName,email,phoneNumber,userName,password);
 
                 PassengerController.addPassenger(passenger);
 
