@@ -18,13 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import kz.edu.nu.cs.se.dao.PassengerController;
-import kz.edu.nu.cs.se.dao.ScheduleController;
-import kz.edu.nu.cs.se.model.Passenger;
+import kz.edu.nu.cs.se.api.*;
 import kz.edu.nu.cs.se.model.ScheduleModel;
 import kz.edu.nu.cs.se.view.Schedule;
+import kz.edu.nu.cs.se.model.*;
 
 
-@WebServlet(urlPatterns = { "/myrailway/auth" })
+@WebServlet(urlPatterns = { "/myrailway/register" })
 public class AuthServlet extends HttpServlet {
 
 
@@ -34,17 +34,22 @@ public class AuthServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        System.out.println("HEREEEE");
         PrintWriter out = response.getWriter();
 
         Gson gson = new Gson();
-
         PassengerObject passengerObject = new Gson().fromJson(request.getReader(), PassengerObject.class);
 
-        int passengerId = passengerObject.passengerId;
+        System.out.println(passengerObject.firstName+" passenger");
+
+//        passengerObject/
+
         String firstName = passengerObject.firstName;
         String lastName= passengerObject.lastName;
         String email= passengerObject.email;
@@ -54,27 +59,33 @@ public class AuthServlet extends HttpServlet {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         String authStatus = "";
 
-        Map<Integer, String> mp = new HashMap<>();
+        System.out.println("firstname: "+firstName);
+
+        Map<String, String> mp = new HashMap<>();
 
         if (email.matches(regex)){
 
             if (PassengerController.isValidUserName(userName)){
-                Passenger passenger = new Passenger(passengerId,firstName,lastName,email,phoneNumber,userName,password);
+                Passenger passenger = new Passenger(firstName,lastName,email,phoneNumber,userName,password);
 
                 PassengerController.addPassenger(passenger);
 
-                String token = PassengerController.generateToken(passenger);
-                System.out.println("Token is " + token);
-                System.out.println(PassengerController.getPassengerFromToken(token));
-
-                mp.put(1, "Successfully registered");
+//                String token = PassengerController.generateToken(passenger);
+//                System.out.println("Token is " + token);
+//                System.out.println(PassengerController.getPassengerFromToken(token));
+//
+                mp.put("1", "Successfully registered");
+//                mp.put("token", token);
             }
 
             else{
-                mp.put(1, "Such username already exists");
+                mp.put("2", "Such username already exists");
+                mp.put("token", "");
             }
         } else{
-            mp.put(2, "Email doesn't match");
+            mp.put("3", "Email doesn't match");
+            mp.put("token", "");
+
         }
 
         response.setContentType("application/json");

@@ -1,4 +1,4 @@
-import {RegistrationApprove, Schedule, AdminLogin} from './ActionToState';
+import {RegistrationApprove, Schedule, AdminLogin, Login} from './ActionToState';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
@@ -8,6 +8,7 @@ export const configureStore = () => {
         combineReducers({
             schedule: Schedule,
             registrationApproveState: RegistrationApprove,
+            loginUser: Login,
             admin: AdminLogin
         }),
         applyMiddleware(thunk, logger)

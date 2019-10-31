@@ -1,0 +1,76 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div class="nav-container mb-3">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="${pageContext.request.contextPath}" class="nav-link">Home</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav d-none d-md-block">
+                    <c:choose>
+                        <c:when test="${empty profile}">
+                            <li class="nav-item">
+                                <form action="${pageContext.request.contextPath}/login" method="GET">
+                                    <input type="submit" id="qsLoginBtn" class="btn btn-primary btn-margin" value="Login"/>
+                                </form>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="profileDropDown" data-toggle="dropdown">
+                                    <img src="${profile.get('picture').asString()}"  alt="Profile picture" class="nav-user-profile rounded-circle" width="50"/>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-left">
+                                    <div class="dropdown-header">${profile.get('name').asString()}</div>
+                                    <a href="${pageContext.request.contextPath}/profile" class="dropdown-item dropdown-profile">
+                                        <i class="fas fa-user mr-3"></i> Profile
+                                    </a>
+                                    <a href="${pageContext.request.contextPath}/tickets" class="dropdown-item">
+                                        <i class="fas fa-ticket-alt mr-3"></i>My tickets
+                                    </a>
+                                    <a id="qsLogoutBtn" href="${pageContext.request.contextPath}/logout" class="dropdown-item">
+                                        <i class="fas fa-power-off mr-3"></i> Log out
+                                    </a>
+                                </div>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
+
+                <c:choose>
+                    <c:when test="${empty profile}">
+                        <ul class="navbar-nav d-md-none">
+                            <form action="${pageContext.request.contextPath}/login" method="GET">
+                                <input type="submit" class="btn btn-primary btn-block" value="Login"/>
+                            </form>
+                        </ul>
+                    </c:when>
+                    <c:otherwise>
+                        <ul class="navbar-nav d-md-none justify-content-between" style="min-height: 120px;">
+                            <li class="nav-item">
+                                <span class="user-info">
+                                    <img src="${profile.get('picture').asString()}" alt="Profile picture" class="nav-user-profile d-inline-bloc rounded-circle mr-3" width="50"/>
+                                    <h6 class="d-inline-block">${profile.get('name').asString()}</h6>
+                                </span>
+                            </li>
+                            <li>
+                                <i class="fas fa-user mr-3"></i>
+                                <a href="${pageContext.request.contextPath}/profile"> Profile</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-ticket-alt mr-3"></i>
+                                <a href="${pageContext.request.contextPath}/tickets">My tickets</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-power-off mr-3"></i>
+                                <a href="${pageContext.request.contextPath}/logout"> Log out</a>
+                            </li>
+                        </ul>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+    </nav>
+</div>
