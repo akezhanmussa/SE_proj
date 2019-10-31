@@ -19,6 +19,7 @@ public class CallbackServlet extends HttpServlet {
         System.out.println("Callback servlet REFERER: "+referer);
         System.out.println("Callback Servlet redirectTo:  "+redirectTo);
 
+
         response.sendRedirect(redirectTo);
     }
 

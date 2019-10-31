@@ -22,4 +22,6 @@ public class Auth0JwtPrincipal extends CallerPrincipal {
     public DecodedJWT getIdToken() {
         return this.idToken;
     }
+
+
 }
