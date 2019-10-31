@@ -78,26 +78,34 @@ public class RouteController {
             Statement statement = Connector.getStatement();
             ResultSet routeIDSet = statement.executeQuery(
                     String.format(
-                            "SELECT idRoute FROM Route WHERE Schedule_idRoutes=%d ORDER BY start_time",
+                            "SELECT idRoute, start_station_id, end_station_id FROM Route WHERE schedule_id=%d ORDER BY start_time",
                             schedule_id)
             );
-            ArrayList<Integer> allIDs = new ArrayList<>();
+            ArrayList<Integer> routeIDs = new ArrayList<>();
+            ArrayList<Integer> start_station_ids = new ArrayList<>();
+            ArrayList<Integer> end_station_ids = new ArrayList<>();
             while(routeIDSet.next()) {
-                allIDs.add(routeIDSet.getInt(1));
+                routeIDs.add(routeIDSet.getInt(1));
+                start_station_ids.add(routeIDSet.getInt(2));
+                end_station_ids.add(routeIDSet.getInt(3));
             }
+            System.out.println("allIDs empty: " + routeIDs.isEmpty());
+            routeIDs.forEach(System.out::println);
             int index = 0;
-            while (index < allIDs.size() && !allIDs.get(index).equals(origin_id)) index++;
-            while (index < allIDs.size() && !allIDs.get(index).equals(destination_id)) {
-                rangeIDs.add(allIDs.get(index));
+            while (index < routeIDs.size() && !start_station_ids.get(index).equals(origin_id)) index++;
+          //  if (index < routeIDs.size()) rangeIDs.add(routeIDs.get(index));
+            while (index < routeIDs.size() && !end_station_ids.get(index).equals(destination_id)) {
+                rangeIDs.add(routeIDs.get(index));
                 index++;
             }
-            if (index < allIDs.size()) rangeIDs.add(allIDs.get(index));
+            if (index < routeIDs.size()) rangeIDs.add(routeIDs.get(index));
 
             statement.close();
             routeIDSet.close();
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
         }
+        System.out.println("rangeIDs empty: " + rangeIDs.isEmpty());
 
         return rangeIDs;
     }
@@ -105,7 +113,7 @@ public class RouteController {
     public static void updatePassengerNumber(Integer routeId) {
         try {
             Statement statement = Connector.getStatement();
-            statement.executeQuery(String.format(
+            statement.execute(String.format(
                     "UPDATE Route SET passenger_number = passenger_number + 1 WHERE idRoute = %d",
                     routeId)
             );
