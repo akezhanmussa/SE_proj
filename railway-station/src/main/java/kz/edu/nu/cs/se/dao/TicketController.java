@@ -16,15 +16,15 @@ public class TicketController {
         try {
             // Creates ticket on database
             boolean status = statement.execute(String.format("INSERT INTO Ticket(" +
-                    "idTicket, Passenger_idPassenger, start_date, end_date, origin_id, " +
+                    "Passenger_idPassenger, start_date, end_date, origin_id, " +
                     "destination_id, status, owner_document_type," +
-                    "owner_firstname, owner_lastname, owner_document_id, " +
-                    "price, agent_id, schedule_id)" +
-                    "VALUES(1, %d, \"%s\", \"%s\", \"%d\", %d, \"%s\", \"%s\", \"%s\", \"%s\", %d, %f,%d, %d)",
+                    "owner_first_name, owner_last_name, owner_document_id, " +
+                    "price, schedule_id)" +
+                    "VALUE(%d, \"%s\", \"%s\", %d, %d, \"%s\", \"%s\", \"%s\", \"%s\", %d, %f, %d)",
                     passengerId, start_date, end_date,
                     origin_id, destination_id, "UNAPPROVED", owner_document_type,
                     owner_first_name, owner_last_name, owner_document_id,
-                    price, 1,scheduleId));
+                    price,scheduleId));
             System.out.println("SQL INSERT Status: " + status);
             // Increase capacity for all routes in the given range
             ArrayList<Integer> rangeIDs = RouteController.getRangeIDs(scheduleId, origin_id, destination_id);
