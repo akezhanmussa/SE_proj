@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="railway-station:war exploded">
-    <output-path>$PROJECT_DIR$/target/railway-station-0.0.1-SNAPSHOT</output-path>
+    <output-path>$PROJECT_DIR$/target/railways-1.0-SNAPSHOT</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
@@ -14,6 +14,24 @@
           <element id="module-output" name="railway-station" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.5" />
+          <element id="library" level="project" name="Maven: com.auth0:mvc-auth-commons:1.0.4" />
+          <element id="library" level="project" name="Maven: com.auth0:auth0:1.10.0" />
+          <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.9.1" />
+          <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.13.0" />
+          <element id="library" level="project" name="Maven: com.squareup.okhttp3:logging-interceptor:3.9.1" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.11" />
+          <element id="library" level="project" name="Maven: com.auth0:java-jwt:3.7.0" />
+          <element id="library" level="project" name="Maven: com.auth0:jwks-rsa:0.7.0" />
+          <element id="library" level="project" name="Maven: commons-io:commons-io:2.6" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.60" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.8.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.9.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.9" />
+          <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
+          <element id="library" level="project" name="Maven: org.jboss.weld.servlet:weld-servlet:1.1.10.Final" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:14.0" />
           <element id="library" level="project" name="Maven: org.glassfish.jersey.bundles:jaxrs-ri:2.26" />
           <element id="library" level="project" name="Maven: org.glassfish.jersey.inject:jersey-hk2:2.26" />
           <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-locator:2.5.0-b42" />
@@ -21,7 +39,6 @@
           <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-api:2.5.0-b42" />
           <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
           <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-utils:2.5.0-b42" />
-          <element id="library" level="project" name="Maven: org.javassist:javassist:3.22.0-CR2" />
           <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-common:2.26" />
           <element id="library" level="project" name="Maven: javax.ws.rs:javax.ws.rs-api:2.1" />
           <element id="library" level="project" name="Maven: javax.annotation:javax.annotation-api:1.2" />
@@ -42,13 +59,31 @@
           <element id="library" level="project" name="Maven: org.glassfish.jersey.containers:jersey-container-servlet-core:2.26" />
           <element id="library" level="project" name="Maven: org.glassfish.jersey.containers:jersey-container-servlet:2.26" />
           <element id="library" level="project" name="Maven: org.glassfish.jersey.media:jersey-media-sse:2.26" />
-          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.5" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.17" />
           <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.soteria:javax.security.enterprise:1.0" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:5.4.7.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.2.Final" />
+          <element id="library" level="project" name="Maven: javax.persistence:javax.persistence-api:2.2" />
+          <element id="library" level="project" name="Maven: org.javassist:javassist:3.24.0-GA" />
+          <element id="library" level="project" name="Maven: net.bytebuddy:byte-buddy:1.10.2" />
+          <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
+          <element id="library" level="project" name="Maven: org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.1.1.Final" />
+          <element id="library" level="project" name="Maven: org.jboss:jandex:2.0.5.Final" />
+          <element id="library" level="project" name="Maven: com.fasterxml:classmate:1.3.4" />
+          <element id="library" level="project" name="Maven: javax.activation:javax.activation-api:1.2.0" />
+          <element id="library" level="project" name="Maven: org.dom4j:dom4j:2.1.1" />
+          <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:5.1.0.Final" />
+          <element id="library" level="project" name="Maven: javax.xml.bind:jaxb-api:2.3.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jaxb:jaxb-runtime:2.3.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jaxb:txw2:2.3.1" />
+          <element id="library" level="project" name="Maven: com.sun.istack:istack-commons-runtime:3.0.7" />
+          <element id="library" level="project" name="Maven: org.jvnet.staxex:stax-ex:1.8" />
+          <element id="library" level="project" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.15" />
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/railway-station-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/target/railways-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="railway-station/web/Web" />
     </root>
