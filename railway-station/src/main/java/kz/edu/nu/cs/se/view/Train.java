@@ -1,14 +1,14 @@
-package kz.edu.nu.cs.se.model;
+package kz.edu.nu.cs.se.view;
+
+import kz.edu.nu.cs.se.model.TrainModel;
 
 public class Train {
     private Integer trainId;
     private Integer capacity;
-    private Boolean status;
-    private Integer stationId;
 
-    public Train(Integer trainId, Integer capacity) {
-        this.trainId = trainId;
-        this.capacity = capacity;
+    public Train(TrainModel trainModel){
+        this.setTrainId(trainModel.getTrainId());
+        this.setCapacity(trainModel.getTrainId());
     }
 
     public Integer getTrainId() {

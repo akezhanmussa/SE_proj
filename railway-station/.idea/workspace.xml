@@ -7,15 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df95ec73-4c25-40a3-bf6d-4a248180005d" name="Default Changelist" comment="">
-<<<<<<< HEAD
-=======
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/BuyTicketForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/BuyTicketForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/RoutesTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/RoutesTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/shared/Locations.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/Locations.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
->>>>>>> e37b2fcb7b0a8a822b16a1e35c371f334d5cebb3
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -280,18 +271,11 @@
       <workItem from="1571320953821" duration="1549000" />
       <workItem from="1571323364527" duration="3858000" />
       <workItem from="1571328827688" duration="3070000" />
-<<<<<<< HEAD
-      <workItem from="1571477760723" duration="1982000" />
-      <workItem from="1571670057133" duration="2247000" />
-      <workItem from="1571990934495" duration="120000" />
-      <workItem from="1572192175782" duration="15000" />
-=======
       <workItem from="1571375714924" duration="624000" />
       <workItem from="1571477234590" duration="137000" />
       <workItem from="1571477383756" duration="3521000" />
       <workItem from="1571668844051" duration="2645000" />
 <<<<<<< HEAD
->>>>>>> 173231740790eb1928a170e1d98cc6eb19414949
 =======
       <workItem from="1572444305292" duration="3489000" />
 >>>>>>> e37b2fcb7b0a8a822b16a1e35c371f334d5cebb3
