@@ -33,7 +33,7 @@ export function login(userData){
     console.log(userData)
     return dispatch => {
         dispatch(loginRequest(userData));
-        let token = "123";
+        let token = 1;
         localStorage.setItem('token', JSON.stringify(token));
         localStorage.setItem('user', JSON.stringify(userData));
         dispatch(loginApprove(token))
