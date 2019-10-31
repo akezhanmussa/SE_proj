@@ -2,8 +2,13 @@ import React, {Component} from 'react';
 import {Form, FormGroup, Input, Label} from "reactstrap";
 import {baseUrl} from "../shared/BaseUrl";
 import {locations} from "../shared/Locations";
+import NavigationBar from './NavigationBar';
 
 class BuyTicketForm extends Component{
+
+    componentDidMount() {
+        window.scrollTo(0,0);
+    }
     render() {
         const route = {
             destination: this.props.route.destination,
@@ -14,54 +19,57 @@ class BuyTicketForm extends Component{
             train: this.props.route.train
         };
         return (
-            <div className='container mt-3'>
-                <div className='row' style={{height:"80px"}}>
-                    <div className='col-4 d-flex justify-content-center align-items-center' style={{borderRight: '2px solid blue', borderBottom:"1px solid blue"}}>
-                        <i className="fa fa-check" style={{fontSize:"30px", color:"green" }}></i>
-                        <h4>Train selected</h4>
-                    </div>
-                    <div className='col-4 d-flex justify-content-center align-items-center' style={{borderRight: '2px solid blue', borderBottom:"1px solid blue"}}>
-                        <i className="fa fa-check" style={{fontSize:"30px", color:"green" }}></i>
-                        <h4>Place reserved</h4>
-                    </div>
-                    <div className='col-4 d-flex justify-content-center align-items-center' style={{backgroundColor:"#f3f4f5", borderBottom:"1px solid blue"}}>
-                        <h4>Checkout</h4>
-                    </div>
-                </div>
-                <div className='row mt-2'>
-                    <h3>{route.origin} -> {route.destination}</h3>
-                    <div className='container' style={{border:"1px solid #c2c4c3"}}>
-                        <div className='row pt-2' style={{borderBottom:"1px solid #c2c4c3"}}>
-                            <div className='col-6'>
-                                <p>Train number</p>
-                            </div>
-                            <div className='col-6'>
-                                <p>{route.train.trainId}</p>
-                            </div>
+            <div>
+                <NavigationBar/>
+                <div className='container mt-3'>
+                    <div className='row' style={{height:"80px"}}>
+                        <div className='col-4 d-flex justify-content-center align-items-center' style={{borderRight: '2px solid blue', borderBottom:"1px solid blue"}}>
+                            <i className="fa fa-check" style={{fontSize:"30px", color:"green" }}></i>
+                            <h4>Train selected</h4>
                         </div>
-                        <div className='row pt-2' style={{borderBottom:"1px solid #c2c4c3"}}>
-                            <div className='col-6'>
-                                <p>Start date</p>
-                            </div>
-                            <div className='col-6'>
-                                <p>{route.startTime}</p>
-                            </div>
+                        <div className='col-4 d-flex justify-content-center align-items-center' style={{borderRight: '2px solid blue', borderBottom:"1px solid blue"}}>
+                            <i className="fa fa-check" style={{fontSize:"30px", color:"green" }}></i>
+                            <h4>Place reserved</h4>
                         </div>
-                        <div className='row pt-2' style={{borderBottom:"1px solid #c2c4c3"}}>
-                            <div className='col-6'>
-                                <p>End date</p>
-                            </div>
-                            <div className='col-6'>
-                                <p>{route.endTime}</p>
-                            </div>
+                        <div className='col-4 d-flex justify-content-center align-items-center' style={{backgroundColor:"#f3f4f5", borderBottom:"1px solid blue"}}>
+                            <h4>Checkout</h4>
                         </div>
                     </div>
-                </div>
-                <div className='mt-3 row'>
-                    <h4>Fill the passenger's personal information</h4>
-                </div>
-                <div className='mt-3 row' style={{backgroundColor:"#f3f4f5", border:"1px solid #c2c4c3"}}>
-                    <FillTicket route={this.props.route}/>
+                    <div className='row mt-2'>
+                        <h3>{route.origin} -> {route.destination}</h3>
+                        <div className='container' style={{border:"1px solid #c2c4c3"}}>
+                            <div className='row pt-2' style={{borderBottom:"1px solid #c2c4c3"}}>
+                                <div className='col-6'>
+                                    <p>Train number</p>
+                                </div>
+                                <div className='col-6'>
+                                    <p>{route.train.trainId}</p>
+                                </div>
+                            </div>
+                            <div className='row pt-2' style={{borderBottom:"1px solid #c2c4c3"}}>
+                                <div className='col-6'>
+                                    <p>Start date</p>
+                                </div>
+                                <div className='col-6'>
+                                    <p>{route.startTime}</p>
+                                </div>
+                            </div>
+                            <div className='row pt-2' style={{borderBottom:"1px solid #c2c4c3"}}>
+                                <div className='col-6'>
+                                    <p>End date</p>
+                                </div>
+                                <div className='col-6'>
+                                    <p>{route.endTime}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='mt-3 row'>
+                        <h4>Fill the passenger's personal information</h4>
+                    </div>
+                    <div className='mt-3 row' style={{backgroundColor:"#f3f4f5", border:"1px solid #c2c4c3"}}>
+                        <FillTicket route={this.props.route}/>
+                    </div>
                 </div>
             </div>
         );
@@ -77,7 +85,7 @@ class FillTicket extends Component{
         event.preventDefault();
         let body = {
             scheduleId: this.props.route.id,
-            passengerId: 0,
+            passengerId: 1,
             origin_id: locations.filter(loc => this.props.route.origin === loc.name)[0].id,
             destination_id: locations.filter(loc => this.props.route.destination === loc.name)[0].id,
             owner_document_id: this.docId.value,
@@ -88,7 +96,7 @@ class FillTicket extends Component{
             owner_firstname: this.firstame.value,
             owner_lastname: this.lastname.value
         };
-        return fetch(baseUrl, {
+        return fetch(baseUrl + '/buyticket', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(body)
