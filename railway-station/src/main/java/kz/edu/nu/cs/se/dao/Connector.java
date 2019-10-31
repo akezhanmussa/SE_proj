@@ -15,8 +15,8 @@ public class Connector {
 
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://remotemysql.com:3306/eDiwTC3jTl",
-                    "eDiwTC3jTl", "SgCzizCkgZ");
+                    "jdbc:mysql://remotemysql.com:3306/E0Sz4Fo1Xp",
+                    "E0Sz4Fo1Xp", "KIbCO7HKYR");
             statement = connection.createStatement();
 
         } catch(SQLException ex) {
