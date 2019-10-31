@@ -153,7 +153,7 @@ class TrainRoute extends Component{
                         </tr>
                         </thead>
                         <tbody>
-                            <RenderTrainRoutes routes={this.props.routes}/>
+                                <RenderTrainRoutes routes={this.props.routes}/>
                         </tbody>
                     </table>
                 </ModalBody>

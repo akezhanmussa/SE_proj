@@ -17,7 +17,7 @@ class RegistrationForm extends Component {
             email:'',
             phone_number:'',
             password: '',
-            username:'',
+            userName:'',
             confirm_password:'',
             hiddenMessage:'',
             displayErrors:false
@@ -30,11 +30,20 @@ class RegistrationForm extends Component {
     handleSubmit = () => {
         console.log("I am here for")
         this.state.hiddenMessage = ""
-        if (this.state.confirm_password !== this.state.password || this.state.password === ''){
+        if (this.state.userName === ''){
+            this.setState({hiddenMessage: "Username has to be filled"})
+        } else if (this.state.confirm_password !== this.state.password || this.state.password === ''){
             this.setState({hiddenMessage: "Password does not match with the initial password or empty"})
         }else{
             this.setState({hiddenMessage: ""})
-            this.props.submitData({"firstName":this.state.firstName, "lastName":this.state.lastName, "username":this.state.username})
+            this.props.submitData({
+                "firstName":this.state.firstName,
+                "lastName":this.state.lastName,
+                "email":this.state.email,
+                "phoneNumber":this.state.phone_number,
+                "userName":this.state.userName,
+                "password":this.state.password
+            })
         }
 
         // this.setState({
@@ -65,7 +74,7 @@ class RegistrationForm extends Component {
                                     type="text"
                                     name = "firstName"
                                     id="name_reg_id"
-                                    placeholder = "Username"
+                                    placeholder = "First Name"
                                     value = {this.state.firstName}
                                     onChange = {this.handleAttribute}
                                     required
@@ -91,8 +100,8 @@ class RegistrationForm extends Component {
                                         type="text"
                                         placeholder="Username"
                                         aria-describedby="inputGroupPrepend"
-                                        name = "username"
-                                        value = {this.state.username}
+                                        name = "userName"
+                                        value = {this.state.userName}
                                         onChange = {this.handleAttribute}
                                     />
                                 </InputGroup>
@@ -102,13 +111,25 @@ class RegistrationForm extends Component {
                                 <Form.Control
                                     type="text"
                                     placeholder="Phone Number"
-                                    name = "phone_number"
+                                    name = "phoneNumber"
                                     value = {this.state.phone_number}
                                     onChange = {this.handleAttribute}
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     Please choose a phone number.
                                 </Form.Control.Feedback>
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Group as={Col} md="7" controlId="email">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control
+                                    type="email"
+                                    placeholder="Email"
+                                    name = "email"
+                                    value = {this.state.email}
+                                    onChange = {this.handleAttribute}
+                                />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
@@ -136,7 +157,7 @@ class RegistrationForm extends Component {
                         <Form.Row>
                             <Form.Label >{this.state.hiddenMessage}</Form.Label>
                         </Form.Row>
-                        <Button onClick = {() => this.handleSubmit()}>Submit form</Button>
+                        <Button className='btn-secondary' onClick = {() => this.handleSubmit()}>Submit form</Button>
                     </form>
                     </div>
                 </div>
