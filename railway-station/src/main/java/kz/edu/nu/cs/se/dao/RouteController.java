@@ -72,4 +72,47 @@ public class RouteController {
         return scheduleIDs;
     }
 
+    public static ArrayList<Integer> getRangeIDs(Integer schedule_id, Integer origin_id, Integer destination_id) {
+        ArrayList<Integer> rangeIDs = new ArrayList<>();
+        try {
+            Statement statement = Connector.getStatement();
+            ResultSet routeIDSet = statement.executeQuery(
+                    String.format(
+                            "SELECT idRoute FROM Route WHERE Schedule_idRoutes=%d ORDER BY start_time",
+                            schedule_id)
+            );
+            ArrayList<Integer> allIDs = new ArrayList<>();
+            while(routeIDSet.next()) {
+                allIDs.add(routeIDSet.getInt(1));
+            }
+            int index = 0;
+            while (index < allIDs.size() && !allIDs.get(index).equals(origin_id)) index++;
+            while (index < allIDs.size() && !allIDs.get(index).equals(destination_id)) {
+                rangeIDs.add(allIDs.get(index));
+                index++;
+            }
+            if (index < allIDs.size()) rangeIDs.add(allIDs.get(index));
+
+            statement.close();
+            routeIDSet.close();
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        return rangeIDs;
+    }
+
+    public static void updatePassengerNumber(Integer routeId) {
+        try {
+            Statement statement = Connector.getStatement();
+            statement.executeQuery(String.format(
+                    "UPDATE Route SET passenger_number = passenger_number + 1 WHERE idRoute = %d",
+                    routeId)
+            );
+            statement.close();
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
 }
