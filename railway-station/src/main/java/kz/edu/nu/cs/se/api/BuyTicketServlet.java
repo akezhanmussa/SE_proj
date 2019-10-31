@@ -36,11 +36,16 @@ public class BuyTicketServlet extends HttpServlet {
         LocalDateTime startDate = LocalDateTime.parse(start_date, formatter);
         LocalDateTime endDate = LocalDateTime.parse(end_date, formatter);
 
-        TicketController.BuyTicket(scheduleId, passengerId, origin_id, destination_id, price,
+        boolean status = TicketController.BuyTicket(scheduleId, passengerId, origin_id, destination_id, price,
                 start_date, end_date, owner_document_type, owner_document_id,owner_firstname,
                 owner_lastname);
         PrintWriter out = response.getWriter();
-        out.append(new Gson().toJson("Done! Wait for approval"));
+        if (status) {
+            out.append(new Gson().toJson("Done! Wait for approval"));
+        } else {
+            out.append(new Gson().toJson("Error!"));
+        }
+
         out.flush();
     }
 
