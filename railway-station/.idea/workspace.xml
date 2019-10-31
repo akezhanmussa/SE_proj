@@ -7,11 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/BuyTicketForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/BuyTicketForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Home.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetTicketRequestObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetTicketServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/model/TicketModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/view/Ticket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front_end/src/components/PassengerPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/PassengerPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/redux/LoginActionCreator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/LoginActionCreator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TicketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TicketController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -53,7 +55,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
@@ -65,8 +67,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TicketController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-114">
-              <caret line="13" column="55" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="55" />
+            <state relative-caret-position="68">
+              <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetTicketServlet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -389,7 +403,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="367000" />
+    <option name="totallyTimeSpent" value="2380000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -468,6 +482,32 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TicketController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetTicketServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
   </component>
   <component name="masterDetails">
     <states>
