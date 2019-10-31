@@ -7,13 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetTicketRequestObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetTicketServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/model/TicketModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/view/Ticket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/PassengerPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/PassengerPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/redux/LoginActionCreator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/LoginActionCreator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TicketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TicketController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/BuyTicketForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/BuyTicketForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/NavigationBar.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -403,7 +398,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2380000" />
+    <option name="totallyTimeSpent" value="2577000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
