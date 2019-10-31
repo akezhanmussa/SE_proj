@@ -102,9 +102,9 @@ class FillTicket extends Component{
         })
             .then(response => {
                 console.log(response)
-                if(response.ok)
+                if(response.ok) {
                     alert("Thanks, your request is submitted");
-                else{
+                }else{
                     var error = new Error("Error " + response.status + ': ' + response.statusText);
                     error.response = response;
                     throw error;
