@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -38,6 +39,9 @@ public class BuyTicketServlet extends HttpServlet {
         TicketController.BuyTicket(scheduleId, passengerId, origin_id, destination_id, price,
                 start_date, end_date, owner_document_type, owner_document_id,owner_firstname,
                 owner_lastname);
+        PrintWriter out = response.getWriter();
+        out.append(new Gson().toJson("Done! Wait for approval"));
+        out.flush();
     }
 
 }
