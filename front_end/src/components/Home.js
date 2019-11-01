@@ -49,7 +49,9 @@ class Home extends Component{
         }else if (this.state.currentState === "Registration") {
             return(<div>
                 <NavigationBar goMyAccount = {this.goMyAccount} goHome = {this.goHome} goRegistration = {this.goRegistration} loginUser = {this.props.loginUser} login = {this.props.login}/>
-                <RegistrationPage submitData={this.props.submitData}></RegistrationPage>
+                <div className='container'>
+                 <RegistrationPage submitData={this.props.submitData}></RegistrationPage>
+                </div>
             </div>)
         }else if (this.state.currentState === "My Account"){
             return(
