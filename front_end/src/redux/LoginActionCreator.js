@@ -2,10 +2,10 @@ import * as ActionType from "./ActionTypes";
 import {loginUrl} from "../shared/BaseUrl";
 import {adminLogoutApproved} from "./AdminLoginActionCreator";
 
-export const loginApprove = (token) => {
+export const loginApprove = (res) => {
     return {
         type: ActionType.LoginApproved,
-        payload: token
+        payload: res
     }
 }
 
@@ -40,13 +40,17 @@ export function login(userData){
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res)
+                if (res.error){
+                    throw(res.error);
+                }
+
                 if (res.token === ''){
-                    dispatch(loginFailure("Not such user exist"));
+                    dispatch(loginFailure("User does not exist"));
                 }else{
                     localStorage.setItem('token', JSON.stringify(res.token));
                     localStorage.setItem('user', JSON.stringify(userData));
-                    dispatch(loginApprove(res.token))
+                    localStorage.setItem('user_id', JSON.stringify(res.userId));
+                    dispatch(loginApprove(res))
                 }
             })
             .catch(err => {

@@ -20,7 +20,6 @@ class BuyTicketForm extends Component{
         };
         return (
             <div>
-                <NavigationBar/>
                 <div className='container mt-3'>
                     <div className='row' style={{height:"80px"}}>
                         <div className='col-4 d-flex justify-content-center align-items-center' style={{borderRight: '2px solid blue', borderBottom:"1px solid blue"}}>
@@ -103,9 +102,9 @@ class FillTicket extends Component{
         })
             .then(response => {
                 console.log(response)
-                if(response.ok)
+                if(response.ok) {
                     alert("Thanks, your request is submitted");
-                else{
+                }else{
                     var error = new Error("Error " + response.status + ': ' + response.statusText);
                     error.response = response;
                     throw error;
