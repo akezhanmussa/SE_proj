@@ -43,8 +43,6 @@ public class RegisterServlet extends HttpServlet {
         String password= passengerObject.getPassword();
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
-        Map<String, String> mp = new HashMap<>();
-
         if (email.matches(regex)){
 
             if (PassengerController.isValidUserName(userName)){
@@ -52,19 +50,18 @@ public class RegisterServlet extends HttpServlet {
                 PassengerController.addPassenger(passenger);
                 String token = JWTUtils.generateToken(passenger);
 
-                mp.put("1", "Successfully registered");
+                response.sendError(200, "Successfully registered");
             }
             else{
-                mp.put("2", "Such username already exists");
+                response.sendError(400, "Such username already exists");
             }
         } else{
-            mp.put("3", "Email doesn't match");
+            response.sendError(400, "Invalid email");
         }
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        out.append(gson.toJson(mp));
         out.flush();
     }
 
