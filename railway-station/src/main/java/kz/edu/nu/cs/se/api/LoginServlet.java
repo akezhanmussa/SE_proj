@@ -1,6 +1,9 @@
 package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
+import kz.edu.nu.cs.se.api.utils.JWTUtils;
+import kz.edu.nu.cs.se.api.utils.LoginObject;
+import kz.edu.nu.cs.se.api.utils.PassengerObject;
 import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.model.Passenger;
 
@@ -11,10 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
-@WebServlet(urlPatterns = { "/myrailway/login" })
+@WebServlet(urlPatterns = { "/myrailway/auth/login" })
 public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -28,31 +29,35 @@ public class LoginServlet extends HttpServlet {
 
         LoginObject loginObject = new Gson().fromJson(request.getReader(), LoginObject.class);
 
-        String userName = loginObject.userName;
-        String password = loginObject.password;
+        String userName = loginObject.getUserName();
+        String password = loginObject.getPassword();
 
+        String token = JWTUtils.generateToken(PassengerController.getPassenger(userName, password));
 
-        String token = PassengerController.login(userName, password);
-        String message;
-        String status;
-        Map<String, String> mp = new HashMap<>();
+        PassengerObject passengerObject = new PassengerObject();
 
-        if(token == ""){
-            message = "Username or password incorrect";
-            status = "1";
+        if(token == null){
+            response.sendError(response.SC_BAD_REQUEST,"Username or password incorrect");
         }
         else{
-            message = "Successfully logged in";
-            status = "0";
+            Passenger passenger = JWTUtils.getPassengerFromToken(token);
+            Long expiresAt = JWTUtils.getExpiresAt(token);
+
+            passengerObject = new PassengerObject(passenger.getFirstName(),
+                    passenger.getLastName(),
+                    passenger.getEmail(),
+                    passenger.getPhoneNumber(),
+                    passenger.getUserName(),
+                    passenger.getPassword(),
+                    passenger.getPassengerId(),
+                    token,
+                    expiresAt);
         }
-        mp.put(status, message);
-        mp.put("token", token);
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-
-        out.append(gson.toJson(mp));
+        out.append(gson.toJson(passengerObject));
         out.flush();
     }
 }

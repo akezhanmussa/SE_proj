@@ -13,15 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import kz.edu.nu.cs.se.api.utils.HomeRequestObject;
 import kz.edu.nu.cs.se.dao.ScheduleController;
 import kz.edu.nu.cs.se.model.ScheduleModel;
 import kz.edu.nu.cs.se.view.Schedule;
 
 
 @WebServlet(urlPatterns = { "/myrailway" })
-public class MyServlet extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 
-    public MyServlet() {
+    public HomeServlet() {
         super();
     }
 
@@ -35,12 +36,12 @@ public class MyServlet extends HttpServlet {
 
         Gson gson = new Gson();
 
-        RequestObject requestObject = new Gson().fromJson(request.getReader(), RequestObject.class);
+        HomeRequestObject requestObject = new Gson().fromJson(request.getReader(), HomeRequestObject.class);
 
-        Integer origin = new Integer(requestObject.origin);
-        Integer destination = new Integer(requestObject.destination);
-        String dateString = requestObject.date;
-        String dayTime = requestObject.daytime;
+        Integer origin = new Integer(requestObject.getOrigin());
+        Integer destination = new Integer(requestObject.getDestination());
+        String dateString = requestObject.getDate();
+        String dayTime = requestObject.getDaytime();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.parse(dateString + " 00:00:00", formatter);
