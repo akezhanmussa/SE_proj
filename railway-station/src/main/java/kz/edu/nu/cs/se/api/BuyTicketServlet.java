@@ -36,8 +36,6 @@ public class BuyTicketServlet extends HttpServlet {
         LocalDateTime startDate = LocalDateTime.parse(start_date, formatter);
         LocalDateTime endDate = LocalDateTime.parse(end_date, formatter);
 
-        System.out.println(scheduleId + " " + passengerId + " " + origin_id + " " + destination_id + " " + owner_document_id + " " + price + " " + start_date + " " + end_date + ' ' + owner_document_type + " " + owner_firstname +" " +owner_lastname);
-
         boolean status = TicketController.BuyTicket(scheduleId, passengerId, origin_id, destination_id, price,
                 start_date, end_date, owner_document_type, owner_document_id,owner_firstname,
                 owner_lastname);

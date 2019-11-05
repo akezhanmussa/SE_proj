@@ -7,28 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/../front_end/src/redux/LoginActionCreator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/LoginActionCreator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/AuthServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/AuthServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/PassengerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/PassengerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/RouteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleController.java" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/NavigationBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/PassengerPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/PassengerPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/RegistrationPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/RegistrationPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/RoutesTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/RoutesTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/redux/ActionToState.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/ActionToState.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/redux/LoginActionCreator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/LoginActionCreator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/railway-station.iml" beforeDir="false" afterPath="$PROJECT_DIR$/railway-station.iml" afterDir="false" />
->>>>>>> 6a9477b75a449ed5ed142e0e28e5483184b21c88
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/BuyTicketServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/BuyTicketServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetTicketServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetTicketServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/MyServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/MyServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/PassengerObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/PassengerObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/RequestObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TicketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TicketController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,61 +43,6 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-<<<<<<< HEAD
-=======
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/BuyTicketServlet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TicketController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetTicketServlet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/2e9e8aa7-9687-4b80-ac3a-65b67b1383da/console.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="23" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
->>>>>>> 6a9477b75a449ed5ed142e0e28e5483184b21c88
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -158,78 +88,6 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
-<<<<<<< HEAD
-=======
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="myrailway" type="b2602c69:ProjectViewProjectNode" />
-              <item name="railway-station" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myrailway" type="b2602c69:ProjectViewProjectNode" />
-              <item name="railway-station" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myrailway" type="b2602c69:ProjectViewProjectNode" />
-              <item name="railway-station" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myrailway" type="b2602c69:ProjectViewProjectNode" />
-              <item name="railway-station" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myrailway" type="b2602c69:ProjectViewProjectNode" />
-              <item name="railway-station" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myrailway" type="b2602c69:ProjectViewProjectNode" />
-              <item name="railway-station" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="se" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myrailway" type="b2602c69:ProjectViewProjectNode" />
-              <item name="railway-station" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="se" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="myrailway" type="b2602c69:ProjectViewProjectNode" />
-              <item name="railway-station" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="se" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
-  </component>
->>>>>>> 6a9477b75a449ed5ed142e0e28e5483184b21c88
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -420,63 +278,10 @@
       <workItem from="1572518328313" duration="4870000" />
       <workItem from="1572529176559" duration="10901000" />
       <workItem from="1572550479613" duration="687000" />
-<<<<<<< HEAD
-      <workItem from="1572967984451" duration="707000" />
-      <workItem from="1572968836428" duration="1277000" />
-    </task>
-    <servers />
-  </component>
-=======
       <workItem from="1572967600625" duration="650000" />
     </task>
     <servers />
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4012000" />
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25340393" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Image Layers" order="3" />
-      <window_info id="Capture Tool" order="4" />
-      <window_info id="UI Designer" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info id="Learn" order="7" />
-      <window_info id="Web" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.4304419" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Application Servers" order="7" weight="0.3289689" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50075644" side_tool="true" weight="0.3289689" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.3289689" />
-      <window_info anchor="bottom" id="Java Enterprise" order="12" />
-      <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info anchor="bottom" id="Version Control" order="14" />
-      <window_info anchor="bottom" id="Database Console" order="15" sideWeight="0.49924356" weight="0.45826513" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" />
-      <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="CDI" order="6" />
-      <window_info anchor="right" id="Database" order="7" visible="true" weight="0.18003026" />
-      <window_info anchor="right" id="Palette&#9;" order="8" />
-      <window_info anchor="right" id="Theme Preview" order="9" />
-      <window_info anchor="right" id="Bean Validation" order="10" />
-    </layout>
-  </component>
->>>>>>> 6a9477b75a449ed5ed142e0e28e5483184b21c88
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
@@ -506,48 +311,6 @@
         </entry>
       </map>
     </option>
-  </component>
-<<<<<<< HEAD
-=======
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/BuyTicketServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TicketController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/2e9e8aa7-9687-4b80-ac3a-65b67b1383da/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="23" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetTicketServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
   </component>
   <component name="masterDetails">
     <states>
@@ -622,7 +385,6 @@
       </state>
     </states>
   </component>
->>>>>>> 6a9477b75a449ed5ed142e0e28e5483184b21c88
   <component name="simpleUML.UMLToolWindowPlugin">
     <General>
       <option name="birdViewUpdateDelay" value="2000" />
