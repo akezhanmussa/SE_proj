@@ -38,15 +38,32 @@ public class LoginServlet extends HttpServlet {
         Map<String, String> mp = new HashMap<>();
 
         if(token == ""){
+
+            response.sendError(response.SC_BAD_REQUEST,"Username or password incorrect");
             message = "Username or password incorrect";
             status = "1";
         }
         else{
             message = "Successfully logged in";
             status = "0";
+
+            Passenger passenger = PassengerController.getPassengerFromToken(token);
+
+            mp.put(status, message);
+            mp.put("token", token);
+            mp.put("userId", "" + PassengerController.passengerId);
+            mp.put("userName:", passenger.getUserName());
+            mp.put("firstName:", passenger.getFirstName());
+            mp.put("lastName:", passenger.getLastName());
+            mp.put("email:", passenger.getEmail());
+            mp.put("phone:", passenger.getPhoneNumber());
+
         }
-        mp.put(status, message);
-        mp.put("token", token);
+
+
+
+
+
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -54,5 +71,7 @@ public class LoginServlet extends HttpServlet {
 
         out.append(gson.toJson(mp));
         out.flush();
+
+
     }
 }
