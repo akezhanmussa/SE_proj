@@ -30,7 +30,7 @@ export const Login = (state = {isLoading: false,
     isAuthenticated: localStorage.getItem('token') ? true : false,
     user: localStorage.getItem('user'),
     token : localStorage.getItem('token'),
-    id: '',
+    id: localStorage.getItem('userId'),
     errorMessage: null}, action) => {
     switch (action.type){
         case ActionTypes.LoginRequest:
@@ -40,7 +40,7 @@ export const Login = (state = {isLoading: false,
         case ActionTypes.LoginApproved:
             return ({...state, isLoading: false, isAuthenticated: true, token: action.payload.token, id: action.payload.userId})
         case ActionTypes.LogoutApproved:
-            return ({...state, isLoading: false, isAuthenticated: false, token: '', user: null});
+            return ({...state, isLoading: false, isAuthenticated: false, token: '', user: null, id: null});
         default:
             return state;
     }

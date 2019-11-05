@@ -33,32 +33,40 @@ export function login(userData){
     console.log(userData)
     return dispatch => {
         dispatch(loginRequest(userData));
-        fetch(loginUrl, {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify(userData)
-        })
-            .then(res => res.json())
-            .then(res => {
-                if (res.error){
-                    throw(res.error);
-                }
-                localStorage.setItem('token', JSON.stringify(res.token));
-                localStorage.setItem('user', JSON.stringify(userData));
-                localStorage.setItem('user_id', JSON.stringify(res.userId));
-                dispatch(loginApprove(res))
-            })
-            .catch(err => {
-                console.log("The log in error was detected!")
-                dispatch(loginFailure(err.message));
-            })
+        // fetch(loginUrl, {
+        //     method: 'POST',
+        //     headers: {'Content-Type':'application/json'},
+        //     body: JSON.stringify(userData)
+        // })
+        //     .then(res => res.json())
+        //     .then(res => {
+        //         if (res.error){
+        //             throw(res.error);
+        //         }
+        //
+        //         if (res.token === ''){
+        //             dispatch(loginFailure("User does not exist"));
+        //         }else{
+        //             localStorage.setItem('token', JSON.stringify(res.token));
+        //             localStorage.setItem('user', JSON.stringify(userData));
+        //             localStorage.setItem('user_id', JSON.stringify(res.userId));
+        //             dispatch(loginApprove(res))
+        //         }
+        //     })
+        //     .catch(err => {
+        //         dispatch(loginFailure(err.message));
+        //     })
+        let token = {token: "adsfadf"};
+        localStorage.setItem('token', JSON.stringify(token));
+        localStorage.setItem('user', JSON.stringify(userData));
+        let res = {token, userId: 1};
+        dispatch(loginApprove(res))
     }
 }
 
 export const logout = () => (dispatch) =>{
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    localStorage.removeItem('user_id');
     dispatch(logoutApproved());
 };
 
