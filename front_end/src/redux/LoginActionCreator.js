@@ -40,19 +40,12 @@ export function login(userData){
         })
             .then(res => res.json())
             .then(res => {
-                if (res.error){
-                    throw(res.error);
-                }
+                console.log(res)
+                localStorage.setItem('token', JSON.stringify(res.token));
+                localStorage.setItem('user', JSON.stringify(userData));
+                localStorage.setItem('user_id', JSON.stringify(res.userId));
+                dispatch(loginApprove(res))
 
-                if (res.token === ''){
-                    dispatch(loginFailure("User does not exist"));
-                }else{
-                    localStorage.setItem('token', JSON.stringify(res.token));
-                    localStorage.setItem('user', JSON.stringify(userData));
-                    localStorage.setItem('user_id', JSON.stringify(res.userId));
-                    let res = {token: res.token, userId: res.userId};
-                    dispatch(loginApprove(res))
-                }
             })
             .catch(err => {
                 dispatch(loginFailure(err.message));

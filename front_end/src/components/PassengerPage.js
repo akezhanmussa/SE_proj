@@ -58,10 +58,10 @@ class PassengerPage extends Component{
     render() {
         return(
             <div>
-                {this.state.passengerTickets.length > 0 ?
-                <RenderTickets passengerTickets={this.state.passengerTickets}/>
-                : <div></div>}
-                <Button className='btn-secondary' onClick = {() => this.finishSession()}>Logout</Button>
+                {/*{this.state.passengerTickets.length > 0 ?*/}
+                {/*<RenderTickets passengerTickets={this.state.passengerTickets}/>*/}
+                {/*: <div></div>}*/}
+                {/*<Button className='btn-secondary' onClick = {() => this.finishSession()}>Logout</Button>*/}
             </div>
         );
     }

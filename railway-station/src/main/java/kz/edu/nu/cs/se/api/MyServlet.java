@@ -31,16 +31,12 @@ public class MyServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
+        ScheduleRequestObject scheduleRequestObject = new Gson().fromJson(request.getReader(), ScheduleRequestObject.class);
 
-        Gson gson = new Gson();
-
-        RequestObject requestObject = new Gson().fromJson(request.getReader(), RequestObject.class);
-
-        Integer origin = new Integer(requestObject.origin);
-        Integer destination = new Integer(requestObject.destination);
-        String dateString = requestObject.date;
-        String dayTime = requestObject.daytime;
+        Integer origin = new Integer(scheduleRequestObject.origin);
+        Integer destination = new Integer(scheduleRequestObject.destination);
+        String dateString = scheduleRequestObject.date;
+        String dayTime = scheduleRequestObject.daytime;
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.parse(dateString + " 00:00:00", formatter);
@@ -55,13 +51,10 @@ public class MyServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        out.append(gson.toJson(schedules));
+        PrintWriter out = response.getWriter();
+        out.append(new Gson().toJson(schedules));
         out.flush();
     }
 }
-
-
-
-
 
 

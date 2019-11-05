@@ -7,7 +7,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
 import kz.edu.nu.cs.se.model.Passenger;
 import kz.edu.nu.cs.se.model.Ticket;
 
@@ -36,6 +35,8 @@ import java.util.Date;
 
 
 public class PassengerController {
+
+    public static int passengerId;
 
     public static boolean isValidUserName(String userName){
 
@@ -92,12 +93,13 @@ public class PassengerController {
             ResultSet passengerSet = passengerStatement.executeQuery(String.format("SELECT * FROM Passenger where username = '%s' and password = '%s'", username, pass));
             System.out.println(username);
             while(passengerSet.next()){
-                String firstName = passengerSet.getString(1);
-                String lastName= passengerSet.getString(2);
-                String email= passengerSet.getString(3);
-                String phoneNumber= passengerSet.getString(4);
-                String userName= passengerSet.getString(5);
-                String password= passengerSet.getString(6);
+                passengerId = passengerSet.getInt(1);
+                String firstName = passengerSet.getString(2);
+                String lastName= passengerSet.getString(3);
+                String email= passengerSet.getString(4);
+                String phoneNumber= passengerSet.getString(5);
+                String userName= passengerSet.getString(6);
+                String password= passengerSet.getString(7);
 
                 Passenger passenger = new Passenger(firstName,lastName,email,phoneNumber,userName,password);
                 return generateToken(passenger);
