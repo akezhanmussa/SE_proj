@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.PassengerObject;
 import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.model.Passenger;
@@ -49,7 +50,7 @@ public class RegisterServlet extends HttpServlet {
             if (PassengerController.isValidUserName(userName)){
                 Passenger passenger = new Passenger(firstName,lastName,email,phoneNumber,userName,password, -1);
                 PassengerController.addPassenger(passenger);
-                String token = PassengerController.generateToken(passenger);
+                String token = JWTUtils.generateToken(passenger);
 
                 mp.put("1", "Successfully registered");
             }
