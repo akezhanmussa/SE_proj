@@ -67,7 +67,7 @@ class BuyTicketForm extends Component{
                         <h4>Fill the passenger's personal information</h4>
                     </div>
                     <div className='mt-3 row' style={{backgroundColor:"#f3f4f5", border:"1px solid #c2c4c3"}}>
-                        <FillTicket route={this.props.route}/>
+                        <FillTicket route={this.props.route} loginUser={this.props.loginUser}/>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@ class FillTicket extends Component{
         event.preventDefault();
         let body = {
             scheduleId: this.props.route.id,
-            passengerId: 1,
+            passengerId: this.props.loginUser.id,
             origin_id: locations.filter(loc => this.props.route.origin === loc.name)[0].id,
             destination_id: locations.filter(loc => this.props.route.destination === loc.name)[0].id,
             owner_document_id: this.docId.value,

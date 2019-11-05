@@ -62,7 +62,7 @@ class ScheduleTable extends Component{
         var message = "Are you sure?\nThis will cost you some money";
         if (window.confirm(message))
             console.log("This " + id + " will be send to agent");
-    }
+    };
 
     render() {
         const rows = []
@@ -179,10 +179,10 @@ const RenderTrainRoutes = (props)=>{
                     {route.origin}
                 </td>
                 <td>
-                    {i === 0 ? "" : props.routes[i-1].endDate}
+                    {i === 0 ? "" : props.routes[i-1].endTime}
                 </td>
                 <td>
-                    {route.startDate}
+                    {route.startTime}
                 </td>
             </tr>
         iter.push(newRow);
@@ -196,7 +196,7 @@ const RenderTrainRoutes = (props)=>{
                 {props.routes[len-1].destination}
             </td>
             <td>
-                {props.routes[len-1].endDate}
+                {props.routes[len-1].endTime}
             </td>
             <td>
             </td>

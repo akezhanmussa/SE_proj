@@ -28,9 +28,9 @@ export const RegistrationApprove = (state = {isLoading: false, approveInfo: null
 
 export const Login = (state = {isLoading: false,
     isAuthenticated: localStorage.getItem('token') ? true : false,
-    user: localStorage.getItem('user'),
-    token : localStorage.getItem('token'),
-    id: localStorage.getItem('userId'),
+    user: JSON.parse(localStorage.getItem('user')),
+    token : JSON.parse(localStorage.getItem('token')),
+    id: JSON.parse(localStorage.getItem('userId')),
     errorMessage: null}, action) => {
     switch (action.type){
         case ActionTypes.LoginRequest:
@@ -48,8 +48,8 @@ export const Login = (state = {isLoading: false,
 
 export const AdminLogin = (state = {isLoading: false,
     isAuthenticated: localStorage.getItem('admin_token') ? true : false,
-    user: localStorage.getItem('admin'),
-    token : localStorage.getItem('admin_token'),
+    user: JSON.parse(localStorage.getItem('admin')),
+    token : JSON.parse(localStorage.getItem('admin_token')),
     errorMessage: null}, action) => {
     switch (action.type){
         case ActionTypes.AdminLoginRequest:

@@ -40,9 +40,7 @@ class Main extends Component{
                     </div>
                 );
             return (
-                <BuyTicketForm
-                    route={route[0]}
-                />
+                <BuyTicketForm route={route[0]} loginUser={this.props.loginUser}/>
             );
         };
 
@@ -55,11 +53,12 @@ class Main extends Component{
         };
         return (
             <div>
-                <NavigationBar loginUser={this.props.loginUser} login={this.props.login}/>
+                <NavigationBar loginState={this.props.loginUser} login={this.props.login}/>
+                {console.log(this.props.loginUser)}
                 <Switch>
                     <Route path='/home' component={() => <Home  logout = {this.props.logout} submitData={this.props.submitRegistrationForm} loginUser = {this.props.loginUser} login = {this.props.login} fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
                     <Route path='/buy_ticket/:routeId' component={BuyTicket}/>
-                    <Route path='/registration' component={RegistrationPage}/>
+                    <Route path='/registration' component={() => <RegistrationPage submitData={this.props.submitRegistrationForm}/>}/>
                     <Route path='/my_account' component={() => <PassengerPage loginUser={this.props.loginUser} logout={this.props.logout}/>}/>
                     <PrivateAdminRoute exact path='/admin' component={Admin}/>
                     <Route path='/admin/login' component={() => <AdminLogin admin={this.props.admin}/> }/>
