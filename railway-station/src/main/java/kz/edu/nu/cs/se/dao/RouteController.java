@@ -93,7 +93,7 @@ public class RouteController {
             routeIDs.forEach(System.out::println);
             int index = 0;
             while (index < routeIDs.size() && !start_station_ids.get(index).equals(origin_id)) index++;
-          //  if (index < routeIDs.size()) rangeIDs.add(routeIDs.get(index));
+            //  if (index < routeIDs.size()) rangeIDs.add(routeIDs.get(index));
             while (index < routeIDs.size() && !end_station_ids.get(index).equals(destination_id)) {
                 rangeIDs.add(routeIDs.get(index));
                 index++;

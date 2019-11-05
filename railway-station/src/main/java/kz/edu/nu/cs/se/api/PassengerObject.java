@@ -1,7 +1,7 @@
 package kz.edu.nu.cs.se.api;
 
 public class PassengerObject {
-    int passengerId;
+    Integer passengerId;
     String firstName;
     String lastName;
     String email;

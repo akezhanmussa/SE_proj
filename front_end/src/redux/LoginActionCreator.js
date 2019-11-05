@@ -1,9 +1,11 @@
 import * as ActionType from "./ActionTypes";
+import {loginUrl} from "../shared/BaseUrl";
+import {adminLogoutApproved} from "./AdminLoginActionCreator";
 
-export const loginApprove = (token) => {
+export const loginApprove = (res) => {
     return {
         type: ActionType.LoginApproved,
-        payload: token
+        payload: res
     }
 }
 
@@ -21,25 +23,39 @@ export const loginRequest = (user) => {
     }
 }
 
+export const logoutApproved = () => {
+    return {
+        type: ActionType.LogoutApproved
+    }
+};
+
 export function login(userData){
+    console.log(userData)
     return dispatch => {
         dispatch(loginRequest(userData));
-        fetch(baseUrl, {
+        fetch(loginUrl, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(userData)
         })
             .then(res => res.json())
             .then(res => {
-                if (res.error){
-                    throw(res.error);
-                }
+                console.log(res)
                 localStorage.setItem('token', JSON.stringify(res.token));
                 localStorage.setItem('user', JSON.stringify(userData));
-                dispatch(loginApprove(res.token))
+                localStorage.setItem('user_id', JSON.stringify(res.userId));
+                dispatch(loginApprove(res))
+
             })
             .catch(err => {
                 dispatch(loginFailure(err.message));
             })
     }
 }
+
+export const logout = () => (dispatch) =>{
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    dispatch(logoutApproved());
+};
+

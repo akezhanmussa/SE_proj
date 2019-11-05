@@ -22,4 +22,8 @@ public class GetAgentTicketServlet extends HttpServlet {
         out.append(new Gson().toJson(agentTickets));
         out.flush();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6c21e8b30db6b8b34267b9259310e43a6266864e
