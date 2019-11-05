@@ -26,47 +26,47 @@ class LoginModalForm extends Component {
     }
 
     render() {
-
         return (
             <div>
                 <button className='btn btn-light' onClick={this.toggleModal}>Login</button>
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                    <ModalHeader toggle={this.toggleModal}>
-                        Login
-                    </ModalHeader>
-                    <ModalBody>
-                        <Form.Group controlId="formBasicUserName">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control type="text"
-                                          placeholder="Enter userName"
-                                          name = "userName"
-                                          value = {this.state.userName}
-                                          onChange = {this.handleAttribute}
-                            />
-                            <Form.Text className="text-muted">
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password"
-                                          placeholder="Password"
-                                          name = "password"
-                                          value = {this.state.password}
-                                          onChange = {this.handleAttribute}
-                            />
-                        </Form.Group>
-                        <Button className = 'btn-secondary' variant="primary" type="submit" onClick={() => this.props.login({"userName":this.state.userName, "password":this.state.password})}>
-                            Submit
-                        </Button>
-                        {this.props.loginState.isLoading ? (<Loading/>) : (<div/>)}
-                    </ModalBody>
+                    {this.props.loginState.isLoading ? (<Loading/>) : (
+                        <div>
+                                <ModalHeader toggle={this.toggleModal}>
+                                    Login
+                                </ModalHeader>
+                            <ModalBody>
+                                <Form.Group controlId="formBasicUserName">
+                                    <Form.Label>Username</Form.Label>
+                                    <Form.Control type="text"
+                                                  placeholder="Enter userName"
+                                                  name = "userName"
+                                                  value = {this.state.userName}
+                                                  onChange = {this.handleAttribute}
+                                    />
+                                    <Form.Text className="text-muted">
+                                    </Form.Text>
+                                </Form.Group>
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password"
+                                                  placeholder="Password"
+                                                  name = "password"
+                                                  value = {this.state.password}
+                                                  onChange = {this.handleAttribute}
+                                    />
+                                </Form.Group>
+                                <Button className = 'btn-secondary' variant="primary" type="submit" onClick={() => this.props.login({"userName":this.state.userName, "password":this.state.password})}>
+                                    Submit
+                                </Button>
+                            </ModalBody>
+                        </div>
+                    )}
                 </Modal>
-
             </div>
         )
     }
 }
-
 
 export default class NavigationBar extends Component{
 
