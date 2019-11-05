@@ -38,19 +38,14 @@ class PassengerPage extends Component{
 
 
     componentDidMount() {
-        console.log("Bfore " )
-        let y = localStorage.getItem("user_id")
-        y = y.substr(1,y.length-2);
-        let x = parseInt(y,10)
-        console.log(x+ " fdfdfdfdfd")
-        getPassengerData(x)
+        console.log(this.props.loginUser.id)
+        getPassengerData(this.props.loginUser.id)
             .then(response => this.setState({passengerTickets: response}))
             .catch(err => console.log("err"));
     }
 
     finishSession = () => {
         this.props.logout();
-        this.props.goHome();
     };
 
 
