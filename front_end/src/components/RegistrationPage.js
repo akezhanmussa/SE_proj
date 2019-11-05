@@ -1,9 +1,6 @@
-import {submitRegistrationForm} from "../redux/RegistrationApproveActionCreators";
 import {Form, Col,InputGroup, Button} from "react-bootstrap"
 import {Input} from "reactstrap";
 import React, {Component} from 'react';
-import NavigationBar from "./NavigationBar";
-import { useState } from 'react';
 
 
 
@@ -28,7 +25,7 @@ class RegistrationForm extends Component {
     }
 
     handleSubmit = () => {
-        this.state.hiddenMessage = ""
+        this.setState({hiddenMessage:""});
         if (this.state.userName === ''){
             this.setState({hiddenMessage: "Username has to be filled"})
         } else if (this.state.confirm_password !== this.state.password || this.state.password === ''){
@@ -45,9 +42,6 @@ class RegistrationForm extends Component {
             })
         }
 
-        // this.setState({
-        //     displayErrors: false
-        // });
 
     }
 
@@ -166,10 +160,6 @@ class RegistrationForm extends Component {
 }
 
 export default class RegistrationPage extends Component{
-
-    constructor(props){
-        super(props)
-    }
 
     render() {
         return (

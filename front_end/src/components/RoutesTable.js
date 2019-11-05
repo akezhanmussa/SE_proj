@@ -48,7 +48,6 @@ class RoutesTable extends Component{
         for(let i = 0; i < locations.length; i++){
             opts.push({value: locations[i].id, label: locations[i].name});
         }
-        console.log(opts);
         return(
             <div>
                 <div className='row justify-content-around'>
