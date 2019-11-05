@@ -24,7 +24,7 @@ import kz.edu.nu.cs.se.model.ScheduleModel;
 import kz.edu.nu.cs.se.view.Schedule;
 
 
-@WebServlet(urlPatterns = { "/myrailway/auth" })
+@WebServlet(urlPatterns = { "/myrailway/register" })
 public class AuthServlet extends HttpServlet {
 
 
@@ -60,6 +60,7 @@ public class AuthServlet extends HttpServlet {
             if (PassengerController.isValidUserName(userName)){
                 Passenger passenger = new Passenger(firstName,lastName,email,phoneNumber,userName,password);
 
+                PassengerController.addPassenger(passenger);
                 String token = PassengerController.generateToken(passenger);
                 System.out.println("Token is " + token);
                 System.out.println(PassengerController.getPassengerFromToken(token));
