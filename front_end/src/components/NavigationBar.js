@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Navbar, Nav, Form, Button, NavItem} from 'react-bootstrap';
 import {Modal, ModalBody, ModalHeader} from "reactstrap";
 import {NavLink} from "react-router-dom"
+import {Loading} from "./Loading";
 
 class LoginModalForm extends Component {
     constructor(props){
@@ -57,7 +58,7 @@ class LoginModalForm extends Component {
                         <Button className = 'btn-secondary' variant="primary" type="submit" onClick={() => this.props.login({"userName":this.state.userName, "password":this.state.password})}>
                             Submit
                         </Button>
-                        {}
+                        {this.props.loginState.isLoading ? (<Loading/>) : (<div/>)}
                     </ModalBody>
                 </Modal>
 
@@ -97,7 +98,7 @@ export default class NavigationBar extends Component{
                         <Nav className = "ml-auto">
                             {this.props.loginUser.isAuthenticated
                                 ? <NavLink className='nav-link' to='/my_account'>My account</NavLink>
-                                :<LoginModalForm login={this.props.login}/>
+                                :<LoginModalForm login={this.props.login} loginState = {this.props.loginState}/>
                             }
                         </Nav>
                     </Navbar.Collapse>
