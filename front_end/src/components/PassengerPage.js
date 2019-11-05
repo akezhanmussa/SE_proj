@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {baseUrl} from "../shared/BaseUrl";
 import {Button} from "react-bootstrap";
+import { withRouter } from 'react-router-dom';
 
 const getPassengerData = (passenger) => {
     let body = {idPassenger: passenger};
@@ -40,12 +41,17 @@ class PassengerPage extends Component{
     componentDidMount() {
         console.log(this.props.loginUser.id)
         getPassengerData(this.props.loginUser.id)
-            .then(response => this.setState({passengerTickets: response}))
+            .then(response => {
+                if (response.error)
+                    throw response.error;
+                this.setState({passengerTickets: response})
+            })
             .catch(err => console.log("err"));
     }
 
     finishSession = () => {
         this.props.logout();
+        this.props.history.push('/home');
     };
 
 
@@ -107,4 +113,4 @@ const RenderTickets = (props) => {
     );
 };
 
-export default PassengerPage;
+export default withRouter(PassengerPage);

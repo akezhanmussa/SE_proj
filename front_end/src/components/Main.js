@@ -55,9 +55,7 @@ class Main extends Component{
         };
         return (
             <div>
-                {console.log(this.props.loginUser)}
                 <NavigationBar loginUser={this.props.loginUser} login={this.props.login}/>
-                <Button className='btn-secondary' onClick = {() => this.props.logout()}>Logout</Button>
                 <Switch>
                     <Route path='/home' component={() => <Home  logout = {this.props.logout} submitData={this.props.submitRegistrationForm} loginUser = {this.props.loginUser} login = {this.props.login} fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
                     <Route path='/buy_ticket/:routeId' component={BuyTicket}/>
