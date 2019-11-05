@@ -2,10 +2,10 @@ import * as ActionType from "./ActionTypes";
 import {loginUrl} from "../shared/BaseUrl";
 import {adminLogoutApproved} from "./AdminLoginActionCreator";
 
-export const loginApprove = (token) => {
+export const loginApprove = (res) => {
     return {
         type: ActionType.LoginApproved,
-        payload: token
+        payload: res
     }
 }
 
@@ -33,27 +33,29 @@ export function login(userData){
     console.log(userData)
     return dispatch => {
         dispatch(loginRequest(userData));
-        let token = 1;
-        localStorage.setItem('token', JSON.stringify(token));
-        localStorage.setItem('user', JSON.stringify(userData));
-        dispatch(loginApprove(token))
-        // fetch(loginUrl, {
-        //     method: 'POST',
-        //     headers: {'Content-Type':'application/json'},
-        //     body: JSON.stringify(userData)
-        // })
-        //     .then(res => res.json())
-        //     .then(res => {
-        //         if (res.error){
-        //             throw(res.error);
-        //         }
-        //         localStorage.setItem('token', JSON.stringify(res.token));
-        //         localStorage.setItem('user', JSON.stringify(userData));
-        //         dispatch(loginApprove(res.token))
-        //     })
-        //     .catch(err => {
-        //         dispatch(loginFailure(err.message));
-        //     })
+        fetch(loginUrl, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(userData)
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.error){
+                    throw(res.error);
+                }
+
+                if (res.token === ''){
+                    dispatch(loginFailure("User does not exist"));
+                }else{
+                    localStorage.setItem('token', JSON.stringify(res.token));
+                    localStorage.setItem('user', JSON.stringify(userData));
+                    localStorage.setItem('user_id', JSON.stringify(res.userId));
+                    dispatch(loginApprove(res))
+                }
+            })
+            .catch(err => {
+                dispatch(loginFailure(err.message));
+            })
     }
 }
 

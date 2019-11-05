@@ -110,7 +110,7 @@ class RegistrationForm extends Component {
                                 <Form.Control
                                     type="text"
                                     placeholder="Phone Number"
-                                    name = "phoneNumber"
+                                    name = "phone_number"
                                     value = {this.state.phone_number}
                                     onChange = {this.handleAttribute}
                                 />

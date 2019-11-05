@@ -3,8 +3,8 @@ import {baseUrl} from "../shared/BaseUrl";
 import {Button} from "react-bootstrap";
 
 const getPassengerData = (passenger) => {
-    console.log(passenger)
-    let body = {idPassenger: passenger.token};
+    let body = {idPassenger: passenger};
+    console.log(body)
     return fetch(baseUrl + '/gettickets', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
@@ -30,15 +30,20 @@ const getPassengerData = (passenger) => {
 class PassengerPage extends Component{
 
     constructor(props) {
-        super(props);
-        this.state = {
-            passengerTickets: []
-        }
+            super(props);
+            this.state = {
+                passengerTickets: []
+            }
     }
 
 
     componentDidMount() {
-        getPassengerData(this.props.passenger)
+        console.log("Bfore " )
+        let y = localStorage.getItem("user_id")
+        y = y.substr(1,y.length-2);
+        let x = parseInt(y,10)
+        console.log(x+ " fdfdfdfdfd")
+        getPassengerData(x)
             .then(response => this.setState({passengerTickets: response}))
             .catch(err => console.log("err"));
     }

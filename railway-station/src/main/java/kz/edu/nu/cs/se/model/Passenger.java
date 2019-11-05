@@ -1,5 +1,11 @@
 package kz.edu.nu.cs.se.model;
 
+import kz.edu.nu.cs.se.dao.Connector;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Passenger {
 
     private String firstName;
@@ -8,6 +14,7 @@ public class Passenger {
     private String phoneNumber;
     private String userName;
     private String password;
+    private int passengerId;
 
     @Override
     public String toString() {
@@ -28,6 +35,17 @@ public class Passenger {
         this.setPhoneNumber(phoneNumber);
         this.setUserName(userName);
         this.setPassword(password);
+
+
+
+    }
+
+    public void setPassengerId(int passengerId) {
+        this.passengerId = passengerId;
+    }
+
+    public int getPassengerId(){
+        return passengerId;
     }
 
 

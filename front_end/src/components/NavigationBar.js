@@ -9,7 +9,7 @@ class LoginModalForm extends Component {
         this.state = {
             isModalOpen: false,
             email:'',
-            username:'',
+            userName:'',
             password:''
         };
         this.toggleModal = this.toggleModal.bind(this);
@@ -25,8 +25,7 @@ class LoginModalForm extends Component {
     }
 
     render() {
-        console.log("Inside the logal modal")
-        console.log(typeof this.props.login + " ")
+
         return (
             <div>
                 <button className='btn btn-light' onClick={this.toggleModal}>Login</button>
@@ -38,9 +37,9 @@ class LoginModalForm extends Component {
                         <Form.Group controlId="formBasicUserName">
                             <Form.Label>Username</Form.Label>
                             <Form.Control type="text"
-                                          placeholder="Enter username"
-                                          name = "username"
-                                          value = {this.state.username}
+                                          placeholder="Enter userName"
+                                          name = "userName"
+                                          value = {this.state.userName}
                                           onChange = {this.handleAttribute}
                             />
                             <Form.Text className="text-muted">
@@ -56,7 +55,7 @@ class LoginModalForm extends Component {
                                           onChange = {this.handleAttribute}
                             />
                         </Form.Group>
-                        <Button className = 'btn-secondary' variant="primary" type="submit" onClick={() => this.props.login({"username":this.state.username, "password":this.state.password})}>
+                        <Button className = 'btn-secondary' variant="primary" type="submit" onClick={() => this.props.login({"userName":this.state.userName, "password":this.state.password})}>
                             Submit
                         </Button>
                     </ModalBody>
