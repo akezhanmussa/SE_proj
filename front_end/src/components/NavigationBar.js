@@ -45,7 +45,6 @@ class LoginModalForm extends Component {
                             <Form.Text className="text-muted">
                             </Form.Text>
                         </Form.Group>
-    
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password"
@@ -58,8 +57,10 @@ class LoginModalForm extends Component {
                         <Button className = 'btn-secondary' variant="primary" type="submit" onClick={() => this.props.login({"userName":this.state.userName, "password":this.state.password})}>
                             Submit
                         </Button>
+                        {}
                     </ModalBody>
                 </Modal>
+
             </div>
         )
     }
