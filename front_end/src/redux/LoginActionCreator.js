@@ -43,17 +43,13 @@ export function login(userData){
                 if (res.error){
                     throw(res.error);
                 }
-
-                if (res.token === ''){
-                    dispatch(loginFailure("User does not exist"));
-                }else{
-                    localStorage.setItem('token', JSON.stringify(res.token));
-                    localStorage.setItem('user', JSON.stringify(userData));
-                    localStorage.setItem('user_id', JSON.stringify(res.userId));
-                    dispatch(loginApprove(res))
-                }
+                localStorage.setItem('token', JSON.stringify(res.token));
+                localStorage.setItem('user', JSON.stringify(userData));
+                localStorage.setItem('user_id', JSON.stringify(res.userId));
+                dispatch(loginApprove(res))
             })
             .catch(err => {
+                console.log("The log in error was detected!")
                 dispatch(loginFailure(err.message));
             })
     }
@@ -62,6 +58,7 @@ export function login(userData){
 export const logout = () => (dispatch) =>{
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('user_id');
     dispatch(logoutApproved());
 };
 
