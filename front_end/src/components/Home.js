@@ -1,45 +1,29 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import Map from './Map';
-import ScheduleTable from './ScheduleTable';
 import RoutesTable from './RoutesTable';
-import { Schedule } from '../shared/Schedule'
-import {fetchSchedule} from '../redux/ScheduleActionCreators'
-
-
-
-const mapDispatchToProps = (dispatch) => ({
-    fetchSchedule: (path) => dispatch(fetchSchedule(path))
-});
-
-const mapStateToProps = (state) => ({
-    schedule: state.schedule
-});
-
-
-
+import { Schedule } from '../shared/Schedule';
+import MapComponent from './MapComponent';
 class Home extends Component{
 
     constructor(props){
-        super(props)
+        super(props);
         this.schedule = Schedule;
+        this.state = {
+            currentState:"Home"
+        };
     }
 
     render() {
         return(
-        <div className='container'>
-            <div className='row justify-content-center'>
-                <Map></Map>
+            <div>
+                <div className='container'>
+                    <div className='row justify-content-around'>
+                        <MapComponent schedule = {this.props.schedule}></MapComponent>
+                    </div>
+                    <RoutesTable fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>
+                </div>
             </div>
-            <div className='row justify-content-around'>
-                <RoutesTable fetchSchedule={this.props.fetchSchedule}/>
-            </div>
-            <div className='row justify-content-center'>
-                <ScheduleTable schedule={this.props.schedule}/>
-            </div>
-        </div>
         );
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;

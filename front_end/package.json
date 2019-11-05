@@ -17,8 +17,10 @@
     "react-datepicker": "^2.9.6",
     "react-dom": "^16.10.2",
     "react-redux": "^7.1.1",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "react-select": "^3.0.8",
+    "reactstrap": "^8.1.1",
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"
