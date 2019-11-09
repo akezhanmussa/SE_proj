@@ -43,6 +43,7 @@ public class LoginServlet extends HttpServlet {
             Passenger passenger = JWTUtils.getPassengerFromToken(token);
             Long expiresAt = JWTUtils.getExpiresAt(token);
 
+
             passengerObject = new PassengerObject(passenger.getFirstName(),
                     passenger.getLastName(),
                     passenger.getEmail(),
