@@ -37,7 +37,6 @@ public class LoginServlet extends HttpServlet {
 
         String token = JWTUtils.generateToken(PassengerController.getPassenger(userName, password));
 
-
         if(token == null){
             response.sendError(response.SC_BAD_REQUEST,"Username or password incorrect");
         }
