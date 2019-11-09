@@ -13,7 +13,7 @@ public class JWTUtils {
     public static String generateToken(Passenger passenger) {
         Date date = new Date();
         Date date2 = new Date();
-        date2.setMinutes(date.getMinutes() + 60);
+        date2.setSeconds(date.getSeconds() + 60);
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             String token = JWT.create()
