@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 6c21e8b30db6b8b34267b9259310e43a6266864e
 package kz.edu.nu.cs.se.dao;
 
 import kz.edu.nu.cs.se.model.TicketModel;
@@ -28,8 +24,4 @@ public class AgentController {
         }
         return result;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 6c21e8b30db6b8b34267b9259310e43a6266864e
