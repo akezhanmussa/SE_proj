@@ -53,4 +53,14 @@ public class JWTUtils {
         Long expiresAt = jwt.getClaim("exp").asLong();
         return expiresAt;
     }
+
+    public static Boolean isExpired(String token){
+        Date dateToken = new Date(getExpiresAt(token) * 1000);
+        Date dateCurrent = new Date();
+
+        System.out.println("Current date " + dateCurrent);
+        System.out.println("Expire date " + dateToken);
+
+        return dateCurrent.compareTo(dateToken) >= 0;
+    }
 }
