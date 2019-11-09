@@ -10,8 +10,11 @@ import {submitRegistrationForm} from "../redux/RegistrationApproveActionCreators
 import {login,logout} from "../redux/LoginActionCreator";
 import Admin from './Admin';
 import AdminLogin from './AdminLogin';
-import PassengerPage from "./PassengerPage";
+import PassengerTicketsPage from "./PassengerTicketsPage";
 import {Button} from "react-bootstrap";
+import jwt_decode from 'jwt-decode';
+import PassengerPage from "./PassengerPage";
+
 
 const mapDispatchToProps = (dispatch) => ({
     fetchSchedule: (path) => dispatch(fetchSchedule(path)),
@@ -29,6 +32,23 @@ const mapStateToProps = (state) => ({
 
 
 class Main extends Component{
+
+    componentDidMount() {
+        this.checkExpirationDate();
+    }
+
+    checkExpirationDate(){
+        if(this.props.loginUser.isAuthenticated){
+            const token = this.props.loginUser.token;
+            const jt = jwt_decode(token);
+            const now = new Date().getTime();
+            const timeleft = jt.exp * 1000 - now;
+            if (timeleft < 0) {
+                this.props.logout();
+            }
+        }
+    }
+
     render() {
 
         const BuyTicket = ({match}) => {

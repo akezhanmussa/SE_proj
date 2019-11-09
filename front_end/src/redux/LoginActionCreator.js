@@ -41,11 +41,7 @@ export function login(userData){
             .then(res => res.json())
             .then(res => {
                 console.log("RESPONSE HERE " + res)
-                // console.log(res.token)
-                console.log(res.expiresAt)
                 localStorage.setItem('token', JSON.stringify(res.token));
-                localStorage.setItem('user', JSON.stringify(userData));
-                localStorage.setItem('userId', JSON.stringify(res.userId));
                 dispatch(loginApprove(res))
             })
             .catch(err => {
