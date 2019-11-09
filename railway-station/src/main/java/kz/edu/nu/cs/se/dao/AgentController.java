@@ -24,4 +24,19 @@ public class AgentController {
         }
         return result;
     }
+
+    public static Integer getAgentStationID(Integer agent_id) {
+        Integer result = -1;
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet stationResultSet = statement.executeQuery(String.format(
+                    "SELECT station_id FROM Agent WHERE agentId=%d", agent_id));
+
+            result = stationResultSet.getInt(1);
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return result;
+    }
 }
