@@ -40,7 +40,9 @@ export function login(userData){
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res)
+                console.log("RESPONSE HERE " + res)
+                // console.log(res.token)
+                console.log(res.expiresAt)
                 localStorage.setItem('token', JSON.stringify(res.token));
                 localStorage.setItem('user', JSON.stringify(userData));
                 localStorage.setItem('user_id', JSON.stringify(res.userId));
