@@ -39,7 +39,7 @@ export const Login = (state = {isLoading: false,
         case ActionTypes.LoginFailed:
             return ({...state, isLoading: false, isAuthenticated: false, errorMessage: action.payload});
         case ActionTypes.LoginApproved:
-            return ({...state, isLoading: false, isAuthenticated: true, token: action.payload.token})
+            return ({...state, isLoading: false, isAuthenticated: true, token: action.payload})
         case ActionTypes.LogoutApproved:
             return ({...state, isLoading: false, isAuthenticated: false, token: '', user: null, id: null});
         default:

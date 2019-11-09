@@ -1,18 +1,23 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
-import {baseUrl} from "../shared/BaseUrl";
+import {getInfoUrl} from "../shared/BaseUrl";
 
 const getUserInfo = (token) => {
-    return fetch(baseUrl + '/gettickets', {
+    const toDict = {"token":token}
+    return fetch(getInfoUrl, {
         method: 'POST',
-        headers: {'Authorization': token},
+        headers: {'Content-Type':'application/json'},
+        body:JSON.stringify(toDict)
     })
         .then(res => res.json())
         .then(res => {
-                return res
-            }
-        ).catch(error =>
-        console.log(error)
+                console.log(res.firstName)
+                console.log(res.lastName)
+                return res;
+        }
+        ).catch(error =>{
+            throw error
+        }
     )
 }
 
@@ -30,8 +35,15 @@ class PassengerPage extends Component{
     }
 
     componentDidMount() {
-        const userInfo = getUserInfo(this.props.loginUser.token)
-        this.setState({firstName:userInfo.firstName, lastName: userInfo.lastName, phoneNumber:userInfo.phoneNumber});
+        console.log("I AM IN THE PASSENGER")
+        console.log(this.props.loginUser.token)
+        getUserInfo(this.props.loginUser.token)
+            .then(response => {
+                this.setState({...this.state, firstName:response.firstName, lastName: response.lastName, phoneNumber:response.phoneNumber});
+            }
+        ).catch(error =>
+            console.log(error)
+        )
     }
 
     render(){

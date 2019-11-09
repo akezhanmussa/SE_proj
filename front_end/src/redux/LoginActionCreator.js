@@ -40,8 +40,7 @@ export function login(userData){
         })
             .then(res => res.json())
             .then(res => {
-                console.log("RESPONSE HERE " + res)
-                localStorage.setItem('token', JSON.stringify(res.token));
+                localStorage.setItem('token', JSON.stringify(res));
                 dispatch(loginApprove(res))
             })
             .catch(err => {
