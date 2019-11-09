@@ -45,7 +45,7 @@ export function login(userData){
                 console.log(res.expiresAt)
                 localStorage.setItem('token', JSON.stringify(res.token));
                 localStorage.setItem('user', JSON.stringify(userData));
-                localStorage.setItem('user_id', JSON.stringify(res.userId));
+                localStorage.setItem('userId', JSON.stringify(res.userId));
                 dispatch(loginApprove(res))
             })
             .catch(err => {
@@ -57,6 +57,7 @@ export function login(userData){
 export const logout = () => (dispatch) =>{
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('userId');
     dispatch(logoutApproved());
 };
 
