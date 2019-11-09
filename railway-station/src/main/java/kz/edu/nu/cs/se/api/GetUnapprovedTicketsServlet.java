@@ -6,6 +6,7 @@ import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.view.Ticket;
 import kz.edu.nu.cs.se.model.TicketModel;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+@WebServlet(urlPatterns = {"/myrailway/agent/get-unapproved-tickets"})
 public class GetUnapprovedTicketsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // TODO Fetch agentID from token once it is available.

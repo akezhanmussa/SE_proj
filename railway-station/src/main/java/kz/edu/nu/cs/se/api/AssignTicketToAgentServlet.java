@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/myrailway/agent/assign"})
+@WebServlet(urlPatterns = {"/myrailway/agent/assign-ticket"})
 public class AssignTicketToAgentServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
