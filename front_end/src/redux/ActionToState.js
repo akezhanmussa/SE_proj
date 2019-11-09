@@ -11,7 +11,7 @@ export const Schedule = (state = {isLoading: false, errMess: null, schedule: [],
         default:
             return state;
     }
-}
+};
 
 export const RegistrationApprove = (state = {isLoading: false, approveInfo: null, errorMessage: null}, action) => {
     switch (action.type){
