@@ -19,6 +19,9 @@ import java.io.PrintWriter;
 public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+
+
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -34,31 +37,20 @@ public class LoginServlet extends HttpServlet {
 
         String token = JWTUtils.generateToken(PassengerController.getPassenger(userName, password));
 
-        PassengerObject passengerObject = new PassengerObject();
 
         if(token == null){
             response.sendError(response.SC_BAD_REQUEST,"Username or password incorrect");
         }
         else{
-            Passenger passenger = JWTUtils.getPassengerFromToken(token);
-            Long expiresAt = JWTUtils.getExpiresAt(token);
 
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
 
-            passengerObject = new PassengerObject(passenger.getFirstName(),
-                    passenger.getLastName(),
-                    passenger.getEmail(),
-                    passenger.getPhoneNumber(),
-                    passenger.getUserName(),
-                    passenger.getPassword(),
-                    passenger.getPassengerId(),
-                    token,
-                    expiresAt);
+            out.append(gson.toJson(token));
+            out.flush();
+
         }
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
 
-        out.append(gson.toJson(passengerObject));
-        out.flush();
     }
 }

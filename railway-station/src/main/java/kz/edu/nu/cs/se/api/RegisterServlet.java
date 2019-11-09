@@ -50,7 +50,11 @@ public class RegisterServlet extends HttpServlet {
                 PassengerController.addPassenger(passenger);
                 String token = JWTUtils.generateToken(passenger);
 
-                response.sendError(200, "Successfully registered");
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                out.append(gson.toJson("Successfully registered!"));
+                out.flush();
             }
             else{
                 response.sendError(400, "Such username already exists");
@@ -59,10 +63,7 @@ public class RegisterServlet extends HttpServlet {
             response.sendError(400, "Invalid email");
         }
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
 
-        out.flush();
     }
 
 }
