@@ -45,7 +45,6 @@ export function login(userData){
                 localStorage.setItem('user', JSON.stringify(userData));
                 localStorage.setItem('user_id', JSON.stringify(res.userId));
                 dispatch(loginApprove(res))
-
             })
             .catch(err => {
                 dispatch(loginFailure(err.message));

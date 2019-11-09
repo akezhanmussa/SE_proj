@@ -25,6 +25,8 @@ class LoginModalForm extends Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
+
+
     render() {
         return (
             <div>
