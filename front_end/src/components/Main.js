@@ -58,7 +58,7 @@ class Main extends Component{
                 <Switch>
                     <Route path='/home' component={() => <Home  logout = {this.props.logout} submitData={this.props.submitRegistrationForm} loginUser = {this.props.loginUser} login = {this.props.login} fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
                     <Route path='/buy_ticket/:routeId' component={BuyTicket}/>
-                    <Route path='/registration' component={() => <RegistrationPage submitData={this.props.submitRegistrationForm}/>}/>
+                    <Route path='/registration' component={() => <RegistrationPage submitData = {this.props.submitRegistrationForm} registrationApproveState = {this.props.registrationApproveState}/>}/>
                     <Route path='/my_account' component={() => <PassengerPage loginUser={this.props.loginUser} logout={this.props.logout}/>}/>
                     <PrivateAdminRoute exact path='/admin' component={Admin}/>
                     <Route path='/admin/login' component={() => <AdminLogin admin={this.props.admin}/> }/>
