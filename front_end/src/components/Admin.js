@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import AgentProfile from './AgentProfile';
-import ManagerProfile from './ManagerProfile';
+import ManagerProfile from './Manager/ManagerProfile';
 import { adminLogout } from '../redux/AdminLoginActionCreator';
 import {NavLink, withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -32,9 +32,8 @@ class Admin extends Component{
         return(
             <div id='admin'>
                 <NavBar logoutAdmin={this.props.logoutAdmin}/>
-                <AgentProfile fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>
-                {/*<ManagerProfile/>*/}
-            </div>
+                {/*<AgentProfile/>*/}
+                <ManagerProfile/></div>
         );
     }
 }
