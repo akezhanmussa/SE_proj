@@ -3,6 +3,7 @@ import { Button, Form, Input, Row, Col} from 'reactstrap';
 import { adminLogin} from '../redux/AdminLoginActionCreator'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import {Loading} from "./Loading";
 
 const mapDispatchToProps = (dispatch) => ({
     adminLogin: (credentials) => dispatch(adminLogin(credentials)),
@@ -62,7 +63,11 @@ class AdminLogin extends Component{
                             </div>
                             <Row >
                                 <Col >
-                                    <Button type="submit" value="submit" color="secondary">Login</Button>
+                                    <Button type="submit" value="submit" color="secondary">{
+                                        this.props.admin.isLoading ?
+                                             <Loading/>
+                                        : "Login"
+                                    }</Button>
                                 </Col>
                             </Row>
 
