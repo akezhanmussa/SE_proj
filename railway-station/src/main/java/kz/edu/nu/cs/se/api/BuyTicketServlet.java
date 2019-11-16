@@ -3,6 +3,7 @@ package kz.edu.nu.cs.se.api;
 import com.google.gson.Gson;
 import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.TicketRequestObject;
+import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.model.User;
 
@@ -15,6 +16,7 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static kz.edu.nu.cs.se.api.utils.JWTUtils.getUserFromToken;
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
 
 @WebServlet(urlPatterns = {"/myrailway/buyticket"})
@@ -33,7 +35,7 @@ public class BuyTicketServlet extends HttpServlet {
             response.sendError(401, "Token has expired");
         }
 
-        User passenger = JWTUtils.getUserFromToken(token);
+        User passenger = PassengerController.getPassenger(getUserFromToken(token)).get();
         Integer passengerId = passenger.getUserId();
 
         Integer scheduleId = ticketRequestObject.getScheduleId();

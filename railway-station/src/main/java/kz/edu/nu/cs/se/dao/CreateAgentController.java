@@ -1,11 +1,26 @@
 package kz.edu.nu.cs.se.dao;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CreateAgentController {
 
+    public static Integer getManagerStationError(Integer managerUsername) {
+        Statement statement = Connector.getStatement();
+        Integer stationId = -1;
+        try {
+            ResultSet passengerAgentSet = statement.executeQuery(String.format("SELECT station_id FROM Manager where username = '%s' limit 1", managerUsername));
+            while(passengerAgentSet.next()){
+                stationId = passengerAgentSet.getInt(1);
+            }
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return stationId;
+    }
 
     public static Boolean isValidAgentEmail(String email) {
         Statement statement = Connector.getStatement();

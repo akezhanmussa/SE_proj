@@ -3,6 +3,7 @@ package kz.edu.nu.cs.se.api;
 import com.google.gson.Gson;
 import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.UpdateTicketStatusObject;
+import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.model.User;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static kz.edu.nu.cs.se.api.utils.JWTUtils.getUserFromToken;
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
 
 @WebServlet(urlPatterns = {"/myrailway/ticket/update-status"})
@@ -28,7 +30,7 @@ public class UpdateTicketStatusServlet {
         }
 
         // (TODO)(ginet) that the user is actually an agent
-        User agent = JWTUtils.getUserFromToken(token);
+        User agent = PassengerController.getPassenger(getUserFromToken(token)).get();
         Integer agentID = agent.getUserId();
         Integer ticketID = ticketStatusObject.getTicketID();
 
