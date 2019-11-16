@@ -1,6 +1,7 @@
 package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
+import kz.edu.nu.cs.se.api.utils.AssignTicketToAgentObject;
 import kz.edu.nu.cs.se.dao.AgentController;
 import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.model.TicketModel;
@@ -23,8 +24,8 @@ public class AssignTicketToAgentServlet extends HttpServlet {
         AssignTicketToAgentObject ticketToAgentObject = new Gson().fromJson(request.getReader(),
                 AssignTicketToAgentObject.class);
 
-        Integer agentID = ticketToAgentObject.agentID;
-        Integer ticketID = ticketToAgentObject.ticketID;
+        Integer agentID = ticketToAgentObject.getAgentID();
+        Integer ticketID = ticketToAgentObject.getTicketID();
 
         Boolean result = TicketController.assignTicketToAgent(agentID, ticketID);
 

@@ -1,6 +1,7 @@
 package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
+import kz.edu.nu.cs.se.api.utils.GetAgentTicketObject;
 import kz.edu.nu.cs.se.dao.AgentController;
 import kz.edu.nu.cs.se.model.TicketModel;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class GetAgentTicketServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         GetAgentTicketObject agentTicketObject = new Gson().fromJson(request.getReader(), GetAgentTicketObject.class);
-        Integer agentID = agentTicketObject.agentID;
+        Integer agentID = agentTicketObject.getAgentID();
 
         ArrayList<TicketModel> agentTickets = AgentController.getAgentTickets(agentID);
 
