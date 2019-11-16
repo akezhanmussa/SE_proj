@@ -102,7 +102,7 @@ const RenderUserInfo = (props) => {
                     <div className = 'profile_info profile_info_short'>
                         <div className = 'clear_fix profile_info_row '>
                             <div className = 'label fl_l'>First Name</div>
-                            <div class = 'labeled'>
+                            <div className = 'labeled'>
                                 <a>{props.firstName}</a>
                             </div>
                             <div className = 'clear_fix:after'></div>

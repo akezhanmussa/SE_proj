@@ -35,10 +35,10 @@ public class LoginAdminServlet extends HttpServlet {
         String userName = loginObject.getUserName();
         String password = loginObject.getPassword();
         Optional<User> user = AdminController.getAdmin(userName, password);
-
+        System.out.println(user);
         if(user.isPresent()) token = JWTUtils.generateToken(user.get());
 
-        if(token.isPresent()){
+        if(!token.isPresent()){
             response.sendError(response.SC_BAD_REQUEST,"Username or password incorrect");
         }
 

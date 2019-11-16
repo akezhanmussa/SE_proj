@@ -1,5 +1,5 @@
 import * as ActionType from "./ActionTypes";
-import {baseUrl} from "../shared/BaseUrl";
+import {loginAdminUrl} from "../shared/BaseUrl";
 
 export const adminLoginApprove = (admin_token) => {
     return {
@@ -31,27 +31,26 @@ export const adminLogoutApproved = () => {
 export function adminLogin(adminData){
     return dispatch => {
         dispatch(adminLoginRequest(adminData));
-        // fetch(baseUrl, {
-        //     method: 'POST',
-        //     headers: {'Content-Type':'application/json'},
-        //     body: JSON.stringify(adminData)
-        // })
-        //     .then(res => res.json())
-        //     .then(res => {
-        //         if (res.error){
-        //             throw(res.error);
-        //         }
-        //         localStorage.setItem('admin_token', JSON.stringify(res.token));
-        //         localStorage.setItem('admin', JSON.stringify(adminData));
-        //         dispatch(adminLoginApprove(res.token));
-        //     })
-        //     .catch(err => {
-        //         dispatch(adminLoginFailure(err.message));
-        //     });
-        const token = "fadf";
-        localStorage.setItem('admin_token', JSON.stringify(token));
-        localStorage.setItem('admin', JSON.stringify(adminData));
-        dispatch(adminLoginApprove(token));
+        fetch(loginAdminUrl, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(adminData)
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.error){
+                    throw(res.error);
+                }
+                localStorage.setItem('admin_token', JSON.stringify(res.token));
+                localStorage.setItem('admin', JSON.stringify(adminData));
+                dispatch(adminLoginApprove(res.token));
+            })
+            .catch(err => {
+                dispatch(adminLoginFailure(err.message));
+            });
+        // localStorage.setItem('admin_token', JSON.stringify(token));
+        // localStorage.setItem('admin', JSON.stringify(adminData));
+        // dispatch(adminLoginApprove(token));
     }
 };
 

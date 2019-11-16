@@ -12,7 +12,7 @@ const ButBuy = (props) => {
         );
     }else{
         return (
-            <Link className='btn btn-secondary' to={`home/buy_ticket/${props.id}`}>Buy a ticket</Link>
+            <Link className='btn btn-secondary' to={`/home/buy_ticket/${props.id}`}>Buy a ticket</Link>
         );
     }
 }
