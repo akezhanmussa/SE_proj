@@ -15,12 +15,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
-<<<<<<< HEAD
-=======
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
->>>>>>> 9718b61d353d86e19102f96738323155099bf24e
 @WebServlet(urlPatterns = { "/myrailway/mypage/gettickets" })
 public class GetTicketServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

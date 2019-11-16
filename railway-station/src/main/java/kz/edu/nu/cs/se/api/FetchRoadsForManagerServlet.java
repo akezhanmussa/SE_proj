@@ -25,27 +25,30 @@ import static kz.edu.nu.cs.se.api.utils.JWTUtils.isManager;
 public class FetchRoadsForManagerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
                                                                                             IOException {
-        String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
 
-        if (isExpired(token)){
-            System.out.println("[ERROR] Token has expired");
-            response.sendError(401, "Token has expired");
-        }
-
-        if (!isManager(token)) {
-            System.out.println("[ERROR] Access denied. User is not a manager.");
-            response.sendError(401, "Access denied. User is not a manager.");
-        }
+        System.out.println("I AM CALLED");
+//        String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
+//
+//        if (isExpired(token)){
+//            System.out.println("[ERROR] Token has expired");
+//            response.sendError(401, "Token has expired");
+//        }
+//
+//        if (!isManager(token)) {
+//            System.out.println("[ERROR] Access denied. User is not a manager.");
+//            response.sendError(401, "Access denied. User is not a manager.");
+//        }
 
         ArrayList<ScheduleModel> scheduleModels = ScheduleController.fetchAllSchedules();
-        for (ScheduleModel scheduleModel : scheduleModels) scheduleModel.setStringDates();
-
+        System.out.println("HERE 4");
+        //for (ScheduleModel scheduleModel : scheduleModels) scheduleModel.setStringDates();
+        System.out.println("HERE 3");
         ArrayList<Schedule> schedules = new ArrayList<>();
         for (ScheduleModel scheduleModel : scheduleModels) schedules.add(new Schedule(scheduleModel));
-
+        System.out.println("HERE 2");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
+        System.out.println(schedules.size() + " IN SERVLET");
         PrintWriter out = response.getWriter();
         out.append(new Gson().toJson(schedules));
         out.flush();

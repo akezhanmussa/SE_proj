@@ -131,11 +131,9 @@ public class RouteController {
 
         try {
             Statement statement = Connector.getStatement();
-
             ResultSet routes = statement.executeQuery(
-                    String.format("SELECT start_station_id, end_station_id, start_time, end_time, price FROM Ticket WHERE schedule_id=%d",
+                    String.format("SELECT start_station_id, end_station_id, start_time, end_time, price FROM Route WHERE schedule_id=%d",
                             scheduleID));
-
             while (routes.next()) {
                 Integer originID = routes.getInt(1);
                 Integer destinationID = routes.getInt(2);
@@ -164,7 +162,6 @@ public class RouteController {
                 routeModel.setPrice(price);
 
                 routeModels.add(routeModel);
-
             }
 
         } catch (SQLException exception) {
