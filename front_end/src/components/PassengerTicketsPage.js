@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
-import {baseUrl} from "../shared/BaseUrl";
+import {getTiketsUrl} from "../shared/BaseUrl";
 import {Button} from "react-bootstrap";
 import { withRouter } from 'react-router-dom';
 
-const getPassengerData = (passenger) => {
-    let body = {idPassenger: passenger};
-    console.log(body)
-    return fetch(baseUrl + '/gettickets', {
+const getPassengerData = (token) => {
+    const toDict = {"token":token}
+    return fetch(getTiketsUrl, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(body)
+        body: JSON.stringify(toDict)
     })
         .then(response => {
             if(response.ok){
@@ -39,8 +38,7 @@ class PassengerTicketsPage extends Component{
 
 
     componentDidMount() {
-        console.log(this.props.loginUser.id)
-        getPassengerData(this.props.loginUser.id)
+        getPassengerData(this.props.token)
             .then(response => {
                 if (response.error)
                     throw response.error;
@@ -49,19 +47,12 @@ class PassengerTicketsPage extends Component{
             .catch(err => console.log("err"));
     }
 
-    finishSession = () => {
-        this.props.logout();
-        this.props.history.push('/home');
-    };
-
-
     render() {
         return(
             <div>
                 {this.state.passengerTickets.length > 0 ?
                 <RenderTickets passengerTickets={this.state.passengerTickets}/>
                 : <div></div>}
-                <Button className='btn-secondary' onClick = {() => this.finishSession()}>Logout</Button>
             </div>
         );
     }
@@ -95,6 +86,7 @@ const RenderTickets = (props) => {
         rows.push(newRow)
     }
     return(
+        <div className = 'container'>
         <table className="table">
             <thead className="thead-dark">
             <tr>
@@ -110,6 +102,7 @@ const RenderTickets = (props) => {
                 {rows}
             </tbody>
         </table>
+        </div>
     );
 };
 
