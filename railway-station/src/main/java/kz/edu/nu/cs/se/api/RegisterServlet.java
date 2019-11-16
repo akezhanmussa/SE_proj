@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,9 +46,9 @@ public class RegisterServlet extends HttpServlet {
         if (email.matches(regex)){
 
             if (PassengerController.isValidUserName(userName)){
-                Passenger passenger = new Passenger(firstName,lastName,email,phoneNumber,userName,password, -1);
-                PassengerController.addPassenger(passenger);
-                String token = JWTUtils.generateToken(passenger);
+                Passenger passenger = new Passenger(firstName,lastName,email,phoneNumber,userName, -1);
+                PassengerController.addPassenger(passenger, password);
+//                Optional token = JWTUtils.generateToken(passenger);
 
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
