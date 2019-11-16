@@ -1,27 +1,22 @@
 package kz.edu.nu.cs.se.api;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import com.google.gson.Gson;
+import kz.edu.nu.cs.se.api.utils.PassengerObject;
+import kz.edu.nu.cs.se.dao.PassengerController;
+import kz.edu.nu.cs.se.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
-import kz.edu.nu.cs.se.api.utils.JWTUtils;
-import kz.edu.nu.cs.se.api.utils.PassengerObject;
-import kz.edu.nu.cs.se.dao.PassengerController;
-import kz.edu.nu.cs.se.model.Passenger;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(urlPatterns = { "/myrailway/auth/register" })
-public class RegisterServlet extends HttpServlet {
+public class RegisterPassengerServlet extends HttpServlet {
 
-    public RegisterServlet() {
+    public RegisterPassengerServlet() {
         super();
     }
 
@@ -47,9 +42,9 @@ public class RegisterServlet extends HttpServlet {
         if (email.matches(regex)){
 
             if (PassengerController.isValidUserName(userName)){
-                Passenger passenger = new Passenger(firstName,lastName,email,phoneNumber,userName, -1);
-                PassengerController.addPassenger(passenger, password);
-//                Optional token = JWTUtils.generateToken(passenger);
+                User user = new User(firstName,lastName,email,phoneNumber,userName, -1);
+                user.setUserRole("passenger");
+                PassengerController.addPassenger(user, password);
 
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
