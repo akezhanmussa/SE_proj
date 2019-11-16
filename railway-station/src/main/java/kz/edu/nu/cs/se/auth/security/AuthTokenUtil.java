@@ -3,8 +3,6 @@ package kz.edu.nu.cs.se.auth.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import kz.edu.nu.cs.se.model.Passenger;
 
 import java.util.Date;
 

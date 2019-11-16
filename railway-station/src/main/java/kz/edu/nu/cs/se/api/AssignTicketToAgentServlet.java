@@ -6,8 +6,8 @@ import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.Token;
 import kz.edu.nu.cs.se.dao.AgentController;
 import kz.edu.nu.cs.se.dao.TicketController;
-import kz.edu.nu.cs.se.model.Passenger;
 import kz.edu.nu.cs.se.model.TicketModel;
+import kz.edu.nu.cs.se.model.User;
 import kz.edu.nu.cs.se.view.Ticket;
 
 import javax.servlet.annotation.WebServlet;
@@ -37,9 +37,9 @@ public class AssignTicketToAgentServlet extends HttpServlet {
 
         AssignTicketToAgentObject ticketToAgentObject = new Gson().fromJson(request.getReader(),
                 AssignTicketToAgentObject.class);
-        Passenger agent = JWTUtils.getPassengerFromToken(token);
+        User agent = JWTUtils.getUserFromToken(token);
 
-        Integer agentID = agent.getPassengerId();
+        Integer agentID = agent.getUserId();
         Integer ticketID = ticketToAgentObject.getTicketID();
 
         Boolean result = TicketController.assignTicketToAgent(agentID, ticketID);

@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.LoginObject;
 import kz.edu.nu.cs.se.dao.PassengerController;
-import kz.edu.nu.cs.se.model.Passenger;
+import kz.edu.nu.cs.se.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 import java.util.Optional;
 
 @WebServlet(urlPatterns = { "/myrailway/auth/login" })
-public class LoginServlet extends HttpServlet {
+public class LoginPassengerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -24,7 +24,6 @@ public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
 
         Gson gson = new Gson();
 
@@ -32,24 +31,21 @@ public class LoginServlet extends HttpServlet {
 
         String userName = loginObject.getUserName();
         String password = loginObject.getPassword();
-        Passenger passenger = PassengerController.getPassenger(userName, password).orElseGet(null);
+        Optional<User> user = PassengerController.getPassenger(userName, password);
 
-        Optional<String> token = JWTUtils.generateToken(passenger);
+        Optional<String> token = null;
+        if(user.isPresent()) token = JWTUtils.generateToken(user.get());
 
-        if(token == null){
+        if(token.equals(null)){
             response.sendError(response.SC_BAD_REQUEST,"Username or password incorrect");
         }
 
-        else{
+        PrintWriter out = response.getWriter();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-
-            out.append(gson.toJson(token));
-            out.flush();
-
-        }
-
+        out.append(gson.toJson(token));
+        out.flush();
 
     }
 }

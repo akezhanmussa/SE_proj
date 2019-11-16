@@ -5,7 +5,7 @@ import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.Token;
 import kz.edu.nu.cs.se.dao.AgentController;
 import kz.edu.nu.cs.se.dao.TicketController;
-import kz.edu.nu.cs.se.model.Passenger;
+import kz.edu.nu.cs.se.model.User;
 import kz.edu.nu.cs.se.view.Ticket;
 import kz.edu.nu.cs.se.model.TicketModel;
 
@@ -32,8 +32,8 @@ public class GetUnapprovedTicketsServlet extends HttpServlet {
             response.sendError(401, "Token has expired");
         }
 
-        Passenger agent = JWTUtils.getPassengerFromToken(token);
-        Integer agentID = agent.getPassengerId();
+        User agent = JWTUtils.getUserFromToken(token);
+        Integer agentID = agent.getUserId();
 
         Integer stationID = AgentController.getAgentStationID(agentID);
         ArrayList<TicketModel> ticketModels = TicketController.getUnapprovedTickets(stationID);
