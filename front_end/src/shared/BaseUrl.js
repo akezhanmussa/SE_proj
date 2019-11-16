@@ -3,3 +3,4 @@ export const registrationUrl = "http://localhost:8080/railway_station_war/myrail
 export const loginUrl = "http://localhost:8080/railway_station_war/myrailway/auth/login";
 export const getInfoUrl = "http://localhost:8080/railway_station_war/myrailway/mypage";
 export const getTiketsUrl = "http://localhost:8080/railway_station_war/myrailway/mypage/gettickets";
+export const getRoutesUrl = "http://localhost:8080/railway_station_war/myrailway/manager/fetch-all-tickets";
