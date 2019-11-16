@@ -40,7 +40,7 @@ class ScheduleRow extends Component {
                     <div align='center'>
                         <h5 align='center'>{capacity}</h5>
                         {capacity > 0 ?
-                            <Link className='btn btn-secondary' to={`/buy_ticket/${id}`}>Buy a ticket</Link>
+                            <Link className='btn btn-secondary' to={`home/buy_ticket/${id}`}>Buy a ticket</Link>
                             :
                             <button className='btn btn-secondary disabled'>No tickets</button>
                         }

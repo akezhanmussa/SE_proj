@@ -31,6 +31,7 @@ export const Login = (state = {isLoading: false,
     user: JSON.parse(localStorage.getItem('user')),
     token : JSON.parse(localStorage.getItem('token')),
     id: JSON.parse(localStorage.getItem('userId')),
+    expires_at: JSON.parse(localStorage.getItem('userId')),
     errorMessage: null}, action) => {
     switch (action.type){
         case ActionTypes.LoginRequest:
@@ -38,7 +39,7 @@ export const Login = (state = {isLoading: false,
         case ActionTypes.LoginFailed:
             return ({...state, isLoading: false, isAuthenticated: false, errorMessage: action.payload});
         case ActionTypes.LoginApproved:
-            return ({...state, isLoading: false, isAuthenticated: true, token: action.payload.token, id: action.payload.userId})
+            return ({...state, isLoading: false, isAuthenticated: true, token: action.payload})
         case ActionTypes.LogoutApproved:
             return ({...state, isLoading: false, isAuthenticated: false, token: '', user: null, id: null});
         default:

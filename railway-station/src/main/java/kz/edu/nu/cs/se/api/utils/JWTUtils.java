@@ -13,7 +13,7 @@ public class JWTUtils {
     public static String generateToken(Passenger passenger) {
         Date date = new Date();
         Date date2 = new Date();
-        date2.setMinutes(date.getMinutes() + 60);
+        date2.setSeconds(date.getSeconds() + 60);
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             String token = JWT.create()
@@ -52,5 +52,15 @@ public class JWTUtils {
         DecodedJWT jwt = JWT.decode(token);
         Long expiresAt = jwt.getClaim("exp").asLong();
         return expiresAt;
+    }
+
+    public static Boolean isExpired(String token){
+        Date dateToken = new Date(getExpiresAt(token) * 1000);
+        Date dateCurrent = new Date();
+
+        System.out.println("Current date " + dateCurrent);
+        System.out.println("Expire date " + dateToken);
+
+        return dateCurrent.compareTo(dateToken) >= 0;
     }
 }
