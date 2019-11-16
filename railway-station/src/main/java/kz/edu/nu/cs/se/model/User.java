@@ -1,12 +1,6 @@
 package kz.edu.nu.cs.se.model;
 
-import kz.edu.nu.cs.se.dao.Connector;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-public class Passenger {
+public class User {
 
     private String firstName;
     private String lastName;
@@ -14,6 +8,7 @@ public class Passenger {
     private String phoneNumber;
     private String userName;
     private int passengerId;
+    private String userRole;
 
     @Override
     public String toString() {
@@ -25,8 +20,8 @@ public class Passenger {
 
     }
 
-    public Passenger(String firstName, String lastName, String email, String phoneNumber,
-                     String userName, int passengerId){
+    public User(String firstName, String lastName, String email, String phoneNumber,
+                String userName, int passengerId){
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setEmail(email);
@@ -35,14 +30,13 @@ public class Passenger {
         this.passengerId = passengerId;
     }
 
-    public void setPassengerId(int passengerId) {
+    public void setUserId(int passengerId) {
         this.passengerId = passengerId;
     }
 
-    public int getPassengerId(){
+    public int getUserId(){
         return passengerId;
     }
-
 
 
     public String getFirstName() {
@@ -84,4 +78,10 @@ public class Passenger {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {this.userRole = userRole; }
 }
