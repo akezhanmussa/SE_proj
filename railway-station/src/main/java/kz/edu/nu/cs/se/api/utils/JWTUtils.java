@@ -48,8 +48,7 @@ public class JWTUtils {
 
     public static Long getExpiresAt(String token){
         DecodedJWT jwt = JWT.decode(token);
-        Long expiresAt = jwt.getClaim("exp").asLong();
-        return expiresAt;
+        return jwt.getClaim("exp").asLong();
     }
 
     public static Boolean isExpired(String token){
