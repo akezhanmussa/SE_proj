@@ -18,7 +18,6 @@ class RegistrationForm extends Component {
             userName:'',
             confirm_password:'',
             hiddenMessage:'',
-            displayErrors:false,
             showIndicator:false
         }
         this.handleAttribute = this.handleAttribute.bind(this);
@@ -43,8 +42,6 @@ class RegistrationForm extends Component {
                 "password":this.state.password
             })
         }
-
-
     }
 
     handleAttribute = (event) => {
@@ -92,7 +89,6 @@ class RegistrationForm extends Component {
                                             onChange = {this.handleAttribute}
                                         />
                                     </Form.Group>
-
                                 </Form.Row>
                                 <Form.Row>
                                     <Form.Group as={Col} md="6" controlId="customUserName">

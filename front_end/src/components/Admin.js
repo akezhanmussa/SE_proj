@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import AgentProfile from './AgentProfile';
-import ManagerProfile from './ManagerProfile';
+import ManagerProfile from './Manager/ManagerProfile';
 import { adminLogout } from '../redux/AdminLoginActionCreator';
 import {NavLink, withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -12,10 +12,6 @@ const mapDispatchToProps = (dispatch) => ({
    logoutAdmin: () => dispatch(adminLogout())
 });
 
-<<<<<<< HEAD
-class Admin extends Component{
-
-=======
 const NavBar = (props) => {
     return(
         <Navbar id='adminNavbar'>
@@ -31,13 +27,12 @@ const NavBar = (props) => {
 
 
 class Admin extends Component{
->>>>>>> 07b9533e33830d59b959072cc1fe3d190bdff331
     render() {
         return(
             <React.Fragment>
                 <NavBar logoutAdmin={this.props.logoutAdmin}/>
-                <AgentProfile/>
-                {/*<ManagerProfile/>*/}
+                {/*<AgentProfile/>*/}
+                <ManagerProfile/>
             </React.Fragment>
         );
     }
