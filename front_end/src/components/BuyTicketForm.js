@@ -84,7 +84,7 @@ class FillTicket extends Component{
         event.preventDefault();
         let body = {
             scheduleId: this.props.route.id,
-            passengerId: this.props.loginUser.id,
+            token: this.props.loginUser.token,
             origin_id: locations.filter(loc => this.props.route.origin === loc.name)[0].id,
             destination_id: locations.filter(loc => this.props.route.destination === loc.name)[0].id,
             owner_document_id: this.docId.value,
@@ -95,6 +95,7 @@ class FillTicket extends Component{
             owner_firstname: this.firstame.value,
             owner_lastname: this.lastname.value
         };
+        console.log(body);
         return fetch(baseUrl + '/buyticket', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},

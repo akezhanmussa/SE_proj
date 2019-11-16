@@ -41,7 +41,7 @@ const AdminRouter = (props) => {
 
     return(
         <Switch>
-            <PrivateAdminRoute exact path={props.match.url} component={Admin}/>
+            <PrivateAdminRoute exact path={props.match.url} component={() => <Admin/>}/>
             <Route path={props.match.url + '/login'} component={() => <AdminLogin admin={props.admin}/> }/>
         </Switch>
     );
@@ -55,9 +55,16 @@ class Main extends Component{
     }
 
     checkExpirationDate(){
+        console.log(this.props.loginUser)
         if(this.props.loginUser.isAuthenticated){
             const token = this.props.loginUser.token;
-            const jt = jwt_decode(token);
+            var jt = "";
+            try {
+                jt = jwt_decode(token);
+            }
+            catch(e){
+                    console.log("BACK pidry")
+            }
             const now = new Date().getTime();
             const timeleft = jt.exp * 1000 - now;
             if (timeleft < 0) {
@@ -88,7 +95,6 @@ class Main extends Component{
         };
 
         const callUserPage = ({match}) => {
-            console.log("afafd");
             return(
                 <div>
                     <NavigationBar loginState={this.props.loginUser} login={this.props.login}/>
