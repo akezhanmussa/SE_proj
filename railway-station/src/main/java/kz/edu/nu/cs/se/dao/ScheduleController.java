@@ -86,7 +86,10 @@ public class ScheduleController {
     private static void setOriginDestinationTrain(ScheduleModel scheduleModel, ArrayList<RouteModel> routeModels) {
         if (routeModels.size() > 0) {
             scheduleModel.setStartTimeObject(routeModels.get(0).getStartDateObject());
+            scheduleModel.setOrigin(routeModels.get(0).getOrigin());
+
             scheduleModel.setEndTimeObject(routeModels.get(routeModels.size() - 1).getEndDateObject());
+            scheduleModel.setDestination(routeModels.get(routeModels.size() - 1).getDestination());
 
             Integer trainID = routeModels.get(0).getTrainId();
             scheduleModel.setTrainModel(new TrainModel(trainID, TrainController.getCapacity(trainID)));
