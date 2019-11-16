@@ -31,9 +31,11 @@ public class LoginPassengerServlet extends HttpServlet {
 
         String userName = loginObject.getUserName();
         String password = loginObject.getPassword();
-        Optional<User> user = PassengerController.getPassenger(userName, password);
 
         Optional<String> token = null;
+
+        Optional<User> user = PassengerController.getPassenger(userName, password);
+
         if(user.isPresent()) token = JWTUtils.generateToken(user.get());
 
         if(token.equals(null)){

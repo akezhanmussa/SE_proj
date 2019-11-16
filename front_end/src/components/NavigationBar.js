@@ -15,6 +15,7 @@ class LoginModalForm extends Component {
         };
         this.toggleModal = this.toggleModal.bind(this);
         this.handleAttribute = this.handleAttribute.bind(this);
+        console.log(this.props);
     }
 
     toggleModal(){

@@ -26,6 +26,7 @@ public class LoginAdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Optional<String> token = null;
 
         Gson gson = new Gson();
 
@@ -33,12 +34,11 @@ public class LoginAdminServlet extends HttpServlet {
 
         String userName = loginObject.getUserName();
         String password = loginObject.getPassword();
-        User user = AdminController.getAdmin(userName, password).orElseGet(null);
+        Optional<User> user = AdminController.getAdmin(userName, password);
 
+        if(user.isPresent()) token = JWTUtils.generateToken(user.get());
 
-        Optional<String> token = JWTUtils.generateToken(user);
-
-        if(token == null){
+        if(token.equals(null)){
             response.sendError(response.SC_BAD_REQUEST,"Username or password incorrect");
         }
 

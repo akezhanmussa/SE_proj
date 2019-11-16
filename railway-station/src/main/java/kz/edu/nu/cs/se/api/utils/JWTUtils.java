@@ -26,6 +26,7 @@ public class JWTUtils {
                     .withClaim("phone_number", user.getPhoneNumber())
                     .withClaim("username", user.getUserName())
                     .withClaim("user_role", user.getUserRole())
+                    .withClaim("station_id", user.getStationId())
                     .withIssuedAt(date)
                     .withExpiresAt(date2)
                     .sign(algorithm);
@@ -46,6 +47,12 @@ public class JWTUtils {
 
 
         return new User(firstName,lastName,email,phoneNumber,userName,userId);
+    }
+
+    public static Integer getStationIdFromToken(String token) {
+        DecodedJWT jwt = JWT.decode(token);
+        Integer stationId = jwt.getClaim("station_id").asInt();
+        return stationId;
     }
 
     public static Long getExpiresAt(String token){

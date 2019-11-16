@@ -7,35 +7,43 @@ public class User {
     private String email;
     private String phoneNumber;
     private String userName;
-    private int passengerId;
+    private Integer userId;
     private String userRole;
+    private Integer stationId;
 
-    @Override
-    public String toString() {
-        return "First Name: " + firstName + "\n" +
-                "Last Name: " + lastName + "\n" +
-                "Email: " + email + "\n" +
-                "Phone number: " + phoneNumber + "\n" +
-                "Username: " + userName + "\n";
-
-    }
 
     public User(String firstName, String lastName, String email, String phoneNumber,
-                String userName, int passengerId){
+                String userName, int userId){
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setEmail(email);
         this.setPhoneNumber(phoneNumber);
         this.setUserName(userName);
-        this.passengerId = passengerId;
+        this.userId = userId;
+        this.stationId = -1;
+    }
+
+    public Integer getStationId() {
+        return stationId;
+    }
+
+    public User(String firstName, String lastName, String email, String phoneNumber,
+                String userName, int userId, int stationId){
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setEmail(email);
+        this.setPhoneNumber(phoneNumber);
+        this.setUserName(userName);
+        this.userId = userId;
+        this.stationId = stationId;
     }
 
     public void setUserId(int passengerId) {
-        this.passengerId = passengerId;
+        this.userId = passengerId;
     }
 
     public int getUserId(){
-        return passengerId;
+        return userId;
     }
 
 
