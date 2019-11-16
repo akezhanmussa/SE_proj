@@ -2,10 +2,12 @@ package kz.edu.nu.cs.se.dao;
 
 import kz.edu.nu.cs.se.model.TicketModel;
 
+import javax.swing.text.html.Option;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class AgentController {
     public static ArrayList<TicketModel> getAgentTickets(Integer agentID) {
@@ -38,5 +40,23 @@ public class AgentController {
             System.out.println(exception.getMessage());
         }
         return result;
+    }
+
+    public static Optional<Integer> getDummyUserID(String agentEmail) {
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet dummyUser = statement.executeQuery(String.format(
+                    "SELECT idPassenger FROM Passenger WHERE email=%s", agentEmail));
+
+            if (dummyUser.next()) {
+                Integer dummyID = dummyUser.getInt(1);
+                return Optional.of(dummyID);
+            }
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return Optional.empty();
     }
 }
