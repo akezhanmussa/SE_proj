@@ -23,6 +23,7 @@ import static kz.edu.nu.cs.se.api.utils.JWTUtils.isManager;
 
 @WebServlet(urlPatterns = {"/myrailway/manager/fetch-all-tickets"})
 public class FetchRoadsForManagerServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
                                                                                             IOException {
         String token = new Gson().fromJson(request.getReader(), Token.class).getToken();

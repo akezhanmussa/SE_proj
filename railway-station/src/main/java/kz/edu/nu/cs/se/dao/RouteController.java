@@ -133,7 +133,7 @@ public class RouteController {
             Statement statement = Connector.getStatement();
 
             ResultSet routes = statement.executeQuery(
-                    String.format("SELECT start_station_id, end_station_id, start_time, end_time, price FROM Route WHERE schedule_id=%d",
+                    String.format("SELECT start_station_id, end_station_id, start_time, end_time, price, Train_idTrain FROM Route WHERE schedule_id=%d ORDER BY start_time ASC",
                             scheduleID));
 
             while (routes.next()) {
@@ -142,6 +142,7 @@ public class RouteController {
                 String startTimeString = routes.getString(3);
                 String endTimeString = routes.getString(4);
                 Integer price = ((int) routes.getFloat(5));
+                Integer trainId = routes.getInt(6);
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime startTime = LocalDateTime.parse(startTimeString, formatter);
@@ -162,6 +163,7 @@ public class RouteController {
 
                 RouteModel routeModel = new RouteModel(startName, destinationName, startTime, endTime);
                 routeModel.setPrice(price);
+                routeModel.setTrainId(trainId);
 
                 routeModels.add(routeModel);
 

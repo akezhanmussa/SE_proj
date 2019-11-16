@@ -83,6 +83,16 @@ public class ScheduleController {
         return scheduleModels;
     }
 
+    private static void setOriginDestinationTrain(ScheduleModel scheduleModel, ArrayList<RouteModel> routeModels) {
+        if (routeModels.size() > 0) {
+            scheduleModel.setStartTimeObject(routeModels.get(0).getStartDateObject());
+            scheduleModel.setEndTimeObject(routeModels.get(routeModels.size() - 1).getEndDateObject());
+
+            Integer trainID = routeModels.get(0).getTrainId();
+            scheduleModel.setTrainModel(new TrainModel(trainID, TrainController.getCapacity(trainID)));
+        }
+    }
+
     public static ArrayList<ScheduleModel> fetchAllSchedules() {
         ArrayList<ScheduleModel> scheduleModels = new ArrayList<>();
 
@@ -98,8 +108,12 @@ public class ScheduleController {
                 ArrayList<RouteModel> routeModels = RouteController.getRoutesFromSchedule(scheduleID);
 
                 ScheduleModel scheduleModel = new ScheduleModel(scheduleID);
+
+                setOriginDestinationTrain(scheduleModel, routeModels);
+
                 scheduleModel.setRoutes(routeModels);
                 scheduleModels.add(scheduleModel);
+
             }
 
         } catch (SQLException exception) {
