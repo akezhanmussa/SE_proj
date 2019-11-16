@@ -3,26 +3,25 @@ package kz.edu.nu.cs.se.api;
 import com.google.gson.Gson;
 import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.TicketRequestObject;
+import kz.edu.nu.cs.se.dao.AgentController;
 import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.model.User;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
 
-@WebServlet(urlPatterns = {"/myrailway/buyticket"})
-public class BuyTicketServlet extends HttpServlet {
-
-    public BuyTicketServlet() {super();}
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+@WebServlet(urlPatterns = {"/myrailway/agent/buy-ticket"})
+public class BuyTicketAgentServlet extends HttpServlet {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         TicketRequestObject ticketRequestObject = new Gson().fromJson(request.getReader(), TicketRequestObject.class);
         String token = ticketRequestObject.getToken();
 
@@ -33,8 +32,15 @@ public class BuyTicketServlet extends HttpServlet {
             response.sendError(401, "Token has expired");
         }
 
-        User passenger = JWTUtils.getUserFromToken(token);
-        Integer passengerId = passenger.getUserId();
+        User agent = JWTUtils.getUserFromToken(token);
+
+        String agentEmail = agent.getEmail();
+        Optional<Integer> dummyUserID = AgentController.getDummyUserID(agentEmail);
+        if (!dummyUserID.isPresent()) {
+            System.out.println("[ERROR] Failed to fetch dummyUserID");
+            response.sendError(500, "[ERROR] Failed to fetch dummyUserID");
+            return;
+        }
 
         Integer scheduleId = ticketRequestObject.getScheduleId();
         Integer origin_id = ticketRequestObject.getOrigin_id();
@@ -48,9 +54,10 @@ public class BuyTicketServlet extends HttpServlet {
         String owner_firstname = ticketRequestObject.getOwner_firstname();
         String owner_lastname = ticketRequestObject.getOwner_lastname();
 
-        boolean status = TicketController.BuyTicket(scheduleId, passengerId, origin_id, destination_id, price,
+        String ticketStatus = "APPROVED";
+        boolean status = TicketController.BuyTicket(scheduleId, dummyUserID.get(), origin_id, destination_id, price,
                 start_date, end_date, owner_document_type, owner_document_id,owner_firstname,
-                owner_lastname, "UNAPPROVED");
+                owner_lastname, ticketStatus);
         PrintWriter out = response.getWriter();
         if (status) {
             out.append(new Gson().toJson("Done! Wait for approval"));
@@ -60,5 +67,4 @@ public class BuyTicketServlet extends HttpServlet {
 
         out.flush();
     }
-
 }
