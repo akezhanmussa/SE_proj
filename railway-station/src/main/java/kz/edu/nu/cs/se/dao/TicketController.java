@@ -14,7 +14,8 @@ public class TicketController {
                                     Integer destination_id, Float price, String start_date,
                                     String end_date, String owner_document_type,
                                     Integer owner_document_id,
-                                    String owner_first_name, String owner_last_name) {
+                                    String owner_first_name, String owner_last_name,
+                                    String ticketStatus) {
         Statement statement = Connector.getStatement();
 
         try {
@@ -26,7 +27,7 @@ public class TicketController {
                             "price, schedule_id)" +
                             "VALUE(%d, \"%s\", \"%s\", %d, %d, \"%s\", \"%s\", \"%s\", \"%s\", %d, %d, %d)",
                     passengerId, start_date, end_date,
-                    origin_id, destination_id, "UNAPPROVED", owner_document_type,
+                    origin_id, destination_id, ticketStatus, owner_document_type,
                     owner_first_name, owner_last_name, owner_document_id,
                     price.intValue(),scheduleId));
             statement.close();
@@ -144,5 +145,44 @@ public class TicketController {
             System.out.println(exception.getMessage());
         }
         return result;
+    }
+
+    public static Boolean changeStatus(Integer ticketID, String newStatus) {
+        Boolean status = false;
+
+        try {
+            Statement statement = Connector.getStatement();
+
+            status = statement.execute(String.format("UPDATE Ticket SET status=%s WHERE idTicket=%d",
+                    newStatus, ticketID));
+            if (!status) {
+                System.out.println(String.format(
+                        "[ERROR] Failed to update ticket status for ticketID=%d, to new status=%s", ticketID, newStatus
+                ));
+            }
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        return status;
+    }
+
+    public static Boolean verifyAssigmentOfAgent(Integer agentID, Integer ticketID) {
+        Boolean status = false;
+
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet ticketRows = statement.executeQuery(String.format(
+                    "SELECT * FROM Ticket WHERE ticketID=%d AND agent_id=%d", ticketID, agentID));
+
+            status = ticketRows.isFirst();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        return status;
     }
 }

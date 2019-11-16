@@ -1,5 +1,8 @@
 package kz.edu.nu.cs.se.dao;
 
+import kz.edu.nu.cs.se.model.RouteModel;
+
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -121,6 +124,54 @@ public class RouteController {
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
         }
+    }
+
+    public static ArrayList<RouteModel> getRoutesFromSchedule(Integer scheduleID) {
+        ArrayList<RouteModel> routeModels = new ArrayList<>();
+
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet routes = statement.executeQuery(
+                    String.format("SELECT start_station_id, end_station_id, start_time, end_time, price FROM Ticket WHERE schedule_id=%d",
+                            scheduleID));
+
+            while (routes.next()) {
+                Integer originID = routes.getInt(1);
+                Integer destinationID = routes.getInt(2);
+                String startTimeString = routes.getString(3);
+                String endTimeString = routes.getString(4);
+                Integer price = ((int) routes.getFloat(5));
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime startTime = LocalDateTime.parse(startTimeString, formatter);
+                LocalDateTime endTime = LocalDateTime.parse(endTimeString, formatter);
+
+                StationController stationController = new StationController();
+
+                Optional<String> optionalStartName = stationController.getName(originID);
+                Optional<String> optionalDestinationName = stationController.getName(destinationID);
+
+                if (!optionalDestinationName.isPresent() || !optionalStartName.isPresent()) {
+                    System.out.println("[ERROR] Failed to fetch station name");
+                    return routeModels;
+                }
+
+                String startName = optionalStartName.get();
+                String destinationName = optionalDestinationName.get();
+
+                RouteModel routeModel = new RouteModel(startName, destinationName, startTime, endTime);
+                routeModel.setPrice(price);
+
+                routeModels.add(routeModel);
+
+            }
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        return routeModels;
     }
 
 }

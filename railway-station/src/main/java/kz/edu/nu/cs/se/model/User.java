@@ -1,48 +1,50 @@
 package kz.edu.nu.cs.se.model;
 
-import kz.edu.nu.cs.se.dao.Connector;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-public class Passenger {
+public class User {
 
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
     private String userName;
-    private int passengerId;
+    private Integer userId;
+    private String userRole;
+    private Integer stationId;
 
-    @Override
-    public String toString() {
-        return "First Name: " + firstName + "\n" +
-                "Last Name: " + lastName + "\n" +
-                "Email: " + email + "\n" +
-                "Phone number: " + phoneNumber + "\n" +
-                "Username: " + userName + "\n";
 
-    }
-
-    public Passenger(String firstName, String lastName, String email, String phoneNumber,
-                     String userName, int passengerId){
+    public User(String firstName, String lastName, String email, String phoneNumber,
+                String userName, int userId){
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setEmail(email);
         this.setPhoneNumber(phoneNumber);
         this.setUserName(userName);
-        this.passengerId = passengerId;
+        this.userId = userId;
+        this.stationId = -1;
     }
 
-    public void setPassengerId(int passengerId) {
-        this.passengerId = passengerId;
+    public Integer getStationId() {
+        return stationId;
     }
 
-    public int getPassengerId(){
-        return passengerId;
+    public User(String firstName, String lastName, String email, String phoneNumber,
+                String userName, int userId, int stationId){
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setEmail(email);
+        this.setPhoneNumber(phoneNumber);
+        this.setUserName(userName);
+        this.userId = userId;
+        this.stationId = stationId;
     }
 
+    public void setUserId(int passengerId) {
+        this.userId = passengerId;
+    }
+
+    public int getUserId(){
+        return userId;
+    }
 
 
     public String getFirstName() {
@@ -84,4 +86,10 @@ public class Passenger {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {this.userRole = userRole; }
 }

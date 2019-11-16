@@ -15,8 +15,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+<<<<<<< HEAD
+=======
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
+>>>>>>> 9718b61d353d86e19102f96738323155099bf24e
 @WebServlet(urlPatterns = { "/myrailway/mypage/gettickets" })
 public class GetTicketServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -27,8 +31,12 @@ public class GetTicketServlet extends HttpServlet {
             response.sendError(401, "Token has expired");
         }
 
+        if(!isPassenger(token)) {
+            response.sendError(401, "Unauthorized as passenger");
+        }
 
-        Integer idPassenger = JWTUtils.getPassengerFromToken(token).getPassengerId();
+
+        Integer idPassenger = JWTUtils.getUserFromToken(token).getUserId();
 
         ArrayList<TicketModel> ticketModels = TicketController.getTicketsForPassenger(idPassenger);
         ArrayList<Ticket> tickets = ticketModels.stream().map(element -> new Ticket(element)).

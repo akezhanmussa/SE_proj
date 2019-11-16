@@ -11,6 +11,7 @@ public class RouteModel {
     private String endDate;
     private LocalDateTime startDateObject;
     private LocalDateTime endDateObject;
+    private Integer price;
 
     public RouteModel(String origin, String destination, LocalDateTime startDateObject, LocalDateTime endDateObject) {
         this.origin = origin;
@@ -41,4 +42,11 @@ public class RouteModel {
         endDate = endDateObject.format(formatter);
     }
 
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 }
