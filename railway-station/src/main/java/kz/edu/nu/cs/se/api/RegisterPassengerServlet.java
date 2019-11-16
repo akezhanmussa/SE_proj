@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 
 @WebServlet(urlPatterns = { "/myrailway/auth/register" })
 public class RegisterPassengerServlet extends HttpServlet {
+    private static final String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
     public RegisterPassengerServlet() {
         super();

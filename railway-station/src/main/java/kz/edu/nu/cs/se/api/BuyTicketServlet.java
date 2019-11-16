@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.TicketRequestObject;
 import kz.edu.nu.cs.se.dao.TicketController;
-import kz.edu.nu.cs.se.model.Passenger;
+import kz.edu.nu.cs.se.model.User;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,8 +33,8 @@ public class BuyTicketServlet extends HttpServlet {
             response.sendError(401, "Token has expired");
         }
 
-        Passenger passenger = JWTUtils.getPassengerFromToken(token);
-        Integer passengerId = passenger.getPassengerId();
+        User passenger = JWTUtils.getUserFromToken(token);
+        Integer passengerId = passenger.getUserId();
 
         Integer scheduleId = ticketRequestObject.getScheduleId();
         Integer origin_id = ticketRequestObject.getOrigin_id();

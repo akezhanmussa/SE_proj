@@ -2,10 +2,9 @@ package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
 import kz.edu.nu.cs.se.api.utils.JWTUtils;
-import kz.edu.nu.cs.se.api.utils.Token;
 import kz.edu.nu.cs.se.api.utils.UpdateTicketStatusObject;
 import kz.edu.nu.cs.se.dao.TicketController;
-import kz.edu.nu.cs.se.model.Passenger;
+import kz.edu.nu.cs.se.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,8 +28,8 @@ public class UpdateTicketStatusServlet {
         }
 
         // (TODO)(ginet) that the user is actually an agent
-        Passenger agent = JWTUtils.getPassengerFromToken(token);
-        Integer agentID = agent.getPassengerId();
+        User agent = JWTUtils.getUserFromToken(token);
+        Integer agentID = agent.getUserId();
         Integer ticketID = ticketStatusObject.getTicketID();
 
         if (!TicketController.verifyAssigmentOfAgent(agentID, ticketID)) {
