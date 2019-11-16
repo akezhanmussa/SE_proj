@@ -24,8 +24,12 @@ public class GetTicketServlet extends HttpServlet {
 
         String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
 //        System.out.println(token);
-        if (isExpired(token) && isPassenger(token)){
+        if (isExpired(token)){
             response.sendError(401, "Token has expired");
+        }
+
+        if(!isPassenger(token)) {
+            response.sendError(401, "Unauthorized as passenger");
         }
 
 
