@@ -9,7 +9,6 @@ public class User {
     private String userName;
     private Integer userId;
     private String userRole;
-    private Integer stationId;
 
 
     public User(String firstName, String lastName, String email, String phoneNumber,
@@ -20,23 +19,8 @@ public class User {
         this.setPhoneNumber(phoneNumber);
         this.setUserName(userName);
         this.userId = userId;
-        this.stationId = -1;
     }
 
-    public Integer getStationId() {
-        return stationId;
-    }
-
-    public User(String firstName, String lastName, String email, String phoneNumber,
-                String userName, int userId, int stationId){
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
-        this.setEmail(email);
-        this.setPhoneNumber(phoneNumber);
-        this.setUserName(userName);
-        this.userId = userId;
-        this.stationId = stationId;
-    }
 
     public void setUserId(int passengerId) {
         this.userId = passengerId;

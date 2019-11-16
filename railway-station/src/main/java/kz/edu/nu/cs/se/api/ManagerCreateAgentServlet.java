@@ -14,9 +14,9 @@ import java.io.PrintWriter;
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
 @WebServlet(urlPatterns = { "/myrailway/manager" })
-public class ManagerServlet extends HttpServlet {
+public class ManagerCreateAgentServlet extends HttpServlet {
 
-    public ManagerServlet() {
+    public ManagerCreateAgentServlet() {
         super();
     }
 
@@ -45,7 +45,7 @@ public class ManagerServlet extends HttpServlet {
         String username = agentObject.getUsername();
         String password = agentObject.getPassword();
 
-        Integer stationId = getStationIdFromToken(agentObject.getToken());
+        Integer stationId = -1;//TODO
 
         Boolean status = false;
         if(CreateAgentController.isValidAgentEmail(email)) {

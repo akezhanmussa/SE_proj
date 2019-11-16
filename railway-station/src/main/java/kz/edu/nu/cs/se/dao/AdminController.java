@@ -20,9 +20,8 @@ public class AdminController {
                 String email= agentSet.getString(6);
                 String phoneNumber= agentSet.getString(7);
                 String userName = agentSet.getString(8);
-                Integer stationId = agentSet.getInt(10);
 
-                user = new User(firstName,lastName,email,phoneNumber,userName,userId, stationId);
+                user = new User(firstName,lastName,email,phoneNumber,userName,userId);
                 user.setUserRole("agent");
             }
 
@@ -34,9 +33,8 @@ public class AdminController {
                 String email= managerSet.getString(6);
                 String phoneNumber= managerSet.getString(7);
                 String userName= managerSet.getString(8);
-                Integer stationId = agentSet.getInt(10);
 
-                user = new User(firstName,lastName,email,phoneNumber,userName,userId, stationId);
+                user = new User(firstName,lastName,email,phoneNumber,userName,userId);
                 user.setUserRole("manager");
                 adminStatement.close();
                 return Optional.of(user);
