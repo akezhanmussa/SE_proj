@@ -36,10 +36,10 @@ public class MyPageServlet extends HttpServlet {
 
         Passenger passenger = JWTUtils.getPassengerFromToken(token);
         MyPageObject myPageObject = new MyPageObject(passenger.getFirstName(),
-                passenger.getLastName(),
-                passenger.getEmail(),
-                passenger.getPhoneNumber(),
-                passenger.getUserName());
+                                                        passenger.getLastName(),
+                                                        passenger.getEmail(),
+                                                        passenger.getPhoneNumber(),
+                                                        passenger.getUserName());
 
 
 

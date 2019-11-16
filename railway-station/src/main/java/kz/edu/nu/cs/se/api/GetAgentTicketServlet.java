@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import kz.edu.nu.cs.se.dao.AgentController;
 import kz.edu.nu.cs.se.model.TicketModel;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+@WebServlet(urlPatterns = {"/myrailway/agent/get-agent-ticket"})
 public class GetAgentTicketServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         GetAgentTicketObject agentTicketObject = new Gson().fromJson(request.getReader(), GetAgentTicketObject.class);

@@ -7,10 +7,11 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import kz.edu.nu.cs.se.model.Passenger;
 
 import java.util.Date;
+import java.util.Optional;
 
 public class JWTUtils {
 
-    public static String generateToken(Passenger passenger) {
+    public static Optional<String> generateToken(Passenger passenger) {
         Date date = new Date();
         Date date2 = new Date();
         date2.setSeconds(date.getSeconds() + 60);
@@ -24,15 +25,13 @@ public class JWTUtils {
                     .withClaim("email", passenger.getEmail())
                     .withClaim("phone_number", passenger.getPhoneNumber())
                     .withClaim("user_name", passenger.getUserName())
-                    .withClaim("password", passenger.getPassword())
                     .withIssuedAt(date)
                     .withExpiresAt(date2)
                     .sign(algorithm);
-            return token;
-        } catch (JWTCreationException exception){
-            //Invalid Signing configuration / Couldn't convert Claims.
+            return Optional.of(token);
+        } catch (JWTCreationException | IllegalArgumentException ex){
+            return null;
         }
-        return "error";
     }
 
     public static Passenger getPassengerFromToken(String token){
@@ -43,9 +42,8 @@ public class JWTUtils {
         String email = jwt.getClaim("email").asString();
         String phoneNumber = jwt.getClaim("phone_number").asString();
         String userName = jwt.getClaim("user_name").asString();
-        String password = jwt.getClaim("password").asString();
 
-        return new Passenger(firstName,lastName,email,phoneNumber,userName,password,userId);
+        return new Passenger(firstName,lastName,email,phoneNumber,userName,userId);
     }
 
     public static Long getExpiresAt(String token){

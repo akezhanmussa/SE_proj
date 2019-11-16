@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.Token;
 import kz.edu.nu.cs.se.dao.TicketController;
-import kz.edu.nu.cs.se.model.Passenger;
 import kz.edu.nu.cs.se.model.TicketModel;
 import kz.edu.nu.cs.se.view.Ticket;
 
@@ -19,7 +18,7 @@ import java.util.stream.Collectors;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
 
-@WebServlet(urlPatterns = { "/myrailway/gettickets" })
+@WebServlet(urlPatterns = { "/myrailway/mypage/gettickets" })
 public class GetTicketServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 

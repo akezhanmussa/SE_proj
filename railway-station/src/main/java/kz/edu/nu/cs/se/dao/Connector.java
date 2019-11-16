@@ -19,10 +19,8 @@ public class Connector {
                     "E0Sz4Fo1Xp", "KIbCO7HKYR");
             statement = connection.createStatement();
 
-        } catch(SQLException ex) {
+        } catch(SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
-        } catch(ClassNotFoundException e) {
-            e.printStackTrace();
         }
         return statement;
     }
