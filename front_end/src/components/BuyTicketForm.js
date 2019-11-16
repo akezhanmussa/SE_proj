@@ -105,7 +105,7 @@ class FillTicket extends Component{
                 if(response.ok) {
                     var mes = "Thanks, your request is submitted. Wait for approving";
                     if(window.confirm(mes)){
-                        this.props.history.push('/my_account');
+                        this.props.history.push('/home/my_account');
                     }
                 }else{
                     var error = new Error("Error " + response.status + ': ' + response.statusText);

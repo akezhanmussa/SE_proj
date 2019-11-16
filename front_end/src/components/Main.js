@@ -30,6 +30,23 @@ const mapStateToProps = (state) => ({
     loginUser: state.loginUser
 });
 
+const AdminRouter = (props) => {
+    const PrivateAdminRoute = ({component: Component, ...rest}) => {
+        return <Route {...rest} render={ (propsx) => (
+            props.admin.isAuthenticated
+                ? <Component {...propsx}/>
+                : <Redirect to='/admin/login'/>
+        )}/>
+    };
+
+    return(
+        <Switch>
+            <PrivateAdminRoute exact path={props.match.url} component={Admin}/>
+            <Route path={props.match.url + '/login'} component={() => <AdminLogin admin={props.admin}/> }/>
+        </Switch>
+    );
+};
+
 
 class Main extends Component{
 
@@ -64,24 +81,32 @@ class Main extends Component{
             );
         };
 
-        const PrivateAdminRoute = ({component: Component, ...rest}) => {
-            return <Route {...rest} render={ (props) => (
-                 this.props.admin.isAuthenticated
-                    ? <Component {...props}/>
-                    : <Redirect to='/admin/login'/>
-                )}/>
+        const callAdminPage = ({match}) => {
+            return (
+                <AdminRouter admin={this.props.admin} match={match}/>
+            );
         };
+
+        const callUserPage = ({match}) => {
+            console.log("afafd");
+            return(
+                <div>
+                    <NavigationBar loginState={this.props.loginUser} login={this.props.login}/>
+                    <Switch>
+                        <Route exact path={match.url} component={() => <Home  logout = {this.props.logout} submitData={this.props.submitRegistrationForm} loginUser = {this.props.loginUser} login = {this.props.login} fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
+                        <Route path={match.url + '/buy_ticket/:routeId'} component={BuyTicket}/>
+                        <Route path={match.url + '/registration'} component={() => <RegistrationPage submitData = {this.props.submitRegistrationForm} registrationApproveState = {this.props.registrationApproveState}/>}/>
+                        <Route path={match.url + '/my_account'} component={() => <PassengerPage loginUser={this.props.loginUser} logout={this.props.logout}/>}/>
+                    </Switch>
+                </div>
+            );
+        };
+
         return (
             <div>
-                <NavigationBar loginState={this.props.loginUser} login={this.props.login}/>
-                {console.log(this.props.loginUser)}
                 <Switch>
-                    <Route path='/home' component={() => <Home  logout = {this.props.logout} submitData={this.props.submitRegistrationForm} loginUser = {this.props.loginUser} login = {this.props.login} fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
-                    <Route path='/buy_ticket/:routeId' component={BuyTicket}/>
-                    <Route path='/registration' component={() => <RegistrationPage submitData = {this.props.submitRegistrationForm} registrationApproveState = {this.props.registrationApproveState}/>}/>
-                    <Route path='/my_account' component={() => <PassengerPage loginUser={this.props.loginUser} logout={this.props.logout}/>}/>
-                    <PrivateAdminRoute exact path='/admin' component={Admin}/>
-                    <Route path='/admin/login' component={() => <AdminLogin admin={this.props.admin}/> }/>
+                    <Route path='/admin' component={callAdminPage}/>
+                    <Route path='/home' component={callUserPage}/>
                     <Redirect to='home'/>
                 </Switch>
 
