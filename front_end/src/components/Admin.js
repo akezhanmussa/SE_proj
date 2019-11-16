@@ -11,8 +11,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Admin extends Component{
 
-
-
     render() {
         return(
             <React.Fragment>
