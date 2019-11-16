@@ -22,7 +22,7 @@ public class MyPageServlet extends HttpServlet {
         Gson gson = new Gson();
         System.out.println("herreee: "+request.getReader());
         String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
-        System.out.println("mytoken: ");
+        System.out.println("mytoken: " + token);
         if (isExpired(token)){
             response.sendError(401, "Token has expired");
         }

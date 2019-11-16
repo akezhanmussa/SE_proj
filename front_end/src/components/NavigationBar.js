@@ -94,13 +94,13 @@ export default class NavigationBar extends Component{
                             </NavItem>
                             {this.props.loginState.isAuthenticated
                                 ? <div></div>
-                                :<NavLink className='nav-link' to='home/registration'>Registration</NavLink>
+                                :<NavLink className='nav-link' to='/home/registration'>Registration</NavLink>
                             }
 
                         </Nav>
                         <Nav className = "ml-auto">
                             {this.props.loginState.isAuthenticated
-                                ? <NavLink className='nav-link' to='home/my_account'>My account</NavLink>
+                                ? <NavLink className='nav-link' to='/home/my_account'>My account</NavLink>
                                 :<LoginModalForm login={this.props.login} loginState = {this.props.loginState}/>
                             }
                         </Nav>
