@@ -28,16 +28,14 @@ public class Passenger {
     }
 
     public Passenger(String firstName, String lastName, String email, String phoneNumber,
-                     String userName, String password){
+                     String userName, String password, int passengerId){
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setEmail(email);
         this.setPhoneNumber(phoneNumber);
         this.setUserName(userName);
         this.setPassword(password);
-
-
-
+        this.passengerId = passengerId;
     }
 
     public void setPassengerId(int passengerId) {

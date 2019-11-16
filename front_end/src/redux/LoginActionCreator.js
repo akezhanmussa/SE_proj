@@ -40,12 +40,8 @@ export function login(userData){
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res)
-                localStorage.setItem('token', JSON.stringify(res.token));
-                localStorage.setItem('user', JSON.stringify(userData));
-                localStorage.setItem('user_id', JSON.stringify(res.userId));
+                localStorage.setItem('token', JSON.stringify(res));
                 dispatch(loginApprove(res))
-
             })
             .catch(err => {
                 dispatch(loginFailure(err.message));
@@ -56,6 +52,7 @@ export function login(userData){
 export const logout = () => (dispatch) =>{
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('userId');
     dispatch(logoutApproved());
 };
 

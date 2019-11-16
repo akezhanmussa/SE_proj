@@ -9,10 +9,42 @@
     margin-top: 50px;
 }
 
+.info-form{
+    background-color: aliceblue;
+    padding: 25px;
+    margin-top: 25px;
+}
+
 #login{
     background-image: url('loginImg.jpg');
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
     background-repeat:no-repeat;
     background-size:100% 100vh;
+}
+
+.profile_info_short {
+    padding-top: 10px;
+}
+
+.profile_info {
+    line-height: 150%;
+}
+
+.clear_fix {
+    display: block;
+}
+
+.label {
+    width: 165px;
+    color: #828282;
+}
+
+.labeled {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fl_l {
+    float: left;
 }
