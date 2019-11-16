@@ -28,7 +28,7 @@ class AdminLogin extends Component{
 
     handleLogin = (event) => {
         event.preventDefault();
-        this.props.adminLogin({ username: this.state.username, password: this.state.password });
+        this.props.adminLogin({ userName: this.state.username, password: this.state.password });
     };
 
     handleChange = (event) => {

@@ -2,6 +2,7 @@ package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
 import kz.edu.nu.cs.se.api.utils.*;
+import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.model.User;
 
 import javax.servlet.annotation.WebServlet;
@@ -32,13 +33,12 @@ public class MyPageServlet extends HttpServlet {
         }
 
 
-        User user = JWTUtils.getUserFromToken(token);
+        User user = PassengerController.getPassenger(getUserFromToken(token)).get();
         MyPageObject myPageObject = new MyPageObject(user.getFirstName(),
                                                         user.getLastName(),
                                                         user.getEmail(),
                                                         user.getPhoneNumber(),
                                                         user.getUserName());
-
 
 
         response.setContentType("application/json");

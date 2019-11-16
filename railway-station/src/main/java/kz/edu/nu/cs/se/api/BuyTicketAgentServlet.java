@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.TicketRequestObject;
 import kz.edu.nu.cs.se.dao.AgentController;
+import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.model.User;
 
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
 
+import static kz.edu.nu.cs.se.api.utils.JWTUtils.getUserFromToken;
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
 
 @WebServlet(urlPatterns = {"/myrailway/agent/buy-ticket"})
@@ -32,7 +34,7 @@ public class BuyTicketAgentServlet extends HttpServlet {
             response.sendError(401, "Token has expired");
         }
 
-        User agent = JWTUtils.getUserFromToken(token);
+        User agent = PassengerController.getPassenger(getUserFromToken(token)).get();
 
         String agentEmail = agent.getEmail();
         Optional<Integer> dummyUserID = AgentController.getDummyUserID(agentEmail);
