@@ -133,7 +133,7 @@ public class RouteController {
             Statement statement = Connector.getStatement();
 
             ResultSet routes = statement.executeQuery(
-                    String.format("SELECT start_station_id, end_station_id, start_time, end_time, price FROM Ticket WHERE schedule_id=%d",
+                    String.format("SELECT start_station_id, end_station_id, start_time, end_time, price FROM Route WHERE schedule_id=%d",
                             scheduleID));
 
             while (routes.next()) {
