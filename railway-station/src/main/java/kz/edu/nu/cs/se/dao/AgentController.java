@@ -1,4 +1,3 @@
-
 package kz.edu.nu.cs.se.dao;
 
 import kz.edu.nu.cs.se.model.TicketModel;
@@ -20,6 +19,21 @@ public class AgentController {
             Integer stationID = stationIDResultSet.getInt(10);
 
             result = TicketController.getUnapprovedTickets(stationID);
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return result;
+    }
+
+    public static Integer getAgentStationID(Integer agent_id) {
+        Integer result = -1;
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet stationResultSet = statement.executeQuery(String.format(
+                    "SELECT station_id FROM Agent WHERE agentId=%d", agent_id));
+
+            result = stationResultSet.getInt(1);
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
         }

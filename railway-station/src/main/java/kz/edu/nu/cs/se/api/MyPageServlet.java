@@ -1,9 +1,7 @@
 package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
-import kz.edu.nu.cs.se.api.utils.JWTUtils;
-import kz.edu.nu.cs.se.api.utils.MyPageObject;
-import kz.edu.nu.cs.se.api.utils.PassengerObject;
+import kz.edu.nu.cs.se.api.utils.*;
 import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.model.Passenger;
 
@@ -28,9 +26,9 @@ public class MyPageServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         Gson gson = new Gson();
-
-        String token = request.getHeader("token");
-
+        System.out.println("I AM HERE");
+        String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
+        System.out.println(token);
         if (isExpired(token)){
             response.sendError(401, "Token has expired");
         }
@@ -38,10 +36,10 @@ public class MyPageServlet extends HttpServlet {
 
         Passenger passenger = JWTUtils.getPassengerFromToken(token);
         MyPageObject myPageObject = new MyPageObject(passenger.getFirstName(),
-                passenger.getLastName(),
-                passenger.getEmail(),
-                passenger.getPhoneNumber(),
-                passenger.getUserName());
+                                                        passenger.getLastName(),
+                                                        passenger.getEmail(),
+                                                        passenger.getPhoneNumber(),
+                                                        passenger.getUserName());
 
 
 

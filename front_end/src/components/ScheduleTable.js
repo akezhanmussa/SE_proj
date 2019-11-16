@@ -40,7 +40,7 @@ class ScheduleRow extends Component {
                     <div align='center'>
                         <h5 align='center'>{capacity}</h5>
                         {capacity > 0 ?
-                            <Link className='btn btn-secondary' to={`/buy_ticket/${id}`}>Buy a ticket</Link>
+                            <Link className='btn btn-secondary' to={`home/buy_ticket/${id}`}>Buy a ticket</Link>
                             :
                             <button className='btn btn-secondary disabled'>No tickets</button>
                         }
@@ -62,7 +62,7 @@ class ScheduleTable extends Component{
         var message = "Are you sure?\nThis will cost you some money";
         if (window.confirm(message))
             console.log("This " + id + " will be send to agent");
-    }
+    };
 
     render() {
         const rows = []
@@ -179,10 +179,10 @@ const RenderTrainRoutes = (props)=>{
                     {route.origin}
                 </td>
                 <td>
-                    {i === 0 ? "" : props.routes[i-1].endDate}
+                    {i === 0 ? "" : props.routes[i-1].endTime}
                 </td>
                 <td>
-                    {route.startDate}
+                    {route.startTime}
                 </td>
             </tr>
         iter.push(newRow);
@@ -196,7 +196,7 @@ const RenderTrainRoutes = (props)=>{
                 {props.routes[len-1].destination}
             </td>
             <td>
-                {props.routes[len-1].endDate}
+                {props.routes[len-1].endTime}
             </td>
             <td>
             </td>

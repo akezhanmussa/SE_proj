@@ -1,110 +1,146 @@
 import React, {Component} from 'react';
-import {baseUrl} from "../shared/BaseUrl";
-import {Button} from "react-bootstrap";
+import { withRouter } from 'react-router-dom';
+import {getInfoUrl} from "../shared/BaseUrl";
+import BuyTicketForm from "./BuyTicketForm";
+import {Button, Form} from "react-bootstrap";
+import PassengerTicketsPage from "./PassengerTicketsPage";
 
-const getPassengerData = (passenger) => {
-    let body = {idPassenger: passenger};
-    console.log(body)
-    return fetch(baseUrl + '/gettickets', {
+const getUserInfo = (token) => {
+    const toDict = {"token":token}
+    return fetch(getInfoUrl, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify(body)
+        body:JSON.stringify(toDict)
     })
-        .then(response => {
-            if(response.ok){
-                return response.json();
-            }
-            else{
-                var error = new Error("Error " + response.status + ': ' + response.statusText);
-                error.response = response;
-                throw error;
-            }
-        })
-        .then(response => {
-            console.log(response);
-            return response;
-        })
-        .catch (error => console.log("Error"));
-};
+        .then(res => res.json())
+        .then(res => {
+                return res;
+        }
+        ).catch(error =>{
+            throw error
+        }
+    )
+}
 
 class PassengerPage extends Component{
 
-    constructor(props) {
-            super(props);
-            this.state = {
-                passengerTickets: []
-            }
+    constructor(props){
+        super(props)
+        this.state = {
+            firstName:"",
+            lastName:"",
+            email:"",
+            phoneNumber:"",
+            userName:"",
+            isOpen: false
+        }
     }
 
-
     componentDidMount() {
-        console.log(this.props.loginUser.id)
-        getPassengerData(this.props.loginUser.id)
-            .then(response => this.setState({passengerTickets: response}))
-            .catch(err => console.log("err"));
+        getUserInfo(this.props.loginUser.token)
+            .then(response => {
+                this.setState({...this.state,
+                    firstName:response.firstName,
+                    lastName: response.lastName,
+                    email: response.email,
+                    phoneNumber:response.phoneNumber,
+                    userName: response.userName
+                });
+            }
+        ).catch(error =>
+            console.log(error)
+        )
+    }
+
+    handleSubmit = () => {
+        this.setState({isOpen: !this.state.isOpen})
     }
 
     finishSession = () => {
         this.props.logout();
+        this.props.history.push('/home');
     };
 
-
-    render() {
+    render(){
         return(
             <div>
-                {/*{this.state.passengerTickets.length > 0 ?*/}
-                {/*<RenderTickets passengerTickets={this.state.passengerTickets}/>*/}
-                {/*: <div></div>}*/}
-                {/*<Button className='btn-secondary' onClick = {() => this.finishSession()}>Logout</Button>*/}
+                {this.props.loginUser.token ?
+                    (
+                        <div>
+                            <RenderUserInfo phoneNumber = {this.state.phoneNumber}
+                                            firstName = {this.state.firstName}
+                                            lastName = {this.state.lastName}
+                                            email = {this.state.email}
+                                            phoneNumber = {this.state.phoneNumber}
+                                            userName = {this.state.userName}
+                                            handleSubmit = {this.handleSubmit.bind(this)}
+                                            finishSession = {this.finishSession.bind(this)}
+                            />
+                            {this.state.isOpen ?  (<PassengerTicketsPage token = {this.props.loginUser.token}></PassengerTicketsPage>) : <div></div>}
+                        </div>
+                    )
+                    :
+                    (<div className='row justify-content-around'>
+                        <div className='info-form' style={{width: 450}}>
+                            <h3>Please Log in</h3>
+                        </div>
+                            </div>)
+                }
+
             </div>
-        );
+        )
     }
 }
 
-const RenderTickets = (props) => {
-    const rows = [];
-    for(let i = 0; i < props.passengerTickets.length; i++){
-        let newRow =
-            <tr key={i}>
-                <td>
-                    {i + 1}
-                </td>
-                <td>
-                    {props.passengerTickets[i].ownerFirstName + " " + props.passengerTickets[i].ownerLastName}
-                </td>
-                <td>
-                    {props.passengerTickets[i].ownerDocumentType + " " + props.passengerTickets[i].ownerDocumentId}
-                </td>
-                <td>
-                    {props.passengerTickets[i].startDate}
-                </td>
-
-                <td>
-                    {props.passengerTickets[i].endDate}
-                </td>
-                <td>
-                    {props.passengerTickets[i].status}
-                </td>
-            </tr>
-        rows.push(newRow)
-    }
+const RenderUserInfo = (props) => {
     return(
-        <table className="table">
-            <thead className="thead-dark">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Full Name</th>
-                <th scope="col">Document</th>
-                <th scope="col">Start Time</th>
-                <th scope="col">End Time</th>
-                <th scope="col">Status</th>
-            </tr>
-            </thead>
-            <tbody>
-                {rows}
-            </tbody>
-        </table>
-    );
-};
+        <div className='row justify-content-around'>
+            <div className='info-form' style={{width: 450}}>
+                <Form>
+                    <h3>{props.firstName}</h3>
+                    <h5>{props.userName}</h5>
+                    <div className = 'profile_info profile_info_short'>
+                        <div className = 'clear_fix profile_info_row '>
+                            <div className = 'label fl_l'>First Name</div>
+                            <div class = 'labeled'>
+                                <a>{props.firstName}</a>
+                            </div>
+                            <div className = 'clear_fix:after'></div>
+                        </div>
+                        <div className='clear_fix profile_info_row '>
+                            <div className='label fl_l'>Last Name</div>
+                            <div className='labeled'>
+                                <a>{props.lastName}</a>
+                            </div>
+                        </div>
+                        <div className='clear_fix profile_info_row '>
+                            <div className='label fl_l'>Email</div>
+                            <div className='labeled'>
+                                <a>{props.email}</a>
+                            </div>
+                        </div>
+                        <div className='clear_fix profile_info_row '>
+                            <div className='label fl_l'>Phone Number</div>
+                            <div className='labeled'>
+                                <a>{props.phoneNumber}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div className = 'line'></div>
 
-export default PassengerPage;
+                    <Form.Row>
+                        <Form.Group className="col-8 d-flex">
+                            <Button className='btn-secondary' onClick = {() => props.handleSubmit()}>Get tickets</Button>
+                        </Form.Group>
+                        <Form.Group className='ml-auto mr-2'>
+                            <Button className='btn-secondary mr-2' onClick = {() => props.finishSession()}>Logout</Button>
+                        </Form.Group>
+                    </Form.Row>
+                </Form>
+            </div>
+        </div>
+    )
+}
+
+
+export default withRouter(PassengerPage)

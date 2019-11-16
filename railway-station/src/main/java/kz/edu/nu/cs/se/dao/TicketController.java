@@ -88,8 +88,8 @@ public class TicketController {
         ArrayList<TicketModel> result = new ArrayList<>();
         try{
             Statement statement = Connector.getStatement();
-            ResultSet ticketSet = statement.executeQuery("SELECT * FROM Ticket WHERE Passenger_idPassenger=" +
-                    passengerID);
+            ResultSet ticketSet = statement.executeQuery(
+                    String.format("SELECT * FROM Ticket WHERE Passenger_idPassenger=%d", passengerID));
             while (ticketSet.next()) {
                 Optional<TicketModel> optionalTicketModel = getTicketModel(ticketSet);
                 if (optionalTicketModel.isPresent()) {
@@ -110,7 +110,8 @@ public class TicketController {
             Statement statement = Connector.getStatement();
 
             ResultSet ticketSet = statement.executeQuery(String.format(
-                    "SELECT * FROM Ticket WHERE status=\"UNAPPROVED\" and agent_id is NULL and origin_id=%d", stationID));
+                    "SELECT * FROM Ticket WHERE status=\"UNAPPROVED\" and agent_id is NULL and origin_id=%d", stationID)
+            );
 
             while (ticketSet.next()) {
                 Optional<TicketModel> optionalTicketModel = getTicketModel(ticketSet);
@@ -119,6 +120,25 @@ public class TicketController {
                 } else {
                     System.out.printf("[FAILED] Failed to fetch ticketModel for stationID:%d%n", stationID);
                 }
+            }
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return result;
+    }
+
+    public static Boolean assignTicketToAgent(Integer agentID, Integer ticketID) {
+        Boolean result = false;
+        try {
+            Statement statement = Connector.getStatement();
+
+            result = statement.execute(String.format(
+                    "UPDATE Ticket SET agent_id=%d WHERE idTicket=%d AND agent_id is NULL", agentID, ticketID)
+            );
+
+            if (!result) {
+                System.out.println(String.format(
+                        "[ERROR] Failed to assign ticket(id=%d) to agent (id=%d)", ticketID, agentID));
             }
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());

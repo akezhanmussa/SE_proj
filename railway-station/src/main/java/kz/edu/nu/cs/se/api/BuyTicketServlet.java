@@ -1,7 +1,10 @@
 package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
+import kz.edu.nu.cs.se.api.utils.JWTUtils;
+import kz.edu.nu.cs.se.api.utils.TicketRequestObject;
 import kz.edu.nu.cs.se.dao.TicketController;
+import kz.edu.nu.cs.se.model.Passenger;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +15,8 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
+
 @WebServlet(urlPatterns = {"/myrailway/buyticket"})
 public class BuyTicketServlet extends HttpServlet {
 
@@ -19,22 +24,29 @@ public class BuyTicketServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         TicketRequestObject ticketRequestObject = new Gson().fromJson(request.getReader(), TicketRequestObject.class);
-        Integer scheduleId = ticketRequestObject.scheduleId;
-        Integer passengerId = ticketRequestObject.passengerId;
-        Integer origin_id = ticketRequestObject.origin_id;
-        Integer destination_id = ticketRequestObject.destination_id;
-        Integer owner_document_id = ticketRequestObject.owner_document_id;
-        Float price = ticketRequestObject.price;
+        String token = ticketRequestObject.getToken();
 
-        String start_date = ticketRequestObject.start_date;
-        String end_date = ticketRequestObject.end_date;
-        String owner_document_type = ticketRequestObject.owner_document_type;
-        String owner_firstname = ticketRequestObject.owner_firstname;
-        String owner_lastname = ticketRequestObject.owner_lastname;
+        System.out.println(String.format("Received token: %s", token));
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime startDate = LocalDateTime.parse(start_date, formatter);
-        LocalDateTime endDate = LocalDateTime.parse(end_date, formatter);
+        if (isExpired(token)){
+            System.out.println("[ERROR] Token has expired");
+            response.sendError(401, "Token has expired");
+        }
+
+        Passenger passenger = JWTUtils.getPassengerFromToken(token);
+        Integer passengerId = passenger.getPassengerId();
+
+        Integer scheduleId = ticketRequestObject.getScheduleId();
+        Integer origin_id = ticketRequestObject.getOrigin_id();
+        Integer destination_id = ticketRequestObject.getDestination_id();
+        Integer owner_document_id = ticketRequestObject.getOwner_document_id();
+        Float price = ticketRequestObject.getPrice();
+
+        String start_date = ticketRequestObject.getStart_date();
+        String end_date = ticketRequestObject.getEnd_date();
+        String owner_document_type = ticketRequestObject.getOwner_document_type();
+        String owner_firstname = ticketRequestObject.getOwner_firstname();
+        String owner_lastname = ticketRequestObject.getOwner_lastname();
 
         boolean status = TicketController.BuyTicket(scheduleId, passengerId, origin_id, destination_id, price,
                 start_date, end_date, owner_document_type, owner_document_id,owner_firstname,
