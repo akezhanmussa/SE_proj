@@ -58,7 +58,12 @@ class Main extends Component{
         console.log(this.props.loginUser)
         if(this.props.loginUser.isAuthenticated){
             const token = this.props.loginUser.token;
-            const jt = jwt_decode(token);
+            var jt = ""
+            try {
+                jt = jwt_decode(token);
+            }catch (e) {
+                console.log(e);
+            }
             const now = new Date().getTime();
             const timeleft = jt.exp * 1000 - now;
             if (timeleft < 0) {

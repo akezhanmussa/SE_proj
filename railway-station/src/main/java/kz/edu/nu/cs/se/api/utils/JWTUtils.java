@@ -19,17 +19,18 @@ public class JWTUtils {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             String token = JWT.create()
                     .withIssuer("auth0")
-                    .withClaim("user_id", user.getUserId())
-                    .withClaim("first_name", user.getFirstName())
-                    .withClaim("last_name", user.getLastName())
-                    .withClaim("email", user.getEmail())
-                    .withClaim("phone_number", user.getPhoneNumber())
+//                    .withClaim("user_id", user.getUserId())
+//                    .withClaim("first_name", user.getFirstName())
+//                    .withClaim("last_name", user.getLastName())
+//                    .withClaim("email", user.getEmail())
+//                    .withClaim("phone_number", user.getPhoneNumber())
                     .withClaim("username", user.getUserName())
                     .withClaim("user_role", user.getUserRole())
                     .withClaim("station_id", user.getStationId())
                     .withIssuedAt(date)
                     .withExpiresAt(date2)
                     .sign(algorithm);
+
             return Optional.of(token);
         } catch (JWTCreationException | IllegalArgumentException ex){
             return null;

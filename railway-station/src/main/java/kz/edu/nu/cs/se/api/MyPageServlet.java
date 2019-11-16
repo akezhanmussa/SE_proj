@@ -20,12 +20,14 @@ public class MyPageServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Gson gson = new Gson();
+        System.out.println("herreee: "+request.getReader());
         String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
+        System.out.println("mytoken: ");
         if (isExpired(token)){
             response.sendError(401, "Token has expired");
         }
 
-        if(!isAgent(token)) {
+        if(!isPassenger(token)) {
             response.sendError(401, "Unauthorized as passenger");
         }
 
