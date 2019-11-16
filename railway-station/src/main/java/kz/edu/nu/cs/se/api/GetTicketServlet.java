@@ -17,6 +17,11 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
+<<<<<<< HEAD
+import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
+
+=======
+>>>>>>> ake
 @WebServlet(urlPatterns = { "/myrailway/mypage/gettickets" })
 public class GetTicketServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

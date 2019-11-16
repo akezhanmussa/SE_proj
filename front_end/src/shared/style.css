@@ -17,10 +17,20 @@
 
 #login{
     background-image: url('loginImg.jpg');
-    /*position: absolute;*/
+    position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
     background-repeat:no-repeat;
     background-size:100% 100vh;
+}
+
+.logoutButton{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;opacity: 100;
+    color: white;
 }
 
 .profile_info_short {
@@ -59,6 +69,16 @@
     float: left;
 }
 
+#adminNavbar{
+    height: 70px !important;
+    border-bottom: black 2px solid !important;
+    margin-bottom: 10px;
+}
+
+#AgentNavigation{
+    border: black 2px solid !important;
+
+}
 .profile_info_row {
     padding-top: 5px;
 }

@@ -1,4 +1,4 @@
-package kz.edu.nu.cs.se.api;
+package kz.edu.nu.cs.se.api.utils;
 
 import java.time.LocalDateTime;
 
