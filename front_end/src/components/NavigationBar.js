@@ -23,7 +23,7 @@ class LoginModalForm extends Component {
 
     handleAttribute = (event) => {
         this.setState({[event.target.name]: event.target.value});
-    }
+    };
 
 
 
