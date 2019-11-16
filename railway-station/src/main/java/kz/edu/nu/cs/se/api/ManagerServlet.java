@@ -56,7 +56,7 @@ public class ManagerServlet extends HttpServlet {
         }
         PrintWriter out = response.getWriter();
         if (status) {
-            out.append(new Gson().toJson("Done! Wait for approval"));
+            out.append(new Gson().toJson("Successfully Created Agent"));
         } else {
             out.append(new Gson().toJson("Error!"));
         }
