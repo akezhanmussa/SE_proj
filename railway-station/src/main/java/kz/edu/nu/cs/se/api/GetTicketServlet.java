@@ -1,6 +1,7 @@
 package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
+import kz.edu.nu.cs.se.api.utils.GetTicketRequestObject;
 import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.model.TicketModel;
 import kz.edu.nu.cs.se.view.Ticket;
@@ -17,8 +18,9 @@ import java.util.stream.Collectors;
 @WebServlet(urlPatterns = { "/myrailway/get-tickets" })
 public class GetTicketServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        GetTicketRequestObject getTicketRequestObject = new Gson().fromJson(request.getReader(), GetTicketRequestObject.class);
-        Integer idPassenger = getTicketRequestObject.idPassenger;
+        GetTicketRequestObject getTicketRequestObject = new Gson().fromJson(request.getReader(),
+                GetTicketRequestObject.class);
+        Integer idPassenger = getTicketRequestObject.getIdPassenger();
 
         ArrayList<TicketModel> ticketModels = TicketController.getTicketsForPassenger(idPassenger);
         ArrayList<Ticket> tickets = ticketModels.stream().map(Ticket::new).
@@ -28,5 +30,4 @@ public class GetTicketServlet extends HttpServlet {
         out.append(new Gson().toJson(tickets));
         out.flush();
     }
-
 }
