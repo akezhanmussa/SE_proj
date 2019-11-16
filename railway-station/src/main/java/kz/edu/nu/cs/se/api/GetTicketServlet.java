@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
+import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
 @WebServlet(urlPatterns = { "/myrailway/mypage/gettickets" })
 public class GetTicketServlet extends HttpServlet {
@@ -24,12 +24,12 @@ public class GetTicketServlet extends HttpServlet {
 
         String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
 //        System.out.println(token);
-        if (isExpired(token)){
+        if (isExpired(token) && isPassenger(token)){
             response.sendError(401, "Token has expired");
         }
 
 
-        Integer idPassenger = JWTUtils.getPassengerFromToken(token).getPassengerId();
+        Integer idPassenger = JWTUtils.getUserFromToken(token).getUserId();
 
         ArrayList<TicketModel> ticketModels = TicketController.getTicketsForPassenger(idPassenger);
         ArrayList<Ticket> tickets = ticketModels.stream().map(element -> new Ticket(element)).
