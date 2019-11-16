@@ -145,4 +145,43 @@ public class TicketController {
         }
         return result;
     }
+
+    public static Boolean changeStatus(Integer ticketID, String newStatus) {
+        Boolean status = false;
+
+        try {
+            Statement statement = Connector.getStatement();
+
+            status = statement.execute(String.format("UPDATE Ticket SET status=%s WHERE idTicket=%d",
+                    newStatus, ticketID));
+            if (!status) {
+                System.out.println(String.format(
+                        "[ERROR] Failed to update ticket status for ticketID=%d, to new status=%s", ticketID, newStatus
+                ));
+            }
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        return status;
+    }
+
+    public static Boolean verifyAssigmentOfAgent(Integer agentID, Integer ticketID) {
+        Boolean status = false;
+
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet ticketRows = statement.executeQuery(String.format(
+                    "SELECT * FROM Ticket WHERE ticketID=%d AND agent_id=%d", ticketID, agentID));
+
+            status = ticketRows.isFirst();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        return status;
+    }
 }

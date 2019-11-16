@@ -1,6 +1,8 @@
 package kz.edu.nu.cs.se.api.utils;
 
 public class TicketRequestObject {
+    private String token;
+
     private Integer scheduleId;
     private Integer passengerId;
     private Integer origin_id;
@@ -8,12 +10,15 @@ public class TicketRequestObject {
     private Integer owner_document_id;
     private Float price;
 
-
     private String start_date;
     private String end_date;
     private String owner_document_type;
     private String owner_firstname;
     private String owner_lastname;
+
+    public String getToken() {
+        return token;
+    }
 
     public Integer getScheduleId() {
         return scheduleId;

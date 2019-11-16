@@ -14,7 +14,7 @@ public class JWTUtils {
     public static Optional<String> generateToken(User user) {
         Date date = new Date();
         Date date2 = new Date();
-        date2.setSeconds(date.getSeconds() + 60);
+        date2.setTime(date.getTime() + 180000);
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             String token = JWT.create()
@@ -57,8 +57,7 @@ public class JWTUtils {
 
     public static Long getExpiresAt(String token){
         DecodedJWT jwt = JWT.decode(token);
-        Long expiresAt = jwt.getClaim("exp").asLong();
-        return expiresAt;
+        return jwt.getClaim("exp").asLong();
     }
 
     public static Boolean isExpired(String token){

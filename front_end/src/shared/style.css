@@ -17,7 +17,7 @@
 
 #login{
     background-image: url('loginImg.jpg');
-    position: absolute;
+    /*position: absolute;*/
     top: 0; right: 0; bottom: 0; left: 0;
     background-repeat:no-repeat;
     background-size:100% 100vh;
@@ -35,6 +35,16 @@
     display: block;
 }
 
+.clear_fix:after {
+    content: '.';
+    display: block;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
 .label {
     width: 165px;
     color: #828282;
@@ -47,4 +57,13 @@
 
 .fl_l {
     float: left;
+}
+
+.profile_info_row {
+    padding-top: 5px;
+}
+
+.line{
+    border-top: 1px solid #e7e8ec;
+    padding: 20px;
 }

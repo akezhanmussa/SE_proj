@@ -1,8 +1,10 @@
 package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
+import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.TicketRequestObject;
 import kz.edu.nu.cs.se.dao.TicketController;
+import kz.edu.nu.cs.se.model.User;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +15,8 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
+
 @WebServlet(urlPatterns = {"/myrailway/buyticket"})
 public class BuyTicketServlet extends HttpServlet {
 
@@ -20,8 +24,19 @@ public class BuyTicketServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         TicketRequestObject ticketRequestObject = new Gson().fromJson(request.getReader(), TicketRequestObject.class);
+        String token = ticketRequestObject.getToken();
+
+        System.out.println(String.format("Received token: %s", token));
+
+        if (isExpired(token)){
+            System.out.println("[ERROR] Token has expired");
+            response.sendError(401, "Token has expired");
+        }
+
+        User passenger = JWTUtils.getUserFromToken(token);
+        Integer passengerId = passenger.getUserId();
+
         Integer scheduleId = ticketRequestObject.getScheduleId();
-        Integer passengerId = ticketRequestObject.getPassengerId();
         Integer origin_id = ticketRequestObject.getOrigin_id();
         Integer destination_id = ticketRequestObject.getDestination_id();
         Integer owner_document_id = ticketRequestObject.getOwner_document_id();
@@ -32,10 +47,6 @@ public class BuyTicketServlet extends HttpServlet {
         String owner_document_type = ticketRequestObject.getOwner_document_type();
         String owner_firstname = ticketRequestObject.getOwner_firstname();
         String owner_lastname = ticketRequestObject.getOwner_lastname();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime startDate = LocalDateTime.parse(start_date, formatter);
-        LocalDateTime endDate = LocalDateTime.parse(end_date, formatter);
 
         boolean status = TicketController.BuyTicket(scheduleId, passengerId, origin_id, destination_id, price,
                 start_date, end_date, owner_document_type, owner_document_id,owner_firstname,
