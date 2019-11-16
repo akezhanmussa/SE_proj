@@ -13,15 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import kz.edu.nu.cs.se.api.utils.HomeRequestObject;
 import kz.edu.nu.cs.se.dao.ScheduleController;
 import kz.edu.nu.cs.se.model.ScheduleModel;
 import kz.edu.nu.cs.se.view.Schedule;
 
 
 @WebServlet(urlPatterns = { "/myrailway" })
-public class MyServlet extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 
-    public MyServlet() {
+    public HomeServlet() {
         super();
     }
 
@@ -31,12 +32,16 @@ public class MyServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ScheduleRequestObject scheduleRequestObject = new Gson().fromJson(request.getReader(), ScheduleRequestObject.class);
+        PrintWriter out = response.getWriter();
 
-        Integer origin = new Integer(scheduleRequestObject.origin);
-        Integer destination = new Integer(scheduleRequestObject.destination);
-        String dateString = scheduleRequestObject.date;
-        String dayTime = scheduleRequestObject.daytime;
+        Gson gson = new Gson();
+
+        HomeRequestObject requestObject = new Gson().fromJson(request.getReader(), HomeRequestObject.class);
+
+        Integer origin = new Integer(requestObject.getOrigin());
+        Integer destination = new Integer(requestObject.getDestination());
+        String dateString = requestObject.getDate();
+        String dayTime = requestObject.getDaytime();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.parse(dateString + " 00:00:00", formatter);
@@ -51,8 +56,7 @@ public class MyServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        PrintWriter out = response.getWriter();
-        out.append(new Gson().toJson(schedules));
+        out.append(gson.toJson(schedules));
         out.flush();
     }
 }

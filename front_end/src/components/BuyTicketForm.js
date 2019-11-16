@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Form, FormGroup, Input, Label} from "reactstrap";
 import {baseUrl} from "../shared/BaseUrl";
 import {locations} from "../shared/Locations";
-import NavigationBar from './NavigationBar';
+import { withRouter } from 'react-router-dom';
 
 class BuyTicketForm extends Component{
 
@@ -20,7 +20,6 @@ class BuyTicketForm extends Component{
         };
         return (
             <div>
-                <NavigationBar/>
                 <div className='container mt-3'>
                     <div className='row' style={{height:"80px"}}>
                         <div className='col-4 d-flex justify-content-center align-items-center' style={{borderRight: '2px solid blue', borderBottom:"1px solid blue"}}>
@@ -68,7 +67,7 @@ class BuyTicketForm extends Component{
                         <h4>Fill the passenger's personal information</h4>
                     </div>
                     <div className='mt-3 row' style={{backgroundColor:"#f3f4f5", border:"1px solid #c2c4c3"}}>
-                        <FillTicket route={this.props.route}/>
+                        <FillTicket route={this.props.route} loginUser={this.props.loginUser} history={this.props.history}/>
                     </div>
                 </div>
             </div>
@@ -85,7 +84,7 @@ class FillTicket extends Component{
         event.preventDefault();
         let body = {
             scheduleId: this.props.route.id,
-            passengerId: 1,
+            passengerId: this.props.loginUser.id,
             origin_id: locations.filter(loc => this.props.route.origin === loc.name)[0].id,
             destination_id: locations.filter(loc => this.props.route.destination === loc.name)[0].id,
             owner_document_id: this.docId.value,
@@ -103,15 +102,20 @@ class FillTicket extends Component{
         })
             .then(response => {
                 console.log(response)
-                if(response.ok)
-                    alert("Thanks, your request is submitted");
-                else{
+                if(response.ok) {
+                    var mes = "Thanks, your request is submitted. Wait for approving";
+                    if(window.confirm(mes)){
+                        this.props.history.push('/my_account');
+                    }
+                }else{
                     var error = new Error("Error " + response.status + ': ' + response.statusText);
                     error.response = response;
                     throw error;
                 }
             })
-            .catch (error => console.log("Error"));
+            .catch (error => {
+                alert(error + "\nTry again");
+            });
     }
     render() {
         return (
@@ -158,4 +162,4 @@ class FillTicket extends Component{
     }
 };
 
-export default BuyTicketForm;
+export default withRouter(BuyTicketForm);

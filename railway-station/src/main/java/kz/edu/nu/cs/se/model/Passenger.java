@@ -1,14 +1,20 @@
 package kz.edu.nu.cs.se.model;
 
+import kz.edu.nu.cs.se.dao.Connector;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Passenger {
 
-    private int passengerId;
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
     private String userName;
     private String password;
+    private int passengerId;
 
     @Override
     public String toString() {
@@ -21,25 +27,26 @@ public class Passenger {
 
     }
 
-    public Passenger(int passengerId, String firstName, String lastName, String email, String phoneNumber,
-                     String userName, String password){
-        this.setPassengerId(passengerId);
+    public Passenger(String firstName, String lastName, String email, String phoneNumber,
+                     String userName, String password, int passengerId){
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setEmail(email);
         this.setPhoneNumber(phoneNumber);
         this.setUserName(userName);
         this.setPassword(password);
-    }
-
-
-    public int getPassengerId() {
-        return passengerId;
+        this.passengerId = passengerId;
     }
 
     public void setPassengerId(int passengerId) {
         this.passengerId = passengerId;
     }
+
+    public int getPassengerId(){
+        return passengerId;
+    }
+
+
 
     public String getFirstName() {
         return firstName;

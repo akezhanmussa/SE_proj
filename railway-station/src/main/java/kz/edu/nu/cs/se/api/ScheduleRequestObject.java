@@ -8,4 +8,3 @@ public class ScheduleRequestObject {
     String date;
     String daytime;
 }
-

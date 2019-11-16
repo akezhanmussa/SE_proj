@@ -2,14 +2,6 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="E0Sz4Fo1Xp@remotemysql.com" uuid="2f594ff3-4c8e-43fb-b92b-c1ff1226945b">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
-      <secret-storage>forget</secret-storage>
-    </data-source>
-    <data-source name="eDiwTC3jTl@remotemysql.com" uuid="2e9e8aa7-9687-4b80-ac3a-65b67b1383da">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
-      <secret-storage>forget</secret-storage>
-    </data-source>
-    <data-source name="railwayupdated" uuid="4f1ce736-000a-459c-b592-fa6232d24757">
       <database-info product="MySQL" version="8.0.13-4" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.15 (Revision: 79a4336f140499bd22dd07f02b708e163844e3d5)" dbms="MYSQL" exact-version="8.0.13" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
@@ -18,6 +10,15 @@
       <secret-storage>master_key</secret-storage>
       <user-name>E0Sz4Fo1Xp</user-name>
       <introspection-schemas>*:@</introspection-schemas>
+    </data-source>
+    <data-source name="eDiwTC3jTl@remotemysql.com" uuid="2e9e8aa7-9687-4b80-ac3a-65b67b1383da">
+      <database-info product="MySQL" version="8.0.13-4" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.15 (Revision: 79a4336f140499bd22dd07f02b708e163844e3d5)" dbms="MYSQL" exact-version="8.0.13" exact-driver-version="8.0">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>E0Sz4Fo1Xp</user-name>
     </data-source>
   </component>
 </project>

@@ -4,25 +4,51 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import {fetchSchedule} from '../redux/ScheduleActionCreators'
 import Home from './Home';
 import BuyTicketForm from './BuyTicketForm';
+import NavigationBar from './NavigationBar';
 import RegistrationPage from "./RegistrationPage";
 import {submitRegistrationForm} from "../redux/RegistrationApproveActionCreators";
-
+import {login,logout} from "../redux/LoginActionCreator";
 import Admin from './Admin';
 import AdminLogin from './AdminLogin';
+import PassengerTicketsPage from "./PassengerTicketsPage";
+import {Button} from "react-bootstrap";
+import jwt_decode from 'jwt-decode';
+import PassengerPage from "./PassengerPage";
+
 
 const mapDispatchToProps = (dispatch) => ({
     fetchSchedule: (path) => dispatch(fetchSchedule(path)),
-    submitRegistrationForm: (path) => dispatch(submitRegistrationForm(path))
+    submitRegistrationForm: (path) => dispatch(submitRegistrationForm(path)),
+    login: (path) => dispatch(login(path)),
+    logout: () => dispatch(logout())
 });
 
 const mapStateToProps = (state) => ({
     schedule: state.schedule,
     registrationApproveState: state.registrationApproveState,
-    admin: state.admin
+    admin: state.admin,
+    loginUser: state.loginUser
 });
 
 
 class Main extends Component{
+
+    componentDidMount() {
+        this.checkExpirationDate();
+    }
+
+    checkExpirationDate(){
+        if(this.props.loginUser.isAuthenticated){
+            const token = this.props.loginUser.token;
+            const jt = jwt_decode(token);
+            const now = new Date().getTime();
+            const timeleft = jt.exp * 1000 - now;
+            if (timeleft < 0) {
+                this.props.logout();
+            }
+        }
+    }
+
     render() {
 
         const BuyTicket = ({match}) => {
@@ -34,9 +60,7 @@ class Main extends Component{
                     </div>
                 );
             return (
-                <BuyTicketForm
-                    route={route[0]}
-                />
+                <BuyTicketForm route={route[0]} loginUser={this.props.loginUser}/>
             );
         };
 
@@ -47,13 +71,15 @@ class Main extends Component{
                     : <Redirect to='/admin/login'/>
                 )}/>
         };
-
         return (
             <div>
+                <NavigationBar loginState={this.props.loginUser} login={this.props.login}/>
+                {console.log(this.props.loginUser)}
                 <Switch>
-                    <Route path='/home' component={() => <Home fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
+                    <Route path='/home' component={() => <Home  logout = {this.props.logout} submitData={this.props.submitRegistrationForm} loginUser = {this.props.loginUser} login = {this.props.login} fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
                     <Route path='/buy_ticket/:routeId' component={BuyTicket}/>
-                    <Route path='/registration' component={() => <RegistrationPage submitData={this.props.submitRegistrationForm}/>}/>
+                    <Route path='/registration' component={() => <RegistrationPage submitData = {this.props.submitRegistrationForm} registrationApproveState = {this.props.registrationApproveState}/>}/>
+                    <Route path='/my_account' component={() => <PassengerPage loginUser={this.props.loginUser} logout={this.props.logout}/>}/>
                     <PrivateAdminRoute exact path='/admin' component={Admin}/>
                     <Route path='/admin/login' component={() => <AdminLogin admin={this.props.admin}/> }/>
                     <Redirect to='home'/>
