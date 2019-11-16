@@ -2,10 +2,7 @@ package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
 import kz.edu.nu.cs.se.api.utils.CreateAgentObject;
-import kz.edu.nu.cs.se.api.utils.JWTUtils;
-import kz.edu.nu.cs.se.api.utils.MyPageObject;
 import kz.edu.nu.cs.se.dao.CreateAgentController;
-import kz.edu.nu.cs.se.model.User;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
