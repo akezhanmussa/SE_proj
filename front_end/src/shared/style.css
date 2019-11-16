@@ -45,6 +45,16 @@
     display: block;
 }
 
+.clear_fix:after {
+    content: '.';
+    display: block;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
 .label {
     width: 165px;
     color: #828282;
@@ -68,4 +78,12 @@
 #AgentNavigation{
     border: black 2px solid !important;
 
+}
+.profile_info_row {
+    padding-top: 5px;
+}
+
+.line{
+    border-top: 1px solid #e7e8ec;
+    padding: 20px;
 }

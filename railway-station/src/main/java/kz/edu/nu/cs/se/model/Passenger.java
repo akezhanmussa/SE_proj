@@ -13,7 +13,6 @@ public class Passenger {
     private String email;
     private String phoneNumber;
     private String userName;
-    private String password;
     private int passengerId;
 
     @Override
@@ -22,19 +21,17 @@ public class Passenger {
                 "Last Name: " + lastName + "\n" +
                 "Email: " + email + "\n" +
                 "Phone number: " + phoneNumber + "\n" +
-                "Username: " + userName + "\n" +
-                "Password: " + password + "\n";
+                "Username: " + userName + "\n";
 
     }
 
     public Passenger(String firstName, String lastName, String email, String phoneNumber,
-                     String userName, String password, int passengerId){
+                     String userName, int passengerId){
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setEmail(email);
         this.setPhoneNumber(phoneNumber);
         this.setUserName(userName);
-        this.setPassword(password);
         this.passengerId = passengerId;
     }
 
@@ -86,13 +83,5 @@ public class Passenger {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

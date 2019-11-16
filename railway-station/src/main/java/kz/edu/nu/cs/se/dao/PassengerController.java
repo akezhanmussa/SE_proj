@@ -5,6 +5,7 @@ import kz.edu.nu.cs.se.model.Passenger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Optional;
 
 public class PassengerController {
 
@@ -21,14 +22,13 @@ public class PassengerController {
         return true;
     }
 
-    public static void addPassenger(Passenger passenger){
+    public static void addPassenger(Passenger passenger, String password){
 
         String firstName = passenger.getFirstName();
         String lastName = passenger.getLastName();
         String email = passenger.getEmail();
         String phoneNumber = passenger.getPhoneNumber();
         String userName = passenger.getUserName();
-        String password = passenger.getPassword();
 
         String queryInsert = String.format("Insert into Passenger(firstname, lastname, email, phone_number, username, password) Values('%s','%s','%s','%s','%s','%s')",
                 firstName,lastName,email,phoneNumber,userName,password);
@@ -39,7 +39,7 @@ public class PassengerController {
         }
     }
 
-    public static Passenger getPassenger(String username, String pass){
+    public static Optional<Passenger> getPassenger(String username, String pass){
         try {
             ResultSet passengerSet = passengerStatement.executeQuery(String.format("SELECT * FROM Passenger where username = '%s' and password = '%s'", username, pass));
             while(passengerSet.next()){
@@ -49,10 +49,9 @@ public class PassengerController {
                 String email= passengerSet.getString(4);
                 String phoneNumber= passengerSet.getString(5);
                 String userName= passengerSet.getString(6);
-                String password= passengerSet.getString(7);
 
-                Passenger passenger = new Passenger(firstName,lastName,email,phoneNumber,userName,password,passengerId);
-                return passenger;
+                Passenger passenger = new Passenger(firstName,lastName,email,phoneNumber,userName,passengerId);
+                return Optional.of(passenger);
             }
         } catch (SQLException e) {
             e.printStackTrace();
