@@ -96,17 +96,21 @@ class TicketPool extends Component{
     }
 
     pullOneTicket = (id) => {
-        console.log("here")
         alert("Wait please!!!");
         this.setState({isLoading: true});
-        fetch(baseUrl + "/agent/get-unapproved-tickets", {
+        fetch(baseUrl + "/agent/assign-ticket", {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
-            body:JSON.stringify({token: this.props.admin.admin_token, ticketId: id})
+            body:JSON.stringify({token: this.props.admin.admin_token, ticketID: id})
         })
             .then(res => res.json())
             .then(res => {
-                this.props.fetchPullTicket(res);
+                if(res.status !== "success"){
+                    var error = new Error("Error " + res.status);
+                    error.response = res;
+                    throw error;
+                }
+                this.props.fetchPullTicket(res.data);
                 this.setState({isLoading: false});
             })
             .catch(error => {
@@ -129,6 +133,76 @@ class TicketPool extends Component{
             );
         }
     }
+}
+
+class MyTickets extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            isLoading: false,
+            errMess: null
+        };
+        this.approveTicket = this.approveTicket.bind(this);
+    }
+    componentDidMount() {
+        if(this.props.myTickets.length === 0){
+            this.setState({isLoading: true});
+            fetch(baseUrl + "/agent/get-unapproved-tickets", {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body:JSON.stringify({token: this.props.admin.admin_token})
+            })
+                .then(res => res.json())
+                .then(res => {
+                    this.props.fetchMyTickets(res);
+                    this.setState({isLoading: false});
+                })
+                .catch(error => {
+                    this.setState({isLoading: false});
+                    this.setState({errMess: error.message});
+                })
+        }
+    }
+
+    approveTicket = (id, st) => {
+        alert("Wait please!!!");
+        this.setState({isLoading: true});
+        fetch(baseUrl + "/agent/assign-ticket", {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body:JSON.stringify({token: this.props.admin.admin_token, ticketID: id, status: st})
+        })
+            .then(res => res.json())
+            .then(res => {
+                if(res.status !== "success"){
+                    var error = new Error("Error " + res.status);
+                    error.response = res;
+                    throw error;
+                }
+                this.props.fetchMyTickets(res.data);
+                this.setState({isLoading: false});
+            })
+            .catch(error => {
+                this.setState({isLoading: false});
+                this.setState({errMess: error.message});
+            })
+
+    };
+    render() {
+        if(this.state.isLoading){
+            return <Loading/>;
+        }else if(this.state.errMess) {
+            return (
+                <div>{this.state.errMess}</div>
+            );
+        }
+        else{
+            return (
+                <RenderTickets tickets={this.props.myTickets} approveTicket={this.approveTicket} pull={false}/>
+            );
+        }
+    }
+
 }
 class RenderTickets extends Component{
     render() {
@@ -153,9 +227,11 @@ class RenderTickets extends Component{
                     <div className='col-3 d-flex justify-content-center'>
                         {
                             this.props.pull ?
-                                <button className='btn btn-light' onClick={() => this.props.pullOneTicket(ticket.ticketID)}> Pull </button>
+                                <button className='btn btn-light' onClick={() => this.props.pullOneTicket(ticket.ticketID)}> Pull One</button>
                                 :
                                 <div>
+                                    <button className='btn btn-success' onClick={() => this.props.approveTicket(ticket.ticketID, true)}> Approve</button>
+                                    <button className='btn btn-danger' onClick={() => this.props.approveTicket(ticket.ticketID, false)}> Decline</button>
                                 </div>
                         }
                     </div>
@@ -182,17 +258,19 @@ class RenderTickets extends Component{
             </div>
         );
     }
-};
+}
 
 class AgentProfile extends Component{
     constructor(props){
         super(props);
         this.state = {
             profile: null,
-            pullTickets: []
+            pullTickets: [],
+            myTickets: []
         };
         this.fetchProfile = this.fetchProfile.bind(this);
         this.fetchPullTicket = this.fetchPullTicket.bind(this);
+        this.fetchMyTickets = this.fetchMyTickets.bind(this);
     }
 
     fetchProfile = (profile)=> {
@@ -208,6 +286,14 @@ class AgentProfile extends Component{
             pullTickets: pull
         }));
     };
+
+    fetchMyTickets = (tickets)=> {
+        this.setState(prevState => ({
+            ...prevState,
+            myTickets: tickets
+        }));
+    };
+
 
     render() {
         return (
@@ -238,9 +324,7 @@ class AgentProfile extends Component{
                     </div>
                     <div className="tab-pane fade" id="v-pills-my-tickets" role="tabpanel"
                          aria-labelledby="v-pills-my-tickets-tab">
-                        <button onClick={()=>console.log("fasd")}>
-                            adsfsd
-                        </button>
+                        <MyTickets fetchMyTickets={this.fetchMyTickets} myTickets={this.state.myTickets} admin={this.props.admin}/>
                     </div>
                     <div className="tab-pane fade" id="v-pills-ticket-pull" role="tabpanel"
                          aria-labelledby="v-pills-ticket-pull-tab">
