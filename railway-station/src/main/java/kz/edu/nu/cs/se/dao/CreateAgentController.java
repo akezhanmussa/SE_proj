@@ -66,4 +66,19 @@ public class CreateAgentController {
         }
         return false;
     }
+
+    public static Boolean updateAgentPassword(String email, String password) {
+
+        Statement statement = Connector.getStatement();
+        try {
+            boolean statusAgent = statement.execute(String.format("UPDATE Agent SET password=%s WHERE email=%s", email, password));
+            boolean statusPassenger = statement.execute(String.format("UPDATE Passenger SET password=%s WHERE email=%s", email, password));
+            statement.close();
+
+            return statusAgent && statusPassenger;
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+            return false;
+        }
+    }
 }
