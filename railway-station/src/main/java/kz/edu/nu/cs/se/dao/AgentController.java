@@ -2,7 +2,6 @@ package kz.edu.nu.cs.se.dao;
 
 import kz.edu.nu.cs.se.model.TicketModel;
 
-import javax.swing.text.html.Option;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,13 +32,31 @@ public class AgentController {
             Statement statement = Connector.getStatement();
 
             ResultSet stationResultSet = statement.executeQuery(String.format(
-                    "SELECT station_id FROM Agent WHERE agentId=%d", agent_id));
+                    "SELECT station_id FROM Agent WHERE idAgent=%d", agent_id));
 
             result = stationResultSet.getInt(1);
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
         }
         return result;
+    }
+
+    public static Optional<Integer> getAgentStationIDByUsername(String agentUsername) {
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet stationSet = statement.executeQuery(String.format(
+                    "SELECT station_id FROM Agent WHERE username=\"%s\"", agentUsername));
+
+            while (stationSet.next()) {
+                System.out.println("[INFO] Successfully fetched station_id " + stationSet.getInt(1));
+                return Optional.of(stationSet.getInt(1));
+            }
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return Optional.empty();
     }
 
     public static Optional<Integer> getDummyUserID(String agentEmail) {
@@ -52,6 +69,24 @@ public class AgentController {
             if (dummyUser.next()) {
                 Integer dummyID = dummyUser.getInt(1);
                 return Optional.of(dummyID);
+            }
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return Optional.empty();
+    }
+
+    public static Optional<Integer> getAgentIDByUsername(String username) {
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet agentIDSet = statement.executeQuery(String.format(
+                    "SELECT idAgent FROM Agent WHERE username=\"%s\"", username));
+
+            while (agentIDSet.next()) {
+                System.out.println("[INFO] Successfully fetched AgentID " + agentIDSet.getInt(1));
+                return Optional.of(agentIDSet.getInt(1));
             }
 
         } catch (SQLException exception) {
