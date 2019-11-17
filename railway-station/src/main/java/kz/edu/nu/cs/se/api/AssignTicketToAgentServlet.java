@@ -23,8 +23,7 @@ import java.util.HashMap;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static kz.edu.nu.cs.se.api.utils.JWTUtils.getUserFromToken;
-import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
+import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
 @WebServlet(urlPatterns = {"/myrailway/agent/assign-ticket"})
 public class AssignTicketToAgentServlet extends HttpServlet {
@@ -39,6 +38,12 @@ public class AssignTicketToAgentServlet extends HttpServlet {
         if (isExpired(token)){
             System.out.println("[ERROR] Token has expired");
             response.sendError(401, "Token has expired");
+            return;
+        }
+
+        if (!isAgent(token)) {
+            System.out.println("[ERROR] Permission denied, not an agent");
+            response.sendError(401, "[ERROR] Permission denied, not an agent");
             return;
         }
 

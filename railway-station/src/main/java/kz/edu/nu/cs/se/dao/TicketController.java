@@ -87,7 +87,7 @@ public class TicketController {
 
     public static ArrayList<TicketModel> getTicketsForPassenger(Integer passengerID) {
         ArrayList<TicketModel> result = new ArrayList<>();
-        try{
+        try {
             Statement statement = Connector.getStatement();
             ResultSet ticketSet = statement.executeQuery(
                     String.format("SELECT * FROM Ticket WHERE Passenger_idPassenger=%d", passengerID));
@@ -102,6 +102,28 @@ public class TicketController {
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
         }
+        return result;
+    }
+
+    public static ArrayList<TicketModel> getTicketsForAgent(Integer agentID) {
+        ArrayList<TicketModel> result = new ArrayList<>();
+
+        try {
+            Statement statement = Connector.getStatement();
+            ResultSet ticketSet = statement.executeQuery(
+                    String.format("SELECT * FROM Ticket WHERE agent_id=%d", agentID));
+            while (ticketSet.next()) {
+                Optional<TicketModel> optionalTicketModel = getTicketModel(ticketSet);
+                if (optionalTicketModel.isPresent()) {
+                    result.add(optionalTicketModel.get());
+                } else {
+                    System.out.printf("[FAILED] Failed to fetch ticketModel with agentID:%d%n", agentID);
+                }
+            }
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+
         return result;
     }
 
