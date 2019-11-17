@@ -7,6 +7,7 @@ import kz.edu.nu.cs.se.dao.AdminController;
 import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.model.User;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,15 +35,19 @@ public class LoginAdminServlet extends HttpServlet {
 
         String userName = loginObject.getUserName();
         String password = loginObject.getPassword();
-        Optional<User> user = AdminController.getAdmin(userName, password);
-        System.out.println(user);
-        if(user.isPresent()) token = JWTUtils.generateToken(user.get());
+        User user = AdminController.getAdmin(userName, password);
+        PrintWriter out = response.getWriter();
 
-        if(!token.isPresent()){
+        try {
+            System.out.println("hererer");
+            token = JWTUtils.generateToken(user);
+        } catch (Exception ex) {
             response.sendError(response.SC_BAD_REQUEST,"Username or password incorrect");
+            out.flush();
         }
 
-        PrintWriter out = response.getWriter();
+
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
