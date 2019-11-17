@@ -18,8 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
 
-import static kz.edu.nu.cs.se.api.utils.JWTUtils.getUserFromToken;
-import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
+import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
 @WebServlet(urlPatterns = {"/myrailway/agent/buy-ticket"})
 public class BuyTicketAgentServlet extends HttpServlet {
@@ -32,6 +31,12 @@ public class BuyTicketAgentServlet extends HttpServlet {
         if (isExpired(token)){
             System.out.println("[ERROR] Token has expired");
             response.sendError(401, "Token has expired");
+        }
+
+        if (!isAgent(token)) {
+            System.out.println("[ERROR] Permission denied, not an agent");
+            response.sendError(401, "[ERROR] Permission denied, not an agent");
+            return;
         }
 
         String agentUsername = getUserFromToken(token);

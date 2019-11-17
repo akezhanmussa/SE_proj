@@ -5,7 +5,7 @@ import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.Token;
 import kz.edu.nu.cs.se.dao.AgentController;
 import kz.edu.nu.cs.se.dao.ManagerController;
-import kz.edu.nu.cs.se.model.Agent;
+import kz.edu.nu.cs.se.model.AgentModel;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,11 +35,11 @@ public class GetAgentsOfManagerServlet extends HttpServlet {
         int managerStationId = ManagerController.getManagerStationID(managerUserName);
         System.out.println("Manager station id: " + managerStationId);
 
-        ArrayList<Agent> agents = AgentController
+        ArrayList<AgentModel> agentModels = AgentController
                 .getAgents(managerStationId);
 
         PrintWriter out = response.getWriter();
-        out.append(new Gson().toJson(agents));
+        out.append(new Gson().toJson(agentModels));
         out.flush();
     }
 }
