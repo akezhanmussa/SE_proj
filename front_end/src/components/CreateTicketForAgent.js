@@ -6,27 +6,84 @@ import DatePicker from 'react-datepicker'
 import ScheduleTable from './ScheduleTable';
 import "react-datepicker/dist/react-datepicker.css";
 import {locations} from '../shared/Locations'
+import {baseUrl} from "../shared/BaseUrl";
 
-class RoutesTable extends Component{
-    constructor(props){
+const getParsedDate = (date) =>{
+    var dd = date.getDate();
+    var mm = date.getMonth()+1;
+    var yyyy = date.getFullYear();
+    if(dd<10)dd='0'+dd
+    if(mm<10)mm='0'+mm
+    var today = yyyy + '-' + mm + '-' + dd;
+    return today;
+};
+
+class CreateTicketForAgent extends Component {
+    constructor(props) {
         super(props);
         this.state = {
             startStation: '',
             destinationStation: '',
             timeRange: [],
             timeRoute: new Date(),
-            routes : []
-        };
-        this.divStyle = {
-            color: 'blue'
+            routes: [],
+            schedule: {
+                isLoading: false,
+                req: 0,
+                errMess: null,
+                schedule: []
+            }
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.fetchSchedule({"origin": this.state.startStation.value,
-            "destination": this.state.destinationStation.value, "date": this.state.timeRoute, "daytime": this.state.timeRange})
+        this.setState(prevState => ({
+            schedule: {
+                ...prevState.schedule,
+                isLoading: true
+            }
+        }));
+        let path = {"origin": this.state.startStation.value,
+            "destination": this.state.destinationStation.value, "date": this.state.timeRoute, "daytime": this.state.timeRange};
+        path.date = getParsedDate(path.date);
+        console.log(path);
+        path.daytime = path.daytime.map(el => el.value);
+        path.daytime = path.daytime[0];
+        console.log(path);
+        return fetch(baseUrl, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(path)
+        })
+            .then(response => {
+                if (response.ok)
+                    return response;
+                else {
+                    var error = new Error("Error " + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            })
+            .then(response => response.json())
+            .then(response => {
+                console.log(response + " The response from the server, in case delete me in ScheduleActionCreator.js");
+                this.setState(prevState => ({
+                    schedule: {
+                        ...prevState.schedule,
+                        isLoading: false,
+                        schedule: response,
+                        req: 1
+                    }
+                }));
+              })
+            .catch(error => this.setState(prevState => ({
+                schedule: {
+                    ...prevState.schedule,
+                    errMess: error
+                }
+            })));
     }
 
     handleStartStChange = (startStation) => {
@@ -34,7 +91,7 @@ class RoutesTable extends Component{
     };
 
     handleDestinationStChange = (destinationStation) => {
-            this.setState({ destinationStation });
+        this.setState({ destinationStation });
     };
 
     handleTimeRange = (timeRange) => {
@@ -118,11 +175,11 @@ class RoutesTable extends Component{
                     </div>
                 </div>
                 <div className='row justify-content-around'>
-                    <ScheduleTable schedule={this.props.schedule}/>
+                    <ScheduleTable schedule={this.state.schedule} isAdmin={true} collectData={this.props.collectData}/>
                 </div>
             </div>
         )
     }
 }
 
-export default RoutesTable;
+export default CreateTicketForAgent;

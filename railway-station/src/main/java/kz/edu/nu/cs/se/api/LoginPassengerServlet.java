@@ -46,7 +46,7 @@ public class LoginPassengerServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        out.append(gson.toJson(token));
+        out.append(gson.toJson(token.get()));
         out.flush();
 
     }

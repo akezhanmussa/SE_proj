@@ -25,12 +25,12 @@
 
 .logoutButton{
     background-color: Transparent;
-    background-repeat:no-repeat;
+    background-repeat :no-repeat;
     border: none;
     cursor:pointer;
     overflow: hidden;
     outline:none;opacity: 100;
-    color: white;
+    color: white !important;
 }
 
 .profile_info_short {
@@ -69,11 +69,6 @@
     float: left;
 }
 
-#adminNavbar{
-    height: 70px !important;
-    border-bottom: black 2px solid !important;
-    margin-bottom: 10px;
-}
 
 #AgentNavigation{
     border: black 2px solid !important;
@@ -86,4 +81,27 @@
 .line{
     border-top: 1px solid #e7e8ec;
     padding: 20px;
+}
+
+#admin{
+    background-color: #ced3f2;
+    height: 100vh;
+}
+
+#adminNavbar{
+    background-color: #23349e;
+    height: 70px !important;
+    border-bottom: black 2px solid !important;
+    margin-bottom: 10px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background-color: #b2baed !important;
+}
+
+
+#v-pills-tabContent{
+    /*border: black 2px solid !important;*/
+    background-color: white !important;
+    border-radius: 15px;
 }

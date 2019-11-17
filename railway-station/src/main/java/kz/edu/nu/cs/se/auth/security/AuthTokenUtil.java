@@ -11,7 +11,7 @@ public class AuthTokenUtil {
 
         Date date = new Date();
         Date date2 = new Date();
-        date2.setMinutes(date.getMinutes() + 60);
+        date2.setTime(date.getTime() + 18000);
 
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");

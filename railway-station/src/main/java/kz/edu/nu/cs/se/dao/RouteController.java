@@ -140,6 +140,7 @@ public class RouteController {
                 String startTimeString = routes.getString(3);
                 String endTimeString = routes.getString(4);
                 Integer price = ((int) routes.getFloat(5));
+                Integer trainId = routes.getInt(6);
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime startTime = LocalDateTime.parse(startTimeString, formatter);
@@ -160,6 +161,7 @@ public class RouteController {
 
                 RouteModel routeModel = new RouteModel(startName, destinationName, startTime, endTime);
                 routeModel.setPrice(price);
+                routeModel.setTrainId(trainId);
 
                 routeModels.add(routeModel);
             }

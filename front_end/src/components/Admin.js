@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Navbar from "react-bootstrap/Navbar";
 import NavbarBrand from "react-bootstrap/NavbarBrand";
 import {Nav, NavItem} from "react-bootstrap";
+import Home from "./Home";
 
 const mapDispatchToProps = (dispatch) => ({
    logoutAdmin: () => dispatch(adminLogout())
@@ -15,7 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
 const NavBar = (props) => {
     return(
         <Navbar id='adminNavbar'>
-            <NavbarBrand className='ml-5'>Railways App</NavbarBrand>
+            <NavbarBrand className='ml-5' style={{color: 'white'}}>Railways App</NavbarBrand>
             <Nav className='ml-auto'>
                 <NavItem className='nav-item mr-5'>
                     <button className='nav-link logoutButton' onClick={props.logoutAdmin}>Logout</button>
@@ -29,11 +30,10 @@ const NavBar = (props) => {
 class Admin extends Component{
     render() {
         return(
-            <React.Fragment>
+            <div id='admin'>
                 <NavBar logoutAdmin={this.props.logoutAdmin}/>
                 {/*<AgentProfile/>*/}
-                <ManagerProfile/>
-            </React.Fragment>
+                <ManagerProfile/></div>
         );
     }
 }

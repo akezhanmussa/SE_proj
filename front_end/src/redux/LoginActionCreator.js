@@ -30,7 +30,6 @@ export const logoutApproved = () => {
 };
 
 export function login(userData){
-    console.log(userData)
     return dispatch => {
         dispatch(loginRequest(userData));
         fetch(loginUrl, {

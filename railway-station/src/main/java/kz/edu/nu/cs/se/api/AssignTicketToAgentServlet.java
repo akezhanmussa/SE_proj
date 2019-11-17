@@ -5,6 +5,7 @@ import kz.edu.nu.cs.se.api.utils.AssignTicketToAgentObject;
 import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.Token;
 import kz.edu.nu.cs.se.dao.AgentController;
+import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.model.TicketModel;
 import kz.edu.nu.cs.se.model.User;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import static kz.edu.nu.cs.se.api.utils.JWTUtils.getUserFromToken;
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
 
 @WebServlet(urlPatterns = {"/myrailway/agent/assign-ticket"})
@@ -37,7 +39,7 @@ public class AssignTicketToAgentServlet extends HttpServlet {
 
         AssignTicketToAgentObject ticketToAgentObject = new Gson().fromJson(request.getReader(),
                 AssignTicketToAgentObject.class);
-        User agent = JWTUtils.getUserFromToken(token);
+        User agent = PassengerController.getPassenger(getUserFromToken(token)).get();
 
         Integer agentID = agent.getUserId();
         Integer ticketID = ticketToAgentObject.getTicketID();

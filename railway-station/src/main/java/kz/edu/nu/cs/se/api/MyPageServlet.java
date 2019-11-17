@@ -2,6 +2,7 @@ package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
 import kz.edu.nu.cs.se.api.utils.*;
+import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.model.User;
 
 import javax.servlet.annotation.WebServlet;
@@ -20,23 +21,24 @@ public class MyPageServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Gson gson = new Gson();
+        System.out.println("herreee: "+request.getReader());
         String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
+        System.out.println("mytoken: " + token);
         if (isExpired(token)){
             response.sendError(401, "Token has expired");
         }
 
-        if(!isAgent(token)) {
+        if(!isPassenger(token)) {
             response.sendError(401, "Unauthorized as passenger");
         }
 
 
-        User user = JWTUtils.getUserFromToken(token);
+        User user = PassengerController.getPassenger(getUserFromToken(token)).get();
         MyPageObject myPageObject = new MyPageObject(user.getFirstName(),
                                                         user.getLastName(),
                                                         user.getEmail(),
                                                         user.getPhoneNumber(),
                                                         user.getUserName());
-
 
 
         response.setContentType("application/json");
