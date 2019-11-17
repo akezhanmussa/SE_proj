@@ -10,6 +10,7 @@ import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.model.TicketModel;
 import kz.edu.nu.cs.se.model.User;
 import kz.edu.nu.cs.se.view.Ticket;
+import kz.edu.nu.cs.se.view.TicketForAgent;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.getUserFromToken;
@@ -29,36 +31,54 @@ public class AssignTicketToAgentServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
-        System.out.println(String.format("Received token: %s", token));
+        AssignTicketToAgentObject ticketToAgentObject = new Gson().fromJson(request.getReader(),
+                AssignTicketToAgentObject.class);
+
+        String token = ticketToAgentObject.getToken();
 
         if (isExpired(token)){
             System.out.println("[ERROR] Token has expired");
             response.sendError(401, "Token has expired");
+            return;
         }
 
-        AssignTicketToAgentObject ticketToAgentObject = new Gson().fromJson(request.getReader(),
-                AssignTicketToAgentObject.class);
-        User agent = PassengerController.getPassenger(getUserFromToken(token)).get();
+        String agentUsername = getUserFromToken(token);
 
-        Integer agentID = agent.getUserId();
+        Optional<Integer> optionalAgentID = AgentController.getAgentIDByUsername(agentUsername);
+
+        if (!optionalAgentID.isPresent()) {
+            System.out.println("[ERROR] Failed to fetch agentID for username: " + agentUsername);
+            response.sendError(401, "[ERROR] Failed to fetch agentID for username: " + agentUsername);
+            return;
+        }
+
         Integer ticketID = ticketToAgentObject.getTicketID();
 
-        Boolean result = TicketController.assignTicketToAgent(agentID, ticketID);
+        Boolean result = TicketController.assignTicketToAgent(optionalAgentID.get(), ticketID);
 
         Gson responseJSON = new Gson();
 
-        Integer stationId = AgentController.getAgentStationID(agentID);
+        Optional<Integer> optionalStationId = AgentController.getAgentStationID(optionalAgentID.get());
+
+        if (!optionalStationId.isPresent()) {
+            System.out.println("[ERROR] Failed to fetch stationID for agentID: " + optionalAgentID.get());
+            response.sendError(401, "[ERROR] Failed to fetch stationID for agentID: " + optionalAgentID.get());
+            return;
+        }
+
+        Integer stationId = optionalStationId.get();
+
+        System.out.printf("[INFO] Fetching unapproved tickets for stationID=%d%n", stationId);
+
         ArrayList<TicketModel> ticketModels = TicketController.getUnapprovedTickets(stationId);
-        ArrayList<Ticket> tickets = ticketModels.stream().map(Ticket::new).
+        ArrayList<TicketForAgent> tickets = ticketModels.stream().map(TicketForAgent::new).
                 collect(Collectors.toCollection(ArrayList::new));
 
-        String dataValue = responseJSON.toJson(tickets);
-        String statusValue = responseJSON.toJson(result ? "success" : "Failed to assign ticket to you.");
+        System.out.printf("[INFO] Fetched %d unapproved tickets.%n", tickets.size());
 
-        HashMap<String, String> responseDict = new HashMap<>();
-        responseDict.put("data", dataValue);
-        responseDict.put("status", statusValue);
+        HashMap<String, Object> responseDict = new HashMap<>();
+        responseDict.put("data", tickets);
+        responseDict.put("status", result ? "success" : "Failed to assign ticket to you.");
 
         PrintWriter out = response.getWriter();
         out.append(responseJSON.toJson(responseDict));
