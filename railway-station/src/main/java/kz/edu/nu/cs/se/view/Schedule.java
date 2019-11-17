@@ -23,10 +23,10 @@ public class Schedule {
         this.id = model.getId();
         this.origin = model.getOrigin();
         this.destination = model.getDestination();
-        this.startTime = model.getStartTimeObject().format(dateFormatter);
-        this.endTime = model.getEndTimeObject().format(dateFormatter);
+//        this.startTime = model.getStartTimeObject().format(dateFormatter);
+//        this.endTime = model.getEndTimeObject().format(dateFormatter);
 
-        this.train = new Train(model.getTrainModel());
+//        this.train = new Train(model.getTrainModel());
 
         this.routes = new ArrayList<>();
         for (RouteModel route : model.getRoutes()) {

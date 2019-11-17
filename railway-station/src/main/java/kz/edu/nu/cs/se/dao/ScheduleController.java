@@ -123,6 +123,8 @@ public class ScheduleController {
             System.out.println(exception.getMessage());
         }
 
+        System.out.println(scheduleModels.size());
+
         return scheduleModels;
     }
 }

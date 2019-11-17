@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import AgentProfile from './AgentProfile';
-import ManagerProfile from './ManagerProfile';
+import ManagerProfile from './Manager/ManagerProfile';
 import { adminLogout } from '../redux/AdminLoginActionCreator';
 import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
