@@ -44,11 +44,7 @@ public class FetchRoadsForManagerServlet extends HttpServlet {
 
         ArrayList<ScheduleModel> scheduleModels = ScheduleController.fetchAllSchedules();
         System.out.println("HERE 4");
-<<<<<<< HEAD
-//        for (ScheduleModel scheduleModel : scheduleModels) scheduleModel.setStringDates();
-=======
         for (ScheduleModel scheduleModel : scheduleModels) scheduleModel.setStringDates();
->>>>>>> b7ba0f8b1e6a8ecc789b4f10f01d8f8ac788493f
         System.out.println("HERE 3");
         ArrayList<Schedule> schedules = new ArrayList<>();
         for (ScheduleModel scheduleModel : scheduleModels) schedules.add(new Schedule(scheduleModel));
