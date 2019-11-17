@@ -4,20 +4,67 @@ import {Loading} from "./Loading";
 import {baseUrl, getInfoUrl} from "../shared/BaseUrl";
 import RoutesTable from "./RoutesTable";
 import {locations} from "../shared/Locations";
+import {Form, FormGroup, Input, Label} from "reactstrap";
 class CreateTicket extends Component{
     constructor(props){
         super(props);
         this.collectData = this.collectData.bind(this);
     }
     collectData = (body) => {
+        body.owner_document_id = this.docId.value;
+        body.owner_document_type = this.doctype.value;
+        body.owner_firstname = this.firstame.value;
+        body.owner_lastname = this.lastname.value;
+        body.token = this.props.admin.admin_token;
         console.log(body)
     };
     render() {
         return (
-            <CreateTicketForAgent collectData={this.collectData}/>
+            <div className='mt-2'>
+                <Form>
+                    <div className='row'>
+                        <FormGroup className='col-6'>
+                            <Label for='firstname'>
+                                Firstname
+                            </Label>
+                            <Input type="text" id="firstname" name="firstname"
+                                   innerRef={(input) => this.firstame = input}/>
+                        </FormGroup>
+                        <FormGroup className='col-6'>
+                            <Label for='lastname'>
+                                Lastname
+                            </Label>
+                            <Input type="text" id="lastname" name="lastname"
+                                   innerRef={(input) => this.lastname = input}/>
+                        </FormGroup>
+                    </div>
+                    <div className='row'>
+                        <FormGroup className='col-6'>
+                            <Label for="doctype">Select document type</Label>
+                            <Input type="select" name="select" id="doctype" innerRef={(input) => this.doctype = input}>
+                                <option>National Id</option>
+                                <option>Passport</option>
+                            </Input>
+                        </FormGroup>
+                        <FormGroup className='col-6'>
+                            <Label for='docId'>
+                                Enter ID of your document
+                            </Label>
+                            <Input type="text" id="docId" name="docId"
+                                   innerRef={(input) => this.docId = input}/>
+                        </FormGroup>
+                    </div>
+                    {/*<div className='row mr-auto'>*/}
+                    {/*    <button className='btn btn-secondary ml-auto mb-2' onClick={this.handleSubmit}>Buy ticket*/}
+                    {/*    </button>*/}
+                    {/*</div>*/}
+                </Form>
+                <CreateTicketForAgent collectData={this.collectData}/>
+            </div>
         );
     }
 }
+
 
 class Profile extends Component{
     constructor(props){
@@ -65,7 +112,6 @@ class Profile extends Component{
     }
 
 }
-
 class TicketPool extends Component{
     constructor(props){
         super(props);
@@ -143,7 +189,6 @@ class TicketPool extends Component{
         }
     }
 }
-
 class MyTickets extends Component{
     constructor(props){
         super(props);
@@ -183,12 +228,10 @@ class MyTickets extends Component{
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
                 this.props.fetchMyTickets(res);
                 this.setState({isLoading: false});
             })
             .catch(error => {
-                console.log(error);
                 this.setState({isLoading: false});
                 this.setState({errMess: error.message});
             })
@@ -266,6 +309,7 @@ class RenderTickets extends Component{
     }
 }
 
+
 class AgentProfile extends Component{
     constructor(props){
         super(props);
@@ -294,7 +338,6 @@ class AgentProfile extends Component{
     };
 
     fetchMyTickets = (tickets)=> {
-        console.log(tickets);
         this.setState(prevState => ({
             ...prevState,
             myTickets: tickets
@@ -327,7 +370,7 @@ class AgentProfile extends Component{
                     </div>
                     <div className="tab-pane fade" id="v-pills-create-ticket" role="tabpanel"
                          aria-labelledby="v-pills-messages-tab">
-                        <CreateTicket/>
+                        <CreateTicket admin={this.props.admin}/>
                     </div>
                     <div className="tab-pane fade" id="v-pills-my-tickets" role="tabpanel"
                          aria-labelledby="v-pills-my-tickets-tab">

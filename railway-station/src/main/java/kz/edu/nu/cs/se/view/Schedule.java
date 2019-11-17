@@ -2,9 +2,7 @@ package kz.edu.nu.cs.se.view;
 
 import kz.edu.nu.cs.se.model.RouteModel;
 import kz.edu.nu.cs.se.model.ScheduleModel;
-import kz.edu.nu.cs.se.model.TrainModel;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -23,10 +21,10 @@ public class Schedule {
         this.id = model.getId();
         this.origin = model.getOrigin();
         this.destination = model.getDestination();
-//        this.startTime = model.getStartTimeObject().format(dateFormatter);
-//        this.endTime = model.getEndTimeObject().format(dateFormatter);
+        this.startTime = model.getStartTimeObject().format(dateFormatter);
+        this.endTime = model.getEndTimeObject().format(dateFormatter);
 
-//        this.train = new Train(model.getTrainModel());
+        this.train = new Train(model.getTrainModel());
 
         this.routes = new ArrayList<>();
         for (RouteModel route : model.getRoutes()) {

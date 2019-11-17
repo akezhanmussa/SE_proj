@@ -188,7 +188,7 @@ public class TicketController {
         try {
             Statement statement = Connector.getStatement();
 
-            statement.execute(String.format("UPDATE Ticket SET status=\"%s\" WHERE idTicket=%d",
+            statement.execute(String.format("UPDATE Ticket SET status=\"%s\", agent_id=NULL WHERE idTicket=%d",
                     newStatus, ticketID));
 
             statement.close();
