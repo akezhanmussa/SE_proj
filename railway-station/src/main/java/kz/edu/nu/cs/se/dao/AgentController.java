@@ -123,6 +123,20 @@ public class AgentController {
 
     }
 
+    public static Optional<String> getEmailByUsername(String username) {
+        try {
+            Statement statement = Connector.getStatement();
+            ResultSet emailSet = statement.executeQuery(
+                    String.format("SELECT email FROM Agent WHERE username=%s", username));
+
+            if (emailSet.next()) return Optional.of(emailSet.getString(1));
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return Optional.empty();
+    }
+
     public static void updateAgentWorkingHours(int agentId, int workingHours) {
 
         Statement passengerStatement = Connector.getStatement();
@@ -135,8 +149,6 @@ public class AgentController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
 
     }
 }
