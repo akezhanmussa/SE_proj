@@ -127,7 +127,7 @@ public class AgentController {
         try {
             Statement statement = Connector.getStatement();
             ResultSet emailSet = statement.executeQuery(
-                    String.format("SELECT email FROM Agent WHERE username=%s", username));
+                    String.format("SELECT email FROM Agent WHERE username=\"%s\"", username));
 
             if (emailSet.next()) return Optional.of(emailSet.getString(1));
 
