@@ -10,8 +10,6 @@ import {submitRegistrationForm} from "../redux/RegistrationApproveActionCreators
 import {login,logout} from "../redux/LoginActionCreator";
 import Admin from './Admin';
 import AdminLogin from './AdminLogin';
-import PassengerTicketsPage from "./PassengerTicketsPage";
-import {Button} from "react-bootstrap";
 import jwt_decode from 'jwt-decode';
 import PassengerPage from "./PassengerPage";
 
@@ -41,7 +39,7 @@ const AdminRouter = (props) => {
 
     return(
         <Switch>
-            <PrivateAdminRoute exact path={props.match.url} component={() => <Admin/>}/>
+            <PrivateAdminRoute exact path={props.match.url} component={() => <Admin admin={props.admin}/>}/>
             <Route exact path={props.match.url + '/login'} component={() => <AdminLogin admin={props.admin}/> }/>
         </Switch>
     );
@@ -55,10 +53,9 @@ class Main extends Component{
     }
 
     checkExpirationDate(){
-        console.log(this.props.loginUser)
         if(this.props.loginUser.isAuthenticated){
             const token = this.props.loginUser.token;
-            var jt = ""
+            var jt = "";
             try {
                 jt = jwt_decode(token);
             }catch (e) {

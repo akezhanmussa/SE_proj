@@ -7,15 +7,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../front_end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Admin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front_end/src/components/AgentProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/AgentProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Manager/Routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Manager/Routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/NavigationBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Loading.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Loading.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/PassengerPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/PassengerPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/redux/ActionToState.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/ActionToState.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front_end/src/redux/AdminLoginActionCreator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/AdminLoginActionCreator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/shared/BaseUrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/BaseUrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/shared/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/LoginAdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/LoginAdminServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/NavigationBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/shared/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/style.css" afterDir="false" />
     </list>
+    <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +59,19 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetTicketServlet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/LoginPassengerServlet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/MyPageServlet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/utils/JWTUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/model/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/AdminController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/LoginAdminServlet.java" />
+      </list>
+    </option>
+  </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -68,6 +86,17 @@
       </MavenImportingSettings>
     </option>
   </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="railway Maven Webapp" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
   <component name="PhpServers">
     <servers />
   </component>
@@ -79,7 +108,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="67" />
     <option name="y" value="25" />
     <option name="width" value="1217" />

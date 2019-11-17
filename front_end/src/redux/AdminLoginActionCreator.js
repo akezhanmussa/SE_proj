@@ -41,8 +41,9 @@ export function adminLogin(adminData){
                 if (res.error){
                     throw(res.error);
                 }
-                localStorage.setItem('admin_token', JSON.stringify(res.token));
+                localStorage.setItem('admin_token', JSON.stringify(res));
                 localStorage.setItem('admin', JSON.stringify(adminData));
+                console.log(res);
                 dispatch(adminLoginApprove(res.token));
             })
             .catch(err => {

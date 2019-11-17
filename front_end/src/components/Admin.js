@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import AgentProfile from './AgentProfile';
 import ManagerProfile from './Manager/ManagerProfile';
 import { adminLogout } from '../redux/AdminLoginActionCreator';
-import {NavLink, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import Navbar from "react-bootstrap/Navbar";
 import NavbarBrand from "react-bootstrap/NavbarBrand";
 import {Nav, NavItem} from "react-bootstrap";
-import Home from "./Home";
+
 
 const mapDispatchToProps = (dispatch) => ({
    logoutAdmin: () => dispatch(adminLogout())
@@ -32,8 +32,9 @@ class Admin extends Component{
         return(
             <div id='admin'>
                 <NavBar logoutAdmin={this.props.logoutAdmin}/>
-                {/*<AgentProfile/>*/}
-                <ManagerProfile/></div>
+                <AgentProfile admin={this.props.admin}/>
+                {/*<ManagerProfile/>*/}
+            </div>
         );
     }
 }

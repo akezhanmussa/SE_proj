@@ -50,7 +50,7 @@ export const Login = (state = {isLoading: false,
 export const AdminLogin = (state = {isLoading: false,
     isAuthenticated: localStorage.getItem('admin_token') ? true : false,
     user: JSON.parse(localStorage.getItem('admin')),
-    token : JSON.parse(localStorage.getItem('admin_token')),
+    admin_token : JSON.parse(localStorage.getItem('admin_token')),
     errorMessage: null}, action) => {
     switch (action.type){
         case ActionTypes.AdminLoginRequest:

@@ -1,25 +1,80 @@
 import React, {Component} from 'react';
 import CreateTicketForAgent from './CreateTicketForAgent';
+import {Loading} from "./Loading";
+import {baseUrl, getInfoUrl} from "../shared/BaseUrl";
 class CreateTicket extends Component{
     constructor(props){
         super(props);
         this.collectData = this.collectData.bind(this);
     }
-
     collectData = (body) => {
         console.log(body)
     };
-
-
     render() {
         return (
             <CreateTicketForAgent collectData={this.collectData}/>
         );
     }
-};
+}
+
+class Profile extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            isLoading: false,
+            errMess: null
+        }
+    }
+    componentDidMount() {
+        if(!this.props.profile){
+            this.setState({isLoading: true});
+            fetch(baseUrl, {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body:JSON.stringify(this.props.admin.admin_token)
+            })
+                .then(res => res.json())
+                .then(res => {
+                    this.props.fetchProfile(res.body);
+                    this.setState({isLoading: false});
+                })
+                .catch(error => this.setState({errMess: error}))
+        }
+    }
+
+    render() {
+        if(this.state.isLoading){
+            return <Loading/>;
+        }else if(this.state.errMess) {
+            return <div>{this.state.errMess}</div>;
+        }
+        else{
+            return (
+                <div>
+
+                </div>
+            );
+        }
+    }
+
+}
+
 
 class AgentProfile extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            profile: null
+        };
+        this.fetchProfile = this.fetchProfile.bind(this);
+    }
 
+    fetchProfile = (profile)=> {
+        this.setState(prevState => ({
+            ...prevState,
+            profile: profile
+        }));
+    };
 
     render() {
         return (
@@ -36,7 +91,8 @@ class AgentProfile extends Component{
                 </div>
                 <div className="offset-1 tab-content col-8" id="v-pills-tabContent">
                     <div className="tab-pane fade show active" id="v-pills-home" role="tabpanel"
-                         aria-labelledby="v-pills-home-tab">Profile
+                         aria-labelledby="v-pills-home-tab">
+                        <Profile profile={this.state.profile} fetchPfofile={this.fetchProfile} admin={this.props.admin}/>
                     </div>
                     <div className="tab-pane fade" id="v-pills-profile" role="tabpanel"
                          aria-labelledby="v-pills-profile-tab">...
