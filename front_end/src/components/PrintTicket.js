@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Loading} from "./Loading";
-import {getTiketsUrl} from "../shared/BaseUrl";
+import {baseUrl, getTiketsUrl} from "../shared/BaseUrl";
 import {locations} from "../shared/Locations";
 
 class PrintTicket extends Component{
@@ -22,33 +22,34 @@ class PrintTicket extends Component{
         };
     }
 
-    // componentDidMount() {
-    //     const toDict = {userToken: this.props.loginUser.token, adminToken: this.props.admin.admin_token, ticketID: this.props.id};
-    //     this.setState({isLoading: true});
-    //     return fetch(getTiketsUrl, {
-    //         method: 'POST',
-    //         headers: {'Content-Type':'application/json'},
-    //         body: JSON.stringify(toDict)
-    //     })
-    //         .then(response => {
-    //             if(response.ok){
-    //                 return response.json();
-    //             }
-    //             else{
-    //                 var error = new Error("Error " + response.status + ': ' + response.statusText);
-    //                 error.response = response;
-    //                 throw error;
-    //             }
-    //         })
-    //         .then(response => {
-    //             this.setState({ticket: response});
-    //             this.setState({isLoading: false});
-    //         })
-    //         .catch (error => {
-    //             this.setState({isLoading: false});
-    //             this.setState({errMess: error.message});
-    //         });
-    // }
+    componentDidMount() {
+        const toDict = {userToken: this.props.loginUser.token, agentToken: this.props.admin.admin_token, ticketID: this.props.id};
+        this.setState({isLoading: true});
+        return fetch(baseUrl + '/user/fetch-ticket', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(toDict)
+        })
+            .then(response => {
+                if(response.ok){
+                    return response.json();
+                }
+                else{
+                    var error = new Error("Error " + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            })
+            .then(response => {
+                console.log(response)
+                this.setState({ticket: response});
+                this.setState({isLoading: false});
+            })
+            .catch (error => {
+                this.setState({isLoading: false});
+                this.setState({errMess: error.message});
+            });
+    }
 
     render() {
         const intToStr = (id) => {

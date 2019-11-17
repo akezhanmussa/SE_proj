@@ -5,6 +5,8 @@ import {baseUrl, getInfoUrl} from "../shared/BaseUrl";
 import RoutesTable from "./RoutesTable";
 import {locations} from "../shared/Locations";
 import {Form, FormGroup, Input, Label} from "reactstrap";
+import { withRouter } from 'react-router-dom';
+
 class CreateTicket extends Component{
     constructor(props){
         super(props);
@@ -25,7 +27,10 @@ class CreateTicket extends Component{
             .then(response => {
                 console.log(response)
                 if(response.ok) {
-                    alert("Thanks, your request is submitted. Wait for approving");
+                    var mes = "Thanks, your request is submitted. Wait for approving";
+                    // if(window.confirm(mes)){
+                    //     this.props.history.push('/home/print_ticket/11');
+                    // }
                 }else{
                     var error = new Error("Error " + response.status + ': ' + response.statusText);
                     error.response = response;
@@ -83,6 +88,7 @@ class CreateTicket extends Component{
     }
 }
 
+withRouter(CreateTicket);
 
 class Profile extends Component{
     constructor(props){
