@@ -45,7 +45,7 @@ public class PassengerController {
         Statement passengerStatement = Connector.getStatement();
         try {
             ResultSet passengerSet = passengerStatement.executeQuery(String.format("SELECT * FROM Passenger where username = '%s'", username));
-            while(passengerSet.next()){
+            while (passengerSet.next()){
                 int passengerId = passengerSet.getInt(1);
                 String firstName = passengerSet.getString(2);
                 String lastName= passengerSet.getString(3);
@@ -56,12 +56,14 @@ public class PassengerController {
                 User user = new User(firstName,lastName,email,phoneNumber,userName,passengerId);
                 user.setUserRole("passenger");
                 passengerStatement.close();
+
                 return Optional.of(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+
+        return Optional.empty();
     }
 
     public static Optional<User> getPassenger(String username, String passowrd){
@@ -84,7 +86,7 @@ public class PassengerController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
 
 }

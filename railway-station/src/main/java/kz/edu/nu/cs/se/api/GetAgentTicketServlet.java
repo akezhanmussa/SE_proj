@@ -5,8 +5,10 @@ import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.Token;
 import kz.edu.nu.cs.se.dao.AgentController;
 import kz.edu.nu.cs.se.dao.PassengerController;
+import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.model.TicketModel;
 import kz.edu.nu.cs.se.model.User;
+import kz.edu.nu.cs.se.view.TicketForAgent;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,9 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-import static kz.edu.nu.cs.se.api.utils.JWTUtils.getUserFromToken;
-import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
+import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
 @WebServlet(urlPatterns = {"/myrailway/agent/get-agent-ticket"})
 public class GetAgentTicketServlet extends HttpServlet {
@@ -29,15 +32,31 @@ public class GetAgentTicketServlet extends HttpServlet {
         if (isExpired(token)){
             System.out.println("[ERROR] Token has expired");
             response.sendError(401, "Token has expired");
+            return;
         }
 
-        User agent = PassengerController.getPassenger(getUserFromToken(token)).get();
-        Integer agentID = agent.getUserId();
+        if (!isAgent(token)) {
+            System.out.println("[ERROR] Permission denied, not an agent");
+            response.sendError(401, "[ERROR] Permission denied, not an agent");
+            return;
+        }
 
-        ArrayList<TicketModel> agentTickets = AgentController.getAgentTickets(agentID);
+        String agentUsername = getUserFromToken(token);
+        Optional<Integer> optionalAgentID = AgentController.getAgentIDByUsername(agentUsername);
+
+        if (!optionalAgentID.isPresent()) {
+            System.out.println("[ERROR] Failed to fetch agentID for username: " + agentUsername);
+            response.sendError(401, "[ERROR] Failed to fetch agentID for username: " + agentUsername);
+            return;
+        }
+
+        ArrayList<TicketModel> tickets = TicketController.getTicketsForAgent(optionalAgentID.get());
+        ArrayList<TicketForAgent> ticketForAgents = tickets.stream().map(TicketForAgent::new).
+                collect(Collectors.toCollection(ArrayList::new));
+
 
         PrintWriter out = response.getWriter();
-        out.append(new Gson().toJson(agentTickets));
+        out.append(new Gson().toJson(ticketForAgents));
         out.flush();
     }
 }

@@ -3,7 +3,7 @@ package kz.edu.nu.cs.se.api.utils;
 public class UpdateTicketStatusObject {
     private String token;
     private Integer ticketID;
-    private String newStatus;
+    private Boolean isApproved;
 
     public String getToken() {
         return token;
@@ -21,11 +21,7 @@ public class UpdateTicketStatusObject {
         this.ticketID = ticketID;
     }
 
-    public String getNewStatus() {
-        return newStatus;
-    }
-
-    public void setNewStatus(String newStatus) {
-        this.newStatus = newStatus;
+    public Boolean getApproved() {
+        return isApproved;
     }
 }
