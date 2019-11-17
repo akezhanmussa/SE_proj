@@ -79,9 +79,7 @@ public class UpdateTicketStatusServlet extends HttpServlet {
             return;
         }
 
-        Optional<Integer> optionalStationID = AgentController.getAgentStationID(agentID);
-
-        ArrayList<TicketModel> ticketModels = TicketController.getUnapprovedTickets(optionalStationID.get());
+        ArrayList<TicketModel> ticketModels = TicketController.getTicketsForAgent(agentID);
         ArrayList<TicketForAgent> ticketForAgents = ticketModels.stream().map(TicketForAgent::new).
                 collect(Collectors.toCollection(ArrayList::new));
 
