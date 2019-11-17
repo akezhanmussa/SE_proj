@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import CreateAgentForm from "./CreateAgentForm";
 import Routes from "./Routes";
+import Employees from "./Employees";
 
 class ManagerProfile extends Component{
     render() {
@@ -16,8 +17,8 @@ class ManagerProfile extends Component{
                     <a className="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-agents"
                        role="tab" aria-controls="v-pills-settings" aria-selected="false">Agents</a>
                 </div>
-                <div className="offset-1 tab-content" id="v-pills-tabContent">
-                    <div className="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
+                <div className="offset-1 tab-content col-8"  id="v-pills-tabContent">
+                    <div className="tab-pane fade show active" style={{backgroundColor:"#ced3f2 !important"}} id="v-pills-profile" role="tabpanel"
                          aria-labelledby="v-pills-home-tab">...
                     </div>
                     <div className="tab-pane fade" id="v-pills-routes" role="tabpanel"
@@ -25,7 +26,8 @@ class ManagerProfile extends Component{
                         <Routes></Routes>
                     </div>
                     <div className="tab-pane fade" id="v-pills-employees" role="tabpanel"
-                         aria-labelledby="v-pills-messages-tab">...
+                         aria-labelledby="v-pills-messages-tab">
+                        <Employees></Employees>
                     </div>
                     <div className="tab-pane fade" id="v-pills-agents" role="tabpanel"
                          aria-labelledby="v-pills-settings-tab">
