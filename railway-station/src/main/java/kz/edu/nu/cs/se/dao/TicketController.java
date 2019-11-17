@@ -133,14 +133,13 @@ public class TicketController {
         try {
             Statement statement = Connector.getStatement();
 
-            result = statement.execute(String.format(
+            statement.execute(String.format(
                     "UPDATE Ticket SET agent_id=%d WHERE idTicket=%d AND agent_id is NULL", agentID, ticketID)
             );
 
-            if (!result) {
-                System.out.println(String.format(
-                        "[ERROR] Failed to assign ticket(id=%d) to agent (id=%d)", ticketID, agentID));
-            }
+            result = statement.execute(String.format(
+                    "SELECT * FROM Ticket WHERE agent_id=%d AND idTicket=%d",agentID, ticketID));
+
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
         }
