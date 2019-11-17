@@ -20,7 +20,7 @@ const getUserInfo = (token) => {
             throw error
         }
     )
-}
+};
 
 class PassengerPage extends Component{
 
