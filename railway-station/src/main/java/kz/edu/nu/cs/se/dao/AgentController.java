@@ -26,19 +26,20 @@ public class AgentController {
         return result;
     }
 
-    public static Integer getAgentStationID(Integer agent_id) {
-        Integer result = -1;
+    public static Optional<Integer> getAgentStationID(Integer agent_id) {
         try {
             Statement statement = Connector.getStatement();
 
             ResultSet stationResultSet = statement.executeQuery(String.format(
                     "SELECT station_id FROM Agent WHERE idAgent=%d", agent_id));
 
-            result = stationResultSet.getInt(1);
+            while (stationResultSet.next()) {
+                return Optional.of(stationResultSet.getInt(1));
+            }
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
         }
-        return result;
+        return Optional.empty();
     }
 
     public static Optional<Integer> getAgentStationIDByUsername(String agentUsername) {
