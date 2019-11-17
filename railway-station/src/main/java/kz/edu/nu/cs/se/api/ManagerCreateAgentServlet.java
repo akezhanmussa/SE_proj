@@ -31,10 +31,12 @@ public class ManagerCreateAgentServlet extends HttpServlet {
 
         if(isExpired(token)){
             response.sendError(401, "Token has expired");
+            return;
         }
 
         if(!isManager(token)) {
             response.sendError(401, "Unauthorized as manager");
+            return;
         }
 
         Float salary = agentObject.getSalary();
