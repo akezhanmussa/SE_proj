@@ -48,20 +48,7 @@ public class ManagerCreateAgentServlet extends HttpServlet {
         String username = agentObject.getUsername();
         String password = agentObject.getPassword();
 
-<<<<<<< HEAD
-        System.out.println(salary);
-        System.out.println(workHours);
-        System.out.println(firstName);
-        System.out.println(lastName);
-        System.out.println(email);
-        System.out.println(phoneNumber);
-        System.out.println(password);
-
-
-        Integer stationId = -1;//TODO
-=======
         Integer stationId = ManagerController.getManagerStationID(getUserFromToken(token));
->>>>>>> 2656265c0b6c6ae1f5e5843556b6360663642165
 
         Boolean status = false;
         if(CreateAgentController.isValidAgentEmail(email)) {

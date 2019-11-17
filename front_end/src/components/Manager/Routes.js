@@ -59,7 +59,7 @@ class RouteModalForm extends Component{
                 <Modal isOpen={this.state.isModalOpen} toggle={this.actModal}>
                     <div>
                         <ModalBody>
-                            <ModalHeader toggle={this.toggleModal}>
+                            <ModalHeader>
                                 <h4>
                                     Time Route
                                 </h4>

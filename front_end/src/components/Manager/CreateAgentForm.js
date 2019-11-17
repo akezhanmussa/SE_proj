@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Form, Col, Button} from 'react-bootstrap';
 import Input from "reactstrap/es/Input";
 import {submitAgentUrl} from "../../shared/BaseUrl";
+import FieldComponent from "./FieldComponent";
 
 
 const submitAgent = (data) => {
@@ -146,17 +147,17 @@ class CreateAgentForm extends Component{
                     type = "ml-2 mr-2"
                 }
 
-                components.push(<FieldComponent type = {type} name = {elem.name} placeholder = {elem.placeholder} value = {elem.value} onChange = {this.handleAttribute} ></FieldComponent>)
+                components.push(<FieldComponent type = {type} typeForm = {"text"} name = {elem.name} placeholder = {elem.placeholder} value = {elem.value} onChange = {this.handleAttribute} ></FieldComponent>)
                 rows.push(<Form.Row className = {className}>{components}</Form.Row>)
                 components = []
             }else if (index % 2 == 0 ){
-                components.push(<FieldComponent type = "ml-2" name = {elem.name} placeholder = {elem.placeholder} value = {elem.value} onChange = {this.handleAttribute} ></FieldComponent>)
+                components.push(<FieldComponent type = "ml-2" typeForm = {"text"} name = {elem.name} placeholder = {elem.placeholder} value = {elem.value} onChange = {this.handleAttribute} ></FieldComponent>)
             }
         }.bind(this))
 
 
         return (<div className='row justify-content-around'>
-            <div className='reg-form' style={{width: 500}}>
+            <div className='reg-form-agent' style={{width: 500}}>
                 <Form>
                     <h3 className= "ml-2" >Agent Creation</h3>
                     <div className = 'line'></div>
@@ -169,21 +170,5 @@ class CreateAgentForm extends Component{
     }
 }
 
-
-const FieldComponent = (props) => {
-    return(
-        <Form.Group className = {props.type} as = {Col}>
-            <Form.Label>{props.placeholder}</Form.Label>
-            <Input
-                type = "text"
-                name = {props.name}
-                placeholder = {props.placeholder}
-                value = {props.value}
-                onChange = {props.onChange}
-                required
-            />
-        </Form.Group>
-    )
-}
 
 export default CreateAgentForm;
