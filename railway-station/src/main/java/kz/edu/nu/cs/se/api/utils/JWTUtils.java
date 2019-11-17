@@ -27,7 +27,7 @@ public class JWTUtils {
 
             return Optional.of(token);
         } catch (JWTCreationException | IllegalArgumentException ex){
-            return null;
+            return Optional.empty();
         }
     }
 
