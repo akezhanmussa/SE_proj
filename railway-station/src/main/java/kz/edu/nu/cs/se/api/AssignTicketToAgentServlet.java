@@ -41,9 +41,9 @@ public class AssignTicketToAgentServlet extends HttpServlet {
             return;
         }
 
-        if (isAgent(token)) {
-            System.out.println("[ERROR] Permission denied");
-            response.sendError(401, "[ERROR] Permission denied");
+        if (!isAgent(token)) {
+            System.out.println("[ERROR] Permission denied, not an agent");
+            response.sendError(401, "[ERROR] Permission denied, not an agent");
             return;
         }
 
