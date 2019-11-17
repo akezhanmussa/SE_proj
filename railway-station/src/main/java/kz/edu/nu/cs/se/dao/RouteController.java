@@ -2,15 +2,12 @@ package kz.edu.nu.cs.se.dao;
 
 import kz.edu.nu.cs.se.model.RouteModel;
 
-import javax.mail.internet.InternetAddress;
-import javax.swing.plaf.nimbus.State;
-import javax.swing.text.html.Option;
-import java.time.LocalDate;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.sql.*;
-import java.util.Date;
 
 public class RouteController {
 
@@ -178,25 +175,26 @@ public class RouteController {
     }
 
 
-    private static Boolean isValidRouteUpdate(Integer routeId, LocalDateTime startTime, LocalDateTime endTime) {
+    private static Boolean isValidRouteUpdate(Integer routeId, String startTime, String endTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         try {
             Statement statement = Connector.getStatement();
 
             ResultSet routePrev = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE idRoute=%d", routeId-1));
             while(routePrev.next()) {
+                System.out.println("HERE in isValidRouteUpdate");
                 String endTimePrevString = routePrev.getString(2);
                 LocalDateTime endTimePrev = LocalDateTime.parse(endTimePrevString, formatter);
-
-                if(startTime.isBefore(endTimePrev)) return false;
+                LocalDateTime startTimeLDT = LocalDateTime.parse(startTime, formatter);
+                if(startTimeLDT.isBefore(endTimePrev)) return false;
             }
 
             ResultSet routeNext = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE idRoute=%d", routeId+1));
             while(routeNext.next()) {
                 String startTimeNextString = routeNext.getString(1);
                 LocalDateTime startTimeNext = LocalDateTime.parse(startTimeNextString, formatter);
-
-                if(endTime.isAfter(startTimeNext)) return false;
+                LocalDateTime endTimeLDT = LocalDateTime.parse(endTime, formatter);
+                if(endTimeLDT.isAfter(startTimeNext)) return false;
             }
 
             return true;
@@ -207,7 +205,7 @@ public class RouteController {
     }
 
 
-    public static Boolean updateRoute(Integer routeId, LocalDateTime startTime, LocalDateTime endTime) {
+    public static Boolean updateRoute(Integer routeId, String startTime, String endTime) {
 
         Boolean resultStartTime = false;
         Boolean resultEndTime = false;
@@ -215,10 +213,12 @@ public class RouteController {
             Statement statement = Connector.getStatement();
 
             if(isValidRouteUpdate(routeId, startTime, endTime)) {
+                System.out.println("HERE in updateRoute");
+                System.out.println("starttime: "+startTime);
                 resultStartTime = statement.execute(String.format(
-                        "UPDATE Route SET start_time=%d WHERE idRoute={}", java.sql.Time.valueOf(startTime.toLocalTime()), routeId));
+                        "UPDATE Route SET start_time={} WHERE idRoute=%d", new Date(), routeId));
                 resultEndTime = statement.execute(String.format(
-                        "UPDATE Route SET end_time=%d WHERE idRoute={}", java.sql.Time.valueOf(endTime.toLocalTime()), routeId));
+                        "UPDATE Route SET end_time={} WHERE idRoute=%d", new Date(), routeId));
             }
 
             if (!(resultStartTime && resultEndTime)) {

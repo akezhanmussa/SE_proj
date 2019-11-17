@@ -41,7 +41,7 @@ public class UpdateRouteServlet extends HttpServlet {
         LocalDateTime endTime = LocalDateTime.parse(updateRouteObject.getEndTime(), formatter);
         Integer routeId = updateRouteObject.getRouteId();
 
-        boolean status = RouteController.updateRoute(routeId, startTime, endTime);
+        boolean status = RouteController.updateRoute(routeId, updateRouteObject.getStartTime(), updateRouteObject.getEndTime());
 
         if (status) {
             resp.sendError(202, "Success");
