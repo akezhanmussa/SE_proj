@@ -7,6 +7,7 @@ import kz.edu.nu.cs.se.dao.AgentController;
 import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.model.User;
+import sun.management.resources.agent;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +23,6 @@ import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
 
 @WebServlet(urlPatterns = {"/myrailway/agent/buy-ticket"})
 public class BuyTicketAgentServlet extends HttpServlet {
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         TicketRequestObject ticketRequestObject = new Gson().fromJson(request.getReader(), TicketRequestObject.class);
         String token = ticketRequestObject.getToken();
@@ -34,9 +34,16 @@ public class BuyTicketAgentServlet extends HttpServlet {
             response.sendError(401, "Token has expired");
         }
 
-        User agent = PassengerController.getPassenger(getUserFromToken(token)).get();
+        String agentUsername = getUserFromToken(token);
 
-        String agentEmail = agent.getEmail();
+        Optional<String> optionalEmail = AgentController.getEmailByUsername(agentUsername);
+        if (!optionalEmail.isPresent()) {
+            System.out.printf("[ERROR] Failed to fetch email for username=%s%n", agentUsername);
+            response.sendError(500, "[ERROR] Failed to fetch email");
+            return;
+        }
+
+        String agentEmail = optionalEmail.get();
         Optional<Integer> dummyUserID = AgentController.getDummyUserID(agentEmail);
         if (!dummyUserID.isPresent()) {
             System.out.println("[ERROR] Failed to fetch dummyUserID");
