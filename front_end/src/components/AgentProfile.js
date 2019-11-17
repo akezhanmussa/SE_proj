@@ -72,19 +72,20 @@ class TicketPool extends Component{
         this.state = {
             isLoading: false,
             errMess: null
-        }
+        };
+        this.pullOneTicket = this.pullOneTicket.bind(this);
     }
     componentDidMount() {
         if(this.props.pullTickets.length === 0){
             this.setState({isLoading: true});
-            fetch(baseUrl, {
+            fetch(baseUrl + "/agent/get-unapproved-tickets", {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
-                body:JSON.stringify(this.props.admin.admin_token)
+                body:JSON.stringify({token: this.props.admin.admin_token})
             })
                 .then(res => res.json())
                 .then(res => {
-                    this.props.fetchPullTicket(res.body);
+                    this.props.fetchPullTicket(res);
                     this.setState({isLoading: false});
                 })
                 .catch(error => {
@@ -94,6 +95,26 @@ class TicketPool extends Component{
         }
     }
 
+    pullOneTicket = (id) => {
+        console.log("here")
+        alert("Wait please!!!");
+        this.setState({isLoading: true});
+        fetch(baseUrl + "/agent/get-unapproved-tickets", {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body:JSON.stringify({token: this.props.admin.admin_token, ticketId: id})
+        })
+            .then(res => res.json())
+            .then(res => {
+                this.props.fetchPullTicket(res);
+                this.setState({isLoading: false});
+            })
+            .catch(error => {
+                this.setState({isLoading: false});
+                this.setState({errMess: error.message});
+            })
+
+    };
     render() {
         if(this.state.isLoading){
             return <Loading/>;
@@ -104,55 +125,63 @@ class TicketPool extends Component{
         }
         else{
             return (
-                <RenderTickets tickets={this.props.pullTickets} pull={true}/>
+                <RenderTickets tickets={this.props.pullTickets} pullOneTicket={this.pullOneTicket} pull={true}/>
             );
         }
     }
 }
-const RenderTickets = (props) => {
-    const intToStr = (id) => {
-        return locations.filter(loc => id === parseInt(loc.id))[0].name;
-    };
-    const tickets = props.tickets.map((ticket, idx) => {
-        return(
-            <div className='row mt-1' key={idx} style={{borderBottom: "1px solid #E7E7E7"}}>
-                <div className='col-3'>
-                    <p style={{textAlign:"center"}}><b>{intToStr(ticket.idOrigin)}</b></p>
-                    <p style={{textAlign:"center"}}>{ticket.startDate}</p>
+class RenderTickets extends Component{
+    render() {
+        const intToStr = (id) => {
+            return locations.filter(loc => id === parseInt(loc.id))[0].name;
+        };
+        const tickets = this.props.tickets.map((ticket, idx) => {
+            return(
+                <div className='row mt-1' key={idx} style={{borderBottom: "1px solid #E7E7E7"}}>
+                    <div className='col-3'>
+                        <p style={{textAlign:"center"}}><b>{intToStr(ticket.idOrigin)}</b></p>
+                        <p style={{textAlign:"center"}}>{ticket.startDate}</p>
+                    </div>
+                    <div className='col-3'>
+                        <p style={{textAlign:"center"}}><b>{intToStr(ticket.idDestination)}</b></p>
+                        <p style={{textAlign:"center"}}>{ticket.endDate}</p>
+                    </div>
+                    <div className='col-3'>
+                        <p style={{textAlign:"center"}}>{ticket.ownerFirstName + " " + ticket.ownerLastName}</p>
+                        <p style={{textAlign:"center"}}>{ticket.ownerDocumentId}</p>
+                    </div>
+                    <div className='col-3 d-flex justify-content-center'>
+                        {
+                            this.props.pull ?
+                                <button className='btn btn-light' onClick={() => this.props.pullOneTicket(ticket.ticketID)}> Pull </button>
+                                :
+                                <div>
+                                </div>
+                        }
+                    </div>
                 </div>
-                <div className='col-3'>
-                    <p style={{textAlign:"center"}}><b>{intToStr(ticket.idDestination)}</b></p>
-                    <p style={{textAlign:"center"}}>{ticket.endDate}</p>
+            );
+        });
+        return (
+            <div className='mt-2'>
+                <div className='row mt-1' style={{borderBottom: "1px solid #E7E7E7"}}>
+                    <div className='col-3'>
+                        <p style={{textAlign: "center"}}><b>Origin and start date</b></p>
+                    </div>
+                    <div className='col-3'>
+                        <p style={{textAlign: "center"}}><b>Destination and end date</b></p>
+                    </div>
+                    <div className='col-3'>
+                        <p style={{textAlign: "center"}}><b>Owner name and ID</b></p>
+                    </div>
+                    <div className='col-3'>
+                        <p style={{textAlign: "center"}}><b>You need to act</b></p>
+                    </div>
                 </div>
-                <div className='col-3'>
-                    <p style={{textAlign:"center"}}>{ticket.ownerFirstName + " " + ticket.ownerLastName}</p>
-                    <p style={{textAlign:"center"}}>{ticket.ownerDocumentId}</p>
-                </div>
-                <div>
-
-                </div>
+                {tickets}
             </div>
         );
-    });
-    return(
-        <div className='mt-2'>
-            <div className='row mt-1' style={{borderBottom: "1px solid #E7E7E7"}}>
-                <div className='col-3'>
-                    <p style={{textAlign:"center"}}><b>Origin and start date</b></p>
-                </div>
-                <div className='col-3'>
-                    <p style={{textAlign:"center"}}><b>Destination and end date</b></p>
-                </div>
-                <div className='col-3'>
-                    <p style={{textAlign:"center"}}><b>Owner name and ID</b></p>
-                </div>
-                <div>
-                    <p style={{textAlign:"center"}}><b>You need to act</b></p>
-                </div>
-            </div>
-            {tickets}
-        </div>
-    );
+    }
 };
 
 class AgentProfile extends Component{
@@ -160,8 +189,7 @@ class AgentProfile extends Component{
         super(props);
         this.state = {
             profile: null,
-            pullTickets: [{"idOrigin": 3,"idDestination": 7, "startDate":"2019","endDate":"2019", "ownerFirstName":"izat", "ownerLastName":"izat", "ownerDocumentId":12},
-                {"idOrigin": 3,"idDestination": 7, "startDate":"2019","endDate":"2019", "ownerFirstName":"izat", "ownerLastName":"izat", "ownerDocumentId":12}]
+            pullTickets: []
         };
         this.fetchProfile = this.fetchProfile.bind(this);
         this.fetchPullTicket = this.fetchPullTicket.bind(this);
@@ -183,7 +211,7 @@ class AgentProfile extends Component{
 
     render() {
         return (
-            <div className= 'container d-flex'>
+            <div className= 'container d-flex' >
                 <div className="col-3 nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a className="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home"
                        role="tab" aria-controls="v-pills-home" aria-selected="true">Profile</a>
