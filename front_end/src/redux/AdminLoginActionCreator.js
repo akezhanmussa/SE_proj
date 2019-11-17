@@ -48,9 +48,6 @@ export function adminLogin(adminData){
             .catch(err => {
                 dispatch(adminLoginFailure(err.message));
             });
-        // localStorage.setItem('admin_token', JSON.stringify(token));
-        // localStorage.setItem('admin', JSON.stringify(adminData));
-        // dispatch(adminLoginApprove(token));
     }
 };
 

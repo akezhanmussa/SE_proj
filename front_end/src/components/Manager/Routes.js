@@ -181,6 +181,7 @@ class Routes extends Component {
 
     renderItem(item) {
         const clickCallback = () => this.handleRowClick(item.id);
+
         const itemRows = [
             <tr onClick={clickCallback} key={"row-data-" + item.id}>
                 <td>{item.id}</td>
@@ -192,7 +193,7 @@ class Routes extends Component {
                 itemRows.push(
                     <tr key = {"row-data-" + item.id}>
                         <td>{elem.origin}</td>
-                        <td>{item.destination}</td>
+                        <td>{elem.destination}</td>
                     </tr>
                 );
             })
