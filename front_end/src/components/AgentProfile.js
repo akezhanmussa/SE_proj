@@ -112,12 +112,21 @@ class TicketPool extends Component{
                 }
                 this.props.fetchPullTicket(res.data);
                 this.setState({isLoading: false});
+                fetch(baseUrl + "/agent/get-agent-ticket", {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json'},
+                    body:JSON.stringify({token: this.props.admin.admin_token})
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        this.props.fetchMyTickets(res);
+                    })
+                    .catch(error => {})
             })
             .catch(error => {
                 this.setState({isLoading: false});
                 this.setState({errMess: error.message});
-            })
-
+            });
     };
     render() {
         if(this.state.isLoading){
@@ -147,7 +156,7 @@ class MyTickets extends Component{
     componentDidMount() {
         if(this.props.myTickets.length === 0){
             this.setState({isLoading: true});
-            fetch(baseUrl + "/agent/get-unapproved-tickets", {
+            fetch(baseUrl + "/agent/get-agent-ticket", {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
                 body:JSON.stringify({token: this.props.admin.admin_token})
@@ -230,8 +239,8 @@ class RenderTickets extends Component{
                                 <button className='btn btn-light' onClick={() => this.props.pullOneTicket(ticket.ticketID)}> Pull One</button>
                                 :
                                 <div>
-                                    <button className='btn btn-success' onClick={() => this.props.approveTicket(ticket.ticketID, true)}> Approve</button>
-                                    <button className='btn btn-danger' onClick={() => this.props.approveTicket(ticket.ticketID, false)}> Decline</button>
+                                    <button className='btn btn-success' style={{width: 100}} onClick={() => this.props.approveTicket(ticket.ticketID, true)}> Approve</button>
+                                    <button className='btn btn-danger' style={{width: 100}} onClick={() => this.props.approveTicket(ticket.ticketID, false)}> Decline</button>
                                 </div>
                         }
                     </div>
@@ -288,6 +297,7 @@ class AgentProfile extends Component{
     };
 
     fetchMyTickets = (tickets)=> {
+        console.log(tickets);
         this.setState(prevState => ({
             ...prevState,
             myTickets: tickets
@@ -308,7 +318,7 @@ class AgentProfile extends Component{
                     <a className="nav-link" id="v-pills-my-tickets-tab" data-toggle="pill" href="#v-pills-my-tickets"
                        role="tab" aria-controls="v-pills-settings" aria-selected="false">My tickets</a>
                     <a className="nav-link" id="v-pills-ticket-pull-tab" data-toggle="pill" href="#v-pills-ticket-pull"
-                       role="tab" aria-controls="v-pills-settings" aria-selected="false">Ticket Pool</a>
+                       role="tab" aria-controls="v-pills-settings" aria-selected="false">Ticket Pull</a>
                 </div>
                 <div className="offset-1 tab-content col-8" id="v-pills-tabContent">
                     <div className="tab-pane fade show active" id="v-pills-home" role="tabpanel"
@@ -328,7 +338,7 @@ class AgentProfile extends Component{
                     </div>
                     <div className="tab-pane fade" id="v-pills-ticket-pull" role="tabpanel"
                          aria-labelledby="v-pills-ticket-pull-tab">
-                        <TicketPool pullTickets={this.state.pullTickets} fetchPullTicket={this.fetchPullTicket} admin={this.props.admin}/>
+                        <TicketPool pullTickets={this.state.pullTickets} fetchPullTicket={this.fetchPullTicket} admin={this.props.admin} fetchMyTickets={this.fetchMyTickets}/>
                     </div>
                 </div>
             </div>
