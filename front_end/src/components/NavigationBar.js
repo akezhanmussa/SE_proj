@@ -51,8 +51,7 @@ class LoginModalForm extends Component {
                                     </Form.Text>
                                 </Form.Group>
                                 <Form.Group controlId="formBasicPassword">
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password"
+                                    <Form.Label>Password</Form.Label><Form.Control type="password"
                                                   placeholder="Password"
                                                   name = "password"
                                                   value = {this.state.password}

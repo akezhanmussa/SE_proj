@@ -14,7 +14,6 @@ const submitAgent = (data) => {
             return response.json();
         })
         .then(response => {
-            console.log("I AM HERE")
             return response;
         })
         .catch (error => {
@@ -164,7 +163,7 @@ class CreateAgentForm extends Component{
                     {rows}
                     <h8 className = "ml-2 mt-2" style = {hiddenMessageStyle} >{this.state.hiddenMessage}</h8>
                 </Form>
-                <Button className='btn-secondary ml-2 mt-4' onClick = {this.handleSubmit}>Create Agent</Button>
+                    <Button className='btn-secondary ml-2 mt-4' onClick = {this.handleSubmit}>Create Agent</Button>
             </div>
         </div>)
     }
