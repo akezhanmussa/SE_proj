@@ -1,6 +1,5 @@
 package kz.edu.nu.cs.se.dao;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;

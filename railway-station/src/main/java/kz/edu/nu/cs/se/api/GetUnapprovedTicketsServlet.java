@@ -1,14 +1,11 @@
 package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
-import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.Token;
 import kz.edu.nu.cs.se.dao.AgentController;
-import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.dao.TicketController;
-import kz.edu.nu.cs.se.model.User;
-import kz.edu.nu.cs.se.view.Ticket;
 import kz.edu.nu.cs.se.model.TicketModel;
+import kz.edu.nu.cs.se.view.TicketForAgent;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,10 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static kz.edu.nu.cs.se.api.utils.JWTUtils.getUserFromToken;
-import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
+import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
 @WebServlet(urlPatterns = {"/myrailway/agent/get-unapproved-tickets"})
 public class GetUnapprovedTicketsServlet extends HttpServlet {
@@ -32,14 +29,36 @@ public class GetUnapprovedTicketsServlet extends HttpServlet {
         if (isExpired(token)){
             System.out.println("[ERROR] Token has expired");
             response.sendError(401, "Token has expired");
+            return;
         }
 
-        User agent = PassengerController.getPassenger(getUserFromToken(token)).get();
-        Integer agentID = agent.getUserId();
+        if (!isAgent(token)) {
+            System.out.println("[ERROR] Auth error, not an agent");
+            response.sendError(401, "Token has expired");
+            return;
+        }
 
-        Integer stationID = AgentController.getAgentStationID(agentID);
-        ArrayList<TicketModel> ticketModels = TicketController.getUnapprovedTickets(stationID);
-        ArrayList<Ticket> tickets = ticketModels.stream().map(Ticket::new)
+        String agentUsername = getUserFromToken(token);
+        Optional<Integer> optionalAgentID = AgentController.getAgentIDByUsername(agentUsername);
+
+        if (!optionalAgentID.isPresent()) {
+            System.out.printf("[ERROR] Failed to fetch agentID with userName: %s%n", agentUsername);
+            response.sendError(500, String.format("[ERROR] Failed to fetch agentID with username: %s",
+                    agentUsername));
+            return;
+        }
+
+        Optional<Integer> optionalStationID = AgentController.getAgentStationIDByUsername(agentUsername);
+
+        if (!optionalStationID.isPresent()) {
+            System.out.printf("[ERROR] Failed to fetch stationID with userName: %s%n", agentUsername);
+            response.sendError(500, String.format("[ERROR] Failed to fetch stationID with userName: %s",
+                    agentUsername));
+            return;
+        }
+
+        ArrayList<TicketModel> ticketModels = TicketController.getUnapprovedTickets(optionalStationID.get());
+        ArrayList<TicketForAgent> tickets = ticketModels.stream().map(TicketForAgent::new)
                 .collect(Collectors.toCollection(ArrayList::new));
 
         PrintWriter out = response.getWriter();
