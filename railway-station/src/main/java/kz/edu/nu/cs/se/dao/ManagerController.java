@@ -6,13 +6,13 @@ import java.sql.Statement;
 
 public class ManagerController {
 
-    public static Integer getManagerStationID(Integer managerId) {
+    public static Integer getManagerStationID(String managerUserName) {
         Integer result = -1;
         try {
             Statement statement = Connector.getStatement();
 
             ResultSet stationResultSet = statement.executeQuery(String.format(
-                    "SELECT * FROM Manager WHERE idManager=%d", managerId));
+                    "SELECT * FROM Manager WHERE username='%s'", managerUserName));
             while(stationResultSet.next()){
                 result = stationResultSet.getInt(1);
                 break;

@@ -6,7 +6,6 @@ import kz.edu.nu.cs.se.api.utils.Token;
 import kz.edu.nu.cs.se.dao.AgentController;
 import kz.edu.nu.cs.se.dao.ManagerController;
 import kz.edu.nu.cs.se.model.Agent;
-import kz.edu.nu.cs.se.model.User;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,8 +31,8 @@ public class GetAgentsOfManagerServlet extends HttpServlet {
             response.sendError(401, "Token has expired");
         }
 
-        User manager = JWTUtils.getUserFromToken(token);
-        int managerStationId = ManagerController.getManagerStationID(manager.getUserId());
+        String managerUserName = JWTUtils.getUserFromToken(token);
+        int managerStationId = ManagerController.getManagerStationID(managerUserName);
         System.out.println("Manager station id: " + managerStationId);
 
         ArrayList<Agent> agents = AgentController

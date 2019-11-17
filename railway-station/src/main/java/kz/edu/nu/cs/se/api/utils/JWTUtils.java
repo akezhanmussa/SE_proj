@@ -14,38 +14,27 @@ public class JWTUtils {
     public static Optional<String> generateToken(User user) {
         Date date = new Date();
         Date date2 = new Date();
-        date2.setSeconds(date.getSeconds() + 3660);
+        date2.setTime(date.getTime() + 180000);
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             String token = JWT.create()
                     .withIssuer("auth0")
-                    .withClaim("user_id", user.getUserId())
-                    .withClaim("first_name", user.getFirstName())
-                    .withClaim("last_name", user.getLastName())
-                    .withClaim("email", user.getEmail())
-                    .withClaim("phone_number", user.getPhoneNumber())
                     .withClaim("username", user.getUserName())
                     .withClaim("user_role", user.getUserRole())
                     .withIssuedAt(date)
                     .withExpiresAt(date2)
                     .sign(algorithm);
+
             return Optional.of(token);
         } catch (JWTCreationException | IllegalArgumentException ex){
             return null;
         }
     }
 
-    public static User getUserFromToken(String token){
+    public static String getUserFromToken(String token) {
         DecodedJWT jwt = JWT.decode(token);
-        int userId = jwt.getClaim("user_id").asInt();
-        String firstName = jwt.getClaim("first_name").asString();
-        String lastName = jwt.getClaim("last_name").asString();
-        String email = jwt.getClaim("email").asString();
-        String phoneNumber = jwt.getClaim("phone_number").asString();
-        String userName = jwt.getClaim("username").asString();
-
-
-        return new User(firstName,lastName,email,phoneNumber,userName,userId);
+        String username = jwt.getClaim("username").asString();
+        return username;
     }
 
     public static Long getExpiresAt(String token){
