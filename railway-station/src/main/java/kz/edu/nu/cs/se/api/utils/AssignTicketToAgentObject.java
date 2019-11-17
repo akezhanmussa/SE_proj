@@ -1,15 +1,11 @@
 package kz.edu.nu.cs.se.api.utils;
 
 public class AssignTicketToAgentObject {
-    private Integer agentID;
+    private String token;
     private Integer ticketID;
 
-    public Integer getAgentID() {
-        return agentID;
-    }
-
-    public void setAgentID(Integer agentID) {
-        this.agentID = agentID;
+    public String getToken() {
+        return token;
     }
 
     public Integer getTicketID() {

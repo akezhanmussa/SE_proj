@@ -3,6 +3,7 @@ package kz.edu.nu.cs.se.api;
 import com.google.gson.Gson;
 import kz.edu.nu.cs.se.api.utils.CreateAgentObject;
 import kz.edu.nu.cs.se.dao.CreateAgentController;
+import kz.edu.nu.cs.se.dao.ManagerController;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,10 +31,12 @@ public class ManagerCreateAgentServlet extends HttpServlet {
 
         if(isExpired(token)){
             response.sendError(401, "Token has expired");
+            return;
         }
 
         if(!isManager(token)) {
             response.sendError(401, "Unauthorized as manager");
+            return;
         }
 
         Float salary = agentObject.getSalary();
@@ -45,6 +48,7 @@ public class ManagerCreateAgentServlet extends HttpServlet {
         String username = agentObject.getUsername();
         String password = agentObject.getPassword();
 
+<<<<<<< HEAD
         System.out.println(salary);
         System.out.println(workHours);
         System.out.println(firstName);
@@ -55,10 +59,15 @@ public class ManagerCreateAgentServlet extends HttpServlet {
 
 
         Integer stationId = -1;//TODO
+=======
+        Integer stationId = ManagerController.getManagerStationID(getUserFromToken(token));
+>>>>>>> 2656265c0b6c6ae1f5e5843556b6360663642165
 
         Boolean status = false;
         if(CreateAgentController.isValidAgentEmail(email)) {
+            System.out.println("isValidAgentEmail");
             status = CreateAgentController.createAgent(salary, workHours, firstName, lastName, email, phoneNumber, username, password, stationId);
+
         }
         PrintWriter out = response.getWriter();
         if (status) {

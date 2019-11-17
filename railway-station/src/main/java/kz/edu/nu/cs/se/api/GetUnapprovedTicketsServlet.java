@@ -5,7 +5,7 @@ import kz.edu.nu.cs.se.api.utils.Token;
 import kz.edu.nu.cs.se.dao.AgentController;
 import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.model.TicketModel;
-import kz.edu.nu.cs.se.view.Ticket;
+import kz.edu.nu.cs.se.view.TicketForAgent;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,7 +58,7 @@ public class GetUnapprovedTicketsServlet extends HttpServlet {
         }
 
         ArrayList<TicketModel> ticketModels = TicketController.getUnapprovedTickets(optionalStationID.get());
-        ArrayList<Ticket> tickets = ticketModels.stream().map(Ticket::new)
+        ArrayList<TicketForAgent> tickets = ticketModels.stream().map(TicketForAgent::new)
                 .collect(Collectors.toCollection(ArrayList::new));
 
         PrintWriter out = response.getWriter();

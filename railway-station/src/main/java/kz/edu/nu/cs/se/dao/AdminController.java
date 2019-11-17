@@ -5,7 +5,6 @@ import kz.edu.nu.cs.se.model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Optional;
 
 public class AdminController {
     public static User getAdmin(String username, String pass){
