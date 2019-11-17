@@ -16,7 +16,25 @@ class CreateTicket extends Component{
         body.owner_firstname = this.firstame.value;
         body.owner_lastname = this.lastname.value;
         body.token = this.props.admin.admin_token;
-        console.log(body)
+        console.log(body);
+        return fetch(baseUrl + '/agent/buy-ticket', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(body)
+        })
+            .then(response => {
+                console.log(response)
+                if(response.ok) {
+                    alert("Thanks, your request is submitted. Wait for approving");
+                }else{
+                    var error = new Error("Error " + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            })
+            .catch (error => {
+                alert(error + "\nTry again");
+            });
     };
     render() {
         return (

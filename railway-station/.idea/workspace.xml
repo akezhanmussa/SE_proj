@@ -7,31 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetAgentsOfManagerServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetStationWorkersOfManagerServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/UpdateAgentsOfManagerServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/UpdateStationWorkersOfManagerServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/utils/AgentStationWorkerObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ManagerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/StationWorkersController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/model/Agent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/model/StationWorker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front_end/src/components/AgentProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/AgentProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/BuyTicketForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/BuyTicketForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/CreateTicketForAgent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/CreateTicketForAgent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Loading.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Loading.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/railway-station.iml" beforeDir="false" afterPath="$PROJECT_DIR$/railway-station.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/ManagerCreateAgentServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/ManagerCreateAgentServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/UpdateTicketStatusServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/UpdateTicketStatusServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/AgentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/AgentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/CreateAgentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/CreateAgentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TicketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TicketController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/view/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/view/Schedule.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +50,7 @@
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2364">
-              <caret line="599" column="14" selection-start-line="599" selection-start-column="14" selection-end-line="599" selection-end-column="14" />
+              <caret line="577" column="14" selection-start-line="577" selection-start-column="14" selection-end-line="577" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -430,7 +406,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1249000" />
+    <option name="totallyTimeSpent" value="1307000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
