@@ -1,8 +1,11 @@
 package kz.edu.nu.cs.se.dao;
 
+import kz.edu.nu.cs.se.model.Agent;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class AgentController {
@@ -75,5 +78,65 @@ public class AgentController {
             System.out.println(exception.getMessage());
         }
         return Optional.empty();
+    }
+
+    public static ArrayList<Agent> getAgents(int stationId){
+
+        Statement agentStatement = Connector.getStatement();
+        ArrayList<Agent> agents = new ArrayList<>();
+
+        try {
+            ResultSet agentsSet = agentStatement.executeQuery(String.format("SELECT * FROM Agent where station_id = '%d'", stationId));
+            while(agentsSet.next()){
+                int agentId = agentsSet.getInt(1);
+                String firstName = agentsSet.getString(4);
+                String lastName = agentsSet.getString(5);
+                int salary = agentsSet.getInt(2);
+                int workingHours = agentsSet.getInt(3);
+                int station_id = agentsSet.getInt(10);
+
+                Agent agent = new Agent(agentId,firstName,
+                        lastName,salary,workingHours,stationId);
+                agents.add(agent);
+            }
+            agentsSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return agents;
+
+    }
+
+    public static void updateAgentSalary(int agentId, float salary) {
+
+        Statement passengerStatement = Connector.getStatement();
+
+        String queryInsert = String.format("Update Agent Set salary = %f where idAgent = %d",
+                salary, agentId);
+        try {
+            passengerStatement.executeUpdate(queryInsert);
+            passengerStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void updateAgentWorkingHours(int agentId, int workingHours) {
+
+        Statement passengerStatement = Connector.getStatement();
+
+        String queryInsert = String.format("Update Agent Set working_hours = %d where idAgent = %d",
+                workingHours, agentId);
+        try {
+            passengerStatement.executeUpdate(queryInsert);
+            passengerStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 }

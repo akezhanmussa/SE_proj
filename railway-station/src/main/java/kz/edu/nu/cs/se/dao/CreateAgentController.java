@@ -46,7 +46,6 @@ public class CreateAgentController {
                                    String username,
                                    String password,
                                    Integer stationId) {
-
         Statement statement = Connector.getStatement();
         try {
             boolean statusAgent = statement.execute(String.format("INSERT INTO Agent(salary, working_hours, firstname, lastname, email, phone_number, username, password, station_id) " +
@@ -57,14 +56,15 @@ public class CreateAgentController {
                             "VALUES('%s','%s','%s','%s','%s','%s')", firstName, lastName, email, phoneNumber, username, password));
             statement.close();
 
-            if(statusAgent && statusPassenger) {
-                EmailService.sendAgentCreated(email, username, password);
-                return true;
-            }
+
+            EmailService.sendAgentCreated(email, username, password);
+            return true;
+
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
+            return false;
         }
-        return false;
+
     }
 
     public static Boolean updateAgentPassword(String email, String password) {

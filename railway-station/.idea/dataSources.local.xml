@@ -9,6 +9,7 @@
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
       <user-name>E0Sz4Fo1Xp</user-name>
+      <schema-mapping />
     </data-source>
   </component>
 </project>
