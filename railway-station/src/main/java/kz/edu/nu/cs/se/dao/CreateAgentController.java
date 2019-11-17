@@ -1,5 +1,7 @@
 package kz.edu.nu.cs.se.dao;
 
+import kz.edu.nu.cs.se.service.EmailService;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -47,17 +49,21 @@ public class CreateAgentController {
 
         Statement statement = Connector.getStatement();
         try {
-            boolean statusAgent = statement.execute(String.format("INSERT INTO Agent(salary, working_hours, firstname, lastname, email, phone_number, username, password, station_id" +
-                            "VALUE('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+            boolean statusAgent = statement.execute(String.format("INSERT INTO Agent(salary, working_hours, firstname, lastname, email, phone_number, username, password, station_id) " +
+                            "VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
                     salary, workHours, firstName, lastName, email, phoneNumber, username, password, stationId));
 
-            boolean statusPassenger = statement.execute(String.format("INSERT INTO Passenger(firstname, lastname, email, phone_number, username, password" +
-                            "VALUE('%s','%s','%s','%s','%s','%s')", firstName, lastName, email, phoneNumber, username, password));
+            boolean statusPassenger = statement.execute(String.format("INSERT INTO Passenger(firstname, lastname, email, phone_number, username, password) " +
+                            "VALUES('%s','%s','%s','%s','%s','%s')", firstName, lastName, email, phoneNumber, username, password));
             statement.close();
-            return statusAgent && statusPassenger;
+
+            if(statusAgent && statusPassenger) {
+                EmailService.sendAgentCreated(email, username, password);
+                return true;
+            }
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
-            return false;
         }
+        return false;
     }
 }
