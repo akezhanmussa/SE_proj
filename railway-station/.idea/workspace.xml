@@ -7,6 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../front_end/src/components/PrintTicket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/PassengerTicketsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/PassengerTicketsPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,7 +53,7 @@
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2364">
-              <caret line="575" column="14" selection-start-line="575" selection-start-column="14" selection-end-line="575" selection-end-column="14" />
+              <caret line="580" column="14" selection-start-line="580" selection-start-column="14" selection-end-line="580" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -406,7 +409,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1663000" />
+    <option name="totallyTimeSpent" value="3439000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />

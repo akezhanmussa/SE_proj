@@ -43,6 +43,7 @@ class PassengerTicketsPage extends Component{
                 if (response.error)
                     throw response.error;
                 this.setState({passengerTickets: response})
+                console.log(response)
             })
             .catch(err => console.log("err"));
     }
