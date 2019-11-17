@@ -1,7 +1,9 @@
 package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
-import kz.edu.nu.cs.se.api.utils.*;
+import kz.edu.nu.cs.se.api.utils.JWTUtils;
+import kz.edu.nu.cs.se.api.utils.MyPageObject;
+import kz.edu.nu.cs.se.api.utils.Token;
 import kz.edu.nu.cs.se.model.User;
 
 import javax.servlet.annotation.WebServlet;
