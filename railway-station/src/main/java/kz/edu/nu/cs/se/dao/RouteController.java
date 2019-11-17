@@ -132,11 +132,7 @@ public class RouteController {
         try {
             Statement statement = Connector.getStatement();
             ResultSet routes = statement.executeQuery(
-<<<<<<< HEAD
                     String.format("SELECT start_station_id, end_station_id, start_time, end_time, price, Train_idTrain FROM Route WHERE schedule_id=%d ORDER BY start_time ASC",
-=======
-                    String.format("SELECT start_station_id, end_station_id, start_time, end_time, price FROM Route WHERE schedule_id=%d",
->>>>>>> ake
                             scheduleID));
             while (routes.next()) {
                 Integer originID = routes.getInt(1);
