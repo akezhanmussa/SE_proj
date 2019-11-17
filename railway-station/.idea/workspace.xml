@@ -6,12 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/AgentProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/AgentProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/NavigationBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/shared/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/style.css" afterDir="false" />
-    </list>
+    <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -285,6 +280,7 @@
       <workItem from="1573304133725" duration="1948000" />
       <workItem from="1573392518485" duration="595000" />
       <workItem from="1573896749273" duration="3430000" />
+      <workItem from="1573996055707" duration="168000" />
     </task>
     <servers />
   </component>
