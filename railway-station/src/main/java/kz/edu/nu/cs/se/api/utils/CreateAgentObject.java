@@ -12,13 +12,27 @@ public class CreateAgentObject {
     private Integer workHours;
 
 
-    public CreateAgentObject(String firstName, String lastName, String email, String phoneNumber, String userName) {
+    public CreateAgentObject(String firstName,
+                             String lastName,
+                             String email,
+                             String phoneNumber,
+                             String userName,
+                             Float salary,
+                             String password,
+                             Integer workHours,
+                             String token
+                             ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.username = userName;
+        this.salary = salary;
+        this.password = password;
+        this.workHours = workHours;
+        this.token = token;
     }
+
 
     public String getToken() {
         return token;

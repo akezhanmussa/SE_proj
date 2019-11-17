@@ -28,21 +28,23 @@ public class FetchRoadsForManagerServlet extends HttpServlet {
                                                                                             IOException {
 
         System.out.println("I AM CALLED");
-//        String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
-//
-//        if (isExpired(token)){
-//            System.out.println("[ERROR] Token has expired");
-//            response.sendError(401, "Token has expired");
-//        }
-//
-//        if (!isManager(token)) {
-//            System.out.println("[ERROR] Access denied. User is not a manager.");
-//            response.sendError(401, "Access denied. User is not a manager.");
-//        }
+        String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
+
+        if (isExpired(token)){
+            System.out.println("[ERROR] Token has expired");
+            response.sendError(401, "Token has expired");
+            return;
+        }
+
+        if (!isManager(token)) {
+            System.out.println("[ERROR] Access denied. User is not a manager.");
+            response.sendError(401, "Access denied. User is not a manager.");
+            return;
+        }
 
         ArrayList<ScheduleModel> scheduleModels = ScheduleController.fetchAllSchedules();
         System.out.println("HERE 4");
-        //for (ScheduleModel scheduleModel : scheduleModels) scheduleModel.setStringDates();
+//        for (ScheduleModel scheduleModel : scheduleModels) scheduleModel.setStringDates();
         System.out.println("HERE 3");
         ArrayList<Schedule> schedules = new ArrayList<>();
         for (ScheduleModel scheduleModel : scheduleModels) schedules.add(new Schedule(scheduleModel));

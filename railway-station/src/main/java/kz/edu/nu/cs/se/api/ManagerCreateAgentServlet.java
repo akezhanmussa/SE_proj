@@ -45,6 +45,15 @@ public class ManagerCreateAgentServlet extends HttpServlet {
         String username = agentObject.getUsername();
         String password = agentObject.getPassword();
 
+        System.out.println(salary);
+        System.out.println(workHours);
+        System.out.println(firstName);
+        System.out.println(lastName);
+        System.out.println(email);
+        System.out.println(phoneNumber);
+        System.out.println(password);
+
+
         Integer stationId = -1;//TODO
 
         Boolean status = false;

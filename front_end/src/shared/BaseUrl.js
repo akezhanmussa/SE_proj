@@ -5,3 +5,4 @@ export const getInfoUrl = "http://localhost:8080/railway_station_war/myrailway/m
 export const getTiketsUrl = "http://localhost:8080/railway_station_war/myrailway/mypage/gettickets";
 export const loginAdminUrl = "http://localhost:8080/railway_station_war/myrailway/admin/login";
 export const getRoutesUrl = "http://localhost:8080/railway_station_war/myrailway/manager/fetch-all-tickets";
+export const submitAgentUrl = "http://localhost:8080/railway_station_war/myrailway/manager";

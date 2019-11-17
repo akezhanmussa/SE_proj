@@ -3,9 +3,11 @@ import {getRoutesUrl} from "../../shared/BaseUrl";
 
 
 const getRoutesData = () => {
+    let body = {"token":localStorage.getItem("admin_token")}
     return fetch(getRoutesUrl, {
         method: 'POST',
-        headers: {'Content-Type':'application/json'}
+        headers: {'Content-Type':'application/json'},
+        body:JSON.stringify(body)
     })
         .then(response => {
             return response.json();

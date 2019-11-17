@@ -6,21 +6,17 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
+    <list default="true" id="38903203-0cd3-4f17-a0af-43ed5a7d6cc8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../front_end/src/components/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/AgentProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/AgentProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Loading.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Loading.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/PassengerPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/PassengerPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/redux/ActionToState.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/ActionToState.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/redux/AdminLoginActionCreator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/AdminLoginActionCreator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Manager/CreateAgentForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Manager/CreateAgentForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Manager/Routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Manager/Routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/shared/BaseUrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/BaseUrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/LoginAdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/LoginAdminServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/NavigationBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/shared/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/FetchRoadsForManagerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/FetchRoadsForManagerServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/ManagerCreateAgentServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/ManagerCreateAgentServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/utils/CreateAgentObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/utils/CreateAgentObject.java" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,19 +55,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetTicketServlet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/LoginPassengerServlet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/MyPageServlet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/utils/JWTUtils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/model/User.java" />
-        <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/AdminController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/LoginAdminServlet.java" />
-      </list>
-    </option>
-  </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -85,17 +68,6 @@
         <option name="importAutomatically" value="true" />
       </MavenImportingSettings>
     </option>
-  </component>
-  <component name="MavenProjectNavigator">
-    <treeState>
-      <expand>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="railway Maven Webapp" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-      </expand>
-      <select />
-    </treeState>
   </component>
   <component name="PhpServers">
     <servers />
@@ -287,7 +259,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="" />
+      <changelist id="38903203-0cd3-4f17-a0af-43ed5a7d6cc8" name="Default Changelist" comment="" />
       <created>1570897793267</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -313,6 +285,7 @@
       <workItem from="1573304133725" duration="1948000" />
       <workItem from="1573392518485" duration="595000" />
       <workItem from="1573896749273" duration="3430000" />
+      <workItem from="1574001439369" duration="1810000" />
     </task>
     <servers />
   </component>

@@ -32,8 +32,8 @@ class Admin extends Component{
         return(
             <div id='admin'>
                 <NavBar logoutAdmin={this.props.logoutAdmin}/>
-                <AgentProfile admin={this.props.admin}/>
-                {/*<ManagerProfile/>*/}
+                {/*<AgentProfile admin={this.props.admin}/>*/}
+                <ManagerProfile/>
             </div>
         );
     }

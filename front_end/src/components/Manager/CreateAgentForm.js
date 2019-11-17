@@ -1,6 +1,26 @@
 import React, {Component} from 'react';
 import {Form, Col, Button} from 'react-bootstrap';
 import Input from "reactstrap/es/Input";
+import {submitAgentUrl} from "../../shared/BaseUrl";
+
+
+const submitAgent = (data) => {
+    return fetch(submitAgentUrl, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body:JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .then(response => {
+            console.log("I AM HERE")
+            return response;
+        })
+        .catch (error => {
+            throw error
+        });
+}
 
 class CreateAgentForm extends Component{
 
@@ -13,9 +33,12 @@ class CreateAgentForm extends Component{
             email: '',
             phone_number: '',
             userName: '',
-            region: '',
+            salary:'',
+            workHours:'',
+            password:"",
             hiddenMessage: '',
-            showIndicator: false
+            showIndicator: false,
+            colorHidden: "red"
         }
 
         this.handleAttribute = this.handleAttribute.bind(this)
@@ -34,10 +57,49 @@ class CreateAgentForm extends Component{
             this.state.lastName,
             this.state.phone_number,
             this.state.email,
-            this.state.region
+            this.state.password,
+            this.state.workHours,
+            this.state.salary
         ])
-        this.setState({hiddenMessage: res ? "" : "One of the fields is empty, Please Fill it"})
+
+
+        let salary = parseFloat(this.state.salary)
+        let workingHours = parseInt(this.state.workHours)
+
+        if (isNaN(salary) || isNaN(workingHours)){
+            res = false;
+        }
+
+        console.log("HERE")
+        console.log(workingHours)
+        console.log(salary)
+
+        this.setState({hiddenMessage: res ? "" : "One of the fields is empty or\n salary is not float or\n working hours is not int"})
+
+        if (res){
+            submitAgent({
+                firstName:this.state.firstName,
+                lastName:this.state.lastName,
+                email:this.state.email,
+                userName:this.state.userName,
+                phoneNumber:this.state.phone_number,
+                salary: salary,
+                password: this.state.password,
+                workHours: workingHours,
+                token:localStorage.getItem("admin_token")
+            }).then(res => {
+                    this.setState({colorHidden:"green"})
+                    this.setState({hiddenMessage:"Agent was created"})
+            }).catch(error =>{
+                this.setState({colorHidden:"red"})
+                this.setState({hiddenMessage:"Please check attributes"})
+                }
+            )
+
+        }
     }
+
+
 
     validate = (args) => {
         let BreakException = {};
@@ -59,15 +121,16 @@ class CreateAgentForm extends Component{
             {"name": "firstName", "placeholder": "First Name", "value": this.state.firstName},
             {"name": "lastName", "placeholder": "Last Name", "value": this.state.lastName},
             {"name": "userName", "placeholder": "User Name", "value": this.state.username},
-            {"name": "region", "placeholder": "Region", "value": this.state.region},
             {"name": "email", "placeholder": "Email", "value": this.state.email},
-            {"name": "phone_number", "placeholder": "Phone Number", "value": this.state.phoneNumber}
-            ]
+            {"name": "phone_number", "placeholder": "Phone Number", "value": this.state.phone_number},
+            {"name": "workHours", "placeholder": "Working Hours", "value": this.state.workHours},
+            {"name": "password", "placeholder": "Password", "value": this.state.password},
+            {"name": "salary", "placeholder": "Salary", "value": this.state.salary}
+        ]
 
         const rows = [];
         let components = [];
-        const hiddenMessageStyle = { color: 'red' };
-
+        const hiddenMessageStyle = {color:this.state.colorHidden};
 
         fieldComponents.forEach(function(elem,index){
             let className = "";
@@ -76,11 +139,18 @@ class CreateAgentForm extends Component{
                 className = "mt-4"
             }
 
-            if (index % 2 == 1){
-                components.push(<FieldComponent type = 'ml-4 mr-2' name = {elem.name} placeholder = {elem.placeholder} value = {elem.value} onChange = {this.handleAttribute} ></FieldComponent>)
+            if (index % 2 == 1 || index == fieldComponents.length - 1){
+
+                let type = "ml-2 mr-2"
+
+                if (index === fieldComponents.length - 1){
+                    type = "ml-2 mr-2"
+                }
+
+                components.push(<FieldComponent type = {type} name = {elem.name} placeholder = {elem.placeholder} value = {elem.value} onChange = {this.handleAttribute} ></FieldComponent>)
                 rows.push(<Form.Row className = {className}>{components}</Form.Row>)
                 components = []
-            }else{
+            }else if (index % 2 == 0 ){
                 components.push(<FieldComponent type = "ml-2" name = {elem.name} placeholder = {elem.placeholder} value = {elem.value} onChange = {this.handleAttribute} ></FieldComponent>)
             }
         }.bind(this))
