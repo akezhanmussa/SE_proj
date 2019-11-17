@@ -6,7 +6,16 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d664a087-d296-4665-90ed-b8c49ff5374e" name="Default Changelist" comment="" />
+    <list default="true" id="d664a087-d296-4665-90ed-b8c49ff5374e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../front_end/src/components/Manager/FieldComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Manager/CreateAgentForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Manager/CreateAgentForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Manager/Employees.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Manager/Employees.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Manager/Routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Manager/Routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/shared/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/ManagerCreateAgentServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/ManagerCreateAgentServlet.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
