@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="E0Sz4Fo1Xp@remotemysql.com" uuid="2f594ff3-4c8e-43fb-b92b-c1ff1226945b">
-      <database-info product="MySQL" version="8.0.13-4" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.15 (Revision: 79a4336f140499bd22dd07f02b708e163844e3d5)" dbms="MYSQL" exact-version="8.0.13" exact-driver-version="8.0">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>E0Sz4Fo1Xp</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema" qname="@" />
-        </introspection-scope>
-      </schema-mapping>
-    </data-source>
-    <data-source name="eDiwTC3jTl@remotemysql.com" uuid="2e9e8aa7-9687-4b80-ac3a-65b67b1383da">
+    <data-source name="E0Sz4Fo1Xp@remotemysql.com" uuid="2605a88e-9da0-46d1-9679-e9e3b0a3065a">
       <database-info product="MySQL" version="8.0.13-4" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.15 (Revision: 79a4336f140499bd22dd07f02b708e163844e3d5)" dbms="MYSQL" exact-version="8.0.13" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>

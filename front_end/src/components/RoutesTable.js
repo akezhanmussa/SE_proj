@@ -20,28 +20,34 @@ class RoutesTable extends Component{
         this.divStyle = {
             color: 'blue'
         };
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+        this.props.fetchSchedule({"origin": this.state.startStation.value,
+            "destination": this.state.destinationStation.value, "date": this.state.timeRoute, "daytime": this.state.timeRange})
+    }
 
     handleStartStChange = (startStation) => {
         this.setState({startStation});
-    }
+    };
 
     handleDestinationStChange = (destinationStation) => {
             this.setState({ destinationStation });
-    }
+    };
 
     handleTimeRange = (timeRange) => {
         this.setState({timeRange})
-    }
+    };
 
     handleSubmitResponse = (routes) => {
         this.setState({routes})
-    }
+    };
 
     handleTimeRoute = (timeRoute) => {
         this.setState({timeRoute})
-    }
+    };
 
     render(){
         const opts = [];
@@ -99,8 +105,7 @@ class RoutesTable extends Component{
                                     <DatePicker className='ml-2' selected = {this.state.timeRoute} onChange={this.handleTimeRoute} />
                                 </Form.Group>
                                 <Form.Group className='ml-auto mr-2'>
-                                    <Button className='btn-secondary' onClick = {() => this.props.fetchSchedule({"origin": this.state.startStation.value,
-                                        "destination": this.state.destinationStation.value, "date": this.state.timeRoute, "daytime": this.state.timeRange})}>
+                                    <Button className='btn-secondary' onClick = {this.handleSubmit}>
                                         Submit Route
                                     </Button>
                                 </Form.Group>

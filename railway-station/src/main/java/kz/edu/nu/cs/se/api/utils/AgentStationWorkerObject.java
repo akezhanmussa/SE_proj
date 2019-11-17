@@ -2,7 +2,7 @@ package kz.edu.nu.cs.se.api.utils;
 
 public class AgentStationWorkerObject {
     private String token;
-    private Integer salary;
+    private Float salary;
     private Integer workingHours;
     private int id;
 
@@ -10,7 +10,7 @@ public class AgentStationWorkerObject {
         return token;
     }
 
-    public Integer getSalary() {
+    public Float getSalary() {
         return salary;
     }
 

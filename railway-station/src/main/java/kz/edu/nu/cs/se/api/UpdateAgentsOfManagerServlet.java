@@ -29,7 +29,7 @@ public class UpdateAgentsOfManagerServlet extends HttpServlet {
         }
 
         int agentId = updateAgentsOfManagerObject.getId();
-        Integer salary = updateAgentsOfManagerObject.getSalary();
+        Float salary = updateAgentsOfManagerObject.getSalary();
         Integer workingHours = updateAgentsOfManagerObject.getWorkingHours();
 
         if (salary!=null){

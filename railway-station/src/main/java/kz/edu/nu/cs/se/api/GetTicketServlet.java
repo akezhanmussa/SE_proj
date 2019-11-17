@@ -1,8 +1,8 @@
 package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
-import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.Token;
+import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.model.TicketModel;
 import kz.edu.nu.cs.se.view.Ticket;
@@ -24,12 +24,16 @@ public class GetTicketServlet extends HttpServlet {
 
         String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
 //        System.out.println(token);
-        if (isExpired(token) && isPassenger(token)){
+        if (isExpired(token)){
             response.sendError(401, "Token has expired");
         }
 
+        if(!isPassenger(token)) {
+            response.sendError(401, "Unauthorized as passenger");
+        }
 
-        Integer idPassenger = JWTUtils.getUserFromToken(token).getUserId();
+
+        Integer idPassenger = PassengerController.getPassenger(getUserFromToken(token)).get().getUserId();
 
         ArrayList<TicketModel> ticketModels = TicketController.getTicketsForPassenger(idPassenger);
         ArrayList<Ticket> tickets = ticketModels.stream().map(element -> new Ticket(element)).

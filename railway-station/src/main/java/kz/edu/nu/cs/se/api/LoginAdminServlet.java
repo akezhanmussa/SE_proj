@@ -7,6 +7,7 @@ import kz.edu.nu.cs.se.dao.AdminController;
 import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.model.User;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +27,7 @@ public class LoginAdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Optional<String> token = null;
 
         Gson gson = new Gson();
 
@@ -33,20 +35,23 @@ public class LoginAdminServlet extends HttpServlet {
 
         String userName = loginObject.getUserName();
         String password = loginObject.getPassword();
-        User user = AdminController.getAdmin(userName, password).orElseGet(null);
+        User user = AdminController.getAdmin(userName, password);
+        PrintWriter out = response.getWriter();
 
-
-        Optional<String> token = JWTUtils.generateToken(user);
-
-        if(token == null){
+        try {
+            System.out.println("hererer");
+            token = JWTUtils.generateToken(user);
+        } catch (Exception ex) {
             response.sendError(response.SC_BAD_REQUEST,"Username or password incorrect");
+            out.flush();
         }
 
-        PrintWriter out = response.getWriter();
+
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        out.append(gson.toJson(token));
+        out.append(gson.toJson(token.get()));
         out.flush();
 
 

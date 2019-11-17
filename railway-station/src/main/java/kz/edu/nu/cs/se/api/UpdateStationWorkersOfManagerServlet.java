@@ -27,14 +27,14 @@ public class UpdateStationWorkersOfManagerServlet extends HttpServlet {
         }
 
         int stationWorkerId = agentStationWorkerObject.getId();
-        int salary = agentStationWorkerObject.getSalary();
-        int workingHours = agentStationWorkerObject.getWorkingHours();
+        Float salary = agentStationWorkerObject.getSalary();
+        Integer workingHours = agentStationWorkerObject.getWorkingHours();
 
-        if (salary>=0){
+        if (salary!=null){
             StationWorkersController.updateStationWorkerSalary(stationWorkerId, salary);
         }
 
-        if (workingHours>=0){
+        if (salary!=null){
             StationWorkersController.updateStationWorkerWorkingHours(stationWorkerId, workingHours);
         }
 

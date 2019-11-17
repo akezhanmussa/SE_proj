@@ -36,11 +36,11 @@ public class StationWorkersController {
 
     }
 
-    public static void updateStationWorkerSalary(int stationWorkerId, int salary) {
+    public static void updateStationWorkerSalary(int stationWorkerId, Float salary) {
 
         Statement passengerStatement = Connector.getStatement();
 
-        String queryInsert = String.format("Update StationWorker Set salary = %d where idStationWorker = %d",
+        String queryInsert = String.format("Update StationWorker Set salary = %f where idStationWorker = %d",
                 salary, stationWorkerId);
         try {
             passengerStatement.executeUpdate(queryInsert);

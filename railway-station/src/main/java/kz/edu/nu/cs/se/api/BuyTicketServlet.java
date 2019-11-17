@@ -3,6 +3,7 @@ package kz.edu.nu.cs.se.api;
 import com.google.gson.Gson;
 import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.TicketRequestObject;
+import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.dao.TicketController;
 import kz.edu.nu.cs.se.model.User;
 
@@ -12,7 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+import static kz.edu.nu.cs.se.api.utils.JWTUtils.getUserFromToken;
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
 
 @WebServlet(urlPatterns = {"/myrailway/buyticket"})
@@ -31,7 +35,7 @@ public class BuyTicketServlet extends HttpServlet {
             response.sendError(401, "Token has expired");
         }
 
-        User passenger = JWTUtils.getUserFromToken(token);
+        User passenger = PassengerController.getPassenger(getUserFromToken(token)).get();
         Integer passengerId = passenger.getUserId();
 
         Integer scheduleId = ticketRequestObject.getScheduleId();
@@ -48,7 +52,7 @@ public class BuyTicketServlet extends HttpServlet {
 
         boolean status = TicketController.BuyTicket(scheduleId, passengerId, origin_id, destination_id, price,
                 start_date, end_date, owner_document_type, owner_document_id,owner_firstname,
-                owner_lastname);
+                owner_lastname, "UNAPPROVED");
         PrintWriter out = response.getWriter();
         if (status) {
             out.append(new Gson().toJson("Done! Wait for approval"));

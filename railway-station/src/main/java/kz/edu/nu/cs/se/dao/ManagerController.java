@@ -14,6 +14,7 @@ public class ManagerController {
             ResultSet stationResultSet = statement.executeQuery(String.format(
                     "SELECT * FROM Manager WHERE username='%s'", managerUserName));
             while(stationResultSet.next()){
+                System.out.println("here in select manager stationId");
                 result = stationResultSet.getInt(1);
                 break;
             }

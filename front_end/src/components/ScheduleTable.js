@@ -2,7 +2,20 @@ import React, {Component} from 'react';
 import {Loading} from './Loading';
 import {Modal, ModalBody, ModalHeader} from 'reactstrap';
 import { Link } from 'react-router-dom';
+import {locations} from "../shared/Locations";
 
+const ButBuy = (props) => {
+
+    if(props.isAdmin){
+        return (
+            <button className='btn btn-secondary' onClick={() => props.collectData(props.body)}>Select</button>
+        );
+    }else{
+        return (
+            <Link className='btn btn-secondary' to={`/home/buy_ticket/${props.id}`}>Buy a ticket</Link>
+        );
+    }
+}
 
 class ScheduleRow extends Component {
     render() {
@@ -13,6 +26,15 @@ class ScheduleRow extends Component {
         const endDate = this.props.endDate;
         const capacity = this.props.capacity;
         const train = this.props.train;
+
+        let body = {
+            scheduleId: id,
+            origin_id: locations.filter(loc => origin === loc.name)[0].id,
+            destination_id: locations.filter(loc => destination === loc.name)[0].id,
+            price: 0,
+            start_date: startDate,
+            end_date: endDate
+        };
 
         return (
             <tr>
@@ -39,8 +61,10 @@ class ScheduleRow extends Component {
                 <td>
                     <div align='center'>
                         <h5 align='center'>{capacity}</h5>
+
                         {capacity > 0 ?
-                            <Link className='btn btn-secondary' to={`home/buy_ticket/${id}`}>Buy a ticket</Link>
+                            <ButBuy id={id} isAdmin={this.props.isAdmin} body={body} collectData={this.props.collectData}/>
+                            // <Link className='btn btn-secondary' to={`home/buy_ticket/${id}`}>Buy a ticket</Link>
                             :
                             <button className='btn btn-secondary disabled'>No tickets</button>
                         }
@@ -78,6 +102,8 @@ class ScheduleTable extends Component{
                     endDate = {route.endTime}
                     handleBuy = {this.handleBuy}
                     routes = {route.routes}
+                    isAdmin = {this.props.isAdmin}
+                    collectData={this.props.collectData}
                 />
             );
         });
@@ -86,11 +112,11 @@ class ScheduleTable extends Component{
             if (this.props.schedule.schedule.length === 0 && this.props.schedule.req === 0)
                 return (
                     <div></div>
-                )
+                );
             else if(this.props.schedule.schedule.length === 0 && this.props.schedule.req === 1)
                 return (
                     <div>NO such routes</div>
-                )
+                );
             else
                 return (
                     <table className='mt-3 table table-striped table-responsive-md btn-table'>

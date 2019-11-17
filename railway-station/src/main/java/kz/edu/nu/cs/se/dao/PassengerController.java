@@ -12,7 +12,7 @@ public class PassengerController {
     public static boolean isValidUserName(String userName){
         Statement passengerStatement = Connector.getStatement();
         try {
-            ResultSet passengerSet = passengerStatement.executeQuery(String.format("SELECT * FROM Passenger where username = '%s'", userName));
+            ResultSet passengerSet = passengerStatement.executeQuery(String.format("SELECT * FROM Passenger where email = '%s'", userName));
             while(passengerSet.next()){
                 return false;
             }
@@ -41,10 +41,33 @@ public class PassengerController {
         }
     }
 
-    public static Optional<User> getPassenger(String username, String pass){
+    public static Optional<User> getPassenger(String username){
         Statement passengerStatement = Connector.getStatement();
         try {
-            ResultSet passengerSet = passengerStatement.executeQuery(String.format("SELECT * FROM Passenger where username = '%s' and password = '%s'", username, pass));
+            ResultSet passengerSet = passengerStatement.executeQuery(String.format("SELECT * FROM Passenger where username = '%s'", username));
+            while(passengerSet.next()){
+                int passengerId = passengerSet.getInt(1);
+                String firstName = passengerSet.getString(2);
+                String lastName= passengerSet.getString(3);
+                String email= passengerSet.getString(4);
+                String phoneNumber= passengerSet.getString(5);
+                String userName= passengerSet.getString(6);
+
+                User user = new User(firstName,lastName,email,phoneNumber,userName,passengerId);
+                user.setUserRole("passenger");
+                passengerStatement.close();
+                return Optional.of(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Optional<User> getPassenger(String username, String passowrd){
+        Statement passengerStatement = Connector.getStatement();
+        try {
+            ResultSet passengerSet = passengerStatement.executeQuery(String.format("SELECT * FROM Passenger where username = '%s' and password = '%s'", username, passowrd));
             while(passengerSet.next()){
                 int passengerId = passengerSet.getInt(1);
                 String firstName = passengerSet.getString(2);

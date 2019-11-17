@@ -10,8 +10,6 @@ import {submitRegistrationForm} from "../redux/RegistrationApproveActionCreators
 import {login,logout} from "../redux/LoginActionCreator";
 import Admin from './Admin';
 import AdminLogin from './AdminLogin';
-import PassengerTicketsPage from "./PassengerTicketsPage";
-import {Button} from "react-bootstrap";
 import jwt_decode from 'jwt-decode';
 import PassengerPage from "./PassengerPage";
 
@@ -41,8 +39,8 @@ const AdminRouter = (props) => {
 
     return(
         <Switch>
-            <PrivateAdminRoute exact path={props.match.url} component={Admin}/>
-            <Route path={props.match.url + '/login'} component={() => <AdminLogin admin={props.admin}/> }/>
+            <PrivateAdminRoute exact path={props.match.url} component={() => <Admin admin={props.admin}/>}/>
+            <Route exact path={props.match.url + '/login'} component={() => <AdminLogin admin={props.admin}/> }/>
         </Switch>
     );
 };
@@ -57,7 +55,12 @@ class Main extends Component{
     checkExpirationDate(){
         if(this.props.loginUser.isAuthenticated){
             const token = this.props.loginUser.token;
-            const jt = jwt_decode(token);
+            var jt = "";
+            try {
+                jt = jwt_decode(token);
+            }catch (e) {
+                console.log(e);
+            }
             const now = new Date().getTime();
             const timeleft = jt.exp * 1000 - now;
             if (timeleft < 0) {
@@ -88,15 +91,15 @@ class Main extends Component{
         };
 
         const callUserPage = ({match}) => {
-            console.log("afafd");
             return(
                 <div>
                     <NavigationBar loginState={this.props.loginUser} login={this.props.login}/>
                     <Switch>
                         <Route exact path={match.url} component={() => <Home  logout = {this.props.logout} submitData={this.props.submitRegistrationForm} loginUser = {this.props.loginUser} login = {this.props.login} fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
-                        <Route path={match.url + '/buy_ticket/:routeId'} component={BuyTicket}/>
-                        <Route path={match.url + '/registration'} component={() => <RegistrationPage submitData = {this.props.submitRegistrationForm} registrationApproveState = {this.props.registrationApproveState}/>}/>
-                        <Route path={match.url + '/my_account'} component={() => <PassengerPage loginUser={this.props.loginUser} logout={this.props.logout}/>}/>
+                        <Route exact path={match.url + '/buy_ticket/:routeId'} component={BuyTicket}/>
+                        <Route exact path={match.url + '/registration'} component={() => <RegistrationPage submitData = {this.props.submitRegistrationForm} registrationApproveState = {this.props.registrationApproveState}/>}/>
+                        <Route exact path={match.url + '/my_account'} component={() => <PassengerPage loginUser={this.props.loginUser} logout={this.props.logout}/>}/>
+                        <Redirect to='/home'/>
                     </Switch>
                 </div>
             );
@@ -107,7 +110,7 @@ class Main extends Component{
                 <Switch>
                     <Route path='/admin' component={callAdminPage}/>
                     <Route path='/home' component={callUserPage}/>
-                    <Redirect to='home'/>
+                    <Redirect to='/home'/>
                 </Switch>
 
             </div>

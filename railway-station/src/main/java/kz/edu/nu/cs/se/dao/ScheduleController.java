@@ -4,6 +4,7 @@ import kz.edu.nu.cs.se.model.RouteModel;
 import kz.edu.nu.cs.se.model.ScheduleModel;
 import kz.edu.nu.cs.se.model.TrainModel;
 
+import javax.xml.transform.Result;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -35,8 +36,16 @@ public class ScheduleController {
                     String startDateString = routeSet.getString(2);
                     String endDateString = routeSet.getString(3);
 
-                    String startName = stationController.getName(startStationId).get();
-                    String endName = stationController.getName(endStationId).get();
+                    Optional<String> optionalStartName = stationController.getName(startStationId);
+                    Optional<String> optionalEndName = stationController.getName(endStationId);
+
+                    if (!optionalStartName.isPresent() || !optionalEndName.isPresent()) {
+                        System.out.println("[ERROR] Failed to fetch start station name or end station name.");
+                        return scheduleModels;
+                    }
+
+                    String startName = optionalStartName.get();
+                    String endName = optionalEndName.get();
 
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -71,6 +80,51 @@ public class ScheduleController {
                 return o1.getStartTimeObject().compareTo(o2.getStartTimeObject());
             }
         });
+        return scheduleModels;
+    }
+
+    private static void setOriginDestinationTrain(ScheduleModel scheduleModel, ArrayList<RouteModel> routeModels) {
+        if (routeModels.size() > 0) {
+            scheduleModel.setStartTimeObject(routeModels.get(0).getStartDateObject());
+            scheduleModel.setOrigin(routeModels.get(0).getOrigin());
+
+            scheduleModel.setEndTimeObject(routeModels.get(routeModels.size() - 1).getEndDateObject());
+            scheduleModel.setDestination(routeModels.get(routeModels.size() - 1).getDestination());
+
+            Integer trainID = routeModels.get(0).getTrainId();
+            scheduleModel.setTrainModel(new TrainModel(trainID, TrainController.getCapacity(trainID)));
+        }
+    }
+
+    public static ArrayList<ScheduleModel> fetchAllSchedules() {
+        ArrayList<ScheduleModel> scheduleModels = new ArrayList<>();
+
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet schedules = statement.executeQuery(
+                    "SELECT schedule_id FROM Route WHERE start_time > NOW() GROUP BY schedule_id;");
+
+            while (schedules.next()) {
+                Integer scheduleID = schedules.getInt(1);
+
+                ArrayList<RouteModel> routeModels = RouteController.getRoutesFromSchedule(scheduleID);
+
+                ScheduleModel scheduleModel = new ScheduleModel(scheduleID);
+
+                setOriginDestinationTrain(scheduleModel, routeModels);
+
+                scheduleModel.setRoutes(routeModels);
+                scheduleModels.add(scheduleModel);
+
+            }
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        System.out.println(scheduleModels.size());
+
         return scheduleModels;
     }
 }

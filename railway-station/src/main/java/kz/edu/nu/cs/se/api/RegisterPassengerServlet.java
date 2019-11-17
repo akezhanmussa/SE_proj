@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 
 @WebServlet(urlPatterns = { "/myrailway/auth/register" })
 public class RegisterPassengerServlet extends HttpServlet {
+    private static final String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
     public RegisterPassengerServlet() {
         super();
@@ -26,7 +27,6 @@ public class RegisterPassengerServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
         Gson gson = new Gson();
 
         PassengerObject passengerObject = new Gson().fromJson(request.getReader(), PassengerObject.class);
@@ -37,7 +37,6 @@ public class RegisterPassengerServlet extends HttpServlet {
         String phoneNumber= passengerObject.getPhoneNumber();
         String userName= passengerObject.getUserName();
         String password= passengerObject.getPassword();
-        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
         if (email.matches(regex)){
 
@@ -49,6 +48,7 @@ public class RegisterPassengerServlet extends HttpServlet {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
 
+                PrintWriter out = response.getWriter();
                 out.append(gson.toJson("Successfully registered!"));
                 out.flush();
             }
