@@ -1,6 +1,6 @@
 package kz.edu.nu.cs.se.dao;
 
-import kz.edu.nu.cs.se.model.Agent;
+import kz.edu.nu.cs.se.model.AgentModel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -80,10 +80,10 @@ public class AgentController {
         return Optional.empty();
     }
 
-    public static ArrayList<Agent> getAgents(int stationId){
+    public static ArrayList<AgentModel> getAgents(int stationId){
 
         Statement agentStatement = Connector.getStatement();
-        ArrayList<Agent> agents = new ArrayList<>();
+        ArrayList<AgentModel> agentModels = new ArrayList<>();
 
         try {
             ResultSet agentsSet = agentStatement.executeQuery(String.format("SELECT * FROM Agent where station_id = '%d'", stationId));
@@ -95,16 +95,16 @@ public class AgentController {
                 int workingHours = agentsSet.getInt(3);
                 int station_id = agentsSet.getInt(10);
 
-                Agent agent = new Agent(agentId,firstName,
+                AgentModel agentModel = new AgentModel(agentId,firstName,
                         lastName,salary,workingHours,stationId);
-                agents.add(agent);
+                agentModels.add(agentModel);
             }
             agentsSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return agents;
+        return agentModels;
 
     }
 
@@ -123,6 +123,20 @@ public class AgentController {
 
     }
 
+    public static Optional<String> getEmailByUsername(String username) {
+        try {
+            Statement statement = Connector.getStatement();
+            ResultSet emailSet = statement.executeQuery(
+                    String.format("SELECT email FROM Agent WHERE username=%s", username));
+
+            if (emailSet.next()) return Optional.of(emailSet.getString(1));
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return Optional.empty();
+    }
+
     public static void updateAgentWorkingHours(int agentId, int workingHours) {
 
         Statement passengerStatement = Connector.getStatement();
@@ -135,8 +149,6 @@ public class AgentController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
 
     }
 }

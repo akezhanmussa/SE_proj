@@ -1,6 +1,6 @@
 package kz.edu.nu.cs.se.model;
 
-public class Agent {
+public class AgentModel {
 
     private int idAgent;
     private int salary;
@@ -13,8 +13,8 @@ public class Agent {
     private String password;
     private int stationId;
 
-    public Agent(int idAgent, int salary, int workingHours, String firstName, String lastName,
-                 String email, String phoneNumber, String userName, String password, int stationId) {
+    public AgentModel(int idAgent, int salary, int workingHours, String firstName, String lastName,
+                      String email, String phoneNumber, String userName, String password, int stationId) {
         this.idAgent = idAgent;
         this.salary = salary;
         this.workingHours = workingHours;
@@ -27,7 +27,7 @@ public class Agent {
         this.stationId = stationId;
     }
 
-    public Agent(int agentId, String firstName, String lastName, int salary, int workingHours, int stationId) {
+    public AgentModel(int agentId, String firstName, String lastName, int salary, int workingHours, int stationId) {
         this.idAgent = agentId;
         this.firstName = firstName;
         this.lastName = lastName;
