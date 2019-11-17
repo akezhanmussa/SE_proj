@@ -216,4 +216,20 @@ public class TicketController {
 
         return status;
     }
+
+    public static Optional<TicketModel> getSingleTicket(Integer userID, Integer ticketID) {
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet ticketSet = statement.executeQuery(
+                    String.format("SELECT * FROM Ticket WHERE idTicket=%d AND Passenger_idPassenger=%d",
+                            ticketID, userID));
+
+            if (ticketSet.next()) return getTicketModel(ticketSet);
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return Optional.empty();
+    }
 }
