@@ -168,25 +168,35 @@ public class TicketController {
         return result;
     }
 
-    public static Boolean changeStatus(Integer ticketID, String newStatus) {
-        Boolean status = false;
-
+    private static Boolean verifyStatus(Integer ticketID, String newStatus) {
         try {
             Statement statement = Connector.getStatement();
 
-            status = statement.execute(String.format("UPDATE Ticket SET status=%s WHERE idTicket=%d",
-                    newStatus, ticketID));
-            if (!status) {
-                System.out.println(String.format(
-                        "[ERROR] Failed to update ticket status for ticketID=%d, to new status=%s", ticketID, newStatus
-                ));
-            }
+            ResultSet resultSet = statement.executeQuery("SELECT status FROM Ticket WHERE idTicket=" + ticketID);
 
+            while (resultSet.next()) {
+                String dataBaseStatus = resultSet.getString(1);
+                return newStatus.equals(dataBaseStatus);
+            }
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return false;
+    }
+
+    public static Boolean changeStatus(Integer ticketID, String newStatus) {
+        try {
+            Statement statement = Connector.getStatement();
+
+            statement.execute(String.format("UPDATE Ticket SET status=\"%s\" WHERE idTicket=%d",
+                    newStatus, ticketID));
+
+            statement.close();
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
         }
 
-        return status;
+        return verifyStatus(ticketID, newStatus);
     }
 
     public static Boolean verifyAssigmentOfAgent(Integer agentID, Integer ticketID) {
@@ -196,9 +206,9 @@ public class TicketController {
             Statement statement = Connector.getStatement();
 
             ResultSet ticketRows = statement.executeQuery(String.format(
-                    "SELECT * FROM Ticket WHERE ticketID=%d AND agent_id=%d", ticketID, agentID));
+                    "SELECT * FROM Ticket WHERE idTicket=%d AND agent_id=%d", ticketID, agentID));
 
-            status = ticketRows.isFirst();
+            status = ticketRows.next();
 
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
