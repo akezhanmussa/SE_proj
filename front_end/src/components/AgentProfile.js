@@ -176,22 +176,19 @@ class MyTickets extends Component{
     approveTicket = (id, st) => {
         alert("Wait please!!!");
         this.setState({isLoading: true});
-        fetch(baseUrl + "/agent/assign-ticket", {
+        fetch(baseUrl + "/ticket/update-status", {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
-            body:JSON.stringify({token: this.props.admin.admin_token, ticketID: id, status: st})
+            body:JSON.stringify({token: this.props.admin.admin_token, ticketID: id, isApproved: st})
         })
             .then(res => res.json())
             .then(res => {
-                if(res.status !== "success"){
-                    var error = new Error("Error " + res.status);
-                    error.response = res;
-                    throw error;
-                }
-                this.props.fetchMyTickets(res.data);
+                console.log(res);
+                this.props.fetchMyTickets(res);
                 this.setState({isLoading: false});
             })
             .catch(error => {
+                console.log(error);
                 this.setState({isLoading: false});
                 this.setState({errMess: error.message});
             })
