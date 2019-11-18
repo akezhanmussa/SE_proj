@@ -114,7 +114,7 @@ class CreateTicketForAgent extends Component {
         return(
             <div>
                 <div className='row justify-content-around'>
-                    <div className='search-box' style={{width: 500}}>
+                    <div className='search-box' style={{width: "100%"}}>
                         <Form>
                             <Form.Row>
                                 <Form.Group className = "col-6">
