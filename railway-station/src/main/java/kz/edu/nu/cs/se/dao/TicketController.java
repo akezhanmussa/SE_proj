@@ -5,7 +5,6 @@ import kz.edu.nu.cs.se.model.TicketModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -216,4 +215,18 @@ public class TicketController {
 
         return status;
     }
+
+    public static Boolean cancelTicket(Integer scheduleId) {
+
+        try {
+            Statement statement = Connector.getStatement();
+            boolean cancelTicket = statement.execute(String.format("U"));
+            return false;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return true;
+    }
+
 }
