@@ -226,6 +226,7 @@ public class RouteController {
         }
         return Optional.empty();
     }
+
     public static Boolean updateRoute(Integer routeId, LocalDateTime startTime, LocalDateTime endTime) {
 
         try {
@@ -247,6 +248,7 @@ public class RouteController {
 
                 int endTimeRow = preparedStatementEnd.executeUpdate();
 
+                statement.close();
                 if (!(endTimeRow == 1 && startTimeRow == 1)) {
                     System.out.println(String.format(
                             "[ERROR] Failed to change route_id to agent (id=%d)", routeId));
@@ -255,26 +257,33 @@ public class RouteController {
             }
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
+            return false;
         }
         return true;
     }
 
-    public static Boolean deleteRoute(Integer scheduleId) {
-        boolean deleteRoute = false;
-
+    public static Boolean deleteRoutesByScheduleId(Integer scheduleId) {
         try {
             Statement statement = Connector.getStatement();
-            deleteRoute = statement.execute(String.format("DELETE FROM Route where Schedule_idRoutes=%d", scheduleId));
+            int deleteRoute = statement.executeUpdate(String.format("DELETE FROM Route where schedule_id=%d", scheduleId));
 
-            if (!deleteRoute) {
+            statement.close();
+            if (deleteRoute <= 0) {
                 System.out.println(String.format("[ERROR] Failed to delete route with schedule_id %d", scheduleId));
+                return false;
             }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            return false;
         }
 
-        return deleteRoute;
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+
     }
 
 }

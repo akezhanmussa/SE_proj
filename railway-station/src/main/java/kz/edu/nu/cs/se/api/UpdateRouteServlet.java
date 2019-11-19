@@ -1,8 +1,10 @@
 package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
+import kz.edu.nu.cs.se.api.utils.DeleteScheduleObject;
 import kz.edu.nu.cs.se.api.utils.UpadateRouteObject;
 import kz.edu.nu.cs.se.dao.RouteController;
+import kz.edu.nu.cs.se.dao.ScheduleController;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,5 +50,36 @@ public class UpdateRouteServlet extends HttpServlet {
         } else {
             resp.sendError(503, "An internal error occurred");
         }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doDelete(req, resp);
+
+        DeleteScheduleObject deleteScheduleObject = new Gson().fromJson(req.getReader(), DeleteScheduleObject.class);
+
+        String token = deleteScheduleObject.getToken();
+        if (isExpired(token)){
+            System.out.println("[ERROR] Token has expired");
+            resp.sendError(401, "Token has expired");
+            return;
+        }
+
+        if (!isManager(token)){
+            System.out.println("[ERROR] Unauthorized as Manager");
+            resp.sendError(401, "Unauthorized as Manager");
+            return;
+        }
+
+        Integer scheduleId = deleteScheduleObject.getScheduleId();
+
+        Boolean status = ScheduleController.deleteSchedule(scheduleId);
+
+        if (status) {
+            resp.sendError(202, "Success");
+        } else {
+            resp.sendError(503, "An internal error occurred");
+        }
+
     }
 }
