@@ -12,6 +12,7 @@ import Admin from './Admin';
 import AdminLogin from './AdminLogin';
 import jwt_decode from 'jwt-decode';
 import PassengerPage from "./PassengerPage";
+import PrintTicket from './PrintTicket';
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -84,6 +85,14 @@ class Main extends Component{
             );
         };
 
+        const Printticket = ({match}) => {
+            return (
+                <div>
+                    <PrintTicket loginUser={this.props.loginUser} admin={this.props.admin} id={match.params.ticketId}/>
+                </div>
+            );
+        };
+
         const callAdminPage = ({match}) => {
             return (
                 <AdminRouter admin={this.props.admin} match={match}/>
@@ -97,6 +106,7 @@ class Main extends Component{
                     <Switch>
                         <Route exact path={match.url} component={() => <Home  logout = {this.props.logout} submitData={this.props.submitRegistrationForm} loginUser = {this.props.loginUser} login = {this.props.login} fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
                         <Route exact path={match.url + '/buy_ticket/:routeId'} component={BuyTicket}/>
+                        <Route exact path={match.url + '/print_ticket/:ticketId'} component={Printticket}/>
                         <Route exact path={match.url + '/registration'} component={() => <RegistrationPage submitData = {this.props.submitRegistrationForm} registrationApproveState = {this.props.registrationApproveState}/>}/>
                         <Route exact path={match.url + '/my_account'} component={() => <PassengerPage loginUser={this.props.loginUser} logout={this.props.logout}/>}/>
                         <Redirect to='/home'/>

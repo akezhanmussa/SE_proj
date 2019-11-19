@@ -216,17 +216,19 @@ public class TicketController {
         return status;
     }
 
-    public static Boolean cancelTicket(Integer scheduleId) {
-
+    public static Optional<TicketModel> getSingleTicket(Integer userID, Integer ticketID) {
         try {
             Statement statement = Connector.getStatement();
-            boolean cancelTicket = statement.execute(String.format("U"));
-            return false;
 
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            ResultSet ticketSet = statement.executeQuery(
+                    String.format("SELECT * FROM Ticket WHERE idTicket=%d AND Passenger_idPassenger=%d",
+                            ticketID, userID));
+
+            if (ticketSet.next()) return getTicketModel(ticketSet);
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
         }
-        return true;
+        return Optional.empty();
     }
-
 }

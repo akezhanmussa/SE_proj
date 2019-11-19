@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.sql.*;
+import java.util.Date;
 
 public class RouteController {
 
@@ -275,22 +277,4 @@ public class RouteController {
         return deleteRoute;
     }
 
-//    public static void main(String[] args) {
-//        try {
-//            System.out.println(java.sql.Timestamp.valueOf("2019-10-14 05:30:00"));
-//            LocalDateTime startTime = LocalDateTime.now();
-//            int routeId = 12;
-//            String sqlStart = "UPDATE Route SET start_time=? WHERE idRoute=?";
-//            PreparedStatement preparedStatementStart = Connector.prepareStatement(sqlStart);
-//            System.out.println("start_time: "+java.sql.Timestamp.valueOf(startTime));
-//
-//            preparedStatementStart.setTimestamp(1, java.sql.Timestamp.valueOf(startTime));
-//            preparedStatementStart.setInt(2, routeId);
-//            int startTimeRow = preparedStatementStart.executeUpdate();
-//            System.out.println("startTimeRow: "+startTimeRow);
-//        } catch (SQLException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//
-//    }
 }
