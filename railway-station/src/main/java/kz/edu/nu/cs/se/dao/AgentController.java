@@ -49,7 +49,7 @@ public class AgentController {
             Statement statement = Connector.getStatement();
 
             ResultSet dummyUser = statement.executeQuery(String.format(
-                    "SELECT idPassenger FROM Passenger WHERE email=%s", agentEmail));
+                    "SELECT idPassenger FROM Passenger WHERE email=\"%s\"", agentEmail));
 
             if (dummyUser.next()) {
                 Integer dummyID = dummyUser.getInt(1);
@@ -127,7 +127,7 @@ public class AgentController {
         try {
             Statement statement = Connector.getStatement();
             ResultSet emailSet = statement.executeQuery(
-                    String.format("SELECT email FROM Agent WHERE username=%s", username));
+                    String.format("SELECT email FROM Agent WHERE username=\"%s\"", username));
 
             if (emailSet.next()) return Optional.of(emailSet.getString(1));
 

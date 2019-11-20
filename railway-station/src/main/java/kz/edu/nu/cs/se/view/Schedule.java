@@ -2,9 +2,7 @@ package kz.edu.nu.cs.se.view;
 
 import kz.edu.nu.cs.se.model.RouteModel;
 import kz.edu.nu.cs.se.model.ScheduleModel;
-import kz.edu.nu.cs.se.model.TrainModel;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 

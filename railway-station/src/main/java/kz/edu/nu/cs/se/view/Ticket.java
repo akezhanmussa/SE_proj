@@ -14,8 +14,10 @@ public class Ticket {
     private String ownerDocumentId;
     private Integer price;
     private Integer scheduleId;
+    private Integer ticketID;
 
     public Ticket(TicketModel model) {
+        ticketID = model.getIdTicket();
         startDate = model.getStartDate();
         endDate = model.getEndDate();
         idOrigin = model.getIdOrigin();

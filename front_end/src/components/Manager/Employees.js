@@ -3,8 +3,9 @@ import BootstrapSwitchButton from "bootstrap-switch-button-react"
 import ManagerProfile from "./ManagerProfile";
 import {getAgentsUrl, getStationWorkersUrl} from "../../shared/BaseUrl";
 import {Modal, ModalBody, ModalHeader} from "reactstrap";
-import {Form} from "react-bootstrap";
+import {Form,Button} from "react-bootstrap";
 import FieldComponent from "./FieldComponent";
+import DatePicker from "react-datepicker";
 
 
 const fetchEmployee = (type) => {
@@ -28,71 +29,71 @@ const fetchEmployee = (type) => {
         });
 }
 
-class EmployeeUpdate extends Component {
-    constructor(props){
-        super(props)
-
-        this.state = {
-            isModalOpen: false,
-            workingHours:0,
-            salary:0.0
-        }
-
-        this.handleAttribute = this.handleAttribute.bind(this)
-        this.actModal = this.actModal(this)
-    }
-
-    actModal(){
-        console.log("I am called in the MODAL")
-        this.setState({isModalOpen: !this.state.isModalOpen});
-    }
-
-    handleAttribute = (event) => {
-        this.setState({[event.target.name]: event.target.value});
-    }
-
-    render(){
-
-        let fields = [
-            {"name": "workingHours", "placeholder": "Working Hours", "value": this.state.workingHours},
-            {"name": "salary", "placeholder": "Salary", "value": this.state.salary}
-        ]
-
-        let rows = []
-
-        fields.forEach(elem => {
-                rows.push( <FieldComponent typeForm = {"number"}
-                                           name = {elem.name}
-                                           placeholder = {elem.placeholder}
-                                           value = {elem.value}
-                                           onChange = {this.handleAttribute}>
-                            </FieldComponent>)
-            }
-        )
-
-        return(
-            <div>
-                <button className='ui header btn-light' onClick={this.actModal}>Salary/Hours</button>
-                <Modal isOpen={this.state.isModalOpen} toggle={this.actModal}>
-                    <div>
-                        <ModalBody>
-                            <ModalHeader>
-                                <h4>
-                                    Salary/Hours Update
-                                </h4>
-                            </ModalHeader>
-                            <Form>
-                                <Form.Row>
-                                    {rows}
-                                </Form.Row>
-                            </Form>
-                        </ModalBody>
-                    </div>
-                </Modal>
-            </div>
-        )
-    }
-}
+// class EmployeeUpdate extends Component {
+//     constructor(props){
+//         super(props)
+//
+//         this.state = {
+//             isModalOpen: false,
+//             workingHours:0,
+//             salary:0.0
+//         }
+//
+//         this.handleAttribute = this.handleAttribute.bind(this)
+//         this.actModal = this.actModal(this)
+//     }
+//
+//     actModal(){
+//         console.log("I am called in the MODAL")
+//         this.setState({isModalOpen: !this.state.isModalOpen});
+//     }
+//
+//     handleAttribute = (event) => {
+//         this.setState({[event.target.name]: event.target.value});
+//     }
+//
+//     render(){
+//
+//         let fields = [
+//             {"name": "workingHours", "placeholder": "Working Hours", "value": this.state.workingHours},
+//             {"name": "salary", "placeholder": "Salary", "value": this.state.salary}
+//         ]
+//
+//         let rows = []
+//
+//         fields.forEach(elem => {
+//                 rows.push( <FieldComponent typeForm = {"number"}
+//                                            name = {elem.name}
+//                                            placeholder = {elem.placeholder}
+//                                            value = {elem.value}
+//                                            onChange = {this.handleAttribute}>
+//                             </FieldComponent>)
+//             }
+//         )
+//
+//         return(
+//             <div>
+//                 <button className='ui header btn-light' onClick={this.actModal}>Salary/Hours</button>
+//                 <Modal isOpen={this.state.isModalOpen} toggle={this.actModal}>
+//                     <div>
+//                         <ModalBody>
+//                             <ModalHeader>
+//                                 <h4>
+//                                     Salary/Hours Update
+//                                 </h4>
+//                             </ModalHeader>
+//                             <Form>
+//                                 <Form.Row>
+//                                     {rows}
+//                                 </Form.Row>
+//                             </Form>
+//                         </ModalBody>
+//                     </div>
+//                 </Modal>
+//             </div>
+//         )
+//     }
+// }
 
 
 class EmployeeTable extends Component {
@@ -102,8 +103,13 @@ class EmployeeTable extends Component {
 
         this.state = {
             employees: [],
-            expandedRows: []
+            expandedRows: [],
+            salary:"",
+            workingHours:""
         }
+
+        this.handleAttribute = this.handleAttribute.bind(this)
+        this.submitSalaryHours = this.submitSalaryHours.bind(this)
     }
 
     componentDidMount() {
@@ -117,7 +123,133 @@ class EmployeeTable extends Component {
 
 
     handleRowClick(rowId){
+        const isRowCurrentlyExpanded = this.state.expandedRows.includes(rowId);
 
+        const newExpandedRows = isRowCurrentlyExpanded ?
+            this.state.expandedRows.filter(id => id !== rowId) :
+            this.state.expandedRows.concat(rowId);
+
+        this.setState({expandedRows : newExpandedRows});
+    }
+
+
+    submitSalaryHours = () => {
+
+    }
+
+
+    handleAttribute = (event) => {
+        this.setState({[event.target.name]: event.target.value});
+    }
+
+    renderItem(item, isworker){
+        const id = isworker ? item.stationWorkerId : item.idAgent
+        const clickCallback = () => this.handleRowClick(id);
+
+        const rows = []
+
+        if (isworker){
+            rows.push(
+                    <tr onClick = {clickCallback} key = {"worker-" + id}>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {item.firstName}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {item.lastName}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {item.salary}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {item.workingHours}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {item.stationId}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {item.stationWorkerId}
+                            </h6>
+                        </td>
+                    </tr>
+                )
+
+        }else{
+                rows.push(
+                    <tr onClick = {clickCallback} key = {"agent-worker-" + id}>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {item.firstName}
+                            </h6>
+                        </td>
+
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {item.lastName}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {item.salary}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {item.workingHours}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {item.stationId}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {item.idAgent}
+                            </h6>
+                        </td>
+                    </tr>
+                )
+        }
+
+        const buttons = []
+
+        if(this.state.expandedRows.includes(id)){
+            if (this.state.salary === "")
+                this.setState({salary:item.salary})
+            if (this.state.workingHours === "")
+                this.setState({workingHours:item.workingHours})
+
+            buttons.push(
+                <div>
+                    <Form>
+                        <Form.Row>
+                            <FieldComponent type = {'ml-4'} typeForm = {"number"} name = {"salary"} placeholder = {"Salary"} value = {this.state.salary} onChange = {this.handleAttribute} ></FieldComponent>
+                            <FieldComponent type = {'ml-4'} typeForm = {"number"} name = {"workingHours"} placeholder = {"WorkingHours"} value = {this.state.workingHours} onChange = {this.handleAttribute} ></FieldComponent>
+                            <Form.Group className = 'ml-4 mt-2 mb-4'>
+                                <Button className = "btn-secondary" onClick = {this.submitSalaryHours}>Submit</Button>
+                            </Form.Group>
+                        </Form.Row>
+                    </Form>
+                </div>
+            )
+        }
+
+        if (buttons.length !== 0){
+            rows.push(buttons)
+        }
+
+        return rows
     }
 
 
@@ -129,137 +261,23 @@ class EmployeeTable extends Component {
             this.props.workerAttributes.forEach(elem =>{
                 attributes.push(<th className="col-set-width" scope="col">{elem}</th>)
             })
+
+            //     renderItem(item, isworker, worker, agent){
+
             this.props.workers.forEach(worker =>{
-                rows.push(
-                    <tr onClick = {this.handleRowClick} key = {"worker-" + worker.stationWorkerId}>
-                        <td className = "center aligned">
-                            <h6 className = "ui header ml-4">
-                                {worker.firstName}
-                            </h6>
-                        </td>
-                        <td className = "center aligned">
-                            <h6 className = "ui header ml-4">
-                                {worker.lastName}
-                            </h6>
-                        </td>
-                        <td className = "center aligned">
-                            <h6 className = "ui header ml-4">
-                                {worker.salary}
-                            </h6>
-                        </td>
-                        <td className = "center aligned">
-                            <h6 className = "ui header ml-4">
-                                {worker.workingHours}
-                            </h6>
-                        </td>
-                        <td className = "center aligned">
-                            <h6 className = "ui header ml-4">
-                                {worker.stationId}
-                            </h6>
-                        </td>
-                        <td className = "center aligned">
-                            <h6 className = "ui header ml-4">
-                                {worker.stationWorkerId}
-                            </h6>
-                        </td>
-                    </tr>
-                )
+                const itemRow = this.renderItem(worker, this.props.isworker)
+                rows = rows.concat(itemRow)
             })
         }else{
             this.props.agentAttributes.forEach(elem =>{
                 attributes.push(<th className="col-set-width" scope="col">{elem}</th>)
             })
-            this.props.agents.forEach(worker =>{
-                rows.push(
-                    <tr>
-                        <td className = "center aligned">
-                            <h6 className = "ui header ml-4">
-                                {worker.firstName}
-                            </h6>
-                        </td>
 
-                        <td className = "center aligned">
-                            <h6 className = "ui header ml-4">
-                                {worker.lastName}
-                            </h6>
-                        </td>
-                        <td className = "center aligned">
-                            <h6 className = "ui header ml-4">
-                                {worker.salary}
-                            </h6>
-                        </td>
-                        <td className = "center aligned">
-                            <h6 className = "ui header ml-4">
-                                {worker.workingHours}
-                            </h6>
-                        </td>
-                        <td className = "center aligned">
-                            <h6 className = "ui header ml-4">
-                                {worker.stationId}
-                            </h6>
-                        </td>
-                        <td className = "center aligned">
-                            <h6 className = "ui header ml-4">
-                                {worker.idAgent}
-                            </h6>
-                        </td>
-                    </tr>
-                )
+            this.props.agents.forEach(agent =>{
+                const itemRow = this.renderItem(agent, this.props.isworker)
+                rows = rows.concat(itemRow)
             })
         }
-
-
-        this.props.employees.forEach(worker => {
-
-            let specialAttributes = []
-
-            if (!this.props.isworker){
-                specialAttributes.push(
-                    <div>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.stationId}
-                        </h6>
-                    </td>
-                    <td className = "center aligned">
-                    <h6 className = "ui header ml-4">
-                    {worker.idAgent}
-                    </h6>
-                    </td>
-                    </div>
-                )
-            }
-
-            rows.push(
-                <tr onClick = {this.handleRowClick} key = {"worker-" + worker.stationWorkerId}>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.firstName}
-                        </h6>
-                    </td>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.lastName}
-                        </h6>
-                    </td>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.salary}
-                        </h6>
-                    </td>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.workingHours}
-                        </h6>
-                    </td>
-                    {specialAttributes}
-                </tr>
-            )
-        })
-
-
-
-
 
         return (
             <div className = 'container'>
@@ -284,8 +302,8 @@ class Employees extends Component{
     constructor(props){
         super(props)
         this.state = {
-            workerAttributes:["First Name", "Last Name","Salary","Station Id","Station Worker Id","Working Hours"],
-            agentAttributes:["First Name","Last Name","Salary","Station Id","Agent Id", "Working Hours"],
+            workerAttributes:["First Name", "Last Name","Salary","Working Hours","Station Worker Id","Station Id"],
+            agentAttributes:["First Name","Last Name","Salary","Working Hours","Agent Id", "Station Id"],
             workers:[],
             agents:[],
             checked:false

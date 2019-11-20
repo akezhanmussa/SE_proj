@@ -161,6 +161,6 @@ class FillTicket extends Component{
             </div>
         );
     }
-};
+}
 
 export default withRouter(BuyTicketForm);

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {getTiketsUrl} from "../shared/BaseUrl";
 import {Button} from "react-bootstrap";
 import { withRouter } from 'react-router-dom';
+import {NavLink} from "react-router-dom"
 
 const getPassengerData = (token) => {
     const toDict = {"token":token}
@@ -43,6 +44,7 @@ class PassengerTicketsPage extends Component{
                 if (response.error)
                     throw response.error;
                 this.setState({passengerTickets: response})
+                console.log(response)
             })
             .catch(err => console.log("err"));
     }
@@ -82,6 +84,9 @@ const RenderTickets = (props) => {
                 <td>
                     {props.passengerTickets[i].status}
                 </td>
+                <td>
+                    <NavLink className='btn' to={'/home/print_ticket/' +props.passengerTickets[i].ticketID}>Print</NavLink>
+                </td>
             </tr>
         rows.push(newRow)
     }
@@ -96,6 +101,7 @@ const RenderTickets = (props) => {
                 <th scope="col">Start Time</th>
                 <th scope="col">End Time</th>
                 <th scope="col">Status</th>
+                <th scope='col'>Print ticket</th>
             </tr>
             </thead>
             <tbody>

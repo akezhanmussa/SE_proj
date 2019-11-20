@@ -4,13 +4,15 @@ import kz.edu.nu.cs.se.model.RouteModel;
 import kz.edu.nu.cs.se.model.ScheduleModel;
 import kz.edu.nu.cs.se.model.TrainModel;
 
-import javax.xml.transform.Result;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Optional;
+import java.util.Set;
 
 public class ScheduleController {
 
@@ -127,4 +129,29 @@ public class ScheduleController {
 
         return scheduleModels;
     }
+
+    public static Boolean deleteSchedule(Integer scheduleId) {
+
+        try {
+            TicketController.setTicketScheduleToNull(scheduleId);
+            RouteController.deleteRoutesByScheduleId(scheduleId);
+
+
+            Statement statement = Connector.getStatement();
+            int deleteSchedule = statement.executeUpdate(String.format("DELETE FROM Schedule where schedule_id=%d", scheduleId));
+
+            statement.close();
+            if (deleteSchedule <= 0) {
+                System.out.println(String.format("[ERROR] Failed to delete schedule_id %d", scheduleId));
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
 }

@@ -1,28 +1,37 @@
 import React, {Component} from 'react';
-import {getRoutesUrl} from "../../shared/BaseUrl";
+import {getRoutesUrl,updateSubRouteUrl} from "../../shared/BaseUrl";
 import {Button, Form} from "react-bootstrap"
 import {Modal, ModalBody, ModalHeader} from "reactstrap";
 import DatePicker from 'react-datepicker'
 import {Loading} from "../Loading";
 
-const getRoutesData = () => {
-    let body = {"token":localStorage.getItem("admin_token")}
-    return fetch(getRoutesUrl, {
+var dateFormat = require('dateformat');
+
+
+const updateOrGet = (url, body) =>{
+    return fetch(url, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body:JSON.stringify(body)
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(response => {
-            console.log(response)
-            return response;
-        })
-        .catch (error => {
+    }).then(response => {
+        return response.json()
+    }).then(response => {
+        console.log(response)
+        return response;
+    }).catch (error => {
             throw error
         });
 }
+
+const getParsedDate = (date) =>{
+    var dd = date.getDate();
+    var mm = date.getMonth()+1;
+    var yyyy = date.getFullYear();
+    if(dd<10)dd='0'+dd
+    if(mm<10)mm='0'+mm
+    var today = yyyy + '-' + mm + '-' + dd;
+    return today;
+};
 
 class RouteModalForm extends Component{
     constructor(props){
@@ -33,10 +42,14 @@ class RouteModalForm extends Component{
             origin:props.origin,
             destination:props.destination,
             newStartTime:new Date(),
-            newEndTime:new Date()
+            newEndTime:new Date(),
+            routeId:this.props.routeId,
+            hiddenMessage: "",
+            color:"red"
         }
 
-        this.handleTimeRoute = this.handleTimeRoute.bind(this)
+        this.handleNewStartTime = this.handleNewStartTime.bind(this)
+        this.handleNewEndTime = this.handleNewEndTime.bind(this)
         this.actModal = this.actModal.bind(this)
     }
 
@@ -44,15 +57,37 @@ class RouteModalForm extends Component{
         this.setState({isModalOpen: !this.state.isModalOpen});
     }
 
-    handleTimeRoute = (timeRoute) => {
-        this.setState({timeRoute})
+    handleNewStartTime= (newStartTime) => {
+        this.setState({newStartTime})
     };
+
+    handleNewEndTime = (newEndTime) => {
+        this.setState({newEndTime})
+    };
+
+
 
     handleSubRoute = () => {
 
+        let newStartTime = getParsedDate(this.state.newStartTime) + " 00:00:00"
+        let newEndTime = getParsedDate(this.state.newEndTime) + " 00:00:00"
+
+        console.log(this.state.routeId + " " + newStartTime + " " + newEndTime)
+
+        let body = {"token":localStorage.getItem("admin_token"), "routeId":this.state.routeId, "startTime":newStartTime, "endTime":newEndTime}
+
+        updateOrGet(updateSubRouteUrl,body).then(res => {
+            this.setState({hiddenMessage:"The subroute was updated successfully"})
+            this.setState({color:"green"})
+        }).catch(error => {
+            this.setState({hiddenMessage:"Can't update the sub route, time clash"})
+            this.setState({color:"red"})
+        })
     }
 
     render(){
+        const hiddenMessageStyle = {color:this.state.colorHidden};
+
         return(
             <div>
                 <button className='btn btn-light' onClick={this.actModal}>Time Route</button>
@@ -70,16 +105,18 @@ class RouteModalForm extends Component{
                                         <p className="ml-2">
                                             New Start Time
                                         </p>
-                                        <DatePicker className='ml-2' selected = {this.state.newStartTime} onChange={this.handleTimeRoute} />
+                                        <DatePicker className='ml-2' selected = {this.state.newStartTime} onChange={this.handleNewStartTime} />
                                     </Form.Row>
                                     <Form.Row>
                                         <p className="mt-3 ml-2">
                                             New End Time
                                         </p>
-                                        <DatePicker className='mt-3 ml-3 mr-2' selected = {this.state.newEndTime} onChange={this.handleTimeRoute} />
+                                        <DatePicker className='mt-3 ml-3 mr-2' selected = {this.state.newEndTime} onChange={this.handleNewEndTime} />
                                     </Form.Row>
                                 </Form>
                             </div>
+                            <div className = 'line'></div>
+                            <h8 className = "ml-2 mt-2" style = {hiddenMessageStyle} >{this.state.hiddenMessage}</h8>
                             <Button className='mt-3 btn-secondary' onClick = {this.handleSubRoute}>
                                 Update Route
                             </Button>
@@ -105,7 +142,8 @@ class Routes extends Component {
     }
 
     componentDidMount() {
-        getRoutesData().then(res =>{
+        let bodyToken = {"token":localStorage.getItem("admin_token")}
+        updateOrGet(getRoutesUrl, bodyToken).then(res =>{
                 this.setState({routes:res})
             }
         ).catch(error =>
@@ -126,6 +164,7 @@ class Routes extends Component {
     }
 
     changeRouteTime = () => {
+
 
     }
 
@@ -203,7 +242,7 @@ class Routes extends Component {
 
                         </td>
                         <td>
-                            <RouteModalForm></RouteModalForm>
+                            <RouteModalForm routeId ={item.id}></RouteModalForm>
                         </td>
                     </tr>
                 );

@@ -14,6 +14,11 @@ public class RouteModel {
     private Integer price;
     private Integer trainId;
 
+    public RouteModel(LocalDateTime startTiime, LocalDateTime  endTime) {
+        this.startDateObject = startTiime;
+        this.endDateObject = endTime;
+    }
+
     public RouteModel(String origin, String destination, LocalDateTime startDateObject, LocalDateTime endDateObject) {
         this.origin = origin;
         this.destination = destination;

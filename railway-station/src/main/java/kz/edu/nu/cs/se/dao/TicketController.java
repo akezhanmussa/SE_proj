@@ -1,12 +1,13 @@
 package kz.edu.nu.cs.se.dao;
 
 import kz.edu.nu.cs.se.model.TicketModel;
+import kz.edu.nu.cs.se.service.EmailService;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class TicketController {
@@ -216,4 +217,52 @@ public class TicketController {
 
         return status;
     }
+
+    public static Optional<TicketModel> getSingleTicket(Integer userID, Integer ticketID) {
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet ticketSet = statement.executeQuery(
+                    String.format("SELECT * FROM Ticket WHERE idTicket=%d AND Passenger_idPassenger=%d",
+                            ticketID, userID));
+
+            if (ticketSet.next()) return getTicketModel(ticketSet);
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return Optional.empty();
+    }
+
+    public static Boolean setTicketScheduleToNull(Integer scheduleId) {
+        List<String> emailList = new ArrayList<>();
+        try {
+            Statement statement = Connector.getStatement();
+
+            ResultSet emailSet = statement.executeQuery(String.format("SELECT email\n" +
+                    "FROM Passenger, Ticket\n" +
+                    "WHERE schedule_id = %d and Ticket.Passenger_idPassenger = Passenger.idPassenger", scheduleId));
+            while (emailSet.next()) {
+                String email = emailSet.getString(1);
+                emailList.add(email);
+            }
+
+            EmailService.sendTicketCanceled(emailList);
+
+            int deletedTicketsCount = statement.executeUpdate(String.format("UPDATE Ticket SET schedule_id=NULL WHERE schedule_id=%d", scheduleId));
+
+            if(deletedTicketsCount <= 0) {
+                System.out.println("[ERROR] Failed to tickets schedule_id to null");
+                return false;
+            }
+            statement.close();
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
 }
