@@ -1,17 +1,12 @@
 package kz.edu.nu.cs.se.dao;
 
 import kz.edu.nu.cs.se.model.RouteModel;
-import kz.edu.nu.cs.se.view.Route;
+import kz.edu.nu.cs.se.model.RouteShortModel;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.sql.*;
-import java.util.Date;
 
 public class RouteController {
 
@@ -283,11 +278,50 @@ public class RouteController {
         return true;
     }
 
-//    public static Boolean createRoutes(Integer scheduleId, List<>)
+    public static Boolean createRoutes(Integer scheduleId, Integer trainId, List<RouteShortModel> routeObjectList) {
+        final Integer passengerNumber = 0;
+        final Integer batchSize = 100;
+        try {
 
-    public static void main(String[] args) {
+            Integer globalStartStationId = routeObjectList.get(0).getStartStationId();
+            Integer globalEndStationId = routeObjectList.get(routeObjectList.size()-1).getEndStationId();
 
+            /*
+             Create schedule first
+             */
+            ScheduleController.createSchedule(globalStartStationId, globalEndStationId);
 
+            String sql = "INSERT INTO Route(start_time, end_time, passenger_number, start_station_id, " +
+                    "end_station_id, schedule_id, Train_idTrain, price) VALUES(?,?,?,?,?,?,?,?)";
+
+            PreparedStatement prepStmnt = Connector.prepareStatement(sql);
+            int insertCount = 0;
+            for(RouteShortModel route: routeObjectList) {
+                prepStmnt.setTimestamp(1, Timestamp.valueOf(route.getStartTime()));
+                prepStmnt.setTimestamp(2, Timestamp.valueOf(route.getEndTime()));
+                prepStmnt.setInt(3, passengerNumber);
+                prepStmnt.setInt(4, route.getStartStationId());
+                prepStmnt.setInt(5, route.getEndStationId());
+                prepStmnt.setInt(6, scheduleId);
+                prepStmnt.setInt(7, trainId);
+                prepStmnt.setFloat(8, route.getPrice());
+
+                prepStmnt.addBatch();
+                if(++insertCount % batchSize == 0) {
+                    prepStmnt.executeBatch();
+                }
+            }
+            prepStmnt.executeBatch();
+            prepStmnt.close();
+
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
+
+    public static void main(String[] args) { }
 
 }
