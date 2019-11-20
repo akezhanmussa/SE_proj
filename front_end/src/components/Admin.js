@@ -29,6 +29,12 @@ const NavBar = (props) => {
 
 
 class Admin extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            isManager: false
+        }
+    }
     componentDidMount() {
         this.checkExpirationDate();
     }
@@ -36,12 +42,8 @@ class Admin extends Component{
     checkExpirationDate(){
         if(this.props.admin.isAuthenticated){
             const token = this.props.admin.admin_token;
-            var jt = "";
-            try {
-                jt = jwt_decode(token);
-            }catch (e) {
-                console.log(e);
-            }
+            var jt = jwt_decode(token);
+            this.setState({isManager: jt.user_role == "agent" ? false : true});
             const now = new Date().getTime();
             const timeleft = jt.exp * 1000 - now;
             if (timeleft < 0) {
@@ -54,8 +56,10 @@ class Admin extends Component{
         return(
             <div id='admin'>
                 <NavBar logoutAdmin={this.props.logoutAdmin}/>
-                <AgentPage admin={this.props.admin}/>
-                {/*<ManagerProfile/>*/}
+                {
+                    this.state.isManager ? <ManagerProfile/>
+                    : <AgentPage admin={this.props.admin}/>
+                }
             </div>
         );
     }

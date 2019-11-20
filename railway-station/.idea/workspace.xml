@@ -7,17 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../front_end/src/components/Agent/CreateTicket.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../front_end/src/components/Agent/MyTickets.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../front_end/src/components/Agent/Profile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../front_end/src/components/Agent/RenderTickets.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../front_end/src/components/Agent/TicketPool.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front_end/src/components/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/AgentProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Agent/AgentPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/CreateTicketForAgent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Agent/SearchTicketForAgent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Agent/CreateTicket.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Agent/CreateTicket.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,8 +51,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11084">
-              <caret line="661" column="10" selection-start-line="661" selection-start-column="10" selection-end-line="661" selection-end-column="10" />
+            <state relative-caret-position="11016">
+              <caret line="652" column="10" selection-start-line="652" selection-start-column="10" selection-end-line="652" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -182,7 +173,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="67" />
     <option name="y" value="25" />
     <option name="width" value="1217" />
@@ -198,7 +189,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -311,6 +301,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -425,18 +416,19 @@
       <workItem from="1573995617114" duration="519000" />
       <workItem from="1574001381162" duration="9520000" />
       <workItem from="1574068153244" duration="1125000" />
-      <workItem from="1574232615185" duration="697000" />
+      <workItem from="1574232615185" duration="700000" />
+      <workItem from="1574241245676" duration="804000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6162000" />
+    <option name="totallyTimeSpent" value="6969000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27609682" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2806354" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -526,8 +518,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11084">
-          <caret line="661" column="10" selection-start-line="661" selection-start-column="10" selection-end-line="661" selection-end-column="10" />
+        <state relative-caret-position="11016">
+          <caret line="652" column="10" selection-start-line="652" selection-start-column="10" selection-end-line="652" selection-end-column="10" />
         </state>
       </provider>
     </entry>

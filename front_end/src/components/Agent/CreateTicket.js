@@ -22,8 +22,9 @@ class CreateTicket extends Component{
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(body)
             })
+                .then(response => response)
                 .then(response => {
-                    console.log(response)
+                    console.log(response.body)
                     if (response.ok) {
                         let mes = "Thanks, your request is submitted. Do you want to print a ticket?";
                         if (window.confirm(mes)) {
