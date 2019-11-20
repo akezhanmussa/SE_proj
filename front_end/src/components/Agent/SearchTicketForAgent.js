@@ -3,10 +3,10 @@ import Select from 'react-select';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import DatePicker from 'react-datepicker'
-import ScheduleTable from './ScheduleTable';
+import ScheduleTable from '../ScheduleTable';
 import "react-datepicker/dist/react-datepicker.css";
-import {locations} from '../shared/Locations'
-import {baseUrl} from "../shared/BaseUrl";
+import {locations} from '../../shared/Locations'
+import {baseUrl} from "../../shared/BaseUrl";
 
 const getParsedDate = (date) =>{
     var dd = date.getDate();
@@ -18,7 +18,7 @@ const getParsedDate = (date) =>{
     return today;
 };
 
-class CreateTicketForAgent extends Component {
+class SearchTicketForAgent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -182,4 +182,4 @@ class CreateTicketForAgent extends Component {
     }
 }
 
-export default CreateTicketForAgent;
+export default SearchTicketForAgent;
