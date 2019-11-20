@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 
 public class Route {
+    private Integer routeId;
     private String origin;
     private String destination;
     private String startTime;
@@ -16,6 +17,7 @@ public class Route {
     private static String durationFormat = "%2d minutes";
 
     Route(RouteModel routeModel) {
+        this.routeId = routeModel.getRouteId();
         this.origin = routeModel.getOrigin();
         this.destination = routeModel.getDestination();
         this.startTime = routeModel.getStartDateObject().format(dateFormatter);
@@ -31,6 +33,10 @@ public class Route {
 
     public void setOrigin(String origin) {
         this.origin = origin;
+    }
+
+    public Integer getRouteId() {
+        return routeId;
     }
 
     public String getDestination() {

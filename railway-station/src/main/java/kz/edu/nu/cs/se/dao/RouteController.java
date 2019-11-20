@@ -1,6 +1,7 @@
 package kz.edu.nu.cs.se.dao;
 
 import kz.edu.nu.cs.se.model.RouteModel;
+import kz.edu.nu.cs.se.view.Route;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -136,7 +137,7 @@ public class RouteController {
         try {
             Statement statement = Connector.getStatement();
             ResultSet routes = statement.executeQuery(
-                    String.format("SELECT start_station_id, end_station_id, start_time, end_time, price, Train_idTrain FROM Route WHERE schedule_id=%d ORDER BY start_time ASC",
+                    String.format("SELECT start_station_id, end_station_id, start_time, end_time, price, Train_idTrain, idRoute FROM Route WHERE schedule_id=%d ORDER BY start_time ASC",
                             scheduleID));
             while (routes.next()) {
                 Integer originID = routes.getInt(1);
@@ -145,6 +146,7 @@ public class RouteController {
                 String endTimeString = routes.getString(4);
                 Integer price = ((int) routes.getFloat(5));
                 Integer trainId = routes.getInt(6);
+                Integer routeId = routes.getInt(7);
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime startTime = LocalDateTime.parse(startTimeString, formatter);
@@ -163,7 +165,7 @@ public class RouteController {
                 String startName = optionalStartName.get();
                 String destinationName = optionalDestinationName.get();
 
-                RouteModel routeModel = new RouteModel(startName, destinationName, startTime, endTime);
+                RouteModel routeModel = new RouteModel(startName, destinationName, startTime, endTime, routeId);
                 routeModel.setPrice(price);
                 routeModel.setTrainId(trainId);
 
@@ -234,7 +236,7 @@ public class RouteController {
 
             if(isValidRouteUpdate(routeId, startTime, endTime)) {
 
-                System.out.println("HERE");
+//                System.out.println("HERE");
                 String sqlStart = "UPDATE Route SET start_time=? WHERE idRoute=?";
                 PreparedStatement preparedStatementStart = Connector.prepareStatement(sqlStart);
                 preparedStatementStart.setTimestamp(1, java.sql.Timestamp.valueOf(startTime));
@@ -280,6 +282,8 @@ public class RouteController {
 
         return true;
     }
+
+//    public static Boolean createRoutes(Integer scheduleId, List<>)
 
     public static void main(String[] args) {
 

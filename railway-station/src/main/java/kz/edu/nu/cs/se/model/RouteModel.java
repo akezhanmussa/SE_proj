@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class RouteModel {
-
+    private Integer routeId;
     private String origin;
     private String destination;
     private String startDate;
@@ -14,20 +14,25 @@ public class RouteModel {
     private Integer price;
     private Integer trainId;
 
-    public RouteModel(LocalDateTime startTiime, LocalDateTime  endTime) {
-        this.startDateObject = startTiime;
+    public RouteModel(LocalDateTime startTime, LocalDateTime  endTime) {
+        this.startDateObject = startTime;
         this.endDateObject = endTime;
     }
 
-    public RouteModel(String origin, String destination, LocalDateTime startDateObject, LocalDateTime endDateObject) {
+    public RouteModel(String origin, String destination, LocalDateTime startDateObject, LocalDateTime endDateObject, Integer routeId) {
         this.origin = origin;
         this.destination = destination;
         this.startDateObject = startDateObject;
         this.endDateObject = endDateObject;
+        this.routeId = routeId;
     }
 
     public String getOrigin() {
         return this.origin;
+    }
+
+    public Integer getRouteId() {
+        return routeId;
     }
 
     public String getDestination() {
