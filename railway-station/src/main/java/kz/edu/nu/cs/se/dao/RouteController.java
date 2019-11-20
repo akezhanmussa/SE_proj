@@ -2,12 +2,15 @@ package kz.edu.nu.cs.se.dao;
 
 import kz.edu.nu.cs.se.model.RouteModel;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.sql.*;
+import java.util.Date;
 
 public class RouteController {
 
@@ -174,27 +177,25 @@ public class RouteController {
         return routeModels;
     }
 
-
-    private static Boolean isValidRouteUpdate(Integer routeId, String startTime, String endTime) {
+    private static Boolean isValidRouteUpdate(Integer routeId, LocalDateTime startTime, LocalDateTime endTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         try {
             Statement statement = Connector.getStatement();
 
             ResultSet routePrev = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE idRoute=%d", routeId-1));
             while(routePrev.next()) {
-                System.out.println("HERE in isValidRouteUpdate");
                 String endTimePrevString = routePrev.getString(2);
                 LocalDateTime endTimePrev = LocalDateTime.parse(endTimePrevString, formatter);
-                LocalDateTime startTimeLDT = LocalDateTime.parse(startTime, formatter);
-                if(startTimeLDT.isBefore(endTimePrev)) return false;
+
+                if(startTime.isBefore(endTimePrev)) return false;
             }
 
             ResultSet routeNext = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE idRoute=%d", routeId+1));
             while(routeNext.next()) {
                 String startTimeNextString = routeNext.getString(1);
                 LocalDateTime startTimeNext = LocalDateTime.parse(startTimeNextString, formatter);
-                LocalDateTime endTimeLDT = LocalDateTime.parse(endTime, formatter);
-                if(endTimeLDT.isAfter(startTimeNext)) return false;
+
+                if(endTime.isAfter(startTimeNext)) return false;
             }
 
             return true;
@@ -204,31 +205,85 @@ public class RouteController {
         }
     }
 
+    public static Optional<RouteModel> getRouteFromId(Integer routeId) {
+        try {
+            Statement statement = Connector.getStatement();
+            ResultSet route = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE idRoute=%d limit 1", routeId));
+            while (route.next()) {
+                String startTimeString = route.getString(1);
+                String endTimeString = route.getString(2);
 
-    public static Boolean updateRoute(Integer routeId, String startTime, String endTime) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime startTime = LocalDateTime.parse(startTimeString, formatter);
+                LocalDateTime endTime = LocalDateTime.parse(endTimeString, formatter);
 
-        Boolean resultStartTime = false;
-        Boolean resultEndTime = false;
+                RouteModel routeModel = new RouteModel(startTime, endTime);
+                return Optional.of(routeModel);
+            }
+
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+        return Optional.empty();
+    }
+
+    public static Boolean updateRoute(Integer routeId, LocalDateTime startTime, LocalDateTime endTime) {
+
         try {
             Statement statement = Connector.getStatement();
 
             if(isValidRouteUpdate(routeId, startTime, endTime)) {
-                System.out.println("HERE in updateRoute");
-                System.out.println("starttime: "+startTime);
-                resultStartTime = statement.execute(String.format(
-                        "UPDATE Route SET start_time={} WHERE idRoute=%d", new Date(), routeId));
-                resultEndTime = statement.execute(String.format(
-                        "UPDATE Route SET end_time={} WHERE idRoute=%d", new Date(), routeId));
-            }
 
-            if (!(resultStartTime && resultEndTime)) {
-                System.out.println(String.format(
-                        "[ERROR] Failed to change route_id to agent (id=%d)", routeId));
+                System.out.println("HERE");
+                String sqlStart = "UPDATE Route SET start_time=? WHERE idRoute=?";
+                PreparedStatement preparedStatementStart = Connector.prepareStatement(sqlStart);
+                preparedStatementStart.setTimestamp(1, java.sql.Timestamp.valueOf(startTime));
+                preparedStatementStart.setInt(2, routeId);
+                int startTimeRow = preparedStatementStart.executeUpdate();
+
+                String sqlEnd = "UPDATE Route SET end_time=? WHERE idRoute=?";
+                PreparedStatement preparedStatementEnd = Connector.prepareStatement(sqlEnd);
+                preparedStatementEnd.setTimestamp(1, java.sql.Timestamp.valueOf(endTime));
+                preparedStatementEnd.setInt(2, routeId);
+
+                int endTimeRow = preparedStatementEnd.executeUpdate();
+
+                statement.close();
+                if (!(endTimeRow == 1 && startTimeRow == 1)) {
+                    System.out.println(String.format(
+                            "[ERROR] Failed to change route_id to agent (id=%d)", routeId));
+                    return false;
+                }
             }
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
+            return false;
         }
-        return (resultStartTime && resultEndTime);
+        return true;
+    }
+
+    public static Boolean deleteRoutesByScheduleId(Integer scheduleId) {
+        try {
+            Statement statement = Connector.getStatement();
+            int deleteRoute = statement.executeUpdate(String.format("DELETE FROM Route where schedule_id=%d", scheduleId));
+
+            statement.close();
+            if (deleteRoute <= 0) {
+                System.out.println(String.format("[ERROR] Failed to delete route with schedule_id %d", scheduleId));
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+
     }
 
 }
