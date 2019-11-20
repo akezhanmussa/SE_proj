@@ -4,6 +4,7 @@ import kz.edu.nu.cs.se.model.RouteModel;
 import kz.edu.nu.cs.se.model.ScheduleModel;
 import kz.edu.nu.cs.se.model.TrainModel;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -54,7 +55,7 @@ public class ScheduleController {
                     LocalDateTime startDateTime = LocalDateTime.parse(startDateString, formatter);
                     LocalDateTime endDateTIme = LocalDateTime.parse(endDateString, formatter);
 
-                    RouteModel route = new RouteModel(startName, endName, startDateTime, endDateTIme);
+                    RouteModel route = new RouteModel(startName, endName, startDateTime, endDateTIme, routeId);
 
                     if (startStationId.equals(origin)) {
                         scheduleModel.setOrigin(startName);
@@ -154,4 +155,24 @@ public class ScheduleController {
         return true;
     }
 
+    public static Optional<Integer> createSchedule(Integer startStationId, Integer endStationId) {
+        String columnNames[] = new String[] {"schedule_id"};
+        String sql = "INSERT INTO Schedule(start_station_id, end_station_id) VALUES(?, ?)";
+        try {
+            PreparedStatement statement = Connector.prepareStatement(sql, columnNames);
+            statement.setInt(1, startStationId);
+            statement.setInt(2, endStationId);
+
+            if(statement.executeUpdate() > 0) {
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                if(generatedKeys.next()) {
+                    int scheduleId = generatedKeys.getInt(1);
+                    return Optional.of(scheduleId);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return Optional.empty();
+    }
 }
