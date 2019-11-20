@@ -144,8 +144,6 @@ class Routes extends Component {
 
         if(this.state.expandedRows.includes(item.id)) {
 
-
-
             item.routes.forEach(function(elem){
                 console.log()
 

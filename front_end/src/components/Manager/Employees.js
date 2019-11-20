@@ -94,111 +94,188 @@ class EmployeeUpdate extends Component {
     }
 }
 
-const EmployeeTable = (props) => {
 
-    let attributes = []
-    let rows = []
+class EmployeeTable extends Component {
 
-    if (props.isworker){
-        props.workerAttributes.forEach(elem =>{
-            attributes.push(<th className="col-set-width" scope="col">{elem}</th>)
-        })
-        props.workers.forEach(worker =>{
-            rows.push(
-                <tr>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.firstName}
-                        </h6>
-                    </td>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.lastName}
-                        </h6>
-                    </td>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.salary}
-                        </h6>
-                    </td>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.stationId}
-                        </h6>
-                    </td>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.stationWorkerId}
-                        </h6>
-                    </td>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.workingHours}
-                        </h6>
-                    </td>
-                    <td>
-                        <EmployeeUpdate></EmployeeUpdate>
-                    </td>
-                </tr>
-            )
-        })
-    }else{
-        props.agentAttributes.forEach(elem =>{
-            attributes.push(<th className="col-set-width" scope="col">{elem}</th>)
-        })
-        props.agents.forEach(worker =>{
-            rows.push(
-                <tr>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.firstName}
-                        </h6>
-                    </td>
+    constructor(props){
+        super(props)
 
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.lastName}
-                        </h6>
-                    </td>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.salary}
-                        </h6>
-                    </td>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.stationId}
-                        </h6>
-                    </td>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.idAgent}
-                        </h6>
-                    </td>
-                    <td className = "center aligned">
-                        <h6 className = "ui header ml-4">
-                            {worker.workingHours}
-                        </h6>
-                    </td>
-                </tr>
-            )
+        this.state = {
+            employees: [],
+            expandedRows: []
+        }
+    }
+
+    componentDidMount() {
+        let type = this.props.isworker ? "station_worker" : "agent"
+        fetchEmployee(type).then(res => {
+            this.setState({employees:res})
+        }).catch(error => {
+            throw error
         })
     }
 
-    return (
-        <div className = 'container'>
-            <table className="table">
-                <thead className="thead-dark">
-                <tr>
-                    {attributes}
+
+    handleRowClick(rowId){
+
+    }
+
+
+    render(){
+        let attributes = []
+        let rows = []
+
+        if (this.props.isworker){
+            this.props.workerAttributes.forEach(elem =>{
+                attributes.push(<th className="col-set-width" scope="col">{elem}</th>)
+            })
+            this.props.workers.forEach(worker =>{
+                rows.push(
+                    <tr onClick = {this.handleRowClick} key = {"worker-" + worker.stationWorkerId}>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {worker.firstName}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {worker.lastName}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {worker.salary}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {worker.workingHours}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {worker.stationId}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {worker.stationWorkerId}
+                            </h6>
+                        </td>
+                    </tr>
+                )
+            })
+        }else{
+            this.props.agentAttributes.forEach(elem =>{
+                attributes.push(<th className="col-set-width" scope="col">{elem}</th>)
+            })
+            this.props.agents.forEach(worker =>{
+                rows.push(
+                    <tr>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {worker.firstName}
+                            </h6>
+                        </td>
+
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {worker.lastName}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {worker.salary}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {worker.workingHours}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {worker.stationId}
+                            </h6>
+                        </td>
+                        <td className = "center aligned">
+                            <h6 className = "ui header ml-4">
+                                {worker.idAgent}
+                            </h6>
+                        </td>
+                    </tr>
+                )
+            })
+        }
+
+
+        this.props.employees.forEach(worker => {
+
+            let specialAttributes = []
+
+            if (!this.props.isworker){
+                specialAttributes.push(
+                    <div>
+                    <td className = "center aligned">
+                        <h6 className = "ui header ml-4">
+                            {worker.stationId}
+                        </h6>
+                    </td>
+                    <td className = "center aligned">
+                    <h6 className = "ui header ml-4">
+                    {worker.idAgent}
+                    </h6>
+                    </td>
+                    </div>
+                )
+            }
+
+            rows.push(
+                <tr onClick = {this.handleRowClick} key = {"worker-" + worker.stationWorkerId}>
+                    <td className = "center aligned">
+                        <h6 className = "ui header ml-4">
+                            {worker.firstName}
+                        </h6>
+                    </td>
+                    <td className = "center aligned">
+                        <h6 className = "ui header ml-4">
+                            {worker.lastName}
+                        </h6>
+                    </td>
+                    <td className = "center aligned">
+                        <h6 className = "ui header ml-4">
+                            {worker.salary}
+                        </h6>
+                    </td>
+                    <td className = "center aligned">
+                        <h6 className = "ui header ml-4">
+                            {worker.workingHours}
+                        </h6>
+                    </td>
+                    {specialAttributes}
                 </tr>
-                </thead>
-                <tbody>
+            )
+        })
+
+
+
+
+
+        return (
+            <div className = 'container'>
+                <table className="table">
+                    <thead className="thead-dark">
+                    <tr>
+                        {attributes}
+                    </tr>
+                    </thead>
+                    <tbody>
                     {rows}
-                </tbody>
-            </table>
-        </div>
-    )
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
 }
 
 
@@ -207,7 +284,7 @@ class Employees extends Component{
     constructor(props){
         super(props)
         this.state = {
-            workerAttributes:["First Name", "Last Name","Salary","Station Id","Station Worker Id","Working Hours","Update"],
+            workerAttributes:["First Name", "Last Name","Salary","Station Id","Station Worker Id","Working Hours"],
             agentAttributes:["First Name","Last Name","Salary","Station Id","Agent Id", "Working Hours"],
             workers:[],
             agents:[],
