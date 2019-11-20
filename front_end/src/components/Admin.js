@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import AgentProfile from './AgentProfile';
+import AgentPage from './Agent/AgentPage';
 import ManagerProfile from './Manager/ManagerProfile';
 import { adminLogout } from '../redux/AdminLoginActionCreator';
 import {withRouter} from 'react-router-dom';
@@ -54,8 +54,8 @@ class Admin extends Component{
         return(
             <div id='admin'>
                 <NavBar logoutAdmin={this.props.logoutAdmin}/>
-                {/*<AgentProfile admin={this.props.admin}/>*/}
-                <ManagerProfile/>
+                <AgentPage admin={this.props.admin}/>
+                {/*<ManagerProfile/>*/}
             </div>
         );
     }
