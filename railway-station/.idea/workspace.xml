@@ -7,18 +7,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Agent/CreateTicket.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Agent/CreateTicket.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Agent/MyTickets.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Agent/MyTickets.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Agent/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Agent/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Agent/SearchTicketForAgent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Agent/SearchTicketForAgent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Agent/TicketPool.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Agent/TicketPool.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Ticket/BuyTicketForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Ticket/BuyTicketForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Ticket/PrintTicket.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Ticket/PrintTicket.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/redux/AdminLoginActionCreator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/AdminLoginActionCreator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/redux/LoginActionCreator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/LoginActionCreator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/shared/Loading.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/Loading.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/shared/Locations.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/Locations.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/GetAvailableTrainsServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/BuyTicketServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/BuyTicketServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/CreateRouteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/CreateRouteServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/FetchSingleTicketServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/FetchSingleTicketServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/Connector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/Connector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/RouteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TrainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/TrainController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -69,8 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/FetchSingleTicketServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="50" column="20" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="20" />
+            <state relative-caret-position="544">
+              <caret line="49" column="6" selection-start-line="49" selection-start-column="6" selection-end-line="49" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -87,8 +83,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/RegisterPassengerServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-539">
-              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+            <state relative-caret-position="260">
+              <caret line="35" column="49" lean-forward="true" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -349,7 +345,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13790000" />
+    <option name="totallyTimeSpent" value="13836000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -514,8 +510,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/FetchSingleTicketServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="50" column="20" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="20" />
+        <state relative-caret-position="544">
+          <caret line="49" column="6" selection-start-line="49" selection-start-column="6" selection-end-line="49" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -528,8 +524,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/RegisterPassengerServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-539">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        <state relative-caret-position="260">
+          <caret line="35" column="49" lean-forward="true" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
         </state>
       </provider>
     </entry>

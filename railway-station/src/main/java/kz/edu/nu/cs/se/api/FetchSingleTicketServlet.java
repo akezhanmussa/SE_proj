@@ -29,26 +29,31 @@ public class FetchSingleTicketServlet extends HttpServlet {
         String agentToken = singleTicketRequestObject.getAgentToken();
         Integer ticketID = singleTicketRequestObject.getTicketID();
 
-        String userName = getUserFromToken(userToken);
-        String agentName = getUserFromToken(agentToken);
-
-        Optional<String> agentEmailOptional = AgentController.getEmailByUsername(agentName);
-
-        Integer dummyID = AgentController.getDummyUserID(agentEmailOptional.get()).get();
-        Integer userID = PassengerController.getPassenger(userName).get().getUserId();
-
-        Optional<TicketModel> userTicket = TicketController.getSingleTicket(userID, ticketID);
-        Optional<TicketModel> agentTicket = TicketController.getSingleTicket(dummyID, ticketID);
+        System.out.println("HEREREEREEE 1");
 
         PrintWriter out = response.getWriter();
-        if (userTicket.isPresent()) {
-            out.append(new Gson().toJson(new Ticket(userTicket.get())));
-            out.flush();
-        } else if (agentTicket.isPresent()) {
-            out.append(new Gson().toJson(new Ticket(agentTicket.get())));
-            out.flush();
-        } else {
-            response.sendError(401,"[ERROR] Access denied for fetching ticket");
+        if(userToken != "null") {
+            String userName = getUserFromToken(userToken);
+            Integer userID = PassengerController.getPassenger(userName).get().getUserId();
+            Optional<TicketModel> userTicket = TicketController.getSingleTicket(userID, ticketID);
+            if (userTicket.isPresent()) {
+                out.append(new Gson().toJson(new Ticket(userTicket.get())));
+                out.flush();
+            }
         }
+
+        if(agentToken != "null") {
+            String agentName = getUserFromToken(agentToken);
+            Optional<String> agentEmailOptional = AgentController.getEmailByUsername(agentName);
+            Integer dummyID = AgentController.getDummyUserID(agentEmailOptional.get()).get();
+            Optional<TicketModel> agentTicket = TicketController.getSingleTicket(dummyID, ticketID);
+            if (agentTicket.isPresent()) {
+                out.append(new Gson().toJson(new Ticket(agentTicket.get())));
+                out.flush();
+            }
+        }
+
+        response.sendError(401, "[ERROR] Access denied for fetching ticket");
+
     }
 }

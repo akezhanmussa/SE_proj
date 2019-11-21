@@ -159,11 +159,14 @@ public class ScheduleController {
         String columnNames[] = new String[] {"schedule_id"};
         String sql = "INSERT INTO Schedule(start_station_id, end_station_id) VALUES(?, ?)";
         try {
-            PreparedStatement statement = Connector.prepareStatement(sql, columnNames);
+            PreparedStatement statement = Connector.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, startStationId);
             statement.setInt(2, endStationId);
 
+//            System.out.println("I AM HERE AFTER INSERT");
+
             if(statement.executeUpdate() > 0) {
+//                System.out.println("I AM HERE AFTER INSERT 1");
                 ResultSet generatedKeys = statement.getGeneratedKeys();
                 if(generatedKeys.next()) {
                     int scheduleId = generatedKeys.getInt(1);
