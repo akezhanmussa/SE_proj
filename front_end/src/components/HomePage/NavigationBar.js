@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Navbar, Nav, Form, Button, NavItem} from 'react-bootstrap';
 import {Modal, ModalBody, ModalHeader} from "reactstrap";
 import {NavLink} from "react-router-dom"
-import {Loading} from "./Loading";
+import {Loading} from "../../shared/Loading";
 
 class LoginModalForm extends Component {
     constructor(props){
@@ -15,7 +15,7 @@ class LoginModalForm extends Component {
         };
         this.toggleModal = this.toggleModal.bind(this);
         this.handleAttribute = this.handleAttribute.bind(this);
-        console.log(this.props);
+        this.handleLogin = this.handleLogin.bind(this);
     }
 
     toggleModal(){
@@ -24,6 +24,11 @@ class LoginModalForm extends Component {
 
     handleAttribute = (event) => {
         this.setState({[event.target.name]: event.target.value});
+    };
+
+    handleLogin = (event) => {
+        event.preventDefault();
+        this.props.login({"userName":this.state.userName, "password":this.state.password});
     };
 
 
@@ -42,7 +47,7 @@ class LoginModalForm extends Component {
                                 <Form.Group controlId="formBasicUserName">
                                     <Form.Label>Username</Form.Label>
                                     <Form.Control type="text"
-                                                  placeholder="Enter userName"
+                                                  placeholder="username"
                                                   name = "userName"
                                                   value = {this.state.userName}
                                                   onChange = {this.handleAttribute}
@@ -58,7 +63,7 @@ class LoginModalForm extends Component {
                                                   onChange = {this.handleAttribute}
                                     />
                                 </Form.Group>
-                                <Button className = 'btn-secondary' variant="primary" type="submit" onClick={() => this.props.login({"userName":this.state.userName, "password":this.state.password})}>
+                                <Button className = 'btn-secondary' onClick={this.handleLogin}>
                                     Submit
                                 </Button>
                             </ModalBody>
@@ -100,7 +105,7 @@ export default class NavigationBar extends Component{
                         <Nav className = "ml-auto">
                             {this.props.loginState.isAuthenticated
                                 ? <NavLink className='nav-link' to='/home/my_account'>My account</NavLink>
-                                :<LoginModalForm login={this.props.login} loginState = {this.props.loginState}/>
+                                : <LoginModalForm login={this.props.login} loginState = {this.props.loginState}/>
                             }
                         </Nav>
                     </Navbar.Collapse>

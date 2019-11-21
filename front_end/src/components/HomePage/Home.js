@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import RoutesTable from './RoutesTable';
-import { Schedule } from '../shared/Schedule';
+import SearchRoutes from './SearchRoutes';
+import { Schedule } from '../../shared/Schedule';
 import MapComponent from './MapComponent';
 class Home extends Component{
 
@@ -19,7 +19,7 @@ class Home extends Component{
                     <div className='row justify-content-around'>
                         <MapComponent schedule = {this.props.schedule}></MapComponent>
                     </div>
-                    <RoutesTable fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>
+                    <SearchRoutes fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>
                 </div>
             </div>
         );

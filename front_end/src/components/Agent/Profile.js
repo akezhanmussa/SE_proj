@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {baseUrl} from "../../shared/BaseUrl";
-import {Loading} from "../Loading";
+import {Loading} from "../../shared/Loading";
 
 class Profile extends Component{
     constructor(props){

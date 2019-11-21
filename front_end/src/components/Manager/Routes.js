@@ -3,7 +3,7 @@ import {getRoutesUrl} from "../../shared/BaseUrl";
 import {Button, Form} from "react-bootstrap"
 import {Modal, ModalBody, ModalHeader} from "reactstrap";
 import DatePicker from 'react-datepicker'
-import {Loading} from "../Loading";
+import {Loading} from "../../shared/Loading";
 
 const getRoutesData = () => {
     let body = {"token":localStorage.getItem("admin_token")}

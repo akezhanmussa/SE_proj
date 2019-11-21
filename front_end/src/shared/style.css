@@ -30,6 +30,11 @@
     background-size:100% 100vh;
 }
 
+#loginAdmin{
+    background-color: rgba(35, 52, 158, .3);
+    padding: 30px;
+}
+
 .logoutButton{
     background-color: Transparent;
     background-repeat :no-repeat;

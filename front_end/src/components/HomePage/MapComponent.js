@@ -1,6 +1,6 @@
 import React, {Component} from "react"
-import {motion} from "framer-motion"
-import {cityToCoordinate} from "../shared/Schedule"
+import {motion} from "framer-motion/dist/framer-motion"
+import {cityToCoordinate} from "../../shared/Schedule"
 
 
 export default class MapComponent extends Component{
