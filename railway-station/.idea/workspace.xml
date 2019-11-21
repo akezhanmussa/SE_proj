@@ -7,10 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Ticket/BuyTicketForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Ticket/BuyTicketForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/redux/RegistrationApproveActionCreators.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/RegistrationApproveActionCreators.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/redux/ScheduleActionCreators.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/ScheduleActionCreators.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/shared/BaseUrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/BaseUrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Manager/CreateAgentForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Manager/CreateAgentForm.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -418,7 +415,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22676000" />
+    <option name="totallyTimeSpent" value="23276000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -436,7 +433,7 @@
       <window_info anchor="bottom" id="Database Console" weight="0.3289689" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3289689" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3289689" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -457,7 +454,7 @@
       <window_info anchor="right" id="Maven" order="3" weight="0.32980332" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info active="true" anchor="right" id="Database" order="6" visible="true" weight="0.32980332" />
+      <window_info anchor="right" id="Database" order="6" visible="true" weight="0.32980332" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
     </layout>
