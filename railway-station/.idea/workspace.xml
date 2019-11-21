@@ -7,10 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Ticket/BuyTicketForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Ticket/BuyTicketForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/redux/RegistrationApproveActionCreators.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/RegistrationApproveActionCreators.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front_end/src/redux/ScheduleActionCreators.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/redux/ScheduleActionCreators.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/shared/BaseUrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/BaseUrl.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,13 +49,6 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="E0Sz4Fo1Xp: schema" type="76f4a085:MysqlImplModel$Schema" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="E0Sz4Fo1Xp@remotemysql.com" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="E0Sz4Fo1Xp: schema" type="76f4a085:MysqlImplModel$Schema" />
-        <item name="Route: table" type="285a2a93:MysqlImplModel$Table" />
-      </path>
     </expand>
     <select />
   </component>
@@ -64,11 +57,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/RouteController.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -108,8 +96,19 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="das://e3980a5a-9a97-4493-8aa8-7e15e641e7ed/schema/E0Sz4Fo1Xp/table/Route">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state projectRestartId="d4f44cf5-349e-48c9-b02a-6745cf871fa6">
+              <filtering>
+                <filter text="" />
+              </filtering>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="das://e3980a5a-9a97-4493-8aa8-7e15e641e7ed/schema/E0Sz4Fo1Xp/table/Agent">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state projectRestartId="d4f44cf5-349e-48c9-b02a-6745cf871fa6">
               <filtering>
@@ -135,7 +134,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/model/RouteModel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="281">
-              <caret line="31" column="28" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="28" />
+              <caret line="32" column="28" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -419,7 +418,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20183000" />
+    <option name="totallyTimeSpent" value="22676000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -614,7 +613,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/model/RouteModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
-          <caret line="31" column="28" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="28" />
+          <caret line="32" column="28" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -629,6 +628,15 @@
       </provider>
     </entry>
     <entry file="das://e3980a5a-9a97-4493-8aa8-7e15e641e7ed/schema/E0Sz4Fo1Xp/table/Route">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="d4f44cf5-349e-48c9-b02a-6745cf871fa6">
+          <filtering>
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://e3980a5a-9a97-4493-8aa8-7e15e641e7ed/schema/E0Sz4Fo1Xp/table/Agent">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state projectRestartId="d4f44cf5-349e-48c9-b02a-6745cf871fa6">
           <filtering>

@@ -44,7 +44,7 @@ export const fetchSchedule = (path) => (dispatch) => {
         })
         .then(response => response.json())
         .then(response => {
-            console.log(response + " The response from the server, in case delete me in ScheduleActionCreator.js");
+            console.log(response);
             dispatch(scheduleAdd(response))
         })
         .catch (error => dispatch(scheduleFailed(error.message)));

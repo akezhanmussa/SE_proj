@@ -23,7 +23,6 @@ export const registrationFailed = (errorMessage) => {
 
 export function submitRegistrationForm(userData){
     console.log(JSON.stringify(userData))
-    console.log(userData.first_name + " I am here")
     return dispatch => {
         dispatch(registrationApproveLoading());
         fetch(registrationUrl, {
