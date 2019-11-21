@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.logging.Logger;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
@@ -34,6 +35,8 @@ public class UpdateAgentsOfManagerServlet extends HttpServlet {
         Float salary = updateAgentsOfManagerObject.getSalary();
         Integer workingHours = updateAgentsOfManagerObject.getWorkingHours();
 
+        System.out.println(salary + " === " + workingHours);
+
         if (salary!=null){
             AgentController.updateAgentSalary(agentId, salary);
         }
@@ -42,11 +45,13 @@ public class UpdateAgentsOfManagerServlet extends HttpServlet {
             AgentController.updateAgentWorkingHours(agentId, workingHours);
         }
 
-        response.setStatus(200);
+        PrintWriter out = response.getWriter();
 
-
-
-
-
+        if (salary!=null && workingHours!=null) {
+            out.append(new Gson().toJson("Successfully Updated"));
+        } else {
+            out.append(new Gson().toJson("Error!"));
+        }
+        out.flush();
     }
 }

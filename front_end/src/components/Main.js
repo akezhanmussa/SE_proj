@@ -19,8 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
     fetchSchedule: (path) => dispatch(fetchSchedule(path)),
     submitRegistrationForm: (path) => dispatch(submitRegistrationForm(path)),
     login: (path) => dispatch(login(path)),
-    logout: () => dispatch(logout())
-});
+    logout: () => dispatch(logout())});
 
 const mapStateToProps = (state) => ({
     schedule: state.schedule,
