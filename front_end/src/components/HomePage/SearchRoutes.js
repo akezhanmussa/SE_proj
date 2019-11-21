@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker'
 import ScheduleTable from './ScheduleTable';
 import "react-datepicker/dist/react-datepicker.css";
 import {locations} from '../../shared/Locations'
-import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardBody, CardTitle } from 'reactstrap';
 
 class SearchRoutes extends Component{
     constructor(props){

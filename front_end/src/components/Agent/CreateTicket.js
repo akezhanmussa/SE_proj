@@ -15,6 +15,7 @@ class CreateTicket extends Component{
         body.owner_firstname = this.firstame.value;
         body.owner_lastname = this.lastname.value;
         body.token = this.props.admin.admin_token;
+        console.log(JSON.stringify(body));
         if(window.confirm("Do you want to buy ticket?")) {
             return fetch(baseUrl + '/agent/buy-ticket', {
                 method: 'POST',
@@ -22,24 +23,18 @@ class CreateTicket extends Component{
                 body: JSON.stringify(body)
             })
                 .then(response => {
-                    console.log("Herer")
+                    console.log("Herer");
                     console.log(response);
                     return response.json();
                 })
                 .then(response => {
                     console.log(response);
-                    console.log("no wherer")
-                    if (response.ok) {
-                        let mes = "Thanks, your request is submitted. Do you want to print a ticket?";
-                        if (window.confirm(mes)) {
-                            this.props.history.push('/home/print_ticket/11');
-                        }else{
-                            window.location.reload();
-                        }
-                    } else {
-                        var error = new Error("Error " + response.status + ': ' + response.statusText);
-                        error.response = response;
-                        throw error;
+                    console.log("no wherer");
+                    let mes = "Thanks, your request is submitted. Do you want to print a ticket?";
+                    if (window.confirm(mes)) {
+                        this.props.history.push('/home/print_ticket/' + response);
+                    }else{
+                        window.location.reload();
                     }
                 })
                 .catch(error => {

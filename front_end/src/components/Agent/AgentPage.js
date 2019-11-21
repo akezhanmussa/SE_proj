@@ -17,15 +17,13 @@ class AgentPage extends Component{
         this.fetchMyTickets = this.fetchMyTickets.bind(this);
     }
 
-    componentDidMount() {
-        console.log(this.state)
-    }
 
     fetchProfile = (profile)=> {
         this.setState(prevState => ({
             ...prevState,
             profile: profile
         }));
+        console.log(this.state);
     };
 
     fetchPullTicket = (pull)=> {
@@ -59,7 +57,7 @@ class AgentPage extends Component{
                 <div className="offset-1 tab-content col-9" id="v-pills-tabContent">
                     <div className="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                          aria-labelledby="v-pills-home-tab">
-                        <Profile profile={this.state.profile} fetchPfofile={this.fetchProfile} admin={this.props.admin}/>
+                        <Profile profile={this.state.profile} fetchProfile={this.fetchProfile} admin={this.props.admin}/>
                     </div>
                     <div className="tab-pane fade" id="v-pills-create-ticket" role="tabpanel"
                          aria-labelledby="v-pills-messages-tab">
