@@ -39,15 +39,6 @@ public class GetUnapprovedTicketsServlet extends HttpServlet {
         }
 
         String agentUsername = getUserFromToken(token);
-        Optional<Integer> optionalAgentID = AgentController.getAgentIDByUsername(agentUsername);
-
-        if (!optionalAgentID.isPresent()) {
-            System.out.printf("[ERROR] Failed to fetch agentID with userName: %s%n", agentUsername);
-            response.sendError(500, String.format("[ERROR] Failed to fetch agentID with username: %s",
-                    agentUsername));
-            return;
-        }
-
         Optional<Integer> optionalStationID = AgentController.getAgentStationIDByUsername(agentUsername);
 
         if (!optionalStationID.isPresent()) {
