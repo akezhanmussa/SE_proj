@@ -3,7 +3,7 @@ import Select from 'react-select';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import DatePicker from 'react-datepicker'
-import ScheduleTable from '../ScheduleTable';
+import ScheduleTable from '../HomePage/ScheduleTable';
 import "react-datepicker/dist/react-datepicker.css";
 import {locations} from '../../shared/Locations'
 import {baseUrl} from "../../shared/BaseUrl";

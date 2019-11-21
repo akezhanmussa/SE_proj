@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Loading} from './Loading';
+import {Loading} from '../../shared/Loading';
 import {Modal, ModalBody, ModalHeader} from 'reactstrap';
 import { Link } from 'react-router-dom';
-import {locations} from "../shared/Locations";
+import {locations} from "../../shared/Locations";
 
 const ButBuy = (props) => {
 
@@ -15,7 +15,7 @@ const ButBuy = (props) => {
             <Link className='btn btn-secondary' to={`/home/buy_ticket/${props.id}`}>Buy a ticket</Link>
         );
     }
-}
+};
 
 class ScheduleRow extends Component {
     render() {
@@ -64,7 +64,6 @@ class ScheduleRow extends Component {
 
                         {capacity > 0 ?
                             <ButBuy id={id} isAdmin={this.props.isAdmin} body={body} collectData={this.props.collectData}/>
-                            // <Link className='btn btn-secondary' to={`home/buy_ticket/${id}`}>Buy a ticket</Link>
                             :
                             <button className='btn btn-secondary disabled'>No tickets</button>
                         }

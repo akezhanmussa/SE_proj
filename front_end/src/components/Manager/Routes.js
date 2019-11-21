@@ -3,7 +3,7 @@ import {getRoutesUrl,updateSubRouteUrl,deleteWholeRouteUrl} from "../../shared/B
 import {Button, Form} from "react-bootstrap"
 import {Modal, ModalBody, ModalHeader} from "reactstrap";
 import DatePicker from 'react-datepicker'
-import {Loading} from "../Loading";
+import {Loading} from "../../shared/Loading";
 
 
 var dateFormat = require('dateformat');

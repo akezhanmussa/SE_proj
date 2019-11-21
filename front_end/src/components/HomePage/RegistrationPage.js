@@ -1,7 +1,7 @@
 import {Form, Col,InputGroup, Button} from "react-bootstrap"
 import {Input} from "reactstrap";
 import React, {Component} from 'react';
-import {Loading} from "./Loading";
+import {Loading} from "../../shared/Loading";
 
 
 

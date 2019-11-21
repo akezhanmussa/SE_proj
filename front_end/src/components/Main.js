@@ -2,17 +2,17 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import {fetchSchedule} from '../redux/ScheduleActionCreators'
-import Home from './Home';
-import BuyTicketForm from './BuyTicketForm';
-import NavigationBar from './NavigationBar';
-import RegistrationPage from "./RegistrationPage";
+import Home from './HomePage/Home';
+import BuyTicketForm from './Ticket/BuyTicketForm';
+import NavigationBar from './HomePage/NavigationBar';
+import RegistrationPage from "./HomePage/RegistrationPage";
 import {submitRegistrationForm} from "../redux/RegistrationApproveActionCreators";
 import {login,logout} from "../redux/LoginActionCreator";
-import Admin from './Admin';
-import AdminLogin from './AdminLogin';
+import Admin from './Admin/Admin';
+import AdminLogin from './Admin/AdminLogin';
 import jwt_decode from 'jwt-decode';
-import PassengerPage from "./PassengerPage";
-import PrintTicket from './PrintTicket';
+import PassengerPage from "./Passenger/PassengerPage";
+import PrintTicket from './Ticket/PrintTicket';
 
 
 const mapDispatchToProps = (dispatch) => ({
