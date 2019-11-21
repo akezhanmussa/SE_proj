@@ -102,7 +102,7 @@ class Main extends Component{
         const callUserPage = ({match}) => {
             return(
                 <div>
-                    <NavigationBar loginState={this.props.loginUser} login={this.props.login}/>
+                    <NavigationBar loginState={this.props.loginUser} login={this.props.login} logout={this.props.logout}/>
                     <Switch>
                         <Route exact path={match.url} component={() => <Home  logout = {this.props.logout} submitData={this.props.submitRegistrationForm} loginUser = {this.props.loginUser} login = {this.props.login} fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
                         <Route exact path={match.url + '/buy_ticket/:routeId'} component={BuyTicket}/>

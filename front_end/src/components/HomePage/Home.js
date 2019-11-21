@@ -14,11 +14,11 @@ class Home extends Component{
 
     render() {
         return(
-            <div>
+            <div id='home'>
                 <div className='container'>
-                    <div className='row justify-content-around'>
-                        <MapComponent schedule = {this.props.schedule}></MapComponent>
-                    </div>
+                    {/*<div className='row justify-content-around'>*/}
+                    {/*    <MapComponent schedule = {this.props.schedule}></MapComponent>*/}
+                    {/*</div>*/}
                     <SearchRoutes fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>
                 </div>
             </div>

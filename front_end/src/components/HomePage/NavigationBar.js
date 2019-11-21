@@ -36,7 +36,10 @@ class LoginModalForm extends Component {
     render() {
         return (
             <div>
-                <button className='btn btn-light' onClick={this.toggleModal}>Login</button>
+                <Nav className='ml-auto'>
+                    <NavLink className='btn nav-link' to='/home/registration'>Registration</NavLink>
+                    <button className='btn nav-link' onClick={this.toggleModal}>Login</button>
+                </Nav>
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     {this.props.loginState.isLoading ? (<Loading/>) : (
                         <div>
@@ -87,28 +90,26 @@ export default class NavigationBar extends Component{
 
     render(){
         return (
-            <div>
-                <Navbar bg="light" expand="lg">
-                    <Navbar.Brand>Railways App</Navbar.Brand>
+            <div style={{marginBottom: 70}}>
+                <Navbar id='homeNavbar' expand="md">
+                    <div className='container'>
+                    <Navbar.Brand href="/home" style={{color: 'white'}}>
+                        Railways App
+                    </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="mr-auto">
-                            <NavItem className='nav-item mr-2'>
-                                <NavLink className='nav-link' to='/home'>Home</NavLink>
-                            </NavItem>
+                    <Navbar.Collapse className="navbar-nav ml-auto">
+                        <Nav className = "ml-auto" >
                             {this.props.loginState.isAuthenticated
-                                ? <div></div>
-                                :<NavLink className='nav-link' to='/home/registration'>Registration</NavLink>
-                            }
-
-                        </Nav>
-                        <Nav className = "ml-auto">
-                            {this.props.loginState.isAuthenticated
-                                ? <NavLink className='nav-link' to='/home/my_account'>My account</NavLink>
+                                ? <NavLink className='btn nav-link' to='/home/my_account'>My account</NavLink>
                                 : <LoginModalForm login={this.props.login} loginState = {this.props.loginState}/>
+                            }
+                            {this.props.loginState.isAuthenticated
+                                ? <button className='btn nav-link' onClick={this.props.logout}>Logout</button>
+                                : null
                             }
                         </Nav>
                     </Navbar.Collapse>
+                    </div>
                 </Navbar>
             </div>
         )

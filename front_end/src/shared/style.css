@@ -22,6 +22,35 @@
     margin-top: 25px;
 }
 
+#homeNavbar{
+    background-color: rgba(63, 93, 181, .4);
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    height: 70px !important;
+    border-bottom: gray 2px solid !important;
+    margin-bottom: 10px;
+}
+
+#home{
+    background-image: url('train.png');
+    /*top: 0; right: 0; bottom: 0; left: 200px;*/
+    background-position: left 100px top;
+    background-repeat:no-repeat;
+    background-size:100% 100vh;
+    height: 100vh;
+    padding-top: 80px;
+    margin-top: -70px;
+}
+
+#searchHeader{
+    text-align: center;
+}
+
+#search{
+    background-color: rgba(255, 255, 255, .8);
+    margin-top: 20px;
+}
+
 #login{
     background-image: url('loginImg.jpg');
     position: absolute;
@@ -31,8 +60,8 @@
 }
 
 #loginAdmin{
-    background-color: rgba(35, 52, 158, .3);
-    padding: 30px;
+    /*background-color: rgba(35, 52, 158, .3);*/
+    /*padding: 30px;*/
 }
 
 .logoutButton{
@@ -150,10 +179,14 @@
 }
 
 #adminNavbar{
-    background-color: #23349e;
+    background-color: rgba(63, 93, 181, .4);
     height: 70px !important;
-    border-bottom: black 2px solid !important;
+    border-bottom: black 1px solid !important;
     margin-bottom: 10px;
+}
+
+.nav-link{
+    color: white !important;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
@@ -165,4 +198,9 @@
     /*border: black 2px solid !important;*/
     background-color: white !important;
     border-radius: 15px;
+}
+
+.btn-secondary{
+    background-color:  rgba(63, 93, 181, .8) !important;
+
 }

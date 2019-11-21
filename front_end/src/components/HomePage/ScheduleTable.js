@@ -3,6 +3,8 @@ import {Loading} from '../../shared/Loading';
 import {Modal, ModalBody, ModalHeader} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import {locations} from "../../shared/Locations";
+import MapComponent from './MapComponent';
+
 
 const ButBuy = (props) => {
 
@@ -118,25 +120,28 @@ class ScheduleTable extends Component{
                 );
             else
                 return (
-                    <table className='mt-3 table table-striped table-responsive-md btn-table'>
-                        <thead>
-                        <tr>
-                            <th>
-                                <div align='center'>Train Number</div>
-                            </th>
-                            <th>
-                                <div align='center'>Origin</div>
-                            </th>
-                            <th>
-                                <div align='center'>Destination</div>
-                            </th>
-                            <th>
-                                <div align='center'>Free Spaces</div>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>{rows}</tbody>
-                    </table>
+                    <React.Fragment>
+                        <MapComponent schedule = {this.props.schedule}></MapComponent>
+                        <table className='mt-3 table table-striped table-responsive-md btn-table'>
+                            <thead>
+                            <tr>
+                                <th>
+                                    <div align='center'>Train Number</div>
+                                </th>
+                                <th>
+                                    <div align='center'>Origin</div>
+                                </th>
+                                <th>
+                                    <div align='center'>Destination</div>
+                                </th>
+                                <th>
+                                    <div align='center'>Free Spaces</div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>{rows}</tbody>
+                        </table>
+                    </React.Fragment>
                 )
         }
         else
