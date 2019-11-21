@@ -81,7 +81,7 @@ class CreateAgentForm extends Component{
                 firstName:this.state.firstName,
                 lastName:this.state.lastName,
                 email:this.state.email,
-                userName:this.state.userName,
+                username:this.state.userName,
                 phoneNumber:this.state.phone_number,
                 salary: salary,
                 password: this.state.password,

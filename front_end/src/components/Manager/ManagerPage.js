@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {baseUrl,fethchManagerProfileURL} from "../../shared/BaseUrl";
-import {Loading} from "../Loading";
-import RenderUserInfo from "../PassengerPage";
+import {Loading} from "../../shared/Loading";
 import {Button, Form} from "react-bootstrap";
 
 

@@ -6,7 +6,7 @@ import {Modal, ModalBody, ModalHeader} from "reactstrap";
 import {Form,Button} from "react-bootstrap";
 import FieldComponent from "./FieldComponent";
 import DatePicker from "react-datepicker";
-
+import {Loading} from "../../shared/Loading";
 
 
 const updateOrGet = (url, body, method) =>{
@@ -39,6 +39,7 @@ const fetchEmployee = (type) => {
             return response.json();
         })
         .then(response => {
+            console.log(response)
             return response;
         })
         .catch (error => {
@@ -58,7 +59,10 @@ class EmployeeTable extends Component {
             salary:"",
             workingHours:"",
             id:"",
-            isworker:""
+            isworker:"",
+            isLoading:false,
+            agents:[],
+            workers:[]
         }
 
         this.handleAttribute = this.handleAttribute.bind(this)
@@ -66,12 +70,7 @@ class EmployeeTable extends Component {
     }
 
     componentDidMount() {
-        let type = this.props.isworker ? "station_worker" : "agent"
-        fetchEmployee(type).then(res => {
-            this.setState({employees:res})
-        }).catch(error => {
-            throw error
-        })
+        console.log(this.props)
     }
 
 
@@ -88,14 +87,28 @@ class EmployeeTable extends Component {
 
     submitSalaryHours = () => {
 
-        const body = {"token":localStorage.getItem("admin_token"),"salary":this.state.salary,"workingHours":this.state.workingHours}
-        let mainUrl = this.state.isworker ? updateWorkerSalWorkUrl: updateAgentSalWorkUrl
+        const body = {"token":localStorage.getItem("admin_token"),"salary":this.state.salary,"workingHours":this.state.workingHours,"id":this.state.id}
+        let mainUrl = this.props.isworker ? updateWorkerSalWorkUrl: updateAgentSalWorkUrl
         console.log("HERE IN THE METHOD")
         console.log(mainUrl)
+        let type = this.props.isworker ? "station_worker" : "agent"
+        this.setState({isLoading:true})
         updateOrGet(mainUrl, body, "POST").then(res => {
             console.log("EVERYTHING WAS UPDATED")
+            fetchEmployee(type).then(res => {
+                this.setState({isLoading:false})
+                if (type === "agent"){
+                    this.setState({agents:res})
+                }else{
+                    this.setState({workers:res})
+                }
+            }).catch(error => {
+                this.setState({isLoading:false})
+                throw error
+            })
         }).catch(e => {
             console.log("ERROR")
+            this.setState({isLoading:false})
         })
 
     }
@@ -104,6 +117,7 @@ class EmployeeTable extends Component {
     handleAttribute = (event) => {
         this.setState({[event.target.name]: event.target.value});
     }
+
 
     renderItem(item, isworker){
         const id = isworker ? item.stationWorkerId : item.idAgent
@@ -188,16 +202,22 @@ class EmployeeTable extends Component {
         const buttons = []
 
         if(this.state.expandedRows.includes(id)){
-            if (this.state.salary === "")
+
+            if (this.state.salary === ""){
                 this.setState({salary:item.salary})
-            if (this.state.workingHours === "")
+            }
+
+            if (this.state.workingHours === ""){
                 this.setState({workingHours:item.workingHours})
+            }
 
-            if (this.state.id === "")
+            console.log("I am here")
+            console.log(isworker)
+            console.log(id)
+            console.log(this.state.id)
+
+            if (id === "" || id !== this.state.id){
                 this.setState({id:id})
-
-            if (this.state.isworker === ""){
-                this.setState({isworker:isworker})
             }
 
             buttons.push(
@@ -207,12 +227,14 @@ class EmployeeTable extends Component {
                             <FieldComponent type = {'ml-4'} typeForm = {"number"} name = {"salary"} placeholder = {"Salary"} value = {this.state.salary} onChange = {this.handleAttribute} ></FieldComponent>
                             <FieldComponent type = {'ml-4'} typeForm = {"number"} name = {"workingHours"} placeholder = {"WorkingHours"} value = {this.state.workingHours} onChange = {this.handleAttribute} ></FieldComponent>
                             <Form.Group className = 'ml-4 mt-2 mb-4'>
+                                {this.state.isLoading ? <Loading></Loading> : <div></div>}
                                 <Button className = "btn-secondary" onClick = {this.submitSalaryHours}>Submit</Button>
                             </Form.Group>
                         </Form.Row>
                     </Form>
                 </div>
             )
+
         }
 
         if (buttons.length !== 0){
@@ -226,6 +248,7 @@ class EmployeeTable extends Component {
     render(){
         let attributes = []
         let rows = []
+        console.log(this.state)
 
         if (this.props.isworker){
             this.props.workerAttributes.forEach(elem =>{
@@ -233,7 +256,8 @@ class EmployeeTable extends Component {
             })
 
             //     renderItem(item, isworker, worker, agent){
-
+            console.log("FDFDFDFD")
+            console.log(this.state.workers)
             this.props.workers.forEach(worker =>{
                 const itemRow = this.renderItem(worker, this.props.isworker)
                 rows = rows.concat(itemRow)
@@ -273,7 +297,7 @@ class Employees extends Component{
         super(props)
         this.state = {
             workerAttributes:["First Name", "Last Name","Salary","Working Hours","Station Worker Id","Station Id"],
-            agentAttributes:["First Name","Last Name","Salary","Working Hours","Agent Id", "Station Id"],
+            agentAttributes:["First Name","Last Name","Salary","Working Hours","Station Id", "Agent Id"],
             workers:[],
             agents:[],
             checked:false

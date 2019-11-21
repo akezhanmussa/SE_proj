@@ -13,3 +13,4 @@ export const deleteWholeRouteUrl = "http://localhost:8080/railway_station_war/my
 export const updateAgentSalWorkUrl = "http://localhost:8080/railway_station_war/myrailway/manager/update-agents"
 export const updateWorkerSalWorkUrl = "http://localhost:8080/railway_station_war/myrailway/manager/update-station-worker"
 export const fethchManagerProfileURL = "http://localhost:8080/railway_station_war/myrailway/admin/mypage";
+export const createRouteUrl = "http://localhost:8080/railway_station_war/myrailway/manager/create-route";
