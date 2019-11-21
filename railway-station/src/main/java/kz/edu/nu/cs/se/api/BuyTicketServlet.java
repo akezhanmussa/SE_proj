@@ -50,7 +50,7 @@ public class BuyTicketServlet extends HttpServlet {
         String owner_firstname = ticketRequestObject.getOwner_firstname();
         String owner_lastname = ticketRequestObject.getOwner_lastname();
 
-        String ticketStatus = "APPROVED";
+        String ticketStatus = "UNAPPROVED";
         Optional<TicketModel> ticketModel = TicketController.BuyTicket(scheduleId, passengerId, origin_id, destination_id, price,
                 start_date, end_date, owner_document_type, owner_document_id,owner_firstname,
                 owner_lastname, ticketStatus);
