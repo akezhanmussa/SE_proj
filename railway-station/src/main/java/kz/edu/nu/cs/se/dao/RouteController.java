@@ -1,6 +1,7 @@
 package kz.edu.nu.cs.se.dao;
 
 import kz.edu.nu.cs.se.model.RouteModel;
+import kz.edu.nu.cs.se.model.RouteShortModel;
 
 import java.sql.*;
 import java.time.LocalDateTime;
