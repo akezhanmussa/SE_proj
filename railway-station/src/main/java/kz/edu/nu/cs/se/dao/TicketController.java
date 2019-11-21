@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class TicketController {
-    public static boolean BuyTicket(Integer scheduleId, Integer passengerId, Integer origin_id,
+    public static Optional<TicketModel> BuyTicket(Integer scheduleId, Integer passengerId, Integer origin_id,
                                     Integer destination_id, Float price, String start_date,
                                     String end_date, String owner_document_type,
                                     Integer owner_document_id,
@@ -31,19 +31,33 @@ public class TicketController {
                     origin_id, destination_id, ticketStatus, owner_document_type,
                     owner_first_name, owner_last_name, owner_document_id,
                     price.intValue(),scheduleId));
+
+            ResultSet ticketSet = statement.executeQuery(
+                    String.format("SELECT idTicket FROM Ticket WHERE Passenger_idPassenger = %d ORDER BY idTicket DESC LIMIT 1;",
+                            passengerId));
+
             statement.close();
-            System.out.println("SQL INSERT Status: " + status);
             // Increase capacity for all routes in the given range
             ArrayList<Integer> rangeIDs = RouteController.getRangeIDs(scheduleId, origin_id, destination_id);
+
             for (Integer id : rangeIDs) {
                 RouteController.updatePassengerNumber(id);
             }
-            return true;
+
+            Optional<TicketModel> newTicket = getTicketModel(ticketSet);
+
+            if (!newTicket.isPresent()) {
+                System.out.printf("[ERROR] Failed to FETCH ticket for passengerID: %d%n", passengerId);
+            }
+
+            return newTicket;
+
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
-            return false;
         }
 
+        System.out.printf("[ERROR] Failed to BUY ticket for passengerID: %d%n", passengerId);
+        return Optional.empty();
     }
 
     private static Optional<TicketModel> getTicketModel(ResultSet ticketSet) {
