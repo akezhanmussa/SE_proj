@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Form, FormGroup, Input, Label} from "reactstrap";
-import {baseUrl} from "../shared/BaseUrl";
-import {locations} from "../shared/Locations";
+import {baseUrl} from "../../shared/BaseUrl";
+import {locations} from "../../shared/Locations";
 import { withRouter } from 'react-router-dom';
 
 class BuyTicketForm extends Component{
@@ -19,7 +19,7 @@ class BuyTicketForm extends Component{
             train: this.props.route.train
         };
         return (
-            <div>
+            <div style={{backgroundColor: 'rgba(255, 255, 255, .95)'}}>
                 <div className='container mt-3'>
                     <div className='row' style={{height:"80px"}}>
                         <div className='col-4 d-flex justify-content-center align-items-center' style={{borderRight: '2px solid blue', borderBottom:"1px solid blue"}}>
@@ -82,6 +82,10 @@ class FillTicket extends Component{
     }
     handleSubmit(event){
         event.preventDefault();
+        if(!this.props.loginUser.isAuthenticated){
+            alert("Login first !!!");
+            return;
+        }
         let body = {
             scheduleId: this.props.route.id,
             token: this.props.loginUser.token,
@@ -101,16 +105,15 @@ class FillTicket extends Component{
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(body)
         })
+
             .then(response => {
-                console.log(response)
                 if(response.ok) {
-                    var mes = "Thanks, your request is submitted. Wait for approving";
+                    let mes = "Thanks, your request is submitted. Wait for approving";
                     if(window.confirm(mes)){
                         this.props.history.push('/home/my_account');
                     }
                 }else{
-                    var error = new Error("Error " + response.status + ': ' + response.statusText);
-                    error.response = response;
+                    let error = new Error("Error " + response.status + ': ' + response.statusText);
                     throw error;
                 }
             })

@@ -9,6 +9,8 @@ public class User {
     private String userName;
     private Integer userId;
     private String userRole;
+    private Integer salary;
+    private Integer workingHours;
 
     public User(){}
     public User(String firstName, String lastName, String email, String phoneNumber,
@@ -21,6 +23,25 @@ public class User {
         this.userId = userId;
     }
 
+    public User(String firstName, String lastName, String email, String phoneNumber, String userName, int userId, Integer salary, Integer workingHours) {
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setEmail(email);
+        this.setPhoneNumber(phoneNumber);
+        this.setUserName(userName);
+        this.userId = userId;
+        this.salary = salary;
+        this.workingHours = workingHours;
+
+    }
+
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public Integer getWorkingHours() {
+        return workingHours;
+    }
 
     public void setUserId(int passengerId) {
         this.userId = passengerId;

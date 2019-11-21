@@ -17,11 +17,13 @@ class AgentPage extends Component{
         this.fetchMyTickets = this.fetchMyTickets.bind(this);
     }
 
+
     fetchProfile = (profile)=> {
         this.setState(prevState => ({
             ...prevState,
             profile: profile
         }));
+        console.log(this.state);
     };
 
     fetchPullTicket = (pull)=> {
@@ -45,8 +47,6 @@ class AgentPage extends Component{
                 <div className="col-2 nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a className="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home"
                        role="tab" aria-controls="v-pills-home" aria-selected="true">Profile</a>
-                    <a className="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile"
-                       role="tab" aria-controls="v-pills-profile" aria-selected="false">Update Profile</a>
                     <a className="nav-link" id="v-pills-create-ticket-tab" data-toggle="pill" href="#v-pills-create-ticket"
                        role="tab" aria-controls="v-pills-create-ticket" aria-selected="false">Create ticket</a>
                     <a className="nav-link" id="v-pills-my-tickets-tab" data-toggle="pill" href="#v-pills-my-tickets"
@@ -57,10 +57,7 @@ class AgentPage extends Component{
                 <div className="offset-1 tab-content col-9" id="v-pills-tabContent">
                     <div className="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                          aria-labelledby="v-pills-home-tab">
-                        <Profile profile={this.state.profile} fetchPfofile={this.fetchProfile} admin={this.props.admin}/>
-                    </div>
-                    <div className="tab-pane fade" id="v-pills-profile" role="tabpanel"
-                         aria-labelledby="v-pills-profile-tab">...
+                        <Profile profile={this.state.profile} fetchProfile={this.fetchProfile} admin={this.props.admin}/>
                     </div>
                     <div className="tab-pane fade" id="v-pills-create-ticket" role="tabpanel"
                          aria-labelledby="v-pills-messages-tab">

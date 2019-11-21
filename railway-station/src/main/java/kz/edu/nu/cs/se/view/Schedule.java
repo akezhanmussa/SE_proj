@@ -14,6 +14,8 @@ public class Schedule {
     private String endTime;
     private Train train;
     private ArrayList<Route> routes;
+    private Integer price;
+    private Integer capacity;
 
     public Schedule(ScheduleModel model) {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -23,6 +25,8 @@ public class Schedule {
         this.destination = model.getDestination();
         this.startTime = model.getStartTimeObject().format(dateFormatter);
         this.endTime = model.getEndTimeObject().format(dateFormatter);
+        this.price = model.getPrice();
+        this.capacity = model.getCapacity();
 
         this.train = new Train(model.getTrainModel());
 

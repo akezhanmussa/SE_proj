@@ -37,13 +37,19 @@ export function login(userData){
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(userData)
         })
-            .then(res => res.json())
+            .then(res => {
+                if(res.ok)
+                    return res.json();
+                else {
+                    throw new Error("Error " + res.status)
+                }
+            })
             .then(res => {
                 localStorage.setItem('token', JSON.stringify(res));
                 dispatch(loginApprove(res))
             })
             .catch(err => {
-                dispatch(loginFailure(err.message));
+                dispatch(loginFailure(err));
             })
     }
 }

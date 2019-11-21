@@ -1,7 +1,6 @@
 package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
-import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.TicketRequestObject;
 import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.dao.TicketController;
@@ -13,8 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.getUserFromToken;
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
@@ -50,14 +48,18 @@ public class BuyTicketServlet extends HttpServlet {
         String owner_firstname = ticketRequestObject.getOwner_firstname();
         String owner_lastname = ticketRequestObject.getOwner_lastname();
 
-        boolean status = TicketController.BuyTicket(scheduleId, passengerId, origin_id, destination_id, price,
+        String ticketStatus = "UNAPPROVED";
+        System.out.println(ticketStatus);
+        Optional<Integer> ticketModel = TicketController.BuyTicket(scheduleId, passengerId, origin_id, destination_id, price,
                 start_date, end_date, owner_document_type, owner_document_id,owner_firstname,
-                owner_lastname, "UNAPPROVED");
+                owner_lastname, ticketStatus);
         PrintWriter out = response.getWriter();
-        if (status) {
-            out.append(new Gson().toJson("Done! Wait for approval"));
+
+        if (ticketModel.isPresent()) {
+            response.setStatus(200);
+            out.append(new Gson().toJson(ticketModel.get()));
         } else {
-            out.append(new Gson().toJson("Error!"));
+            response.setStatus(501);
         }
 
         out.flush();

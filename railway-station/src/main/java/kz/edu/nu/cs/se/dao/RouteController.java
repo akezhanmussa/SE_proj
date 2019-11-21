@@ -1,11 +1,9 @@
 package kz.edu.nu.cs.se.dao;
 
 import kz.edu.nu.cs.se.model.RouteModel;
+import kz.edu.nu.cs.se.model.RouteShortModel;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -134,7 +132,7 @@ public class RouteController {
         try {
             Statement statement = Connector.getStatement();
             ResultSet routes = statement.executeQuery(
-                    String.format("SELECT start_station_id, end_station_id, start_time, end_time, price, Train_idTrain, idRoute FROM Route WHERE schedule_id=%d ORDER BY start_time ASC",
+                    String.format("SELECT start_station_id, end_station_id, start_time, end_time, price, Train_idTrain, idRoute, passenger_number FROM Route WHERE schedule_id=%d ORDER BY start_time ASC",
                             scheduleID));
             while (routes.next()) {
                 Integer originID = routes.getInt(1);
@@ -144,6 +142,7 @@ public class RouteController {
                 Integer price = ((int) routes.getFloat(5));
                 Integer trainId = routes.getInt(6);
                 Integer routeId = routes.getInt(7);
+                Integer capacity = routes.getInt(8);
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime startTime = LocalDateTime.parse(startTimeString, formatter);
@@ -162,8 +161,8 @@ public class RouteController {
                 String startName = optionalStartName.get();
                 String destinationName = optionalDestinationName.get();
 
-                RouteModel routeModel = new RouteModel(startName, destinationName, startTime, endTime, routeId);
-                routeModel.setPrice(price);
+                RouteModel routeModel = new RouteModel(startName, destinationName, startTime, endTime, routeId,
+                        TrainController.getCapacity(trainId) - capacity, price);
                 routeModel.setTrainId(trainId);
 
                 routeModels.add(routeModel);
@@ -176,11 +175,11 @@ public class RouteController {
         return routeModels;
     }
 
-    private static Boolean isValidRouteUpdate(Integer scheduleId, Integer routeId, LocalDateTime startTime, LocalDateTime endTime) {
+    private static Boolean isValidRouteUpdate(Integer routeId, LocalDateTime startTime, LocalDateTime endTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         try {
             Statement statement = Connector.getStatement();
-            ResultSet routePrev = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE idRoute=%d", routeId-1));
+            ResultSet routePrev = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE idRoute < %d and schedule_id in (select schedule_id from Route where idRoute = %d) limit 1", routeId, routeId));
             while(routePrev.next()) {
                 System.out.println("I FOUND THIS SUB-ROUT");
                 String endTimePrevString = routePrev.getString(2);
@@ -193,7 +192,7 @@ public class RouteController {
             }
 
             System.out.println("I AM BEFORE THE NEXT");
-            ResultSet routeNext = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE schedule_id=%d ", scheduleId));
+            ResultSet routeNext = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE idRoute > %d and schedule_id in (select schedule_id from Route where idRoute = %d) limit 1", routeId, routeId));
             while(routeNext.next()) {
                 String startTimeNextString = routeNext.getString(1);
                 LocalDateTime startTimeNext = LocalDateTime.parse(startTimeNextString, formatter);
@@ -240,7 +239,7 @@ public class RouteController {
 
             System.out.println("BEFORE VALIDATION");
 
-//            if(isValidRouteUpdate(routeId, startTime, endTime)) {
+            if(isValidRouteUpdate(routeId, startTime, endTime)) {
 
                 System.out.println("HERE IN IS VALID");
                 String sqlStart = "UPDATE Route SET start_time=? WHERE idRoute=?";
@@ -260,12 +259,15 @@ public class RouteController {
                 System.out.println("HERE HERE2");
 
                 statement.close();
+                System.out.println(startTimeRow + " -> " + endTimeRow);
                 if (!(endTimeRow == 1 && startTimeRow == 1)) {
                     System.out.println(String.format(
                             "[ERROR] Failed to change route_id to agent (id=%d)", routeId));
                     return false;
                 }
-//            }
+            } else {
+                return false;
+            }
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
             return false;
@@ -292,11 +294,48 @@ public class RouteController {
         return true;
     }
 
-//    public static Boolean createRoutes(Integer scheduleId, List<>)
+    public static Boolean createRoutes(Integer trainId, List<RouteShortModel> routeObjectList) {
+        final Integer passengerNumber = 0;
+        final Integer batchSize = 100;
+        try {
+            Integer globalStartStationId = routeObjectList.get(0).getStartStationId();
+            Integer globalEndStationId = routeObjectList.get(routeObjectList.size()-1).getEndStationId();
 
-    public static void main(String[] args) {
+            /*
+             Create schedule first
+             */
+            Integer scheduleId = ScheduleController.createSchedule(globalStartStationId, globalEndStationId).get();
+//            System.out.println("schedule id: "+scheduleId);
 
+            String sql = "INSERT INTO Route(start_time, end_time, passenger_number, start_station_id, " +
+                    "end_station_id, schedule_id, Train_idTrain, price) VALUES(?,?,?,?,?,?,?,?)";
 
+            PreparedStatement prepStmnt = Connector.prepareStatement(sql);
+            int insertCount = 0;
+            for(RouteShortModel route: routeObjectList) {
+                prepStmnt.setTimestamp(1, Timestamp.valueOf(route.getStartTime()));
+                prepStmnt.setTimestamp(2, Timestamp.valueOf(route.getEndTime()));
+                prepStmnt.setInt(3, passengerNumber);
+                prepStmnt.setInt(4, route.getStartStationId());
+                prepStmnt.setInt(5, route.getEndStationId());
+                prepStmnt.setInt(6, scheduleId);
+                prepStmnt.setInt(7, trainId);
+                prepStmnt.setFloat(8, route.getPrice());
+
+                prepStmnt.addBatch();
+                if(++insertCount % batchSize == 0) {
+                    prepStmnt.executeBatch();
+                }
+            }
+            prepStmnt.executeBatch();
+            prepStmnt.close();
+
+            return true;
+
+        } catch (NoSuchElementException | SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
 
 }

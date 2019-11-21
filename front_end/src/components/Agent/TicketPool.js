@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {baseUrl} from "../../shared/BaseUrl";
-import {Loading} from "../Loading";
+import {Loading} from "../../shared/Loading";
 import RenderTickets from './RenderTickets';
 
 class TicketPool extends Component{
@@ -20,7 +20,13 @@ class TicketPool extends Component{
                 headers: {'Content-Type':'application/json'},
                 body:JSON.stringify({token: this.props.admin.admin_token})
             })
-                .then(res => res.json())
+                .then(res => {
+                    if(res.ok)
+                        return res.json();
+                    else {
+                        throw new Error("Error " + res.status)
+                    }
+                })
                 .then(res => {
                     this.props.fetchPullTicket(res);
                     this.setState({isLoading: false});

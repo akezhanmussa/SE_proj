@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Navbar, Nav, Form, Button, NavItem} from 'react-bootstrap';
+import {Navbar, Nav, Form, Button} from 'react-bootstrap';
 import {Modal, ModalBody, ModalHeader} from "reactstrap";
 import {NavLink} from "react-router-dom"
-import {Loading} from "./Loading";
+import {Loading} from "../../shared/Loading";
 
 class LoginModalForm extends Component {
     constructor(props){
@@ -15,7 +15,7 @@ class LoginModalForm extends Component {
         };
         this.toggleModal = this.toggleModal.bind(this);
         this.handleAttribute = this.handleAttribute.bind(this);
-        console.log(this.props);
+        this.handleLogin = this.handleLogin.bind(this);
     }
 
     toggleModal(){
@@ -26,12 +26,20 @@ class LoginModalForm extends Component {
         this.setState({[event.target.name]: event.target.value});
     };
 
+    handleLogin = (event) => {
+        event.preventDefault();
+        this.props.login({"userName":this.state.userName, "password":this.state.password});
+    };
+
 
 
     render() {
         return (
             <div>
-                <button className='btn btn-light' onClick={this.toggleModal}>Login</button>
+                <Nav className='ml-auto'>
+                    <NavLink className='btn nav-link' to='/home/registration'>Registration</NavLink>
+                    <button className='btn nav-link' onClick={this.toggleModal}>Login</button>
+                </Nav>
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     {this.props.loginState.isLoading ? (<Loading/>) : (
                         <div>
@@ -42,7 +50,7 @@ class LoginModalForm extends Component {
                                 <Form.Group controlId="formBasicUserName">
                                     <Form.Label>Username</Form.Label>
                                     <Form.Control type="text"
-                                                  placeholder="Enter userName"
+                                                  placeholder="username"
                                                   name = "userName"
                                                   value = {this.state.userName}
                                                   onChange = {this.handleAttribute}
@@ -58,7 +66,7 @@ class LoginModalForm extends Component {
                                                   onChange = {this.handleAttribute}
                                     />
                                 </Form.Group>
-                                <Button className = 'btn-secondary' variant="primary" type="submit" onClick={() => this.props.login({"userName":this.state.userName, "password":this.state.password})}>
+                                <Button className = 'btn-secondary' onClick={this.handleLogin}>
                                     Submit
                                 </Button>
                             </ModalBody>
@@ -82,28 +90,26 @@ export default class NavigationBar extends Component{
 
     render(){
         return (
-            <div>
-                <Navbar bg="light" expand="lg">
-                    <Navbar.Brand>Railways App</Navbar.Brand>
+            <div style={{marginBottom: 70}}>
+                <Navbar id='homeNavbar' expand="md">
+                    <div className='container'>
+                    <Navbar.Brand href="/home" style={{color: 'white'}}>
+                        Railways App
+                    </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="mr-auto">
-                            <NavItem className='nav-item mr-2'>
-                                <NavLink className='nav-link' to='/home'>Home</NavLink>
-                            </NavItem>
+                    <Navbar.Collapse className="navbar-nav ml-auto">
+                        <Nav className = "ml-auto" >
                             {this.props.loginState.isAuthenticated
-                                ? <div></div>
-                                :<NavLink className='nav-link' to='/home/registration'>Registration</NavLink>
+                                ? <NavLink className='btn nav-link' to='/home/my_account'>My account</NavLink>
+                                : <LoginModalForm login={this.props.login} loginState = {this.props.loginState}/>
                             }
-
-                        </Nav>
-                        <Nav className = "ml-auto">
                             {this.props.loginState.isAuthenticated
-                                ? <NavLink className='nav-link' to='/home/my_account'>My account</NavLink>
-                                :<LoginModalForm login={this.props.login} loginState = {this.props.loginState}/>
+                                ? <button className='btn nav-link' onClick={this.props.logout}>Logout</button>
+                                : null
                             }
                         </Nav>
                     </Navbar.Collapse>
+                    </div>
                 </Navbar>
             </div>
         )

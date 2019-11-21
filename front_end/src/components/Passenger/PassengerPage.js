@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
-import {getInfoUrl} from "../shared/BaseUrl";
-import BuyTicketForm from "./BuyTicketForm";
+import {getInfoUrl} from "../../shared/BaseUrl";
+import BuyTicketForm from "../Ticket/BuyTicketForm";
 import {Button, Form} from "react-bootstrap";
 import PassengerTicketsPage from "./PassengerTicketsPage";
 
@@ -54,11 +54,6 @@ class PassengerPage extends Component{
 
     handleSubmit = () => {
         this.setState({isOpen: !this.state.isOpen})
-    }
-
-    finishSession = () => {
-        this.props.logout();
-        this.props.history.push('/home');
     };
 
     render(){
@@ -66,7 +61,7 @@ class PassengerPage extends Component{
             <div>
                 {this.props.loginUser.token ?
                     (
-                        <div>
+                        <div className='container'>
                             <RenderUserInfo phoneNumber = {this.state.phoneNumber}
                                             firstName = {this.state.firstName}
                                             lastName = {this.state.lastName}
@@ -74,7 +69,6 @@ class PassengerPage extends Component{
                                             phoneNumber = {this.state.phoneNumber}
                                             userName = {this.state.userName}
                                             handleSubmit = {this.handleSubmit.bind(this)}
-                                            finishSession = {this.finishSession.bind(this)}
                             />
                             {this.state.isOpen ?  (<PassengerTicketsPage token = {this.props.loginUser.token}></PassengerTicketsPage>) : <div></div>}
                         </div>
@@ -127,13 +121,9 @@ const RenderUserInfo = (props) => {
                         </div>
                     </div>
                     <div className = 'line'></div>
-
                     <Form.Row>
-                        <Form.Group className="col-8 d-flex">
+                        <Form.Group >
                             <Button className='btn-secondary' onClick = {() => props.handleSubmit()}>Get tickets</Button>
-                        </Form.Group>
-                        <Form.Group className='ml-auto mr-2'>
-                            <Button className='btn-secondary mr-2' onClick = {() => props.finishSession()}>Logout</Button>
                         </Form.Group>
                     </Form.Row>
                 </Form>

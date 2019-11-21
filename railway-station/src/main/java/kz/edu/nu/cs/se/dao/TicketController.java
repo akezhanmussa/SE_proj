@@ -11,17 +11,18 @@ import java.util.List;
 import java.util.Optional;
 
 public class TicketController {
-    public static boolean BuyTicket(Integer scheduleId, Integer passengerId, Integer origin_id,
+    public static Optional<Integer> BuyTicket(Integer scheduleId, Integer passengerId, Integer origin_id,
                                     Integer destination_id, Float price, String start_date,
                                     String end_date, String owner_document_type,
                                     Integer owner_document_id,
                                     String owner_first_name, String owner_last_name,
                                     String ticketStatus) {
-        Statement statement = Connector.getStatement();
-
         try {
             // Creates ticket on database
-            boolean status = statement.execute(String.format("INSERT INTO Ticket(" +
+            System.out.println("HERE IN BUY TICKET");
+            Statement statement = Connector.getStatement();
+
+            statement.execute(String.format("INSERT INTO Ticket(" +
                             "Passenger_idPassenger, start_date, end_date, origin_id, " +
                             "destination_id, status, owner_document_type," +
                             "owner_first_name, owner_last_name, owner_document_id, " +
@@ -31,19 +32,33 @@ public class TicketController {
                     origin_id, destination_id, ticketStatus, owner_document_type,
                     owner_first_name, owner_last_name, owner_document_id,
                     price.intValue(),scheduleId));
-            statement.close();
-            System.out.println("SQL INSERT Status: " + status);
+
+            ResultSet ticketSet = statement.executeQuery(String.format("SELECT idTicket FROM Ticket WHERE Passenger_idPassenger = %d ORDER BY idTicket DESC LIMIT 1",
+                            passengerId));
+
             // Increase capacity for all routes in the given range
             ArrayList<Integer> rangeIDs = RouteController.getRangeIDs(scheduleId, origin_id, destination_id);
             for (Integer id : rangeIDs) {
                 RouteController.updatePassengerNumber(id);
             }
-            return true;
+
+            while (ticketSet.next()) {
+                Integer idTicket1 = ticketSet.getInt(1);
+                return Optional.of(idTicket1);
+            }
+
+            ticketSet.close();
+            statement.close();
+
+            System.out.printf("[ERROR] Failed to FETCH ticket for passengerID: %d%n", passengerId);
+
+
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
-            return false;
         }
 
+        System.out.printf("[ERROR] Failed to BUY ticket for passengerID: %d%n", passengerId);
+        return Optional.empty();
     }
 
     private static Optional<TicketModel> getTicketModel(ResultSet ticketSet) {
@@ -249,7 +264,7 @@ public class TicketController {
 
             EmailService.sendTicketCanceled(emailList);
 
-            int deletedTicketsCount = statement.executeUpdate(String.format("UPDATE Ticket SET schedule_id=NULL WHERE schedule_id=%d", scheduleId));
+            int deletedTicketsCount = statement.executeUpdate(String.format("UPDATE Ticket SET schedule_id=NULL, status='CANCELLED' WHERE schedule_id=%d", scheduleId));
 
             if(deletedTicketsCount <= 0) {
                 System.out.println("[ERROR] Failed to tickets schedule_id to null");

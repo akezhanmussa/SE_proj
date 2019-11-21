@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import AgentPage from './Agent/AgentPage';
-import ManagerProfile from './Manager/ManagerProfile';
-import { adminLogout } from '../redux/AdminLoginActionCreator';
+import AgentPage from '../Agent/AgentPage';
+import ManagerProfile from '../Manager/ManagerProfile';
+import { adminLogout } from '../../redux/AdminLoginActionCreator';
 import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import Navbar from "react-bootstrap/Navbar";

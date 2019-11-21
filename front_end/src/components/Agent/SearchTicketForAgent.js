@@ -3,7 +3,7 @@ import Select from 'react-select';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import DatePicker from 'react-datepicker'
-import ScheduleTable from '../ScheduleTable';
+import ScheduleTable from '../HomePage/ScheduleTable';
 import "react-datepicker/dist/react-datepicker.css";
 import {locations} from '../../shared/Locations'
 import {baseUrl} from "../../shared/BaseUrl";
@@ -48,10 +48,8 @@ class SearchTicketForAgent extends Component {
         let path = {"origin": this.state.startStation.value,
             "destination": this.state.destinationStation.value, "date": this.state.timeRoute, "daytime": this.state.timeRange};
         path.date = getParsedDate(path.date);
-        console.log(path);
         path.daytime = path.daytime.map(el => el.value);
         path.daytime = path.daytime[0];
-        console.log(path);
         return fetch(baseUrl, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -61,8 +59,7 @@ class SearchTicketForAgent extends Component {
                 if (response.ok)
                     return response;
                 else {
-                    var error = new Error("Error " + response.status + ': ' + response.statusText);
-                    error.response = response;
+                    let error = new Error("Error " + response.status + ': ' + response.statusText);
                     throw error;
                 }
             })

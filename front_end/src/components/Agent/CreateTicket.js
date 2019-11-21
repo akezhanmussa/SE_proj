@@ -15,27 +15,26 @@ class CreateTicket extends Component{
         body.owner_firstname = this.firstame.value;
         body.owner_lastname = this.lastname.value;
         body.token = this.props.admin.admin_token;
-        console.log(body);
+        console.log(JSON.stringify(body));
         if(window.confirm("Do you want to buy ticket?")) {
             return fetch(baseUrl + '/agent/buy-ticket', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(body)
             })
-                .then(response => response)
+                .then(res => {
+                    if(res.ok)
+                        return res.json();
+                    else {
+                        throw new Error("Error " + res.status)
+                    }
+                })
                 .then(response => {
-                    console.log(response.body)
-                    if (response.ok) {
-                        let mes = "Thanks, your request is submitted. Do you want to print a ticket?";
-                        if (window.confirm(mes)) {
-                            this.props.history.push('/home/print_ticket/11');
-                        }else{
-                            window.location.reload();
-                        }
-                    } else {
-                        var error = new Error("Error " + response.status + ': ' + response.statusText);
-                        error.response = response;
-                        throw error;
+                    let mes = "Thanks, your request is submitted. Do you want to print a ticket?";
+                    if (window.confirm(mes)) {
+                        this.props.history.push('/home/print_ticket/' + response);
+                    }else{
+                        window.location.reload();
                     }
                 })
                 .catch(error => {
@@ -79,10 +78,6 @@ class CreateTicket extends Component{
                                    innerRef={(input) => this.docId = input}/>
                         </FormGroup>
                     </div>
-                    {/*<div className='row mr-auto'>*/}
-                    {/*    <button className='btn btn-secondary ml-auto mb-2' onClick={this.handleSubmit}>Buy ticket*/}
-                    {/*    </button>*/}
-                    {/*</div>*/}
                 </Form>
                 <SearchTicketForAgent collectData={this.collectData}/>
             </div>
