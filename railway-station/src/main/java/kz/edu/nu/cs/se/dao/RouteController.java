@@ -258,11 +258,14 @@ public class RouteController {
                 System.out.println("HERE HERE2");
 
                 statement.close();
+                System.out.println(startTimeRow + " -> " + endTimeRow);
                 if (!(endTimeRow == 1 && startTimeRow == 1)) {
                     System.out.println(String.format(
                             "[ERROR] Failed to change route_id to agent (id=%d)", routeId));
                     return false;
                 }
+            } else {
+                return false;
             }
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
