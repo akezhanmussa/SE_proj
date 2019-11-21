@@ -17,11 +17,10 @@ public class TicketController {
                                     Integer owner_document_id,
                                     String owner_first_name, String owner_last_name,
                                     String ticketStatus) {
-        Statement statement = Connector.getStatement();
-
         try {
             // Creates ticket on database
-            boolean status = statement.execute(String.format("INSERT INTO Ticket(" +
+            Statement statement = Connector.getStatement();
+            statement.execute(String.format("INSERT INTO Ticket(" +
                             "Passenger_idPassenger, start_date, end_date, origin_id, " +
                             "destination_id, status, owner_document_type," +
                             "owner_first_name, owner_last_name, owner_document_id, " +
@@ -36,7 +35,6 @@ public class TicketController {
                     String.format("SELECT idTicket FROM Ticket WHERE Passenger_idPassenger = %d ORDER BY idTicket DESC LIMIT 1;",
                             passengerId));
 
-            statement.close();
             // Increase capacity for all routes in the given range
             ArrayList<Integer> rangeIDs = RouteController.getRangeIDs(scheduleId, origin_id, destination_id);
 
@@ -49,6 +47,9 @@ public class TicketController {
             if (!newTicket.isPresent()) {
                 System.out.printf("[ERROR] Failed to FETCH ticket for passengerID: %d%n", passengerId);
             }
+
+            ticketSet.close();
+            statement.close();
 
             return newTicket;
 
