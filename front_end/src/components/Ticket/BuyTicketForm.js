@@ -16,7 +16,8 @@ class BuyTicketForm extends Component{
             id: this.props.route.id,
             origin: this.props.route.origin,
             startTime: this.props.route.startTime,
-            train: this.props.route.train
+            train: this.props.route.train,
+            price: this.props.route.price
         };
         return (
             <div style={{backgroundColor: 'rgba(255, 255, 255, .95)'}}>
@@ -37,6 +38,14 @@ class BuyTicketForm extends Component{
                     <div className='row mt-2'>
                         <h3>{route.origin} -> {route.destination}</h3>
                         <div className='container' style={{border:"1px solid #c2c4c3"}}>
+                            <div className='row pt-2' style={{borderBottom:"1px solid #c2c4c3"}}>
+                                <div className='col-6'>
+                                    <p>Price</p>
+                                </div>
+                                <div className='col-6'>
+                                    <p>{route.price}</p>
+                                </div>
+                            </div>
                             <div className='row pt-2' style={{borderBottom:"1px solid #c2c4c3"}}>
                                 <div className='col-6'>
                                     <p>Train number</p>
@@ -92,7 +101,7 @@ class FillTicket extends Component{
             origin_id: locations.filter(loc => this.props.route.origin === loc.name)[0].id,
             destination_id: locations.filter(loc => this.props.route.destination === loc.name)[0].id,
             owner_document_id: this.docId.value,
-            price: 0,
+            price: this.props.route.price,
             start_date: this.props.route.startTime,
             end_date: this.props.route.endTime,
             owner_document_type: this.doctype.value,
