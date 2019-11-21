@@ -1,7 +1,6 @@
 package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
-import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.TicketRequestObject;
 import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.dao.TicketController;
@@ -15,8 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.getUserFromToken;
