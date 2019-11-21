@@ -51,7 +51,7 @@ class PassengerTicketsPage extends Component{
 
     render() {
         return(
-            <div>
+            <div style={{marginTop:30}}>
                 {this.state.passengerTickets.length > 0 ?
                 <RenderTickets passengerTickets={this.state.passengerTickets}/>
                 : <div></div>}

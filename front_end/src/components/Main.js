@@ -103,6 +103,7 @@ class Main extends Component{
             return(
                 <div>
                     <NavigationBar loginState={this.props.loginUser} login={this.props.login} logout={this.props.logout}/>
+                    <div id="home">
                     <Switch>
                         <Route exact path={match.url} component={() => <Home  logout = {this.props.logout} submitData={this.props.submitRegistrationForm} loginUser = {this.props.loginUser} login = {this.props.login} fetchSchedule={this.props.fetchSchedule} schedule={this.props.schedule}/>}/>
                         <Route exact path={match.url + '/buy_ticket/:routeId'} component={BuyTicket}/>
@@ -111,6 +112,7 @@ class Main extends Component{
                         <Route exact path={match.url + '/my_account'} component={() => <PassengerPage loginUser={this.props.loginUser} logout={this.props.logout}/>}/>
                         <Redirect to='/home'/>
                     </Switch>
+                    </div>
                 </div>
             );
         };

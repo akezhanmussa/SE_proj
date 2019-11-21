@@ -4,7 +4,7 @@
 }
 
 .reg-form{
-    background-color: aliceblue;
+    background-color: rgba(240,248,255, .9);
     padding: 25px;
     margin-top: 50px;
 }
@@ -17,7 +17,7 @@
 
 
 .info-form{
-    background-color: aliceblue;
+    background-color: rgba(240,248,255, .9);
     padding: 25px;
     margin-top: 25px;
 }
@@ -202,5 +202,12 @@
 
 .btn-secondary{
     background-color:  rgba(63, 93, 181, .8) !important;
+}
 
+.table .thead-dark th{
+    background-color:  rgba(63, 93, 181, .8) !important;
+}
+
+.table td{
+    background-color: white;
 }

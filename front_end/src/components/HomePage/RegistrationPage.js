@@ -46,7 +46,7 @@ class RegistrationForm extends Component {
 
     handleAttribute = (event) => {
         this.setState({[event.target.name]: event.target.value});
-    }
+    };
 
     componentWillMount() {
         setTimeout(() => {
