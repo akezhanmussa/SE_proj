@@ -27,6 +27,7 @@ public class RouteModel {
         this.endDateObject = endDateObject;
         this.routeId = routeId;
         this.capacity = capacity;
+        this.price = price;
     }
 
     public String getOrigin() {
