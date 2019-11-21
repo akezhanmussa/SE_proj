@@ -294,7 +294,6 @@ public class RouteController {
         final Integer passengerNumber = 0;
         final Integer batchSize = 100;
         try {
-
             Integer globalStartStationId = routeObjectList.get(0).getStartStationId();
             Integer globalEndStationId = routeObjectList.get(routeObjectList.size()-1).getEndStationId();
 
@@ -302,6 +301,7 @@ public class RouteController {
              Create schedule first
              */
             Integer scheduleId = ScheduleController.createSchedule(globalStartStationId, globalEndStationId).get();
+//            System.out.println("schedule id: "+scheduleId);
 
             String sql = "INSERT INTO Route(start_time, end_time, passenger_number, start_station_id, " +
                     "end_station_id, schedule_id, Train_idTrain, price) VALUES(?,?,?,?,?,?,?,?)";
@@ -333,7 +333,5 @@ public class RouteController {
             return false;
         }
     }
-
-    public static void main(String[] args) { }
 
 }

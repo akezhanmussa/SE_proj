@@ -38,7 +38,7 @@ public class Connector {
         return statement;
     }
 
-    public static PreparedStatement prepareStatement(String sql, String[] generatedKeys) {
+    public static PreparedStatement prepareStatement(String sql, Integer generatedKeys) {
         PreparedStatement statement = null;
         try {
             if (connection != null)  return connection.prepareStatement(sql);

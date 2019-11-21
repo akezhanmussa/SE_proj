@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
@@ -39,13 +40,19 @@ public class CreateRouteServlet extends HttpServlet {
         Integer trainId = createRouteObject.getTrainId();
         List<RouteShortModel> routesList = createRouteObject.getRoutes();
 
-
         Boolean status = RouteController.createRoutes(trainId, routesList);
+        System.out.println(status);
 
-        if (status) {
-            resp.sendError(202, "Success");
-        } else {
+        if (!status) {
             resp.sendError(503, "An internal error occurred");
+            return;
         }
+
+        Gson gson = new Gson();
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter out = resp.getWriter();
+        out.append(gson.toJson("SUCCESS"));
+        out.flush();
     }
 }
