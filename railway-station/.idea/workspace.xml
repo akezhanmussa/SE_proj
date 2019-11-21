@@ -7,13 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../front_end/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/HomePage/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/HomePage/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/HomePage/RegistrationPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/HomePage/RegistrationPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Passenger/PassengerPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Passenger/PassengerPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Passenger/PassengerTicketsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Passenger/PassengerTicketsPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/shared/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Agent/CreateTicket.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Agent/CreateTicket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/HomePage/MapComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/HomePage/MapComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Ticket/BuyTicketForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Ticket/BuyTicketForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Ticket/PrintTicket.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Ticket/PrintTicket.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -309,7 +306,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5078000" />
+    <option name="totallyTimeSpent" value="5718000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />

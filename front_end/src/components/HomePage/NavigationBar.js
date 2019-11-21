@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Navbar, Nav, Form, Button, NavItem} from 'react-bootstrap';
+import {Navbar, Nav, Form, Button} from 'react-bootstrap';
 import {Modal, ModalBody, ModalHeader} from "reactstrap";
 import {NavLink} from "react-router-dom"
 import {Loading} from "../../shared/Loading";

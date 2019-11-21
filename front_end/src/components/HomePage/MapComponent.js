@@ -21,19 +21,14 @@ export default class MapComponent extends Component{
 
     render() {
 
-        const radius = this.state.pointRadius
-        const color = this.state.color
-        const lineWidth = this.state.lineWidth
+        const radius = this.state.pointRadius;
+        const color = this.state.color;
+        const lineWidth = this.state.lineWidth;
 
-        const points = []
+        const points = [];
 
         if (this.props.schedule.schedule.length !== 0){
-            console.log(this.props.schedule.schedule.length)
-            console.log(this.props.schedule.schedule)
             this.props.schedule.schedule[0].routes.forEach(function (route,index) {
-
-                console.log("Route Origin " + route.origin.toLowerCase())
-                console.log("The value of the mapping" + cityToCoordinate[route.origin.toLowerCase()])
 
                 const coordinatesOrigin = route.origin.toLowerCase() in cityToCoordinate ? cityToCoordinate[route.origin.toLowerCase()] : cityToCoordinate["default"];
                 const coordinatesDestination =  route.destination.toLowerCase() in cityToCoordinate ? cityToCoordinate[route.destination.toLowerCase()] : cityToCoordinate["default"];

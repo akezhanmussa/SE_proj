@@ -61,7 +61,7 @@ class PrintTicket extends Component{
             return (<div>{this.state.errMess}</div>);
         }else{
             return (
-                <div>
+                <div style={{backgroundColor: 'rgba(255, 255, 255, .95)'}}>
                     <div className='container mt-3'>
                         <div className='row' style={{height:"80px"}}>
                             <div className='col-4 d-flex justify-content-center align-items-center' style={{borderRight: '2px solid blue', borderBottom:"1px solid blue"}}>
@@ -72,7 +72,7 @@ class PrintTicket extends Component{
                                 <i className="fa fa-check" style={{fontSize:"30px", color:"green" }}></i>
                                 <h4>Place reserved</h4>
                             </div>
-                            <div className='col-4 d-flex justify-content-center align-items-center' style={{backgroundColor:"#f3f4f5", borderBottom:"1px solid blue"}}>
+                            <div className='col-4 d-flex justify-content-center align-items-center' style={{borderBottom:"1px solid blue"}}>
                                 <i className="fa fa-check" style={{fontSize:"30px", color:"green" }}></i>
                                 <h4>Checkout</h4>
                             </div>
