@@ -27,7 +27,7 @@ export const fetchSchedule = (path) => (dispatch) => {
     path.date = getParsedDate(path.date);
     path.daytime = path.daytime.map(el => el.value);
     path.daytime = path.daytime[0];
-    console.log(path)
+    console.log(path);
     return fetch(baseUrl, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},

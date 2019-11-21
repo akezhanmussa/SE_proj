@@ -56,7 +56,7 @@ class SearchRoutes extends Component{
             opts.push({value: locations[i].id, label: locations[i].name});
         }
         return(
-            <div>
+            <div style={{marginTop: 30}}>
                 <div className='row'>
                     <Card className='search-box' id='search' style={{width: 500}}>
                         <CardTitle  >

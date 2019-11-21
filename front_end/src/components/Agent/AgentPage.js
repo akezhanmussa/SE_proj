@@ -17,6 +17,10 @@ class AgentPage extends Component{
         this.fetchMyTickets = this.fetchMyTickets.bind(this);
     }
 
+    componentDidMount() {
+        console.log(this.state)
+    }
+
     fetchProfile = (profile)=> {
         this.setState(prevState => ({
             ...prevState,
