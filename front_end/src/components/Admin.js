@@ -57,7 +57,7 @@ class Admin extends Component{
             <div id='admin'>
                 <NavBar logoutAdmin={this.props.logoutAdmin}/>
                 {
-                    this.state.isManager ? <ManagerProfile/>
+                    this.state.isManager ? <ManagerProfile admin={this.props.admin}/>
                     : <AgentPage admin={this.props.admin}/>
                 }
             </div>

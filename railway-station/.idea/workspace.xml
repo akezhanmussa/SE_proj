@@ -7,13 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../front_end/src/components/Manager/ManagerPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Admin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front_end/src/components/Manager/Employees.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Manager/Employees.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Manager/ManagerProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Manager/ManagerProfile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front_end/src/components/Manager/Routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Manager/Routes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front_end/src/shared/BaseUrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/BaseUrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/UpdateRouteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/UpdateRouteServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/RouteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/UpdateAgentsOfManagerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/UpdateAgentsOfManagerServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/AgentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/AgentController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,12 +67,6 @@
         <option name="importAutomatically" value="true" />
       </MavenImportingSettings>
     </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="67" />
-    <option name="y" value="25" />
-    <option name="width" value="1217" />
-    <option name="height" value="1055" />
   </component>
   <component name="ProjectId" id="1ThfWK0Bp7wJNuEha51EDZ3pXFG" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -189,6 +186,8 @@
       <workItem from="1574068153244" duration="1125000" />
       <workItem from="1574232615185" duration="700000" />
       <workItem from="1574241245676" duration="1203000" />
+      <workItem from="1574364780638" duration="347000" />
+      <workItem from="1574365755210" duration="1377000" />
     </task>
     <servers />
   </component>

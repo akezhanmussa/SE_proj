@@ -110,12 +110,15 @@ public class AgentController {
 
     public static void updateAgentSalary(int agentId, float salary) {
 
+        System.out.println(agentId + " ----- " + salary);
+
         Statement passengerStatement = Connector.getStatement();
 
         String queryInsert = String.format("Update Agent Set salary = %f where idAgent = %d",
                 salary, agentId);
         try {
             passengerStatement.executeUpdate(queryInsert);
+            System.out.println("EXECUTED");
             passengerStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -138,6 +141,7 @@ public class AgentController {
     }
 
     public static void updateAgentWorkingHours(int agentId, int workingHours) {
+        System.out.println(agentId + " ----- " + workingHours);
 
         Statement passengerStatement = Connector.getStatement();
 
@@ -145,6 +149,7 @@ public class AgentController {
                 workingHours, agentId);
         try {
             passengerStatement.executeUpdate(queryInsert);
+            System.out.println("EXECUTED");
             passengerStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();

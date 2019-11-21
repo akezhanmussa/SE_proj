@@ -2,8 +2,29 @@ import React, {Component} from 'react';
 import CreateAgentForm from "./CreateAgentForm";
 import Routes from "./Routes";
 import Employees from "./Employees";
+import Profile from "../Agent/Profile";
+import ManagerPage from "./ManagerPage";
 
 class ManagerProfile extends Component{
+
+    constructor(props){
+        super(props)
+        this.state = {
+            profile:null
+        }
+
+        this.fetchProfile = this.fetchProfile.bind(this);
+
+    }
+
+    fetchProfile = (profile)=> {
+        this.setState(prevState => ({
+            ...prevState,
+            profile: profile
+        }));
+    };
+
+
     render() {
         return (
             <div className='container d-flex'>
@@ -19,7 +40,8 @@ class ManagerProfile extends Component{
                 </div>
                 <div className="offset-1 tab-content col-8"  id="v-pills-tabContent">
                     <div className="tab-pane fade show active" style={{backgroundColor:"#ced3f2 !important"}} id="v-pills-profile" role="tabpanel"
-                         aria-labelledby="v-pills-home-tab">...
+                         aria-labelledby="v-pills-home-tab">
+                        <ManagerPage profile={this.state.profile} fetchPfofile={this.fetchProfile} admin={this.props.admin}/>
                     </div>
                     <div className="tab-pane fade" id="v-pills-routes" role="tabpanel"
                          aria-labelledby="v-pills-profile-tab">

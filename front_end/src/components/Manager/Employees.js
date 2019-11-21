@@ -1,11 +1,28 @@
 import React, {Component} from 'react';
 import BootstrapSwitchButton from "bootstrap-switch-button-react"
 import ManagerProfile from "./ManagerProfile";
-import {getAgentsUrl, getStationWorkersUrl} from "../../shared/BaseUrl";
+import {getAgentsUrl, getStationWorkersUrl,updateAgentSalWorkUrl,updateWorkerSalWorkUrl} from "../../shared/BaseUrl";
 import {Modal, ModalBody, ModalHeader} from "reactstrap";
 import {Form,Button} from "react-bootstrap";
 import FieldComponent from "./FieldComponent";
 import DatePicker from "react-datepicker";
+
+
+
+const updateOrGet = (url, body, method) =>{
+    return fetch(url, {
+        method: method,
+        headers: {'Content-Type':'application/json'},
+        body:JSON.stringify(body)
+    }).then(response => {
+        return response.json()
+    }).then(response => {
+        console.log(response)
+        return response;
+    }).catch (error => {
+        throw error
+    });
+}
 
 
 const fetchEmployee = (type) => {
@@ -39,7 +56,9 @@ class EmployeeTable extends Component {
             employees: [],
             expandedRows: [],
             salary:"",
-            workingHours:""
+            workingHours:"",
+            id:"",
+            isworker:""
         }
 
         this.handleAttribute = this.handleAttribute.bind(this)
@@ -68,6 +87,16 @@ class EmployeeTable extends Component {
 
 
     submitSalaryHours = () => {
+
+        const body = {"token":localStorage.getItem("admin_token"),"salary":this.state.salary,"workingHours":this.state.workingHours}
+        let mainUrl = this.state.isworker ? updateWorkerSalWorkUrl: updateAgentSalWorkUrl
+        console.log("HERE IN THE METHOD")
+        console.log(mainUrl)
+        updateOrGet(mainUrl, body, "POST").then(res => {
+            console.log("EVERYTHING WAS UPDATED")
+        }).catch(e => {
+            console.log("ERROR")
+        })
 
     }
 
@@ -163,6 +192,13 @@ class EmployeeTable extends Component {
                 this.setState({salary:item.salary})
             if (this.state.workingHours === "")
                 this.setState({workingHours:item.workingHours})
+
+            if (this.state.id === "")
+                this.setState({id:id})
+
+            if (this.state.isworker === ""){
+                this.setState({isworker:isworker})
+            }
 
             buttons.push(
                 <div>
@@ -266,7 +302,7 @@ class Employees extends Component{
         return(
             <div>
                 <div className="mt-4 mb-4 ml-3">
-                    <BootstrapSwitchButton onChange={(checked) => {this.setState({ checked: checked})}} onstyle = "secondary" width = {100} onlabel='Station Workers' offlabel='Agents' checked={false}/>
+                    <BootstrapSwitchButton onChange={(checked) => {this.setState({ checked: checked})}} onstyle = "secondary" width = {100} onlabel='Workers' offlabel='Agents' checked={false}/>
                 </div>
                 <EmployeeTable isworker = {this.state.checked}
                                workerAttributes = {this.state.workerAttributes}
