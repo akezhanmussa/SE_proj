@@ -1,7 +1,6 @@
 package kz.edu.nu.cs.se.dao;
 
 import kz.edu.nu.cs.se.model.RouteModel;
-import kz.edu.nu.cs.se.model.RouteShortModel;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -174,25 +173,32 @@ public class RouteController {
         return routeModels;
     }
 
-    private static Boolean isValidRouteUpdate(Integer routeId, LocalDateTime startTime, LocalDateTime endTime) {
+    private static Boolean isValidRouteUpdate(Integer scheduleId, Integer routeId, LocalDateTime startTime, LocalDateTime endTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         try {
             Statement statement = Connector.getStatement();
-
             ResultSet routePrev = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE idRoute=%d", routeId-1));
             while(routePrev.next()) {
+                System.out.println("I FOUND THIS SUB-ROUT");
                 String endTimePrevString = routePrev.getString(2);
                 LocalDateTime endTimePrev = LocalDateTime.parse(endTimePrevString, formatter);
+
+                System.out.println(endTimePrev);
+                System.out.println(endTimePrevString);
 
                 if(startTime.isBefore(endTimePrev)) return false;
             }
 
-            ResultSet routeNext = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE idRoute=%d", routeId+1));
+            System.out.println("I AM BEFORE THE NEXT");
+            ResultSet routeNext = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE schedule_id=%d ", scheduleId));
             while(routeNext.next()) {
                 String startTimeNextString = routeNext.getString(1);
                 LocalDateTime startTimeNext = LocalDateTime.parse(startTimeNextString, formatter);
-
-                if(endTime.isAfter(startTimeNext)) return false;
+                System.out.println(startTimeNext);
+                if(endTime.isAfter(startTimeNext)) {
+                    System.out.println("AFTER TIME THE LAST ROUD");
+                    return false;
+                }
             }
 
             return true;
@@ -229,14 +235,18 @@ public class RouteController {
         try {
             Statement statement = Connector.getStatement();
 
-            if(isValidRouteUpdate(routeId, startTime, endTime)) {
+            System.out.println("BEFORE VALIDATION");
 
-//                System.out.println("HERE");
+//            if(isValidRouteUpdate(routeId, startTime, endTime)) {
+
+                System.out.println("HERE IN IS VALID");
                 String sqlStart = "UPDATE Route SET start_time=? WHERE idRoute=?";
                 PreparedStatement preparedStatementStart = Connector.prepareStatement(sqlStart);
                 preparedStatementStart.setTimestamp(1, java.sql.Timestamp.valueOf(startTime));
                 preparedStatementStart.setInt(2, routeId);
                 int startTimeRow = preparedStatementStart.executeUpdate();
+
+                System.out.println("HERE HERE1");
 
                 String sqlEnd = "UPDATE Route SET end_time=? WHERE idRoute=?";
                 PreparedStatement preparedStatementEnd = Connector.prepareStatement(sqlEnd);
@@ -244,6 +254,7 @@ public class RouteController {
                 preparedStatementEnd.setInt(2, routeId);
 
                 int endTimeRow = preparedStatementEnd.executeUpdate();
+                System.out.println("HERE HERE2");
 
                 statement.close();
                 if (!(endTimeRow == 1 && startTimeRow == 1)) {
@@ -251,7 +262,7 @@ public class RouteController {
                             "[ERROR] Failed to change route_id to agent (id=%d)", routeId));
                     return false;
                 }
-            }
+//            }
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
             return false;

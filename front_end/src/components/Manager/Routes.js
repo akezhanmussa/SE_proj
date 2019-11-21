@@ -1,28 +1,38 @@
 import React, {Component} from 'react';
-import {getRoutesUrl} from "../../shared/BaseUrl";
+import {getRoutesUrl,updateSubRouteUrl,deleteWholeRouteUrl} from "../../shared/BaseUrl";
 import {Button, Form} from "react-bootstrap"
 import {Modal, ModalBody, ModalHeader} from "reactstrap";
 import DatePicker from 'react-datepicker'
 import {Loading} from "../Loading";
 
-const getRoutesData = () => {
-    let body = {"token":localStorage.getItem("admin_token")}
-    return fetch(getRoutesUrl, {
-        method: 'POST',
+
+var dateFormat = require('dateformat');
+
+
+const updateOrGet = (url, body, method) =>{
+    return fetch(url, {
+        method: method,
         headers: {'Content-Type':'application/json'},
         body:JSON.stringify(body)
-    })
-        .then(response => {
-            return response.json();
-        })
-        .then(response => {
-            console.log(response)
-            return response;
-        })
-        .catch (error => {
+    }).then(response => {
+        return response.json()
+    }).then(response => {
+        console.log(response)
+        return response;
+    }).catch (error => {
             throw error
         });
 }
+
+const getParsedDate = (date) =>{
+    var dd = date.getDate();
+    var mm = date.getMonth()+1;
+    var yyyy = date.getFullYear();
+    if(dd<10)dd='0'+dd
+    if(mm<10)mm='0'+mm
+    var today = yyyy + '-' + mm + '-' + dd;
+    return today;
+};
 
 class RouteModalForm extends Component{
     constructor(props){
@@ -33,10 +43,14 @@ class RouteModalForm extends Component{
             origin:props.origin,
             destination:props.destination,
             newStartTime:new Date(),
-            newEndTime:new Date()
+            newEndTime:new Date(),
+            routeId:this.props.routeId,
+            hiddenMessage: "",
+            color:"red"
         }
 
-        this.handleTimeRoute = this.handleTimeRoute.bind(this)
+        this.handleNewStartTime = this.handleNewStartTime.bind(this)
+        this.handleNewEndTime = this.handleNewEndTime.bind(this)
         this.actModal = this.actModal.bind(this)
     }
 
@@ -44,15 +58,37 @@ class RouteModalForm extends Component{
         this.setState({isModalOpen: !this.state.isModalOpen});
     }
 
-    handleTimeRoute = (timeRoute) => {
-        this.setState({timeRoute})
+    handleNewStartTime= (newStartTime) => {
+        this.setState({newStartTime})
     };
+
+    handleNewEndTime = (newEndTime) => {
+        this.setState({newEndTime})
+    };
+
+
 
     handleSubRoute = () => {
 
+        let newStartTime = getParsedDate(this.state.newStartTime) + " 00:00:00"
+        let newEndTime = getParsedDate(this.state.newEndTime) + " 00:00:00"
+
+        console.log(this.state.routeId + " " + newStartTime + " " + newEndTime)
+
+        let body = {"token":localStorage.getItem("admin_token"), "routeId":this.state.routeId, "startTime":newStartTime, "endTime":newEndTime}
+
+        updateOrGet(updateSubRouteUrl,body,"POST").then(res => {
+            this.setState({hiddenMessage:"The subroute was updated successfully"})
+            this.setState({color:"green"})
+        }).catch(error => {
+            this.setState({hiddenMessage:"Can't update the sub route, time clash"})
+            this.setState({color:"red"})
+        })
     }
 
     render(){
+        const hiddenMessageStyle = {color:this.state.color};
+
         return(
             <div>
                 <button className='btn btn-light' onClick={this.actModal}>Time Route</button>
@@ -70,16 +106,18 @@ class RouteModalForm extends Component{
                                         <p className="ml-2">
                                             New Start Time
                                         </p>
-                                        <DatePicker className='ml-2' selected = {this.state.newStartTime} onChange={this.handleTimeRoute} />
+                                        <DatePicker className='ml-2' selected = {this.state.newStartTime} onChange={this.handleNewStartTime} />
                                     </Form.Row>
                                     <Form.Row>
                                         <p className="mt-3 ml-2">
                                             New End Time
                                         </p>
-                                        <DatePicker className='mt-3 ml-3 mr-2' selected = {this.state.newEndTime} onChange={this.handleTimeRoute} />
+                                        <DatePicker className='mt-3 ml-3 mr-2' selected = {this.state.newEndTime} onChange={this.handleNewEndTime} />
                                     </Form.Row>
                                 </Form>
                             </div>
+                            <div className = 'line'></div>
+                            <h8 className = "ml-2 mt-2" style = {hiddenMessageStyle}>{this.state.hiddenMessage}</h8>
                             <Button className='mt-3 btn-secondary' onClick = {this.handleSubRoute}>
                                 Update Route
                             </Button>
@@ -98,14 +136,16 @@ class Routes extends Component {
         this.state = {
             routes : [],
             expandedRows : [],
-            mapToWord:{"1":"January","2":"February","3":"March","10":"October"}
+            id:"",
+            mapToWord:{"1":"January","2":"February","3":"March","10":"October", "9":"September", "11":"November","8":"August"}
         };
 
-        this.changeRouteTime = this.changeRouteTime.bind(this)
+        this.deleteWholeRoute = this.deleteWholeRoute.bind(this)
     }
 
     componentDidMount() {
-        getRoutesData().then(res =>{
+        let bodyToken = {"token":localStorage.getItem("admin_token")}
+        updateOrGet(getRoutesUrl, bodyToken,"POST").then(res =>{
                 this.setState({routes:res})
             }
         ).catch(error =>
@@ -125,8 +165,13 @@ class Routes extends Component {
         this.setState({expandedRows : newExpandedRows});
     }
 
-    changeRouteTime = () => {
-
+    deleteWholeRoute = () => {
+        let bodyToken = {"token":localStorage.getItem("admin_token"),"scheduleId":this.state.id}
+        updateOrGet(deleteWholeRouteUrl, bodyToken, "POST").then(res =>{
+            console.log("URA")
+        }).catch(e =>{
+            throw e
+        })
     }
 
     renderItem(item) {
@@ -144,8 +189,6 @@ class Routes extends Component {
 
         if(this.state.expandedRows.includes(item.id)) {
 
-
-
             item.routes.forEach(function(elem){
                 console.log()
 
@@ -155,7 +198,6 @@ class Routes extends Component {
 
                 let endTime = new Date(elem.endTime)
                 let enTodayTime = endTime.getHours() + " : " + endTime.getMinutes()
-                let enYearMonth = endTime.getFullYear() + " " + this.state.mapToWord[endTime.getMonth()]
 
                 if (startTime.getMinutes() === 0){
                     stTodayTime += "0"
@@ -175,7 +217,7 @@ class Routes extends Component {
                                     {startTime.getFullYear()}
                                 </span>
                                 <span className = "sub header">
-                                    {this.state.mapToWord[endTime.getMonth()]}
+                                    {this.state.mapToWord[endTime.getMonth()] + " " + endTime.getDay()}
                                 </span>
                                 <span className = "sub header">
                                     {elem.origin}
@@ -196,7 +238,7 @@ class Routes extends Component {
                                     {endTime.getFullYear()}
                                 </span>
                                 <span className = "sub header">
-                                    {this.state.mapToWord[endTime.getMonth()]}
+                                    {this.state.mapToWord[endTime.getMonth()] + " " + endTime.getDay()}
                                 </span>
                                 <span className = "sub header">
                                     {elem.destination}
@@ -205,11 +247,15 @@ class Routes extends Component {
 
                         </td>
                         <td>
-                            <RouteModalForm></RouteModalForm>
+                            <RouteModalForm routeId ={elem.routeId}></RouteModalForm>
                         </td>
                     </tr>
                 );
             }.bind(this))
+        }
+
+        if (this.state.id === ""){
+            this.setState({id:item.id})
         }
 
         let subRouteTable = [
@@ -225,7 +271,7 @@ class Routes extends Component {
                     </thead>
                     <tbody>{subRoutes}</tbody>
                 </table>
-                <Button className = "btn-danger mt-2 mb-4">Delete Whole Route</Button>
+                <Button className = "btn-danger mt-2 mb-4" onClick={this.deleteWholeRoute}>Delete Whole Route</Button>
             </div>
         ]
 
