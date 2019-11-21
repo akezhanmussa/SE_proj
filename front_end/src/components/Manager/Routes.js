@@ -137,7 +137,8 @@ class Routes extends Component {
             routes : [],
             expandedRows : [],
             id:"",
-            mapToWord:{"1":"January","2":"February","3":"March","10":"October", "9":"September", "11":"November","8":"August"}
+            mapToWord:{"1":"January","2":"February","3":"March","10":"October", "9":"September", "11":"November","8":"August"},
+            isLoading:false
         };
 
         this.deleteWholeRoute = this.deleteWholeRoute.bind(this)
@@ -168,7 +169,17 @@ class Routes extends Component {
     deleteWholeRoute = () => {
         let bodyToken = {"token":localStorage.getItem("admin_token"),"scheduleId":this.state.id}
         updateOrGet(deleteWholeRouteUrl, bodyToken, "POST").then(res =>{
-            console.log("URA")
+            this.setState({isLoading:true})
+            updateOrGet(getRoutesUrl, bodyToken,"POST").then(res =>{
+                    this.setState({routes:res})
+                this.setState({isLoading:false})
+                }
+            ).catch(error =>
+                {
+                    this.setState({isLoading:false})
+                    throw error
+                }
+            )
         }).catch(e =>{
             throw e
         })
@@ -271,6 +282,7 @@ class Routes extends Component {
                     </thead>
                     <tbody>{subRoutes}</tbody>
                 </table>
+                {this.state.isLoading ? <Loading></Loading> : <div></div>}
                 <Button className = "btn-danger mt-2 mb-4" onClick={this.deleteWholeRoute}>Delete Whole Route</Button>
             </div>
         ]
