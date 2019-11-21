@@ -21,12 +21,15 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
 @WebServlet(urlPatterns = {"/myrailway/agent/assign-ticket"})
 public class AssignTicketToAgentServlet extends HttpServlet {
+
+    private static final Logger logger = Logger.getLogger(AssignTicketToAgentServlet.class.getName());
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -36,13 +39,13 @@ public class AssignTicketToAgentServlet extends HttpServlet {
         String token = ticketToAgentObject.getToken();
 
         if (isExpired(token)){
-            System.out.println("[ERROR] Token has expired");
+            logger.warning("Token has expired");
             response.sendError(401, "Token has expired");
             return;
         }
 
         if (!isAgent(token)) {
-            System.out.println("[ERROR] Permission denied, not an agent");
+            logger.warning("Permission denied, not an agent");
             response.sendError(401, "[ERROR] Permission denied, not an agent");
             return;
         }
@@ -52,7 +55,7 @@ public class AssignTicketToAgentServlet extends HttpServlet {
         Optional<Integer> optionalAgentID = AgentController.getAgentIDByUsername(agentUsername);
 
         if (!optionalAgentID.isPresent()) {
-            System.out.println("[ERROR] Failed to fetch agentID for username: " + agentUsername);
+            logger.severe("Failed to fetch agentID for username: " + agentUsername);
             response.sendError(401, "[ERROR] Failed to fetch agentID for username: " + agentUsername);
             return;
         }
@@ -66,20 +69,20 @@ public class AssignTicketToAgentServlet extends HttpServlet {
         Optional<Integer> optionalStationId = AgentController.getAgentStationID(optionalAgentID.get());
 
         if (!optionalStationId.isPresent()) {
-            System.out.println("[ERROR] Failed to fetch stationID for agentID: " + optionalAgentID.get());
+            logger.severe("Failed to fetch stationID for agentID: " + optionalAgentID.get());
             response.sendError(401, "[ERROR] Failed to fetch stationID for agentID: " + optionalAgentID.get());
             return;
         }
 
         Integer stationId = optionalStationId.get();
 
-        System.out.printf("[INFO] Fetching unapproved tickets for stationID=%d%n", stationId);
+        logger.info(String.format("[INFO] Fetching unapproved tickets for stationID=%d%n", stationId));
 
         ArrayList<TicketModel> ticketModels = TicketController.getUnapprovedTickets(stationId);
         ArrayList<TicketForAgent> tickets = ticketModels.stream().map(TicketForAgent::new).
                 collect(Collectors.toCollection(ArrayList::new));
 
-        System.out.printf("[INFO] Fetched %d unapproved tickets.%n", tickets.size());
+        logger.info(String.format("[INFO] Fetched %d unapproved tickets.%n", tickets.size()));
 
         HashMap<String, Object> responseDict = new HashMap<>();
         responseDict.put("data", tickets);

@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 @WebServlet(urlPatterns = { "/myrailway/auth/register" })
 public class RegisterPassengerServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(RegisterPassengerServlet.class.getName());
     private static final String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
     public RegisterPassengerServlet() {
@@ -49,13 +51,16 @@ public class RegisterPassengerServlet extends HttpServlet {
                 response.setCharacterEncoding("UTF-8");
 
                 PrintWriter out = response.getWriter();
+                logger.info("Successfully registered!");
                 out.append(gson.toJson("Successfully registered!"));
                 out.flush();
             }
             else{
+                logger.info("Such username already exists");
                 response.sendError(400, "Such username already exists");
             }
         } else{
+            logger.info("Invalid email");
             response.sendError(400, "Invalid email");
         }
 

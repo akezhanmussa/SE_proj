@@ -16,12 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @WebServlet(urlPatterns = { "/myrailway/admin/login" })
 public class LoginAdminServlet extends HttpServlet {
+    private static Logger logger = Logger.getLogger(LoginAdminServlet.class.getName());
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -39,9 +41,10 @@ public class LoginAdminServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try {
-            System.out.println("hererer");
+            logger.info("Trying to generate new token");
             token = JWTUtils.generateToken(user);
         } catch (Exception ex) {
+            logger.warning("Username or password incorrect");
             response.sendError(response.SC_BAD_REQUEST,"Username or password incorrect");
             out.flush();
         }
@@ -51,6 +54,7 @@ public class LoginAdminServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
+        logger.info(String.format("Generated token: %s", token.get()));
         out.append(gson.toJson(token.get()));
         out.flush();
 

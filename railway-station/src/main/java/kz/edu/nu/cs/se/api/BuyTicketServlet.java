@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.getUserFromToken;
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
@@ -20,16 +21,18 @@ import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
 @WebServlet(urlPatterns = {"/myrailway/buyticket"})
 public class BuyTicketServlet extends HttpServlet {
 
+    private static final Logger logger = Logger.getLogger(BuyTicketServlet.class.getName());
+
     public BuyTicketServlet() {super();}
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         TicketRequestObject ticketRequestObject = new Gson().fromJson(request.getReader(), TicketRequestObject.class);
         String token = ticketRequestObject.getToken();
 
-        System.out.println(String.format("Received token: %s", token));
+        logger.info(String.format("Received token: %s", token));
 
         if (isExpired(token)){
-            System.out.println("[ERROR] Token has expired");
+            logger.warning("[ERROR] Token has expired");
             response.sendError(401, "Token has expired");
         }
 

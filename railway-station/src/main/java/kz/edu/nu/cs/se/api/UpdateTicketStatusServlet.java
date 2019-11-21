@@ -20,12 +20,14 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
 @WebServlet(urlPatterns = {"/myrailway/ticket/update-status"})
 public class UpdateTicketStatusServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(UpdateTicketStatusServlet.class.getName());
 
     private static final String APPROVED = "APPROVED";
     private static final String DECLINED = "DECLINED";
@@ -37,13 +39,13 @@ public class UpdateTicketStatusServlet extends HttpServlet {
 
         String token = ticketStatusObject.getToken();
         if (isExpired(token)){
-            System.out.println("[ERROR] Token has expired");
+            logger.warning("[ERROR] Token has expired");
             response.sendError(401, "Token has expired");
             return;
         }
 
         if (!isAgent(token)) {
-            System.out.println("[ERROR] Permission denied, not an agent");
+            logger.warning("[ERROR] Permission denied, not an agent");
             response.sendError(401, "[ERROR] Permission denied, not an agent");
             return;
         }
@@ -53,7 +55,7 @@ public class UpdateTicketStatusServlet extends HttpServlet {
         Optional<Integer> optionalAgentID = AgentController.getAgentIDByUsername(agentUsername);
 
         if (!optionalAgentID.isPresent()) {
-            System.out.println("[ERROR] Failed to fetch agentID for username: " + agentUsername);
+            logger.warning("[ERROR] Failed to fetch agentID for username: " + agentUsername);
             response.sendError(401, "[ERROR] Failed to fetch agentID for username: " + agentUsername);
             return;
         }
@@ -62,7 +64,7 @@ public class UpdateTicketStatusServlet extends HttpServlet {
         Integer agentID = optionalAgentID.get();
 
         if (!TicketController.verifyAssigmentOfAgent(agentID, ticketID)) {
-            System.out.println("[ERROR] Trying to change forbidden ticket status.");
+            logger.warning("[ERROR] Trying to change forbidden ticket status.");
             response.sendError(503, "Trying to change forbidden ticket status.");
             return;
         }
@@ -74,7 +76,7 @@ public class UpdateTicketStatusServlet extends HttpServlet {
         if (status) {
             // skip
         } else {
-            System.out.println("[ERROR] Ticket change status validation failed");
+            logger.warning("[ERROR] Ticket change status validation failed");
             response.sendError(503, "[ERROR] Ticket change status validation failed");
             return;
         }
@@ -83,7 +85,7 @@ public class UpdateTicketStatusServlet extends HttpServlet {
         ArrayList<TicketForAgent> ticketForAgents = ticketModels.stream().map(TicketForAgent::new).
                 collect(Collectors.toCollection(ArrayList::new));
 
-        System.out.printf("[INFO] Fetched %d unapproved tickets.%n", ticketForAgents.size());
+        logger.info(String.format("[INFO] Fetched %d unapproved tickets.%n", ticketForAgents.size()));
 
         PrintWriter out = response.getWriter();
         out.append(new Gson().toJson(ticketForAgents));

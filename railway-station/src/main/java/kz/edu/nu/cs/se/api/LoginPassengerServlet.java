@@ -14,9 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @WebServlet(urlPatterns = { "/myrailway/auth/login" })
 public class LoginPassengerServlet extends HttpServlet {
+    private final static Logger logger = Logger.getLogger(LoginPassengerServlet.class.getName());
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -32,6 +35,8 @@ public class LoginPassengerServlet extends HttpServlet {
         String userName = loginObject.getUserName();
         String password = loginObject.getPassword();
 
+        logger.info(String.format("Received userName: %s password: %s", userName, password));
+
         Optional<String> token = Optional.empty();
 
         Optional<User> user = PassengerController.getPassenger(userName, password);
@@ -41,6 +46,7 @@ public class LoginPassengerServlet extends HttpServlet {
         }
 
         if(!token.isPresent()){
+            logger.warning("Username or password incorrect");
             response.sendError(response.SC_BAD_REQUEST,"Username or password incorrect");
             return;
         }

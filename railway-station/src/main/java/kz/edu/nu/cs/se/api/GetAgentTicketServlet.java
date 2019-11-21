@@ -18,25 +18,29 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
 @WebServlet(urlPatterns = {"/myrailway/agent/get-agent-ticket"})
 public class GetAgentTicketServlet extends HttpServlet {
+
+    private static final Logger logger = Logger.getLogger(GetAgentTicketServlet.class.getName());
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
-        System.out.println(String.format("Received token: %s", token));
+        logger.info(String.format("Received token: %s", token));
 
         if (isExpired(token)){
-            System.out.println("[ERROR] Token has expired");
+            logger.warning("[ERROR] Token has expired");
             response.sendError(401, "Token has expired");
             return;
         }
 
         if (!isAgent(token)) {
-            System.out.println("[ERROR] Permission denied, not an agent");
+            logger.warning("[ERROR] Permission denied, not an agent");
             response.sendError(401, "[ERROR] Permission denied, not an agent");
             return;
         }
@@ -45,7 +49,7 @@ public class GetAgentTicketServlet extends HttpServlet {
         Optional<Integer> optionalAgentID = AgentController.getAgentIDByUsername(agentUsername);
 
         if (!optionalAgentID.isPresent()) {
-            System.out.println("[ERROR] Failed to fetch agentID for username: " + agentUsername);
+            logger.severe("[ERROR] Failed to fetch agentID for username: " + agentUsername);
             response.sendError(401, "[ERROR] Failed to fetch agentID for username: " + agentUsername);
             return;
         }

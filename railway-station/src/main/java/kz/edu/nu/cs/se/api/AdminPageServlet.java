@@ -13,23 +13,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
 @WebServlet(urlPatterns = {"/myrailway/admin/mypage"})
 public class AdminPageServlet extends HttpServlet {
 
+    private final static Logger logger = Logger.getLogger(AdminPageServlet.class.getName());
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Gson gson = new Gson();
-        System.out.println("herreee: "+request.getReader());
+
+        logger.info("Received request body: : "+request.getReader());
+
         String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
-        System.out.println("mytoken: " + token);
+        logger.info("Fetched token: : " + token);
+
         if (isExpired(token)){
+            logger.warning("Token has expired");
             response.sendError(401, "Token has expired");
             return;
         }
 
         if(!(isManager(token) || isAgent(token))) {
+            logger.warning("Unauthorized as admin");
             response.sendError(401, "Unauthorized as admin");
             return;
         }
