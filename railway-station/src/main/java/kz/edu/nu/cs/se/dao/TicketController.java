@@ -264,7 +264,7 @@ public class TicketController {
 
             EmailService.sendTicketCanceled(emailList);
 
-            int deletedTicketsCount = statement.executeUpdate(String.format("UPDATE Ticket SET schedule_id=NULL WHERE schedule_id=%d", scheduleId));
+            int deletedTicketsCount = statement.executeUpdate(String.format("UPDATE Ticket SET schedule_id=NULL, status='CANCELLED' WHERE schedule_id=%d", scheduleId));
 
             if(deletedTicketsCount <= 0) {
                 System.out.println("[ERROR] Failed to tickets schedule_id to null");

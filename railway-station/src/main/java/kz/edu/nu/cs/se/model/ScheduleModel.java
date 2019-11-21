@@ -16,16 +16,29 @@ public class ScheduleModel {
     private LocalDateTime endTimeObject;
     private TrainModel trainModel;
     private ArrayList<RouteModel> routes;
+    private Integer capacity;
+    private Integer price;
 
     public ScheduleModel(Integer id) {
         this.setId(id);
         this.setRoutes(new ArrayList<>());
+        this.price = 0;
     }
 
     public ArrayList<RouteModel> getRoutes() { return routes; }
 
     public void AddRoute(RouteModel route) {
+        if (routes.size() == 0) {
+            capacity = route.getCapacity();
+        } else {
+            capacity = Math.min(capacity, route.getCapacity());
+        }
+        this.price += route.getPrice();
         routes.add(route);
+    }
+
+    public Integer getCapacity() {
+        return this.capacity;
     }
 
     public Integer getId() {
@@ -37,7 +50,7 @@ public class ScheduleModel {
     }
 
     public void setRoutes(ArrayList<RouteModel> routes) {
-        this.routes = routes;
+        for (RouteModel routeModel : routes) this.AddRoute(routeModel);
     }
 
     public LocalDateTime getStartTimeObject() {
@@ -97,5 +110,13 @@ public class ScheduleModel {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm:ss");
         startTime = startTimeObject.format(formatter);
         endTime = endTimeObject.format(formatter);
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }
