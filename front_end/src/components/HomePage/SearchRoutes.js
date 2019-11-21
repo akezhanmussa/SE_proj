@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker'
 import ScheduleTable from './ScheduleTable';
 import "react-datepicker/dist/react-datepicker.css";
 import {locations} from '../../shared/Locations'
+import { Card, CardBody, CardTitle } from 'reactstrap';
 
 class SearchRoutes extends Component{
     constructor(props){
@@ -55,13 +56,17 @@ class SearchRoutes extends Component{
             opts.push({value: locations[i].id, label: locations[i].name});
         }
         return(
-            <div>
-                <div className='row justify-content-around'>
-                    <div className='search-box' style={{width: 500}}>
+            <div style={{marginTop: 30}}>
+                <div className='row'>
+                    <Card className='search-box' id='search' style={{width: 500}}>
+                        <CardTitle  >
+                            <h3 id='searchHeader'>Search for a route</h3>
+                        </CardTitle>
+                        <CardBody>
                         <Form>
                             <Form.Row>
-                                <Form.Group className = "col-6">
-                                    <Form.Label>Start Station</Form.Label>
+                                <Form.Group className = "col-12">
+                                    <Form.Label><b>Start Station</b> </Form.Label>
                                     <Select
                                         name = "form-field-name"
                                         defaultValue = {this.state.startStation}
@@ -69,8 +74,11 @@ class SearchRoutes extends Component{
                                         options = {opts}
                                     />
                                 </Form.Group>
-                                <Form.Group className = "col-6 ml-auto">
-                                    <Form.Label>Destination Station</Form.Label>
+                            </Form.Row>
+
+                            <Form.Row>
+                                <Form.Group className = "col-12">
+                                    <Form.Label><b>Destination Station</b></Form.Label>
                                     <Select
                                         name = "form-field-name"
                                         value = {this.state.destinationStation}
@@ -82,7 +90,7 @@ class SearchRoutes extends Component{
 
                             <Form.Row>
                                 <Form.Group className = "col-12">
-                                    <p>Time range</p>
+                                    <p><b>Time range</b></p>
                                     <Select
                                         name = "form-field-name"
                                         isMulti
@@ -101,7 +109,7 @@ class SearchRoutes extends Component{
 
                             <Form.Row>
                                 <Form.Group className="col-8 d-flex">
-                                    <p>Route Day</p>
+                                    <p><b>Route Day</b></p>
                                     <DatePicker className='ml-2' selected = {this.state.timeRoute} onChange={this.handleTimeRoute} />
                                 </Form.Group>
                                 <Form.Group className='ml-auto mr-2'>
@@ -115,7 +123,8 @@ class SearchRoutes extends Component{
 
                             </Form.Row>
                         </Form>
-                    </div>
+                        </CardBody>
+                    </Card>
                 </div>
                 <div className='row justify-content-around'>
                     <ScheduleTable schedule={this.props.schedule}/>

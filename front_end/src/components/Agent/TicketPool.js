@@ -20,7 +20,13 @@ class TicketPool extends Component{
                 headers: {'Content-Type':'application/json'},
                 body:JSON.stringify({token: this.props.admin.admin_token})
             })
-                .then(res => res.json())
+                .then(res => {
+                    if(res.ok)
+                        return res.json();
+                    else {
+                        throw new Error("Error " + res.status)
+                    }
+                })
                 .then(res => {
                     this.props.fetchPullTicket(res);
                     this.setState({isLoading: false});

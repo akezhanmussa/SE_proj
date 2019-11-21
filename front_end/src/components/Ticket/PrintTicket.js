@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Loading} from "../../shared/Loading";
-import {baseUrl, getTiketsUrl} from "../../shared/BaseUrl";
+import {baseUrl} from "../../shared/BaseUrl";
 import {locations} from "../../shared/Locations";
 
 class PrintTicket extends Component{
@@ -25,27 +25,27 @@ class PrintTicket extends Component{
     componentDidMount() {
         const toDict = {userToken: this.props.loginUser.token, agentToken: this.props.admin.admin_token, ticketID: this.props.id};
         this.setState({isLoading: true});
+        console.log(JSON.stringify(toDict));
         return fetch(baseUrl + '/user/fetch-ticket', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(toDict)
         })
-            .then(response => {
-                if(response.ok){
-                    return response.json();
-                }
-                else{
-                    var error = new Error("Error " + response.status + ': ' + response.statusText);
-                    error.response = response;
-                    throw error;
+            .then(res => {
+                console.log(res)
+                if(res.ok)
+                    return res.json();
+                else {
+                    throw new Error("Error " + res.status)
                 }
             })
             .then(response => {
-                console.log(response)
+                console.log(response);
                 this.setState({ticket: response});
                 this.setState({isLoading: false});
             })
             .catch (error => {
+                console.log(error)
                 this.setState({isLoading: false});
                 this.setState({errMess: error.message});
             });
@@ -61,7 +61,7 @@ class PrintTicket extends Component{
             return (<div>{this.state.errMess}</div>);
         }else{
             return (
-                <div>
+                <div style={{backgroundColor: 'rgba(255, 255, 255, .95)'}}>
                     <div className='container mt-3'>
                         <div className='row' style={{height:"80px"}}>
                             <div className='col-4 d-flex justify-content-center align-items-center' style={{borderRight: '2px solid blue', borderBottom:"1px solid blue"}}>
@@ -72,7 +72,7 @@ class PrintTicket extends Component{
                                 <i className="fa fa-check" style={{fontSize:"30px", color:"green" }}></i>
                                 <h4>Place reserved</h4>
                             </div>
-                            <div className='col-4 d-flex justify-content-center align-items-center' style={{backgroundColor:"#f3f4f5", borderBottom:"1px solid blue"}}>
+                            <div className='col-4 d-flex justify-content-center align-items-center' style={{borderBottom:"1px solid blue"}}>
                                 <i className="fa fa-check" style={{fontSize:"30px", color:"green" }}></i>
                                 <h4>Checkout</h4>
                             </div>

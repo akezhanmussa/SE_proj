@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {baseUrl} from "../../shared/BaseUrl";
 import {Loading} from "../../shared/Loading";
+import {Form} from "react-bootstrap";
 
 class Profile extends Component{
     constructor(props){
@@ -13,14 +14,20 @@ class Profile extends Component{
     componentDidMount() {
         if(!this.props.profile){
             this.setState({isLoading: true});
-            fetch(baseUrl, {
+            fetch(baseUrl + '/admin/mypage', {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
-                body:JSON.stringify(this.props.admin.admin_token)
+                body:JSON.stringify({token:this.props.admin.admin_token})
             })
-                .then(res => res.json())
                 .then(res => {
-                    this.props.fetchProfile(res.body);
+                    if(res.ok)
+                        return res.json();
+                    else {
+                        throw new Error("Error " + res.status)
+                    }
+                })
+                .then(res => {
+                    this.props.fetchProfile(res);
                     this.setState({isLoading: false});
                 })
                 .catch(error => {
@@ -38,10 +45,54 @@ class Profile extends Component{
                 <div>{this.state.errMess}</div>
             );
         }
-        else{
+        else if(this.props.profile){
+            return (
+                <div className='row justify-content-start d-flex'>
+                    <img className='mt-4 ml-4' src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" width='250' height='250'/>
+                    <div className='info-form' style={{backgroundColor:"white"}}>
+                        <Form>
+                            <h3>{this.props.profile.firstName}</h3>
+                            <h5>{this.props.profile.userName}</h5>
+                            <div className = 'profile_info profile_info_short'>
+                                <div className = 'clear_fix profile_info_row '>
+                                    <div className = 'label fl_l'>First Name</div>
+                                    <div className = 'labeled'>
+                                        <a>{this.props.profile.firstName}</a>
+                                    </div>
+                                    <div className = 'clear_fix:after'></div>
+                                </div>
+                                <div className='clear_fix profile_info_row '>
+                                    <div className='label fl_l'>Last Name</div>
+                                    <div className='labeled'>
+                                        <a>{this.props.profile.lastName}</a>
+                                    </div>
+                                </div>
+                                <div className='clear_fix profile_info_row '>
+                                    <div className='label fl_l'>Email</div>
+                                    <div className='labeled'>
+                                        <a>{this.props.profile.email}</a>
+                                    </div>
+                                </div>
+                                <div className='clear_fix profile_info_row '>
+                                    <div className='label fl_l'>Phone Number</div>
+                                    <div className='labeled'>
+                                        <a>{this.props.profile.phoneNumber}</a>
+                                    </div>
+                                </div>
+                                <div className='clear_fix profile_info_row '>
+                                    <div className='label fl_l'>Salary</div>
+                                    <div className='labeled'>
+                                        <a>{this.props.profile.salary + 'kzt'}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </Form>
+                    </div>
+                </div>
+            );
+        }else{
             return (
                 <div>
-
                 </div>
             );
         }

@@ -36,11 +36,14 @@ export function adminLogin(adminData){
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(adminData)
         })
-            .then(res => res.json())
             .then(res => {
-                if (res.error){
-                    throw(res.error);
+                if(res.ok)
+                    return res.json();
+                else {
+                    throw new Error("Error " + res.status)
                 }
+            })
+            .then(res => {
                 localStorage.setItem('admin_token', JSON.stringify(res));
                 localStorage.setItem('admin', JSON.stringify(adminData));
                 console.log(res);
