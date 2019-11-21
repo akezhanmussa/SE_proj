@@ -3,6 +3,7 @@ package kz.edu.nu.cs.se.dao;
 import kz.edu.nu.cs.se.model.RouteModel;
 import kz.edu.nu.cs.se.model.ScheduleModel;
 import kz.edu.nu.cs.se.model.TrainModel;
+import kz.edu.nu.cs.se.view.Train;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,6 +39,7 @@ public class ScheduleController {
                     Integer endStationId = routeSet.getInt(6);
                     String startDateString = routeSet.getString(2);
                     String endDateString = routeSet.getString(3);
+                    Integer capacity = routeSet.getInt(4);
 
                     Optional<String> optionalStartName = stationController.getName(startStationId);
                     Optional<String> optionalEndName = stationController.getName(endStationId);
@@ -55,7 +57,8 @@ public class ScheduleController {
                     LocalDateTime startDateTime = LocalDateTime.parse(startDateString, formatter);
                     LocalDateTime endDateTIme = LocalDateTime.parse(endDateString, formatter);
 
-                    RouteModel route = new RouteModel(startName, endName, startDateTime, endDateTIme, routeId);
+                    RouteModel route = new RouteModel(startName, endName, startDateTime, endDateTIme, routeId,
+                            TrainController.getCapacity(trainId) - capacity);
 
                     if (startStationId.equals(origin)) {
                         scheduleModel.setOrigin(startName);
