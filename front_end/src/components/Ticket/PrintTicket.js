@@ -25,13 +25,14 @@ class PrintTicket extends Component{
     componentDidMount() {
         const toDict = {userToken: this.props.loginUser.token, agentToken: this.props.admin.admin_token, ticketID: this.props.id};
         this.setState({isLoading: true});
-        console.log(JSON.stringify(toDict))
+        console.log(JSON.stringify(toDict));
         return fetch(baseUrl + '/user/fetch-ticket', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(toDict)
         })
             .then(res => {
+                console.log(res)
                 if(res.ok)
                     return res.json();
                 else {
@@ -39,10 +40,12 @@ class PrintTicket extends Component{
                 }
             })
             .then(response => {
+                console.log(response);
                 this.setState({ticket: response});
                 this.setState({isLoading: false});
             })
             .catch (error => {
+                console.log(error)
                 this.setState({isLoading: false});
                 this.setState({errMess: error.message});
             });
