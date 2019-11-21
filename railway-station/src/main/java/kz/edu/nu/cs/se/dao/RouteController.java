@@ -1,6 +1,7 @@
 package kz.edu.nu.cs.se.dao;
 
 import kz.edu.nu.cs.se.model.RouteModel;
+import kz.edu.nu.cs.se.model.RouteShortModel;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -289,7 +290,7 @@ public class RouteController {
         return true;
     }
 
-    public static Boolean createRoutes(Integer scheduleId, Integer trainId, List<RouteShortModel> routeObjectList) {
+    public static Boolean createRoutes(Integer trainId, List<RouteShortModel> routeObjectList) {
         final Integer passengerNumber = 0;
         final Integer batchSize = 100;
         try {
@@ -300,7 +301,7 @@ public class RouteController {
             /*
              Create schedule first
              */
-            ScheduleController.createSchedule(globalStartStationId, globalEndStationId);
+            Integer scheduleId = ScheduleController.createSchedule(globalStartStationId, globalEndStationId).get();
 
             String sql = "INSERT INTO Route(start_time, end_time, passenger_number, start_station_id, " +
                     "end_station_id, schedule_id, Train_idTrain, price) VALUES(?,?,?,?,?,?,?,?)";
@@ -327,7 +328,7 @@ public class RouteController {
 
             return true;
 
-        } catch (SQLException ex) {
+        } catch (NoSuchElementException | SQLException ex) {
             System.out.println(ex.getMessage());
             return false;
         }

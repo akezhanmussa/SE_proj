@@ -1,6 +1,7 @@
 package kz.edu.nu.cs.se.dao;
 
 import kz.edu.nu.cs.se.model.AgentModel;
+import kz.edu.nu.cs.se.model.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -150,5 +151,30 @@ public class AgentController {
             e.printStackTrace();
         }
 
+    }
+
+    public static Optional<User> getAgent(String username){
+        Statement passengerStatement = Connector.getStatement();
+        try {
+            ResultSet agentSet = passengerStatement.executeQuery(String.format("SELECT * FROM Agent where username = '%s'", username));
+            while(agentSet.next()){
+                int agentId = agentSet.getInt(1);
+                Integer salary = agentSet.getInt(2);
+                Integer workingHours = agentSet.getInt(3);
+                String firstName = agentSet.getString(4);
+                String lastName= agentSet.getString(5);
+                String email= agentSet.getString(6);
+                String phoneNumber= agentSet.getString(7);
+                String userName= agentSet.getString(8);
+
+                User user = new User(firstName,lastName,email,phoneNumber,userName,agentId, salary, workingHours);
+                user.setUserRole("agent");
+                passengerStatement.close();
+                return Optional.of(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
     }
 }
