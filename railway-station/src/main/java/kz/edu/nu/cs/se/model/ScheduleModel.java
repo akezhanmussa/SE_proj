@@ -21,7 +21,7 @@ public class ScheduleModel {
 
     public ScheduleModel(Integer id) {
         this.setId(id);
-        this.setRoutes(new ArrayList<>());
+        this.routes = new ArrayList<>();
         this.price = 0;
     }
 
