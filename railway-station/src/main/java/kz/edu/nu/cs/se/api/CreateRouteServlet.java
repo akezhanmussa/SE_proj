@@ -36,12 +36,11 @@ public class CreateRouteServlet extends HttpServlet {
             return;
         }
 
-        Integer scheduleId = createRouteObject.getScheduleId();
         Integer trainId = createRouteObject.getTrainId();
         List<RouteShortModel> routesList = createRouteObject.getRoutes();
 
 
-        Boolean status = RouteController.createRoutes(scheduleId, trainId, routesList);
+        Boolean status = RouteController.createRoutes(trainId, routesList);
 
         if (status) {
             resp.sendError(202, "Success");

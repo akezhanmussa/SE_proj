@@ -6,16 +6,11 @@ import java.util.List;
 
 public class CreateRouteObject {
     String token;
-    Integer scheduleId;
     Integer trainId;
     List<RouteShortModel> routes;
 
     public String getToken() {
         return token;
-    }
-
-    public Integer getScheduleId() {
-        return scheduleId;
     }
 
     public Integer getTrainId() {
