@@ -19,7 +19,13 @@ class Profile extends Component{
                 headers: {'Content-Type':'application/json'},
                 body:JSON.stringify({token:this.props.admin.admin_token})
             })
-                .then(res => res.json())
+                .then(res => {
+                    if(res.ok)
+                        return res.json();
+                    else {
+                        throw new Error("Error " + res.status)
+                    }
+                })
                 .then(res => {
                     this.props.fetchProfile(res);
                     this.setState({isLoading: false});
@@ -41,8 +47,9 @@ class Profile extends Component{
         }
         else if(this.props.profile){
             return (
-                <div className='row justify-content-around'>
-                    <div className='info-form' style={{width: 450}}>
+                <div className='row justify-content-start d-flex'>
+                    <img className='mt-4 ml-4' src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" width='250' height='250'/>
+                    <div className='info-form' style={{backgroundColor:"white"}}>
                         <Form>
                             <h3>{this.props.profile.firstName}</h3>
                             <h5>{this.props.profile.userName}</h5>
@@ -50,7 +57,7 @@ class Profile extends Component{
                                 <div className = 'clear_fix profile_info_row '>
                                     <div className = 'label fl_l'>First Name</div>
                                     <div className = 'labeled'>
-                                        <a>{this.props.firstName}</a>
+                                        <a>{this.props.profile.firstName}</a>
                                     </div>
                                     <div className = 'clear_fix:after'></div>
                                 </div>
@@ -70,6 +77,12 @@ class Profile extends Component{
                                     <div className='label fl_l'>Phone Number</div>
                                     <div className='labeled'>
                                         <a>{this.props.profile.phoneNumber}</a>
+                                    </div>
+                                </div>
+                                <div className='clear_fix profile_info_row '>
+                                    <div className='label fl_l'>Salary</div>
+                                    <div className='labeled'>
+                                        <a>{this.props.profile.salary + 'kzt'}</a>
                                     </div>
                                 </div>
                             </div>

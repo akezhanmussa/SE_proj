@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Loading} from "../../shared/Loading";
-import {baseUrl, getTiketsUrl} from "../../shared/BaseUrl";
+import {baseUrl} from "../../shared/BaseUrl";
 import {locations} from "../../shared/Locations";
 
 class PrintTicket extends Component{
@@ -25,23 +25,20 @@ class PrintTicket extends Component{
     componentDidMount() {
         const toDict = {userToken: this.props.loginUser.token, agentToken: this.props.admin.admin_token, ticketID: this.props.id};
         this.setState({isLoading: true});
+        console.log(JSON.stringify(toDict))
         return fetch(baseUrl + '/user/fetch-ticket', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(toDict)
         })
-            .then(response => {
-                if(response.ok){
-                    return response.json();
-                }
-                else{
-                    var error = new Error("Error " + response.status + ': ' + response.statusText);
-                    error.response = response;
-                    throw error;
+            .then(res => {
+                if(res.ok)
+                    return res.json();
+                else {
+                    throw new Error("Error " + res.status)
                 }
             })
             .then(response => {
-                console.log(response)
                 this.setState({ticket: response});
                 this.setState({isLoading: false});
             })

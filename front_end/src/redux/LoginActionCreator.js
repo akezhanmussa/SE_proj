@@ -38,7 +38,11 @@ export function login(userData){
             body: JSON.stringify(userData)
         })
             .then(res => {
-                return res.json();
+                if(res.ok)
+                    return res.json();
+                else {
+                    throw new Error("Error " + res.status)
+                }
             })
             .then(res => {
                 localStorage.setItem('token', JSON.stringify(res));

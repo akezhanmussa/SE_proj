@@ -22,14 +22,14 @@ class CreateTicket extends Component{
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(body)
             })
-                .then(response => {
-                    console.log("Herer");
-                    console.log(response);
-                    return response.json();
+                .then(res => {
+                    if(res.ok)
+                        return res.json();
+                    else {
+                        throw new Error("Error " + res.status)
+                    }
                 })
                 .then(response => {
-                    console.log(response);
-                    console.log("no wherer");
                     let mes = "Thanks, your request is submitted. Do you want to print a ticket?";
                     if (window.confirm(mes)) {
                         this.props.history.push('/home/print_ticket/' + response);
@@ -78,10 +78,6 @@ class CreateTicket extends Component{
                                    innerRef={(input) => this.docId = input}/>
                         </FormGroup>
                     </div>
-                    {/*<div className='row mr-auto'>*/}
-                    {/*    <button className='btn btn-secondary ml-auto mb-2' onClick={this.handleSubmit}>Buy ticket*/}
-                    {/*    </button>*/}
-                    {/*</div>*/}
                 </Form>
                 <SearchTicketForAgent collectData={this.collectData}/>
             </div>

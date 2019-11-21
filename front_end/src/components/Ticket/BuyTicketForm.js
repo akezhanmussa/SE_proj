@@ -105,16 +105,15 @@ class FillTicket extends Component{
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(body)
         })
+
             .then(response => {
-                console.log(response)
                 if(response.ok) {
-                    var mes = "Thanks, your request is submitted. Wait for approving";
+                    let mes = "Thanks, your request is submitted. Wait for approving";
                     if(window.confirm(mes)){
                         this.props.history.push('/home/my_account');
                     }
                 }else{
-                    var error = new Error("Error " + response.status + ': ' + response.statusText);
-                    error.response = response;
+                    let error = new Error("Error " + response.status + ': ' + response.statusText);
                     throw error;
                 }
             })

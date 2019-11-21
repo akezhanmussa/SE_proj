@@ -48,7 +48,7 @@ public class FetchSingleTicketServlet extends HttpServlet {
             out.append(new Gson().toJson(new Ticket(agentTicket.get())));
             out.flush();
         } else {
-            response.sendError(401, "[ERROR] Access denied for fetching ticket");
+            response.sendError(401,"[ERROR] Access denied for fetching ticket");
         }
     }
 }
