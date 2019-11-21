@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class TicketController {
-    public static Optional<TicketModel> BuyTicket(Integer scheduleId, Integer passengerId, Integer origin_id,
+    public static Optional<Integer> BuyTicket(Integer scheduleId, Integer passengerId, Integer origin_id,
                                     Integer destination_id, Float price, String start_date,
                                     String end_date, String owner_document_type,
                                     Integer owner_document_id,
@@ -19,7 +19,9 @@ public class TicketController {
                                     String ticketStatus) {
         try {
             // Creates ticket on database
+            System.out.println("HERE IN BUY TICKET");
             Statement statement = Connector.getStatement();
+
             statement.execute(String.format("INSERT INTO Ticket(" +
                             "Passenger_idPassenger, start_date, end_date, origin_id, " +
                             "destination_id, status, owner_document_type," +
@@ -31,27 +33,25 @@ public class TicketController {
                     owner_first_name, owner_last_name, owner_document_id,
                     price.intValue(),scheduleId));
 
-            ResultSet ticketSet = statement.executeQuery(
-                    String.format("SELECT idTicket FROM Ticket WHERE Passenger_idPassenger = %d ORDER BY idTicket DESC LIMIT 1;",
+            ResultSet ticketSet = statement.executeQuery(String.format("SELECT idTicket FROM Ticket WHERE Passenger_idPassenger = %d ORDER BY idTicket DESC LIMIT 1",
                             passengerId));
 
             // Increase capacity for all routes in the given range
             ArrayList<Integer> rangeIDs = RouteController.getRangeIDs(scheduleId, origin_id, destination_id);
-
             for (Integer id : rangeIDs) {
                 RouteController.updatePassengerNumber(id);
             }
 
-            Optional<TicketModel> newTicket = getTicketModel(ticketSet);
-
-            if (!newTicket.isPresent()) {
-                System.out.printf("[ERROR] Failed to FETCH ticket for passengerID: %d%n", passengerId);
+            while (ticketSet.next()) {
+                Integer idTicket1 = ticketSet.getInt(1);
+                return Optional.of(idTicket1);
             }
 
             ticketSet.close();
             statement.close();
 
-            return newTicket;
+            System.out.printf("[ERROR] Failed to FETCH ticket for passengerID: %d%n", passengerId);
+
 
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());

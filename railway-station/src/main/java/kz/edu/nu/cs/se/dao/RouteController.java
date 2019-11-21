@@ -174,11 +174,11 @@ public class RouteController {
         return routeModels;
     }
 
-    private static Boolean isValidRouteUpdate(Integer scheduleId, Integer routeId, LocalDateTime startTime, LocalDateTime endTime) {
+    private static Boolean isValidRouteUpdate(Integer routeId, LocalDateTime startTime, LocalDateTime endTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         try {
             Statement statement = Connector.getStatement();
-            ResultSet routePrev = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE idRoute=%d", routeId-1));
+            ResultSet routePrev = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE idRoute < %d and schedule_id in (select schedule_id from Route where idRoute = %d) limit 1", routeId, routeId));
             while(routePrev.next()) {
                 System.out.println("I FOUND THIS SUB-ROUT");
                 String endTimePrevString = routePrev.getString(2);
@@ -191,7 +191,7 @@ public class RouteController {
             }
 
             System.out.println("I AM BEFORE THE NEXT");
-            ResultSet routeNext = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE schedule_id=%d ", scheduleId));
+            ResultSet routeNext = statement.executeQuery(String.format("SELECT start_time, end_time FROM Route WHERE idRoute > %d and schedule_id in (select schedule_id from Route where idRoute = %d) limit 1", routeId, routeId));
             while(routeNext.next()) {
                 String startTimeNextString = routeNext.getString(1);
                 LocalDateTime startTimeNext = LocalDateTime.parse(startTimeNextString, formatter);
@@ -238,7 +238,7 @@ public class RouteController {
 
             System.out.println("BEFORE VALIDATION");
 
-//            if(isValidRouteUpdate(routeId, startTime, endTime)) {
+            if(isValidRouteUpdate(routeId, startTime, endTime)) {
 
                 System.out.println("HERE IN IS VALID");
                 String sqlStart = "UPDATE Route SET start_time=? WHERE idRoute=?";
@@ -263,7 +263,7 @@ public class RouteController {
                             "[ERROR] Failed to change route_id to agent (id=%d)", routeId));
                     return false;
                 }
-//            }
+            }
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
             return false;
