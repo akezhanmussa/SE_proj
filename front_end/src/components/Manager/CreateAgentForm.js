@@ -11,11 +11,12 @@ const submitAgent = (data) => {
         headers: {'Content-Type':'application/json'},
         body:JSON.stringify(data)
     })
-        .then(response => {
-            return response.json();
-        })
-        .then(response => {
-            return response;
+        .then(res => {
+            console.log(res);
+            if(res.ok)
+                return res.json();
+            else
+                throw Error("error " + res.status);
         })
         .catch (error => {
             throw error
@@ -69,10 +70,6 @@ class CreateAgentForm extends Component{
         if (isNaN(salary) || isNaN(workingHours)){
             res = false;
         }
-
-        console.log("HERE")
-        console.log(workingHours)
-        console.log(salary)
 
         this.setState({hiddenMessage: res ? "" : "One of the fields is empty or\n salary is not float or\n working hours is not int"})
 
