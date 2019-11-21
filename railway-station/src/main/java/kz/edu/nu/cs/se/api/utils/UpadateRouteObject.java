@@ -1,7 +1,5 @@
 package kz.edu.nu.cs.se.api.utils;
 
-import java.time.LocalDateTime;
-
 public class UpadateRouteObject {
     private String token;
     private Integer routeId;
