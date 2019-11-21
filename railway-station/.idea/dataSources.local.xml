@@ -10,5 +10,10 @@
       <secret-storage>master_key</secret-storage>
       <user-name>E0Sz4Fo1Xp</user-name>
     </data-source>
+    <data-source name="E0Sz4Fo1Xp@remotemysql.com" uuid="e3980a5a-9a97-4493-8aa8-7e15e641e7ed">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>E0Sz4Fo1Xp</user-name>
+    </data-source>
   </component>
 </project>
