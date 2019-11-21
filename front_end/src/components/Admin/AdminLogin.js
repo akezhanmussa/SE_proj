@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { Button, Form, Input, Row, Col} from 'reactstrap';
-import { adminLogin} from '../redux/AdminLoginActionCreator'
+import { adminLogin} from '../../redux/AdminLoginActionCreator'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import {Loading} from "./Loading";
+import {Loading} from "../../shared/Loading";
 
 const mapDispatchToProps = (dispatch) => ({
     adminLogin: (credentials) => dispatch(adminLogin(credentials)),
@@ -43,7 +43,7 @@ class AdminLogin extends Component{
             <div id="login">
                 <div className='container align-items-center h-100'>
                     <div className='row h-100 justify-content-center align-items-center '>
-                        <Form className='col-8 col-md-4 my-auto' onSubmit={this.handleLogin}>
+                        <Form className='col-8 col-md-4 my-auto' id="loginAdmin" onSubmit={this.handleLogin}>
                             <Row className='form-group'>
                                 <Col md={10}>
                                     <Input type='text' name='username' id='username' placeholder='Username' value={this.state.username} onChange={this.handleChange} />

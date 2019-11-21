@@ -5,9 +5,9 @@ import Form from 'react-bootstrap/Form'
 import DatePicker from 'react-datepicker'
 import ScheduleTable from './ScheduleTable';
 import "react-datepicker/dist/react-datepicker.css";
-import {locations} from '../shared/Locations'
+import {locations} from '../../shared/Locations'
 
-class RoutesTable extends Component{
+class SearchRoutes extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -125,4 +125,4 @@ class RoutesTable extends Component{
     }
 }
 
-export default RoutesTable;
+export default SearchRoutes;

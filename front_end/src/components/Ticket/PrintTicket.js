@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {Loading} from "./Loading";
-import {baseUrl, getTiketsUrl} from "../shared/BaseUrl";
-import {locations} from "../shared/Locations";
+import {Loading} from "../../shared/Loading";
+import {baseUrl, getTiketsUrl} from "../../shared/BaseUrl";
+import {locations} from "../../shared/Locations";
 
 class PrintTicket extends Component{
     constructor(props){

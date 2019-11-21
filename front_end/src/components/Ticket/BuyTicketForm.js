@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Form, FormGroup, Input, Label} from "reactstrap";
-import {baseUrl} from "../shared/BaseUrl";
-import {locations} from "../shared/Locations";
+import {baseUrl} from "../../shared/BaseUrl";
+import {locations} from "../../shared/Locations";
 import { withRouter } from 'react-router-dom';
 
 class BuyTicketForm extends Component{
@@ -82,6 +82,10 @@ class FillTicket extends Component{
     }
     handleSubmit(event){
         event.preventDefault();
+        if(!this.props.loginUser.isAuthenticated){
+            alert("Login first !!!");
+            return;
+        }
         let body = {
             scheduleId: this.props.route.id,
             token: this.props.loginUser.token,

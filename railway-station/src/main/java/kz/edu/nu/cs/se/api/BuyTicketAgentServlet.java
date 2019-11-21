@@ -6,7 +6,9 @@ import kz.edu.nu.cs.se.api.utils.TicketRequestObject;
 import kz.edu.nu.cs.se.dao.AgentController;
 import kz.edu.nu.cs.se.dao.PassengerController;
 import kz.edu.nu.cs.se.dao.TicketController;
+import kz.edu.nu.cs.se.model.TicketModel;
 import kz.edu.nu.cs.se.model.User;
+import kz.edu.nu.cs.se.view.Ticket;
 import sun.management.resources.agent;
 
 import javax.servlet.ServletException;
@@ -69,14 +71,16 @@ public class BuyTicketAgentServlet extends HttpServlet {
         String owner_lastname = ticketRequestObject.getOwner_lastname();
 
         String ticketStatus = "APPROVED";
-        boolean status = TicketController.BuyTicket(scheduleId, dummyUserID.get(), origin_id, destination_id, price,
+        Optional<TicketModel> ticketModel = TicketController.BuyTicket(scheduleId, dummyUserID.get(), origin_id, destination_id, price,
                 start_date, end_date, owner_document_type, owner_document_id,owner_firstname,
                 owner_lastname, ticketStatus);
         PrintWriter out = response.getWriter();
-        if (status) {
-            out.append(new Gson().toJson("Done! Wait for approval"));
+
+        if (ticketModel.isPresent()) {
+            response.setStatus(200);
+            out.append(new Gson().toJson(new Ticket(ticketModel.get())));
         } else {
-            out.append(new Gson().toJson("Error!"));
+            response.setStatus(501);
         }
 
         out.flush();

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
-import {getInfoUrl} from "../shared/BaseUrl";
-import BuyTicketForm from "./BuyTicketForm";
+import {getInfoUrl} from "../../shared/BaseUrl";
+import BuyTicketForm from "../Ticket/BuyTicketForm";
 import {Button, Form} from "react-bootstrap";
 import PassengerTicketsPage from "./PassengerTicketsPage";
 
