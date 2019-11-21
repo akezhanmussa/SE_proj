@@ -40,6 +40,7 @@ public class ScheduleController {
                     String startDateString = routeSet.getString(2);
                     String endDateString = routeSet.getString(3);
                     Integer capacity = routeSet.getInt(4);
+                    Integer price = ((int) routeSet.getFloat(9));
 
                     Optional<String> optionalStartName = stationController.getName(startStationId);
                     Optional<String> optionalEndName = stationController.getName(endStationId);
@@ -58,7 +59,7 @@ public class ScheduleController {
                     LocalDateTime endDateTIme = LocalDateTime.parse(endDateString, formatter);
 
                     RouteModel route = new RouteModel(startName, endName, startDateTime, endDateTIme, routeId,
-                            TrainController.getCapacity(trainId) - capacity);
+                            TrainController.getCapacity(trainId) - capacity, price);
 
                     if (startStationId.equals(origin)) {
                         scheduleModel.setOrigin(startName);
