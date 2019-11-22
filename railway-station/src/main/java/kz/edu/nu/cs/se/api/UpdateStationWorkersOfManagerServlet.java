@@ -10,19 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isManager;
 
 @WebServlet(urlPatterns = {"/myrailway/manager/update-station-worker"})
 public class UpdateStationWorkersOfManagerServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(UpdateStationWorkersOfManagerServlet.class.getName());
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AgentStationWorkerObject agentStationWorkerObject = new Gson().fromJson(request.getReader(), AgentStationWorkerObject.class);
         String token = agentStationWorkerObject.getToken();
+
         if (isExpired(token) && isManager(token)){
-            System.out.println("[ERROR] Token has expired");
+            logger.warning("[ERROR] Token has expired");
             response.sendError(401, "Token has expired");
         }
 

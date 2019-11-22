@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isManager;
@@ -24,34 +25,39 @@ import static kz.edu.nu.cs.se.api.utils.JWTUtils.isManager;
 @WebServlet(urlPatterns = {"/myrailway/manager/fetch-all-tickets"})
 public class FetchRoadsForManagerServlet extends HttpServlet {
 
+    private static final Logger logger = Logger.getLogger(FetchRoadsForManagerServlet.class.getName());
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
                                                                                             IOException {
 
-        System.out.println("I AM CALLED");
+        logger.info("I AM CALLED");
         String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
 
         if (isExpired(token)){
-            System.out.println("[ERROR] Token has expired");
+            logger.warning("[ERROR] Token has expired");
             response.sendError(401, "Token has expired");
             return;
         }
 
         if (!isManager(token)) {
-            System.out.println("[ERROR] Access denied. User is not a manager.");
+            logger.warning("[ERROR] Access denied. User is not a manager.");
             response.sendError(401, "Access denied. User is not a manager.");
             return;
         }
 
         ArrayList<ScheduleModel> scheduleModels = ScheduleController.fetchAllSchedules();
-        System.out.println("HERE 4");
+        logger.info("Fetched array of ScheduleModel of size: " + scheduleModels.size());
+
         for (ScheduleModel scheduleModel : scheduleModels) scheduleModel.setStringDates();
-        System.out.println("HERE 3");
+        logger.info("Changed Dates to String values for schedules");
+
         ArrayList<Schedule> schedules = new ArrayList<>();
         for (ScheduleModel scheduleModel : scheduleModels) schedules.add(new Schedule(scheduleModel));
-        System.out.println("HERE 2");
+        logger.info("Changed from ScheduleModel to Schedule (View Class)");
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        System.out.println(schedules.size() + " IN SERVLET");
+
         PrintWriter out = response.getWriter();
         out.append(new Gson().toJson(schedules));
         out.flush();

@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isManager;
 
 @WebServlet(urlPatterns = {"/myrailway/manager/update-agents"})
 public class UpdateAgentsOfManagerServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(UpdateAgentsOfManagerServlet.class.getName());
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,7 +27,7 @@ public class UpdateAgentsOfManagerServlet extends HttpServlet {
 
         String token = updateAgentsOfManagerObject.getToken();
         if (isExpired(token) && isManager(token)){
-            System.out.println("[ERROR] Token has expired");
+            logger.warning("[ERROR] Token has expired");
             response.sendError(401, "Token has expired");
         }
 

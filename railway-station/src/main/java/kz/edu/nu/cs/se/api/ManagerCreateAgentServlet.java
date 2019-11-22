@@ -11,11 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
 @WebServlet(urlPatterns = { "/myrailway/manager" })
 public class ManagerCreateAgentServlet extends HttpServlet {
+
+    private static final Logger logger = Logger.getLogger(ManagerCreateAgentServlet.class.getName());
 
     public ManagerCreateAgentServlet() {
         super();
@@ -24,17 +27,19 @@ public class ManagerCreateAgentServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        Gson gson = new Gson();
         CreateAgentObject agentObject = new Gson().fromJson(request.getReader(), CreateAgentObject.class);
 
         String token = agentObject.getToken();
+        logger.info("Received token: " + token);
 
         if(isExpired(token)){
+            logger.warning("Token has expired.");
             response.sendError(401, "Token has expired");
             return;
         }
 
         if(!isManager(token)) {
+            logger.warning("Unauthorized as manager");
             response.sendError(401, "Unauthorized as manager");
             return;
         }
@@ -52,14 +57,16 @@ public class ManagerCreateAgentServlet extends HttpServlet {
 
         Boolean status = false;
         if(CreateAgentController.isValidAgentEmail(email)) {
-            System.out.println("isValidAgentEmail");
+            logger.info("isValidAgentEmail");
             status = CreateAgentController.createAgent(salary, workHours, firstName, lastName, email, phoneNumber, username, password, stationId);
 
         }
         PrintWriter out = response.getWriter();
         if (status) {
+            logger.info("Successfully Created Agent");
             out.append(new Gson().toJson("Successfully Created Agent"));
         } else {
+            logger.info("Error, agent is not created");
             out.append(new Gson().toJson("Error!"));
         }
         out.flush();

@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +22,8 @@ import kz.edu.nu.cs.se.view.Schedule;
 
 @WebServlet(urlPatterns = { "/myrailway" })
 public class HomeServlet extends HttpServlet {
+
+    private final static Logger logger = Logger.getLogger(HomeServlet.class.getName());
 
     public HomeServlet() {
         super();
@@ -53,6 +56,7 @@ public class HomeServlet extends HttpServlet {
         ArrayList<Schedule> schedules = new ArrayList<>();
         for (ScheduleModel scheduleModel : scheduleModels) schedules.add(new Schedule(scheduleModel));
 
+        logger.info("Returning array of Schedule size: " + schedules.size());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 

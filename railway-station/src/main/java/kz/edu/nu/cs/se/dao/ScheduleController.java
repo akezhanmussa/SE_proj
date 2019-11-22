@@ -3,7 +3,6 @@ package kz.edu.nu.cs.se.dao;
 import kz.edu.nu.cs.se.model.RouteModel;
 import kz.edu.nu.cs.se.model.ScheduleModel;
 import kz.edu.nu.cs.se.model.TrainModel;
-import kz.edu.nu.cs.se.view.Train;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

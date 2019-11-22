@@ -13,24 +13,28 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
 @WebServlet(urlPatterns = {"/myrailway/agent/buy-ticket"})
 public class BuyTicketAgentServlet extends HttpServlet {
+
+    Logger logger = Logger.getLogger(BuyTicketAgentServlet.class.getName());
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         TicketRequestObject ticketRequestObject = new Gson().fromJson(request.getReader(), TicketRequestObject.class);
         String token = ticketRequestObject.getToken();
 
-        System.out.println(String.format("Received token: %s", token));
+        logger.info(String.format("Received token: %s", token));
 
         if (isExpired(token)){
-            System.out.println("[ERROR] Token has expired");
+            logger.warning("Token has expired");
             response.sendError(401, "Token has expired");
         }
 
         if (!isAgent(token)) {
-            System.out.println("[ERROR] Permission denied, not an agent");
+            logger.warning("Permission denied, not an agent");
             response.sendError(401, "[ERROR] Permission denied, not an agent");
             return;
         }
@@ -39,7 +43,7 @@ public class BuyTicketAgentServlet extends HttpServlet {
 
         Optional<String> optionalEmail = AgentController.getEmailByUsername(agentUsername);
         if (!optionalEmail.isPresent()) {
-            System.out.printf("[ERROR] Failed to fetch email for username=%s%n", agentUsername);
+            logger.severe(String.format("[ERROR] Failed to fetch email for username=%s%n", agentUsername));
             response.sendError(500, "[ERROR] Failed to fetch email");
             return;
         }
@@ -47,7 +51,7 @@ public class BuyTicketAgentServlet extends HttpServlet {
         String agentEmail = optionalEmail.get();
         Optional<Integer> dummyUserID = AgentController.getDummyUserID(agentEmail);
         if (!dummyUserID.isPresent()) {
-            System.out.println("[ERROR] Failed to fetch dummyUserID");
+            logger.severe(String.format("Failed to fetch dummyUserID"));
             response.sendError(500, "[ERROR] Failed to fetch dummyUserID");
             return;
         }

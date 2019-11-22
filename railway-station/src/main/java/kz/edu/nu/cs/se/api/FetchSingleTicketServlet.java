@@ -16,11 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.getUserFromToken;
 
 @WebServlet(urlPatterns = {"/myrailway/user/fetch-ticket"})
 public class FetchSingleTicketServlet extends HttpServlet {
+
+    Logger logger = Logger.getLogger(FetchSingleTicketServlet.class.getName());
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         FetchSingleTicketRequestObject singleTicketRequestObject = new Gson().fromJson(request.getReader(),
                 FetchSingleTicketRequestObject.class);
@@ -29,7 +33,9 @@ public class FetchSingleTicketServlet extends HttpServlet {
         String agentToken = singleTicketRequestObject.getAgentToken();
         Integer ticketID = singleTicketRequestObject.getTicketID();
 
-        System.out.println("HEREREEREEE 1");
+        logger.info(String.format("Received userToken: %s \n, agentToken: %s \n, ticketID: %d", userToken,
+                agentToken, ticketID));
+
         PrintWriter out = response.getWriter();
         if(userToken != null) {
             String userName = getUserFromToken(userToken);
@@ -49,10 +55,16 @@ public class FetchSingleTicketServlet extends HttpServlet {
                     out.append(new Gson().toJson(new Ticket(agentTicket.get())));
                     out.flush();
                 }
-                else {response.sendError(401, "[ERROR] Access denied for fetching ticket");}
+                else {
+                    logger.severe("Access denied for fetching ticket");
+                    response.sendError(401, "[ERROR] Access denied for fetching ticket");
+                }
 
             }
-            else {response.sendError(401, "[ERROR] Access denied for fetching ticket");}
+            else {
+                logger.severe("Access denied for fetching ticket");
+                response.sendError(401, "[ERROR] Access denied for fetching ticket");
+            }
 
         }
 
@@ -74,12 +86,20 @@ public class FetchSingleTicketServlet extends HttpServlet {
                     out.append(new Gson().toJson(new Ticket(userTicket.get())));
                     out.flush();
                 }
-                else {response.sendError(401, "[ERROR] Access denied for fetching ticket");}
+                else {
+                    logger.severe("Access denied for fetching ticket");
+                    response.sendError(401, "[ERROR] Access denied for fetching ticket");
+                }
             }
-            else {response.sendError(401, "[ERROR] Access denied for fetching ticket");}
+            else {
+                logger.severe("Access denied for fetching ticket");
+                response.sendError(401, "[ERROR] Access denied for fetching ticket");
+            }
         }
 
-        else {response.sendError(401, "[ERROR] Access denied for fetching ticket");}
-
+        else {
+            logger.severe("Access denied for fetching ticket");
+            response.sendError(401, "[ERROR] Access denied for fetching ticket");
+        }
     }
 }

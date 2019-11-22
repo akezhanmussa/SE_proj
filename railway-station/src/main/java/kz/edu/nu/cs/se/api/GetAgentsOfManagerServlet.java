@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
 import static kz.edu.nu.cs.se.api.utils.JWTUtils.isManager;
@@ -21,19 +22,21 @@ import static kz.edu.nu.cs.se.api.utils.JWTUtils.isManager;
 @WebServlet(urlPatterns = {"/myrailway/manager/get-agents"})
 public class GetAgentsOfManagerServlet extends HttpServlet {
 
+    private static final Logger logger = Logger.getLogger(GetAgentsOfManagerServlet.class.getName());
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String token = new Gson().fromJson(request.getReader(), Token.class).getToken();
-        System.out.println(String.format("Received token: %s", token));
+        logger.info(String.format("Received token: %s", token));
 
         if (isExpired(token) && isManager(token)){
-            System.out.println("[ERROR] Token has expired");
+            logger.warning("[ERROR] Token has expired");
             response.sendError(401, "Token has expired");
         }
 
         String managerUserName = JWTUtils.getUserFromToken(token);
         int managerStationId = ManagerController.getManagerStationID(managerUserName);
-        System.out.println("Manager station id: " + managerStationId);
+        logger.info(String.format("Manager station id: %d", managerStationId));
 
         ArrayList<AgentModel> agentModels = AgentController
                 .getAgents(managerStationId);
