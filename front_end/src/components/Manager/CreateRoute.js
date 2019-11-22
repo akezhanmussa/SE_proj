@@ -123,7 +123,7 @@ class CreateRoute extends Component {
     handleSubmit = () => {
         let body = {
             "token":localStorage.getItem("admin_token"),
-            "trainId":6,
+            "trainId":9,
             "routes":[
                 {
                     "startTime":getParsedDate(this.state.timeRoute) + " 00:00:00",
@@ -148,6 +148,8 @@ class CreateRoute extends Component {
                 },
             ]
         }
+
+        console.log(body)
 
         updateOrGet(createRouteUrl,body,"POST").then(r => {
             console.log(r)
