@@ -109,7 +109,7 @@ public class ScheduleController {
             Statement statement = Connector.getStatement();
 
             ResultSet schedules = statement.executeQuery(
-                    "SELECT schedule_id FROM Route WHERE start_time > NOW() GROUP BY schedule_id;");
+                    "SELECT schedule_id FROM Route;");
 
             while (schedules.next()) {
                 Integer scheduleID = schedules.getInt(1);

@@ -147,6 +147,11 @@ class Routes extends Component {
     componentDidMount() {
         let bodyToken = {"token":localStorage.getItem("admin_token")}
         updateOrGet(getRoutesUrl, bodyToken,"POST").then(res =>{
+
+
+                console.log("The routes archieved")
+                console.log(res)
+                console.log("-------------------")
                 this.setState({routes:res})
             }
         ).catch(error =>
@@ -171,7 +176,7 @@ class Routes extends Component {
         updateOrGet(deleteWholeRouteUrl, bodyToken, "POST").then(res =>{
             this.setState({isLoading:true})
             updateOrGet(getRoutesUrl, bodyToken,"POST").then(res =>{
-                    this.setState({routes:res})
+                this.setState({routes:res})
                 this.setState({isLoading:false})
                 }
             ).catch(error =>

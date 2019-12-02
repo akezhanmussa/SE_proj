@@ -1,12 +1,9 @@
 package kz.edu.nu.cs.se.api;
 
 import com.google.gson.Gson;
-import kz.edu.nu.cs.se.api.utils.JWTUtils;
-import kz.edu.nu.cs.se.api.utils.TicketRequestObject;
 import kz.edu.nu.cs.se.api.utils.Token;
 import kz.edu.nu.cs.se.dao.ScheduleController;
 import kz.edu.nu.cs.se.model.ScheduleModel;
-import kz.edu.nu.cs.se.model.User;
 import kz.edu.nu.cs.se.view.Schedule;
 
 import javax.servlet.ServletException;

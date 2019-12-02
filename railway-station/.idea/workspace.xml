@@ -7,8 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41a211f7-8861-481a-8a88-65996ed820c6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Manager/CreateRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Manager/CreateRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/components/Manager/Routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/components/Manager/Routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/shared/Schedule.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/shared/Schedule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/FetchRoadsForManagerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/api/FetchRoadsForManagerServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/edu/nu/cs/se/dao/ScheduleController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,12 +63,6 @@
         <option name="importAutomatically" value="true" />
       </MavenImportingSettings>
     </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="67" />
-    <option name="y" value="25" />
-    <option name="width" value="1217" />
-    <option name="height" value="1055" />
   </component>
   <component name="ProjectId" id="1ThfWK0Bp7wJNuEha51EDZ3pXFG" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -186,6 +184,9 @@
       <workItem from="1574241245676" duration="1396000" />
       <workItem from="1574261339616" duration="355000" />
       <workItem from="1574325168551" duration="2078000" />
+      <workItem from="1575027328001" duration="541000" />
+      <workItem from="1575038165187" duration="1990000" />
+      <workItem from="1575261325807" duration="443000" />
     </task>
     <servers />
   </component>

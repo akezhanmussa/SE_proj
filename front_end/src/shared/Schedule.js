@@ -41,5 +41,7 @@ export const cityToCoordinate= {
         "karaghandy":[14, 12],
         "shymkent":[15, 11],
         "pavlodar":[9,12],
+        "ural":[12,14],
+        "aktobe":[10,12],
         "default":[0, 0]
 }
