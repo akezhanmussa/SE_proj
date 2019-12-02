@@ -102,14 +102,16 @@ public class ScheduleController {
         }
     }
 
-    public static ArrayList<ScheduleModel> fetchAllSchedules() {
+    public static ArrayList<ScheduleModel> fetchAllSchedules(Integer stationID) {
         ArrayList<ScheduleModel> scheduleModels = new ArrayList<>();
 
         try {
             Statement statement = Connector.getStatement();
 
             ResultSet schedules = statement.executeQuery(
-                    "SELECT schedule_id FROM Route WHERE start_time > NOW() GROUP BY schedule_id;");
+                    String.format(
+                            "SELECT DISTINCT schedule_id FROM Route WHERE start_station_id =%d OR end_station_id =%d",
+                            stationID, stationID));
 
             while (schedules.next()) {
                 Integer scheduleID = schedules.getInt(1);

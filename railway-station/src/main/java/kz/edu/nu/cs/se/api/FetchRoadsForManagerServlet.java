@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import kz.edu.nu.cs.se.api.utils.JWTUtils;
 import kz.edu.nu.cs.se.api.utils.TicketRequestObject;
 import kz.edu.nu.cs.se.api.utils.Token;
+import kz.edu.nu.cs.se.dao.ManagerController;
 import kz.edu.nu.cs.se.dao.ScheduleController;
 import kz.edu.nu.cs.se.model.ScheduleModel;
 import kz.edu.nu.cs.se.model.User;
@@ -19,8 +20,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import static kz.edu.nu.cs.se.api.utils.JWTUtils.isExpired;
-import static kz.edu.nu.cs.se.api.utils.JWTUtils.isManager;
+import static kz.edu.nu.cs.se.api.utils.JWTUtils.*;
 
 @WebServlet(urlPatterns = {"/myrailway/manager/fetch-all-tickets"})
 public class FetchRoadsForManagerServlet extends HttpServlet {
@@ -45,7 +45,9 @@ public class FetchRoadsForManagerServlet extends HttpServlet {
             return;
         }
 
-        ArrayList<ScheduleModel> scheduleModels = ScheduleController.fetchAllSchedules();
+        Integer managerStationID = ManagerController.getManagerStationID(getUserFromToken(token));
+
+        ArrayList<ScheduleModel> scheduleModels = ScheduleController.fetchAllSchedules(managerStationID);
         logger.info("Fetched array of ScheduleModel of size: " + scheduleModels.size());
 
         for (ScheduleModel scheduleModel : scheduleModels) scheduleModel.setStringDates();
