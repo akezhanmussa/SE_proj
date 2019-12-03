@@ -49,6 +49,7 @@ class RouteModalForm extends Component{
             color:"red"
         }
 
+
         this.handleNewStartTime = this.handleNewStartTime.bind(this)
         this.handleNewEndTime = this.handleNewEndTime.bind(this)
         this.actModal = this.actModal.bind(this)
@@ -78,6 +79,8 @@ class RouteModalForm extends Component{
         let body = {"token":localStorage.getItem("admin_token"), "routeId":this.state.routeId, "startTime":newStartTime, "endTime":newEndTime}
 
         updateOrGet(updateSubRouteUrl,body,"POST").then(res => {
+            console.log("HERE")
+            this.props.fetchRoutes()
             this.setState({hiddenMessage:"The subroute was updated successfully"})
             this.setState({color:"green"})
         }).catch(error => {
@@ -130,8 +133,8 @@ class RouteModalForm extends Component{
 }
 
 class Routes extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             routes : [],
@@ -142,13 +145,12 @@ class Routes extends Component {
         };
 
         this.deleteWholeRoute = this.deleteWholeRoute.bind(this)
+        this.handleFetchRoutes = this.handleFetchRoutes.bind(this)
     }
 
-    componentDidMount() {
+    fetchRoute(){
         let bodyToken = {"token":localStorage.getItem("admin_token")}
         updateOrGet(getRoutesUrl, bodyToken,"POST").then(res =>{
-
-
                 console.log("The routes archieved")
                 console.log(res)
                 console.log("-------------------")
@@ -161,6 +163,10 @@ class Routes extends Component {
         )
     }
 
+    componentDidMount() {
+       this.fetchRoute()
+    }
+
     handleRowClick(rowId) {
         const isRowCurrentlyExpanded = this.state.expandedRows.includes(rowId);
 
@@ -169,6 +175,10 @@ class Routes extends Component {
             this.state.expandedRows.concat(rowId);
 
         this.setState({expandedRows : newExpandedRows});
+    }
+
+    handleFetchRoutes(){
+        this.fetchRoute()
     }
 
     deleteWholeRoute = () => {
@@ -263,7 +273,7 @@ class Routes extends Component {
 
                         </td>
                         <td>
-                            <RouteModalForm routeId ={elem.routeId}></RouteModalForm>
+                            <RouteModalForm fetchRoutes = {() => this.handleFetchRoutes()} routeId ={elem.routeId}></RouteModalForm>
                         </td>
                     </tr>
                 );
